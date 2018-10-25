@@ -61,7 +61,7 @@
     <ClCompile Include="src\kraVector3.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="kraProfiler.cpp">
+    <ClCompile Include="src\kraProfiler.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -120,10 +120,10 @@
     <ClInclude Include="include\kraVector2.h">
       <Filter>Source Files\Include</Filter>
     </ClInclude>
-    <ClInclude Include="kraProfiler.h">
+    <ClInclude Include="include\kraProfiler.h">
       <Filter>Source Files\Include</Filter>
     </ClInclude>
-    <ClInclude Include="kraStdheaders.h">
+    <ClInclude Include="include\kraStdheaders.h">
       <Filter>Source Files\Include</Filter>
     </ClInclude>
   </ItemGroup>

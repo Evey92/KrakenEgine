@@ -180,7 +180,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="kraProfiler.cpp" />
     <ClCompile Include="src\kaPlane.cpp" />
     <ClCompile Include="src\kraAABB.cpp" />
     <ClCompile Include="src\kraBox2d.cpp" />
@@ -189,6 +188,7 @@
     <ClCompile Include="src\kraMatrix4.cpp" />
     <ClCompile Include="src\kraOOBB.cpp" />
     <ClCompile Include="src\kraPlatformMath.cpp" />
+    <ClCompile Include="src\kraProfiler.cpp" />
     <ClCompile Include="src\kraRay.cpp" />
     <ClCompile Include="src\kraSphere.cpp" />
     <ClCompile Include="src\kraTriangle.cpp" />
@@ -210,15 +210,15 @@
     <ClInclude Include="include\kraPlatformMath.h" />
     <ClInclude Include="include\kraPlatformTypes.h" />
     <ClInclude Include="include\kraPrerequisitesUtil.h" />
+    <ClInclude Include="include\kraProfiler.h" />
     <ClInclude Include="include\kraRay.h" />
     <ClInclude Include="include\kraSphere.h" />
+    <ClInclude Include="include\kraStdheaders.h" />
     <ClInclude Include="include\kraTriangle.h" />
     <ClInclude Include="include\kraVector2.h" />
     <ClInclude Include="include\kraVector3.h" />
     <ClInclude Include="include\kraVector4.h" />
     <ClInclude Include="include\kraWindowsMath.h" />
-    <ClInclude Include="kraProfiler.h" />
-    <ClInclude Include="kraStdheaders.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

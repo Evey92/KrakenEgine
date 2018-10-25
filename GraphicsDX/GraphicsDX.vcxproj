@@ -18,6 +18,42 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="kraD3D11ConstantBuffer.h" />
+    <ClInclude Include="kraD3D11DepthStencylView.h" />
+    <ClInclude Include="kraD3D11Device.h" />
+    <ClInclude Include="kraD3D11DeviceContext.h" />
+    <ClInclude Include="kraD3D11GraphicsBuffer.h" />
+    <ClInclude Include="kraD3D11IndexBuffer.h" />
+    <ClInclude Include="kraD3D11InputLayout.h" />
+    <ClInclude Include="kraD3D11RasterizerState.h" />
+    <ClInclude Include="kraD3D11RenderTargetView.h" />
+    <ClInclude Include="kraD3D11Sampler.h" />
+    <ClInclude Include="kraD3D11Shader.h" />
+    <ClInclude Include="kraD3D11ShaderResourceView.h" />
+    <ClInclude Include="kraD3D11SwapChain.h" />
+    <ClInclude Include="kraD3D11Texture.h" />
+    <ClInclude Include="kraD3D11VertexBuffer.h" />
+    <ClInclude Include="kraD3D11Viewport.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="kraD3D11ConstantBuffer.cpp" />
+    <ClCompile Include="kraD3D11DepthStencylView.cpp" />
+    <ClCompile Include="kraD3D11Device.cpp" />
+    <ClCompile Include="kraD3D11DeviceContext.cpp" />
+    <ClCompile Include="kraD3D11GraphicsBuffer.cpp" />
+    <ClCompile Include="kraD3D11IndexBuffer.cpp" />
+    <ClCompile Include="kraD3D11InputLayout.cpp" />
+    <ClCompile Include="kraD3D11RasterizerState.cpp" />
+    <ClCompile Include="kraD3D11RenderTargetView.cpp" />
+    <ClCompile Include="kraD3D11Sampler.cpp" />
+    <ClCompile Include="kraD3D11Shader.cpp" />
+    <ClCompile Include="kraD3D11ShaderResourceView.cpp" />
+    <ClCompile Include="kraD3D11SwapChain.cpp" />
+    <ClCompile Include="kraD3D11Texture.cpp" />
+    <ClCompile Include="kraD3D11VertexBuffer.cpp" />
+    <ClCompile Include="kraD3D11Viewport.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{3609F63F-895A-4825-962E-F750894FAE2D}</ProjectGuid>
@@ -168,49 +204,6 @@
       <ImportLibrary>$(SolutionDir)lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="kraConstantBuffer.h" />
-    <ClInclude Include="kraDepthStencilState.h" />
-    <ClInclude Include="kraDepthStencilView.h" />
-    <ClInclude Include="kraDevice.h" />
-    <ClInclude Include="kraDeviceContext.h" />
-    <ClInclude Include="kraGraphicsBuffer.h" />
-    <ClInclude Include="kraGraphicsDXPrequisites.h" />
-    <ClInclude Include="kraIndexBuffer.h" />
-    <ClInclude Include="kraInputLayout.h" />
-    <ClInclude Include="kraPixelShader.h" />
-    <ClInclude Include="kraRasterizerState.h" />
-    <ClInclude Include="kraRenderTargetView.h" />
-    <ClInclude Include="kraSahderResourceView.h" />
-    <ClInclude Include="kraSamplerState.h" />
-    <ClInclude Include="kraShader.h" />
-    <ClInclude Include="kraSwapChain.h" />
-    <ClInclude Include="kraTexture.h" />
-    <ClInclude Include="kraVertexBuffer.h" />
-    <ClInclude Include="kraVertexShader.h" />
-    <ClInclude Include="kraViewPort.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="kraConstantBuffer.cpp" />
-    <ClCompile Include="kraDepthStencilState.cpp" />
-    <ClCompile Include="kraDepthStencilView.cpp" />
-    <ClCompile Include="kraDevice.cpp" />
-    <ClCompile Include="kraDeviceContext.cpp" />
-    <ClCompile Include="kraGraphicsBuffer.cpp" />
-    <ClCompile Include="kraIndexBuffer.cpp" />
-    <ClCompile Include="kraInputLayout.cpp" />
-    <ClCompile Include="kraPixelShader.cpp" />
-    <ClCompile Include="kraRasterizerState.cpp" />
-    <ClCompile Include="kraRenderTargetView.cpp" />
-    <ClCompile Include="kraSahderResourceView.cpp" />
-    <ClCompile Include="kraSamplerState.cpp" />
-    <ClCompile Include="kraShader.cpp" />
-    <ClCompile Include="kraSwapChain.cpp" />
-    <ClCompile Include="kraTexture.cpp" />
-    <ClCompile Include="kraVertexBuffer.cpp" />
-    <ClCompile Include="kraVertexShader.cpp" />
-    <ClCompile Include="kraViewPort.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
