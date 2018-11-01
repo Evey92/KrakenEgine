@@ -218,6 +218,7 @@
     <ClInclude Include="include\kraVector2.h" />
     <ClInclude Include="include\kraVector3.h" />
     <ClInclude Include="include\kraVector4.h" />
+    <ClInclude Include="include\kraVertex.h" />
     <ClInclude Include="include\kraWindowsMath.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

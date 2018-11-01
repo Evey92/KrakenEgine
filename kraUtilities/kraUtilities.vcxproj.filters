@@ -126,5 +126,8 @@
     <ClInclude Include="include\kraStdheaders.h">
       <Filter>Source Files\Include</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraVertex.h">
+      <Filter>Source Files\Include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

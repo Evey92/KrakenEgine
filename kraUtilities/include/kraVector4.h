@@ -45,7 +45,7 @@ namespace kraEngineSDK {
      * @return Regresa el resultado de la suma.
      */
     Vector4
-      operator+(const Vector4& Vec) const;
+    operator+(const Vector4& Vec) const;
 
     /**
      * @brief Obtiene el resultado de restar los componentes de 2 vectores.
@@ -53,7 +53,7 @@ namespace kraEngineSDK {
      * @return Regresa el resultado de la resta.
      */
     Vector4
-      operator-(const Vector4& Vec) const;
+    operator-(const Vector4& Vec) const;
 
     /**
      * @brief Obtiene el resultado de escalar los componentes de un vector.
@@ -61,7 +61,7 @@ namespace kraEngineSDK {
      * @return Regresa el resultado de escalar este vector.
      */
     Vector4
-      operator*(float Scale) const;
+    operator*(float Scale) const;
 
     /**
      * @brief Obtiene el resultado de dividir los componentes un vector por un valor.
@@ -69,7 +69,7 @@ namespace kraEngineSDK {
      * @return Regresa el resultado de la division.
      */
     Vector4
-      operator/(float Scale) const;
+    operator/(float Scale) const;
 
     /**
      * @brief Obtiene el resultado de sumarle un valor a los componentes del vector.
@@ -333,6 +333,5 @@ namespace kraEngineSDK {
      * @brief Componente W.
      */
     float w;
-
   };
 }

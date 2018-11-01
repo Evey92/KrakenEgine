@@ -23,6 +23,7 @@
     <ClInclude Include="kraD3D11DepthStencylView.h" />
     <ClInclude Include="kraD3D11Device.h" />
     <ClInclude Include="kraD3D11DeviceContext.h" />
+    <ClInclude Include="kraD3D11GraphicsAPI.h" />
     <ClInclude Include="kraD3D11GraphicsBuffer.h" />
     <ClInclude Include="kraD3D11IndexBuffer.h" />
     <ClInclude Include="kraD3D11InputLayout.h" />
@@ -35,12 +36,14 @@
     <ClInclude Include="kraD3D11Texture.h" />
     <ClInclude Include="kraD3D11VertexBuffer.h" />
     <ClInclude Include="kraD3D11Viewport.h" />
+    <ClInclude Include="kraPrerequisitesGFX.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kraD3D11ConstantBuffer.cpp" />
     <ClCompile Include="kraD3D11DepthStencylView.cpp" />
     <ClCompile Include="kraD3D11Device.cpp" />
     <ClCompile Include="kraD3D11DeviceContext.cpp" />
+    <ClCompile Include="kraD3D11GraphicsAPI.cpp" />
     <ClCompile Include="kraD3D11GraphicsBuffer.cpp" />
     <ClCompile Include="kraD3D11IndexBuffer.cpp" />
     <ClCompile Include="kraD3D11InputLayout.cpp" />
@@ -134,7 +137,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/; $(SolutionDir)kraUtilities/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/</AdditionalLibraryDirectories>
@@ -148,7 +151,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/; $(SolutionDir)kraUtilities/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/</AdditionalLibraryDirectories>
@@ -164,7 +167,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/; $(SolutionDir)kraUtilities/include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_UTILITY_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -188,7 +191,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/; $(SolutionDir)kraUtilities/include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_UTILITY_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
