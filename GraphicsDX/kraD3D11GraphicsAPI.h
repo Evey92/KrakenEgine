@@ -14,12 +14,18 @@ namespace kraEngineSDK {
     kraD3D11GraphicsAPI();
     ~kraD3D11GraphicsAPI();
 
-    HRESULT CreateRenderTargetView(ID3D11Texture2D* pBackBuffer);
+    HRESULT initializeAPI();
 
     kraD3D11Device m_device;
     kraD3D11Texture m_texture;
     kraD3D11Texture m_pBackBuffer;
     kraD3D11Texture m_texture;
     kraD3D11Viewport m_viewport;
+    HWND g_hWnd;
   };
+
+  HRESULT
+   kraD3D11GraphicsAPI::initializeAPI() {
+    m_device.initializeDevice(g_hWnd);
+  }
 }

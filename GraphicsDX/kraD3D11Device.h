@@ -46,7 +46,7 @@ namespace kraEngineSDK {
     featureLevels.push_back(D3D_FEATURE_LEVEL_10_0);
 
     DXGI_SWAP_CHAIN_DESC sd;
-    ZeroMemory(&sd, sizeof(sd));
+    memset(&sd, 0, sizeof(sd));
     sd.BufferCount = 1;
     sd.BufferDesc.Width = m_width;
     sd.BufferDesc.Height = m_height;

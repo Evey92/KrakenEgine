@@ -35,6 +35,7 @@
     <ClInclude Include="kraD3D11SwapChain.h" />
     <ClInclude Include="kraD3D11Texture.h" />
     <ClInclude Include="kraD3D11VertexBuffer.h" />
+    <ClInclude Include="kraD3D11VertexShader.h" />
     <ClInclude Include="kraD3D11Viewport.h" />
     <ClInclude Include="kraPrerequisitesGFX.h" />
   </ItemGroup>
@@ -55,6 +56,7 @@
     <ClCompile Include="kraD3D11SwapChain.cpp" />
     <ClCompile Include="kraD3D11Texture.cpp" />
     <ClCompile Include="kraD3D11VertexBuffer.cpp" />
+    <ClCompile Include="kraD3D11VertexShader.cpp" />
     <ClCompile Include="kraD3D11Viewport.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

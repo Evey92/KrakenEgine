@@ -11,7 +11,7 @@ namespace kraEngineSDK {
     void
     createViewport(float width, float height, float TopLeftX, float TopLeftY);
 
-    void
+     void
     setViewport(ID3D11DeviceContext* pDeviceContext);
     
     float m_minDepth = 0.0f;
@@ -20,7 +20,7 @@ namespace kraEngineSDK {
   };
 
   void
-    kraD3D11Viewport::createViewport(float width, float height, float TopLeftX, float TopLeftY) {
+  kraD3D11Viewport::createViewport(float width, float height, float TopLeftX, float TopLeftY) {
     m_pd3dviewport.Height = height;
     m_pd3dviewport.Width = width;
     m_pd3dviewport.TopLeftX = TopLeftX;
@@ -30,7 +30,7 @@ namespace kraEngineSDK {
   }
 
   void
-    kraD3D11Viewport::setViewport(ID3D11DeviceContext* pDeviceContext) {
+  kraD3D11Viewport::setViewport(ID3D11DeviceContext* pDeviceContext) {
     pDeviceContext->RSSetViewports(1, &m_pd3dviewport);
   }
 }

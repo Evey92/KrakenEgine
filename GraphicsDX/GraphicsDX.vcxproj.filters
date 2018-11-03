@@ -69,6 +69,9 @@
     <ClInclude Include="kraD3D11GraphicsAPI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="kraD3D11VertexShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kraD3D11GraphicsBuffer.cpp">
@@ -120,6 +123,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="kraD3D11GraphicsAPI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="kraD3D11VertexShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

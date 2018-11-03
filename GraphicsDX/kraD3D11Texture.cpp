@@ -2,11 +2,4 @@
 
 
 
-kraD3D11Texture::kraD3D11Texture()
-{
-}
 
-
-kraD3D11Texture::~kraD3D11Texture()
-{
-}
