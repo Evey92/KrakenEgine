@@ -129,5 +129,8 @@
     <ClInclude Include="include\kraVertex.h">
       <Filter>Source Files\Include</Filter>
     </ClInclude>
+    <ClInclude Include="kraModule.h">
+      <Filter>Source Files\Include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
