@@ -1,8 +1,11 @@
 #pragma once
-class kraD3D11RasterizerState
-{
-public:
-  kraD3D11RasterizerState();
-  ~kraD3D11RasterizerState();
-};
+#include "kraD3D11GraphicsBuffer.h"
 
+namespace kraEngineSDK {
+  class RasterizerState
+  {
+  public:
+    RasterizerState();
+    ~RasterizerState();
+  };
+}

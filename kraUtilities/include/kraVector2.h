@@ -115,7 +115,7 @@ namespace kraEngineSDK {
      * @return Regresa el producto cruz.
      */
     float
-    Vector2::operator^(const Vector2& Vec)const;
+    operator^(const Vector2 Vec)const;
 
     /**
      * @brief Overload de operadores booleanos.

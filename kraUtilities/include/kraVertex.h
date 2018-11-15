@@ -3,7 +3,7 @@
 
 namespace kraEngineSDK {
   
-  struct kraVertex {
+  struct Vertex {
 
     Vector4 m_position;
     Vector4 m_color;

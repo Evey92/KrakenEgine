@@ -1,12 +1,12 @@
 #include "kraD3D11DepthStencylView.h"
 
+namespace kraEngineSDK {
+  DepthStencylView::DepthStencylView()
+  {
+  }
 
 
-kraD3D11DepthStencylView::kraD3D11DepthStencylView()
-{
-}
-
-
-kraD3D11DepthStencylView::~kraD3D11DepthStencylView()
-{
+  DepthStencylView::~DepthStencylView()
+  {
+  }
 }

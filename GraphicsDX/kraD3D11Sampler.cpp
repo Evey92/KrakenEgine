@@ -1,12 +1,13 @@
 #include "kraD3D11Sampler.h"
 
 
+namespace kraEngineSDK {
+  Sampler::Sampler()
+  {
+  }
 
-kraD3D11Sampler::kraD3D11Sampler()
-{
-}
 
-
-kraD3D11Sampler::~kraD3D11Sampler()
-{
+  Sampler::~Sampler()
+  {
+  }
 }

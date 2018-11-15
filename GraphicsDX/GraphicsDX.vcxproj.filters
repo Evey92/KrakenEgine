@@ -72,6 +72,12 @@
     <ClInclude Include="kraD3D11VertexShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="kraD3D11DepthStencil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="kraD3D11PixelShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kraD3D11GraphicsBuffer.cpp">

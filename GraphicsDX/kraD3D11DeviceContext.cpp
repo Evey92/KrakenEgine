@@ -1,12 +1,14 @@
 #include "kraD3D11DeviceContext.h"
 
 
+namespace kraEngineSDK {
 
-kraD3D11DeviceContext::kraD3D11DeviceContext()
-{
-}
+  DeviceContext::DeviceContext()
+  {
+  }
 
 
-kraD3D11DeviceContext::~kraD3D11DeviceContext()
-{
+  DeviceContext::~DeviceContext()
+  {
+  }
 }

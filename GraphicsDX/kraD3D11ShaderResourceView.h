@@ -1,8 +1,11 @@
 #pragma once
-class kraD3D11ShaderResourceView
-{
-public:
-  kraD3D11ShaderResourceView();
-  ~kraD3D11ShaderResourceView();
-};
+#include "kraD3D11GraphicsBuffer.h"
 
+namespace kraEngineSDK {
+  class ShaderResourceView
+  {
+  public:
+    ShaderResourceView() = default;
+    ~ShaderResourceView();
+  };
+}

@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="kraD3D11ConstantBuffer.h" />
+    <ClInclude Include="kraD3D11DepthStencil.h" />
     <ClInclude Include="kraD3D11DepthStencylView.h" />
     <ClInclude Include="kraD3D11Device.h" />
     <ClInclude Include="kraD3D11DeviceContext.h" />
@@ -27,6 +28,7 @@
     <ClInclude Include="kraD3D11GraphicsBuffer.h" />
     <ClInclude Include="kraD3D11IndexBuffer.h" />
     <ClInclude Include="kraD3D11InputLayout.h" />
+    <ClInclude Include="kraD3D11PixelShader.h" />
     <ClInclude Include="kraD3D11RasterizerState.h" />
     <ClInclude Include="kraD3D11RenderTargetView.h" />
     <ClInclude Include="kraD3D11Sampler.h" />

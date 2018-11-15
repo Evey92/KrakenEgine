@@ -3,11 +3,11 @@
 #include <windows.h>
 
 namespace kraEngineSDK {
-  class kraD3D11Device
+  class Device
   {
    public:
-    kraD3D11Device();
-    ~kraD3D11Device();
+     Device();
+    ~Device();
     
     HRESULT 
     initializeDevice(HWND g_hWnd);
@@ -16,11 +16,11 @@ namespace kraEngineSDK {
     uint32 m_width;
     ID3D11Device* m_pd3dDevice = nullptr;
     ID3D11DeviceContext* m_pImmediateContext = nullptr;
-    IDXGISwapChain* m_pSwapChain = nullptr;
+    IDXGISwapChain* m_pSwapChain = nullptr; // not anymore
   };
 
   HRESULT
-  kraD3D11Device::initializeDevice(HWND g_hWnd) {
+  Device::initializeDevice(HWND g_hWnd) {
 
     HRESULT hr = S_OK;
     RECT rc;
@@ -61,15 +61,18 @@ namespace kraEngineSDK {
 
     D3D_FEATURE_LEVEL selectedFL;
 
-    for (size_t driverTypeIndex = 0; driverTypeIndex < driverTypes.size(); ++driverTypeIndex)
+    for (size_t driverTypeIndex = 0;
+         driverTypeIndex < driverTypes.size();
+         ++driverTypeIndex)
     {
       D3D_DRIVER_TYPE& dt = driverTypes[driverTypeIndex];
-      hr = D3D11CreateDeviceAndSwapChain(nullptr, dt, nullptr, createDeviceFlags,
-                                         &featureLevels[0],
-                                         static_cast<UINT>(featureLevels.size()),
-                                         D3D11_SDK_VERSION,
-                                         &sd, &m_pSwapChain, &m_pd3dDevice, &selectedFL,
-                                         &m_pImmediateContext);
+      hr = D3D11CreateDeviceAndSwapChain(nullptr, dt, nullptr,
+                                        createDeviceFlags, &featureLevels[0],
+                                        static_cast<UINT>(featureLevels.size()),
+                                        D3D11_SDK_VERSION,
+                                        &sd, &m_pSwapChain,
+                                        &m_pd3dDevice, &selectedFL,
+                                        &m_pImmediateContext);
 
       if (SUCCEEDED(hr)) {
         break;

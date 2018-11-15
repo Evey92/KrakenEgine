@@ -1,12 +1,6 @@
 #include "kraD3D11Shader.h"
 
 
+namespace kraEngineSDK {
 
-kraD3D11Shader::kraD3D11Shader()
-{
-}
-
-
-kraD3D11Shader::~kraD3D11Shader()
-{
 }

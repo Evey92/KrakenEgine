@@ -1,8 +1,10 @@
 #pragma once
-class kraD3D11Sampler
-{
-public:
-  kraD3D11Sampler();
-  ~kraD3D11Sampler();
-};
 
+namespace kraEngineSDK {
+  class Sampler
+  {
+  public:
+    Sampler();
+    ~Sampler();
+  };
+}

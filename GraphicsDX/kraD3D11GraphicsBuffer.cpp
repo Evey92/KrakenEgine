@@ -1,12 +1,5 @@
 #include "kraD3D11GraphicsBuffer.h"
 
+namespace kraEngineSDK {
 
-
-kraD3D11GraphicsBuffer::kraD3D11GraphicsBuffer()
-{
-}
-
-
-kraD3D11GraphicsBuffer::~kraD3D11GraphicsBuffer()
-{
 }

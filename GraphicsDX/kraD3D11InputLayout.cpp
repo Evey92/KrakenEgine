@@ -1,12 +1,12 @@
 #include "kraD3D11InputLayout.h"
 
+namespace kraEngineSDK {
+  InputLayout::InputLayout()
+  {
+  }
 
 
-kraD3D11InputLayout::kraD3D11InputLayout()
-{
-}
-
-
-kraD3D11InputLayout::~kraD3D11InputLayout()
-{
+  InputLayout::~InputLayout()
+  {
+  }
 }

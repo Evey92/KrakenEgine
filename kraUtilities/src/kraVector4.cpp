@@ -108,7 +108,7 @@ namespace kraEngineSDK {
   }
 
   Vector4
-    Vector4::operator^(const Vector4& Vec)const {
+  Vector4::operator^(const Vector4 Vec)const {
 
     return Vector4((y * Vec.z - z * Vec.y), (z * Vec.x - x * Vec.z), (x * Vec.y - y * Vec.x), 0.0f);
 

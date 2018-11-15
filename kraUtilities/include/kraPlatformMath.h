@@ -203,17 +203,17 @@ namespace kraEngineSDK {
     template<typename T>
     static T 
     fastSin(T Ta, double precision) {
-      T sine = x;
+      T sine = Ta;
       bool isNeg;
       isNeg = true;
       for (double i = 3; i <= precision; i += 2)
       {
         if (isNeg) {
-          sine -= pow(x, i) / factorial(i);
+          sine -= pow(Ta, i) / factorial(i);
           isNeg = false;
         }
         else {
-          sine += pow(x, i) / factorial(i);
+          sine += pow(Ta, i) / factorial(i);
           isNeg = true;
         }
       }
@@ -233,7 +233,7 @@ namespace kraEngineSDK {
     template<typename T>
     static T 
     fmax(T val1, T val2) {
-      return std::fmax(val, val2);
+      return std::fmax(val1, val2);
     }
 
     template<typename T>

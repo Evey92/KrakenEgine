@@ -1,26 +1,27 @@
 #pragma once
 #include "kraPrerequisitesGFX.h"
 
-class kraD3D11GraphicsBuffer
-{
-public:
-  kraD3D11GraphicsBuffer() = default;
-  virtual ~kraD3D11GraphicsBuffer() {
-    if(m_pBuffer)
-      m_pBuffer->Release();
-  }
+namespace kraEngineSDK {
+  class GraphicsBuffer
+  {
+  public:
+    GraphicsBuffer() = default;
+    virtual ~GraphicsBuffer() {
+      if (m_pBuffer)
+        m_pBuffer->Release();
+    }
 
-  virtual void
-  reserve(size_t numObjects) = 0;
+    virtual void
+      reserve(size_t numObjects) = 0;
 
-  virtual void
-  clear() = 0;
+    virtual void
+      clear() = 0;
 
-  void
-  createHardwareBuffer(ID3D11Device* pd3dDevice, unsigned int usage = D3D11_USAGE_DEFAULT);
+    void
+      createHardwareBuffer(ID3D11Device* pd3dDevice, unsigned int usage = D3D11_USAGE_DEFAULT);
 
 
 
-  ID3D11Buffer* m_pBuffer = nullptr;
-};
-
+    ID3D11Buffer* m_pBuffer = nullptr;
+  };
+}

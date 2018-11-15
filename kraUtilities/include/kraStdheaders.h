@@ -79,7 +79,7 @@
 
     template <class T, class Container = std::vector<T>,
               class Compare = std::less<typename Container::value_type>>
-      using Priority_queue = std::priority_queue<T, container, Compare>;
+      using Priority_queue = std::priority_queue<T, Container, Compare>;
 
     template<class T, class compare = std::less<T>,
              class alloc = std::allocator<T>>

@@ -91,7 +91,7 @@ namespace kraEngineSDK {
   }
 
   float
-    Vector2::operator^(const Vector2& Vec)const {
+    Vector2::operator^(const Vector2 Vec)const {
 
     //Sacando eje de rotación 2D en un espacio 3D http://allenchou.net/2013/07/cross-product-of-2d-vectors/
     float escalar = (x * Vec.y) - (y * Vec.x);

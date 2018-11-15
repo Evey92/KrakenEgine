@@ -1,12 +1,6 @@
 #include "kraD3D11SwapChain.h"
 
 
+namespace kraEngineSDK {
 
-kraD3D11SwapChain::kraD3D11SwapChain()
-{
-}
-
-
-kraD3D11SwapChain::~kraD3D11SwapChain()
-{
 }

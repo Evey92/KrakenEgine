@@ -5,10 +5,10 @@
 namespace kraEngineSDK {
 
   template<typename TVERTEX>
-  class kraD3D11VertexBuffer : public kraD3D11GraphicsBuffer
+  class VertexBuffer : public GraphicsBuffer
   {
    public:
-    kraD3D11VertexBuffer() = default;
+     VertexBuffer() = default;
   
     void 
     reserve(size_t numObjects) {
@@ -21,8 +21,8 @@ namespace kraEngineSDK {
     }
 
     void
-    add(const vector<TVERTEX>& vertices) {
-      m_vertexData.insert(m_vertexData.end(), vertices.begin(), vertices.end())
+    add(const std::vector<TVERTEX>& vertices) {
+      m_vertexData.insert(m_vertexData.end(), vertices.begin(), vertices.end());
     }
 
     void
@@ -35,7 +35,7 @@ namespace kraEngineSDK {
       m_vertexData.clear();
     }
 
-    void createHardwareBuffer(ID3D11Device* pd3dDevice, unsigned int usage = D3D11_USAGE_DEFAULT)
+    void createHardwareBuffer(ID3D11Device* pDevice, unsigned int usage = D3D11_USAGE_DEFAULT)
     {
       D3D11_BUFFER_DESC bd;
       memset(&bd, 0, sizeof(bd));
@@ -49,14 +49,14 @@ namespace kraEngineSDK {
       memset(&InitData, 0, sizeof(InitData));
       InitData.pSysMem = &m_vertexData[0];
 
-      HRESULT hr = g_pd3dDevice->CreateBuffer(&bd, &InitData, &m_pBuffer);
+      HRESULT hr = pDevice->CreateBuffer(&bd, &InitData, &m_pBuffer);
       if (FAILED(hr))
       {
-        throw exception("Failed to create Vertex Buffer).");
+        throw std::exception("Failed to create Vertex Buffer).");
       }
     }
 
    private:
-    vector<TVERTEX> m_vertexData;
+    std::vector<TVERTEX> m_vertexData;
   };
 }

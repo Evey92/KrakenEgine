@@ -101,7 +101,7 @@ namespace kraEngineSDK {
      * @return Regresa el resultado de la división de los vectores.
      */
     Vector4
-      operator/(const Vector4& Vec) const;
+    operator/(const Vector4& Vec) const;
 
     /**
      * @brief Obtiene el producto punto de este vector y otro.
@@ -109,7 +109,7 @@ namespace kraEngineSDK {
      * @return Regresa el producto punto.
      */
     float
-      operator|(const Vector4& Vec) const;
+    operator|(const Vector4& Vec) const;
 
     /**
      * @brief Obtiene el producto cruz de este vector y otro.
@@ -117,7 +117,7 @@ namespace kraEngineSDK {
      * @return Regresa el producto cruz.
      */
     Vector4
-      Vector4::operator^(const Vector4& Vec)const;
+    operator^(const Vector4 Vec)const;
 
     /**
      * @brief Overload de operadores booleanos.
