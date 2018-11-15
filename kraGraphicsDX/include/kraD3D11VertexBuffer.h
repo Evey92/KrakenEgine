@@ -1,4 +1,5 @@
 #pragma once
+#include "kraPrerequisitesGFX.h"
 #include "kraD3D11GraphicsBuffer.h"
 #include <vector>
 
@@ -54,6 +55,13 @@ namespace kraEngineSDK {
       {
         throw std::exception("Failed to create Vertex Buffer).");
       }
+    }
+
+    void setVertexBuffer(ID3D11DeviceContext* pImmediateContext)
+    {
+      UINT stride = sizeof(TVERTEX);
+      UINT offset = 0;
+      pImmediateContext->IASetVertexBuffers(0, 1, &m_pBuffer, &stride, &offset);
     }
 
    private:

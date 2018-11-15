@@ -88,13 +88,24 @@ namespace kraEngineSDK {
     m_vertexShader->createVertexShader(m_device.m_pd3dDevice);
 
     m_inputLayout.defineVertexLayout();
-    m_inputLayout.defineTexcoordLayout();
+    //m_inputLayout.defineTexcoordLayout();
     m_inputLayout.createInputLayout(m_device.m_pd3dDevice,
                                     m_vertexShader);
     m_inputLayout.setInputLayout(m_device.m_pImmediateContext);
 
     m_pixelShader->compilePixelShader(L"PS.hlsl", "PS");
     m_pixelShader->createPixelShader(m_device.m_pd3dDevice);
+
+    Vertex vert1;
+    vert1.m_position = Vector3(0.0f, 0.5f, 0.5f);
+    m_vertexBuffer->add(vert1);
+    vert1.m_position = Vector3(0.5f, -0.5f, 0.5f);
+    m_vertexBuffer->add(vert1);
+    vert1.m_position = Vector3(-0.5f, -0.5f, 0.5f);
+    m_vertexBuffer->add(vert1);
+
+    m_vertexBuffer->createHardwareBuffer(m_device.m_pd3dDevice);
+    m_vertexBuffer->setVertexBuffer(m_device.m_pImmediateContext);
 
     /*
     * TODO:
