@@ -3,11 +3,11 @@
 #include "kraD3D11DepthStencil.h" 
 
 namespace kraEngineSDK {
-  class DepthStencylView 
+  class KRA_UTILGFX_EXPORT DepthStencylView
   {
   public:
-    DepthStencylView();
-    ~DepthStencylView();
+    DepthStencylView() = default;
+    ~DepthStencylView() {};
 
     HRESULT
     createDepthStencilView(ID3D11Device* pDevice,
@@ -27,8 +27,11 @@ namespace kraEngineSDK {
       return hr;
     }
 
+    void
+    cleanDSV() {
+      m_pDepthStencilView->Release();
+    }
+
     ID3D11DepthStencilView* m_pDepthStencilView = nullptr;
   };
-
- 
 }

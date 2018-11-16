@@ -2,7 +2,7 @@
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
-  class GraphicsBuffer
+  class KRA_UTILGFX_EXPORT GraphicsBuffer
   {
   public:
     GraphicsBuffer() = default;
@@ -17,8 +17,8 @@ namespace kraEngineSDK {
     virtual void
       clear() = 0;
 
-    void
-      createHardwareBuffer(ID3D11Device* pd3dDevice, unsigned int usage = D3D11_USAGE_DEFAULT);
+    /*virtual void
+    createHardwareBuffer(ID3D11Device* pd3dDevice, D3D11_USAGE usage = D3D11_USAGE_DEFAULT);*/
 
 
 

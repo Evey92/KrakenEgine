@@ -3,170 +3,30 @@
 #include "kraD3D11VertexShader.h"
 
 namespace kraEngineSDK {
-  class InputLayout
+  class KRA_UTILGFX_EXPORT InputLayout
   {
   public:
-    InputLayout();
-    ~InputLayout();
+    InputLayout() = default;
+    ~InputLayout() {};
 
     void
-    defineInputLayout();
+      defineInputLayout();
     void
-    defineVertexLayout();
+      defineVertexLayout();
     void
-    defineIndexLayout();
+      defineIndexLayout();
     void
-    defineNormalLayout();
+      defineNormalLayout();
     void
-    defineTexcoordLayout();
-    
+      defineTexcoordLayout();
     void
-    createInputLayout(ID3D11Device* pd3dDevice, VertexShader* pVShader);
-
+      createInputLayout(ID3D11Device* pd3dDevice, VertexShader* pVShader);
     void
       setInputLayout(ID3D11DeviceContext* pDeviceContext);
+    void
+      cleanInputLayout();
 
     std::vector<D3D11_INPUT_ELEMENT_DESC> layoutDescVector;
     ID3D11InputLayout* m_pVertexLayout;
   };
-
-  /*
-   * @brief Function to define full Input Layout
-   */
-  void
-  InputLayout::defineInputLayout() {
-
-    D3D11_INPUT_ELEMENT_DESC inputDesc;
-    /*
-    * @brief Vertex layout
-    */
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    inputDesc.SemanticName = "POSIITION";
-    inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 0;
-    inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
-
-    /*
-    * @brief Index layout
-    */
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    inputDesc.SemanticName = "COLOR";
-    inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 16;
-    inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
-
-    /*
-    * @brief Normal layout
-    */
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    inputDesc.SemanticName = "NORMAL";
-    inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 32;
-    inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
-
-    /*
-    * @brief TEXCOORD layout
-    */
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    inputDesc.SemanticName = "TEXCOORD";
-    inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
-    inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 48;
-    inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
-
-  }
-
-  /*
-   * @brief Define Vertex layout
-   */
-  void
-  InputLayout::defineVertexLayout() {
-    D3D11_INPUT_ELEMENT_DESC inputDesc;
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    inputDesc.SemanticName = "POSIITION";
-    inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 0;
-    inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
-  }
-  
-  /*
-   * @brief Define Vertex layout
-   */
-  void
-  InputLayout::defineIndexLayout() {
-    D3D11_INPUT_ELEMENT_DESC inputDesc;
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    inputDesc.SemanticName = "COLOR";
-    inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 16;
-    inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
-  }
-  
-  /*
-   * @brief Define Vertex layout
-   */
-  void
-  InputLayout::defineNormalLayout() {
-    D3D11_INPUT_ELEMENT_DESC inputDesc;
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    inputDesc.SemanticName = "NORMAL";
-    inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 32;
-    inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
-  }
-  
-  /*
-   * @brief Define Vertex layout
-   */
-  void
-  InputLayout::defineTexcoordLayout() {
-    D3D11_INPUT_ELEMENT_DESC inputDesc;
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    inputDesc.SemanticName = "TEXCOORD";
-    inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
-    inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 48;
-    inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
-  }
-
-  void
-  InputLayout::createInputLayout(ID3D11Device* pDevice, VertexShader* pVShader) {
-    
-    pDevice->CreateInputLayout(&layoutDescVector[0], layoutDescVector.size(), pVShader->m_blob->GetBufferPointer(), pVShader->m_blob->GetBufferSize(), &m_pVertexLayout);
-  }
-
-  void
-  InputLayout::setInputLayout(ID3D11DeviceContext* pDeviceContext) {
-    pDeviceContext->IASetInputLayout(m_pVertexLayout);
-  }
 }

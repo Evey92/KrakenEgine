@@ -4,7 +4,7 @@
 namespace kraEngineSDK {
 
   template<typename CONSVERTEX>
-  class ConstantBuffer : public  GraphicsBuffer
+  class KRA_UTILGFX_EXPORT ConstantBuffer : public  GraphicsBuffer
   {
   public:
     ConstantBuffer() = default;
@@ -34,7 +34,7 @@ namespace kraEngineSDK {
       m_constData.clear();
     }
 
-    void createHardwareBuffer(ID3D11Device* pDevice, unsigned int usage = D3D11_USAGE_DEFAULT)
+    void createHardwareBuffer(ID3D11Device* pDevice, D3D11_USAGE usage = D3D11_USAGE_DEFAULT)
     {
       D3D11_BUFFER_DESC bd;
       memset(&bd, 0, sizeof(bd));

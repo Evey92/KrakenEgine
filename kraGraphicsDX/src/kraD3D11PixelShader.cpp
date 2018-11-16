@@ -1,10 +1,9 @@
-#include "kraD3D11VertexShader.h"
-
+#include "kraD3D11PixelShader.h"
 
 namespace kraEngineSDK {
 
   HRESULT
-    VertexShader::compileVertexShader(const wchar_t* fileName,
+    PixelShader::compilePixelShader(const wchar_t* fileName,
       const char* entryPoint) {
     HRESULT hr = S_OK;
 
@@ -17,12 +16,12 @@ namespace kraEngineSDK {
   }
 
   HRESULT
-    VertexShader::createVertexShader(ID3D11Device* pDevice) {
+    PixelShader::createPixelShader(ID3D11Device* pDevice) {
 
     HRESULT hr = S_OK;
-    hr = pDevice->CreateVertexShader(m_blob->GetBufferPointer(),
+    hr = pDevice->CreatePixelShader(m_blob->GetBufferPointer(),
       m_blob->GetBufferSize(),
-      NULL, &m_pVertexShader);
+      NULL, &m_pPixelShader);
     if (FAILED(hr))
     {
       m_blob->Release();
@@ -31,7 +30,8 @@ namespace kraEngineSDK {
   }
 
   void
-    VertexShader::cleanShader() {
-    m_pVertexShader->Release();
+    PixelShader::cleanShader() {
+    m_blob->Release();
+    m_pPixelShader->Release();
   }
 }

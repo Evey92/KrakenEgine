@@ -12,10 +12,18 @@
     <Filter Include="Source Files\src">
       <UniqueIdentifier>{733b3196-0301-4462-bd63-98ca62eaa478}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\include">
+      <UniqueIdentifier>{57026da2-8b41-4416-9c1f-f93092b4461c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\resource.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

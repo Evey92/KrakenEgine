@@ -1,10 +1,11 @@
 #pragma once
+#include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
-  class Sampler
+  class KRA_UTILGFX_EXPORT Sampler
   {
   public:
-    Sampler();
-    ~Sampler();
+    Sampler() = default;
+    ~Sampler() {};
   };
 }

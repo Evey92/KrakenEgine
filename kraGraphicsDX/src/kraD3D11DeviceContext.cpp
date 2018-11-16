@@ -3,12 +3,4 @@
 
 namespace kraEngineSDK {
 
-  DeviceContext::DeviceContext()
-  {
-  }
-
-
-  DeviceContext::~DeviceContext()
-  {
-  }
 }

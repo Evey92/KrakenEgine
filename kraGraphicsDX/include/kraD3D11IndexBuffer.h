@@ -5,7 +5,7 @@
 namespace kraEngineSDK {
 
   template<typename ITYPE>
-  class IndexBuffer : public GraphicsBuffer
+  class KRA_UTILGFX_EXPORT IndexBuffer : public GraphicsBuffer
   {
    public:
      IndexBuffer() = default;
@@ -16,29 +16,33 @@ namespace kraEngineSDK {
       m_indexData.reserve(numObjects);
     }
 
-    void add(const ITYPE& vertex)
+    void
+    add(const ITYPE& vertex)
     {
       m_indexData.push_back(vertex);
     }
 
-    void add(const std::vector<ITYPE>& vertices)
+    void
+    add(const std::vector<ITYPE>& vertices)
     {
       m_indexData.insert(m_indexData.end(), vertices.begin(), vertices.end());
     }
 
-    void add(const ITYPE* pVertices, size_t numVertices)
+    void
+    add(const ITYPE* pVertices, size_t numVertices)
     {
       m_indexData.insert(m_indexData.end(), pVertices, pVertices + numVertices);
     }
 
-    void clear()
+    void
+    clear()
     {
       m_indexData.clear();
     }
 
     void 
     createHardwareBuffer(ID3D11Device* pDevice,
-      unsigned int usage = D3D11_USAGE_DEFAULT) {
+      D3D11_USAGE usage = D3D11_USAGE_DEFAULT) {
       D3D11_BUFFER_DESC bd;
       memset(&bd, 0, sizeof(bd));
 
@@ -56,6 +60,11 @@ namespace kraEngineSDK {
       {
         throw std::exception("Failed to create Index Buffer.");
       }
+    }
+
+    void
+    cleanIndexBuffer() {
+      m_pBuffer->Release();
     }
 
    private:

@@ -2,12 +2,5 @@
 
 
 namespace kraEngineSDK {
-  Sampler::Sampler()
-  {
-  }
 
-
-  Sampler::~Sampler()
-  {
-  }
 }

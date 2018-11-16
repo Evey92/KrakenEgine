@@ -6,7 +6,7 @@
 namespace kraEngineSDK {
 
   template<typename TVERTEX>
-  class VertexBuffer : public GraphicsBuffer
+  class KRA_UTILGFX_EXPORT VertexBuffer : public GraphicsBuffer
   {
    public:
      VertexBuffer() = default;
@@ -36,7 +36,8 @@ namespace kraEngineSDK {
       m_vertexData.clear();
     }
 
-    void createHardwareBuffer(ID3D11Device* pDevice, unsigned int usage = D3D11_USAGE_DEFAULT)
+    void
+    createHardwareBuffer(ID3D11Device* pDevice, D3D11_USAGE usage = D3D11_USAGE_DEFAULT)
     {
       D3D11_BUFFER_DESC bd;
       memset(&bd, 0, sizeof(bd));
@@ -57,13 +58,19 @@ namespace kraEngineSDK {
       }
     }
 
-    void setVertexBuffer(ID3D11DeviceContext* pImmediateContext)
+    void
+    setVertexBuffer(ID3D11DeviceContext* pImmediateContext)
     {
       UINT stride = sizeof(TVERTEX);
       UINT offset = 0;
       pImmediateContext->IASetVertexBuffers(0, 1, &m_pBuffer, &stride, &offset);
     }
 
+    void
+    cleanVertexBuffer() {
+      m_pBuffer->Release();
+    }
+   
    private:
     std::vector<TVERTEX> m_vertexData;
   };
