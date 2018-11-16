@@ -37,7 +37,8 @@ namespace kraEngineSDK {
     }
 
     void
-    createHardwareBuffer(ID3D11Device* pDevice, D3D11_USAGE usage = D3D11_USAGE_DEFAULT)
+    createHardwareBuffer(ID3D11Device* pDevice,
+                         D3D11_USAGE usage = D3D11_USAGE_DEFAULT)
     {
       D3D11_BUFFER_DESC bd;
       memset(&bd, 0, sizeof(bd));
