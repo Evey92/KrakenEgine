@@ -11,7 +11,7 @@ namespace kraEngineSDK {
      
      void
      cleanDepthStencil();
-     Texture* m_pd3dDepthStencil = nullptr;
+     Texture m_pd3dDepthStencil;
      D3D11_TEXTURE2D_DESC descDepth;
   };
 }

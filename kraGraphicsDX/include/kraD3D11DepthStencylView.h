@@ -19,7 +19,7 @@ namespace kraEngineSDK {
       descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
       descDSV.Texture2D.MipSlice = 0;
 
-      hr = pDevice->CreateDepthStencilView(pDepthStencil->m_pd3dDepthStencil->m_pd3dTexture2D,
+      hr = pDevice->CreateDepthStencilView(pDepthStencil->m_pd3dDepthStencil.m_pd3dTexture2D,
         &descDSV, &m_pDepthStencilView);
       if (FAILED(hr))
         return hr;

@@ -25,7 +25,7 @@ namespace kraEngineSDK {
     GraphicsAPI() = default;
     ~GraphicsAPI();
 
-    HRESULT
+     HRESULT
     initializeAPI(HWND g_hWnd);
     void 
     Render();
@@ -37,11 +37,11 @@ namespace kraEngineSDK {
     DepthStencil m_depthStencil;
     DepthStencylView m_depthStencilView;
     Viewport m_viewport;
-    VertexShader* m_vertexShader;
+    VertexShader m_vertexShader;
     InputLayout m_inputLayout;
-    PixelShader* m_pixelShader;
-    VertexBuffer<Vertex>* m_vertexBuffer;
-    IndexBuffer<Vertex>* m_indexBuffer;
+    PixelShader m_pixelShader;
+    VertexBuffer<Vertex> m_vertexBuffer;
+    IndexBuffer<Vertex> m_indexBuffer;
     ConstantBuffer<Vertex>* m_constantBuffer;
     Texture m_pBackBuffer;
     Texture m_texture;
