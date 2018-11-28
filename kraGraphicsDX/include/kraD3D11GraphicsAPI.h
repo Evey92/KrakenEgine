@@ -18,6 +18,7 @@
 #include "kraVertex.h"
 #include <d3d11.h>
 #include <windows.h>
+
 namespace kraEngineSDK {
   class KRA_UTILGFX_EXPORT GraphicsAPI
   {

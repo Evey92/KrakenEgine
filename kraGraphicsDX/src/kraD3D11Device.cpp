@@ -1,5 +1,5 @@
 #include "kraD3D11Device.h"
-
+#include <stb_image.h>
 
 namespace kraEngineSDK {
 
