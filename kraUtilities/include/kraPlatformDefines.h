@@ -1,6 +1,6 @@
 /*************************************************
 
-Aquí irá mi cabecera
+Aquï¿½ irï¿½ mi cabecera
 
 */
 
@@ -186,7 +186,7 @@ Aquí irá mi cabecera
 # define KRA_UTILITY_HIDDEN
 #else
 # define KRA_UTILITY_EXPORT __attribute__ ((visibility ("default")))
-# define KRA_UTILITY_EXPORT __attribute__ ((visibility ("hidden")))
+# define KRA_UTILITY_HIDDEN __attribute__ ((visibility ("hidden")))
 #endif
 
 /*****************************************************************************************************************************************************/
