@@ -8,7 +8,7 @@ SET(COVERAGE OFF CACHE BOOL "Coverage")
 
 include_directories(UTIL_INCLUDE ./kraUtilities/include/)
 
-set(UTIL_SOURCEES
+set(UTIL_SOURCES
     ./kraUtilities/src/kraPlatformMath.cpp
     ./kraUtilities/src/kraAABB.cpp
     ./kraUtilities/src/kraBox2d.cpp
@@ -25,7 +25,7 @@ set(UTIL_SOURCEES
     ./kraUtilities/src/kraVector4.cpp
     )
 
-add_library(Utilities SHARED ${UTILITIES_SOURCES})
+add_library(Utilities SHARED ${UTIL_SOURCES})
 
 
 #######################################################################################
