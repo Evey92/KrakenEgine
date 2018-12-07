@@ -281,8 +281,8 @@ namespace kraEngineSDK {
     
     template<class T>
     static T 
-    clamp(T val) {
-      return std::clamp(val);
+    clamp(T number, T bot, T top) {
+      return min(max(number, bot), top);
     }
 
     template<class T>
