@@ -102,6 +102,6 @@ namespace kraEngineSDK {
  */
  /*****************************************************************************/
 
-  using SIZE_T = size_t;
+  using SIZE_T = std::size_t;
 
 }
