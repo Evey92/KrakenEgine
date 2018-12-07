@@ -214,7 +214,7 @@ namespace kraEngineSDK {
     m[3][0] = 0; m[3][1] = 0; m[3][2] = 0; m[3][3] = 1;
   }
 
-  Matrix4&
+  Matrix4
   Matrix4::MatrixLookAtLH(Vector4 Eye, Vector4 At, Vector4 Up) {
     
     Vector4 zAxis = At - Eye;

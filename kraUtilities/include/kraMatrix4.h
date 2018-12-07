@@ -67,7 +67,7 @@ namespace kraEngineSDK {
     void
     identity();
 
-    Matrix4&
+    Matrix4
     MatrixLookAtLH(Vector4 Eye, Vector4 At, Vector4 Up);
 
     void
