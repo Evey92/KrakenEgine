@@ -4,7 +4,7 @@
 #include "kraVector2.h"
 #include "kraVector3.h"
 #include "kraVector4.h"
-#include <conio.h>
+//#include <conio.h>
 
 using namespace kraEngineSDK;
 
@@ -14,7 +14,7 @@ int main(int argc, char **argv)
   ::testing::InitGoogleTest(&argc, argv);
   std::cout << RUN_ALL_TESTS();
   std::cout <<"x: " << myVec.x << " Y: " << myVec.y << std::endl;
-  _getch();
+  //_getch();
 	return 0;
   
 }
