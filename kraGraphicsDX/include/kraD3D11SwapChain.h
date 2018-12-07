@@ -2,7 +2,7 @@
 #include "kraD3D11GraphicsBuffer.h"
 
 namespace kraEngineSDK {
-  class SwapChain
+  class KRA_UTILGFX_EXPORT SwapChain
   {
    public:
     SwapChain() = default;

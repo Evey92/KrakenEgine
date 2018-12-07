@@ -5,7 +5,7 @@
 namespace kraEngineSDK {
 
   template<typename ITYPE>
-  class IndexBuffer : public GraphicsBuffer
+  class KRA_UTILGFX_EXPORT IndexBuffer : public GraphicsBuffer
   {
    public:
      IndexBuffer() = default;

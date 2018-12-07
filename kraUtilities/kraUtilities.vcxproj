@@ -180,7 +180,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\kaPlane.cpp" />
     <ClCompile Include="src\kraAABB.cpp" />
     <ClCompile Include="src\kraBox2d.cpp" />
     <ClCompile Include="src\kraFrustrum.cpp" />
@@ -200,7 +199,6 @@
     <ClCompile Include="src\Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\kaPlane.h" />
     <ClInclude Include="include\kraAABB.h" />
     <ClInclude Include="include\kraBox2d.h" />
     <ClInclude Include="include\kraFrustrum.h" />
@@ -208,6 +206,7 @@
     <ClInclude Include="include\kraMatrix4.h" />
     <ClInclude Include="include\kraModule.h" />
     <ClInclude Include="include\kraOOBB.h" />
+    <ClInclude Include="include\kraPlane.h" />
     <ClInclude Include="include\kraPlatformDefines.h" />
     <ClInclude Include="include\kraPlatformMath.h" />
     <ClInclude Include="include\kraPlatformTypes.h" />

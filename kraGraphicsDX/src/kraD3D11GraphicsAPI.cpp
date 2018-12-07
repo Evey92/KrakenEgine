@@ -264,16 +264,16 @@ namespace kraEngineSDK {
                                         m_cubeTexture.m_pd3dTexture2D);
     m_shaderRV.setShaderResourceView(m_device.m_pImmediateContext);
     
-    //m_World.identity();
+    m_World.identity();
 
     Vector4 Eye = Vector4(0.0f, 3.0f, -6.0f, 0.0f);
     Vector4 At = Vector4(0.0f, 1.0f, 0.0f, 0.0f);
     Vector4 Up = Vector4(0.0f, 1.0f, 0.0f, 0.0f);
 
-    //m_View.MatrixLookAtLH(Eye, At, Up);
+    m_View.MatrixLookAtLH(Eye, At, Up);
 
     CBNeverChanges constNeverChange;
-    //constNeverChange.m_view.transpose();
+    constNeverChange.m_view.transpose();
     m_device.m_pImmediateContext->UpdateSubresource(m_neverChanges.m_pBuffer,
                                                     0, nullptr,
                                                     &constNeverChange, 0, 0);
@@ -281,7 +281,7 @@ namespace kraEngineSDK {
     //m_Projection = ;
 
     CBChangeOnResize constChangeResize;
-    //constChangeResize.m_projection.transpose();
+    constChangeResize.m_projection.transpose();
     m_device.m_pImmediateContext->UpdateSubresource(m_changesOnResize.m_pBuffer,
                                                     0, nullptr,
                                                     &constChangeResize,

@@ -17,13 +17,16 @@
 #include "ConstantBufferMatrices.h"
 #include "kraD3D11ShaderResourceView.h"
 #include "kraD3D11Sampler.h"
-#include "kraVector4.h"
-#include "kraVertex.h"
+#include <kraVector4.h>
+#include <kraVertex.h>
+#include <kraMatrix4.h>
 #include <d3d11.h>
 #include <windows.h>
 
 namespace kraEngineSDK {
-  class  GraphicsAPI
+  class Matrix4;
+
+  class KRA_UTILGFX_EXPORT GraphicsAPI
   {
   public:
     GraphicsAPI() = default;

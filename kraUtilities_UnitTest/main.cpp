@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 #include <kraMath.h>
 #include <kraPrerequisitesUtil.h>
-#include "kraVector2.h"
-#include "kraVector3.h"
-#include "kraVector4.h"
+#include <kraVector2.h>
+#include <kraVector3.h>
+#include <kraVector4.h>
 //#include <conio.h>
 
 using namespace kraEngineSDK;

@@ -31,9 +31,6 @@
     <ClCompile Include="src\kraAABB.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\kaPlane.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
     <ClCompile Include="src\kraBox2d.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
@@ -93,9 +90,6 @@
     <ClInclude Include="include\kraAABB.h">
       <Filter>Source Files\Include</Filter>
     </ClInclude>
-    <ClInclude Include="include\kaPlane.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
     <ClInclude Include="include\kraBox2d.h">
       <Filter>Source Files\Include</Filter>
     </ClInclude>
@@ -137,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="include\kraQuaternion.h">
       <Filter>Source Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraPlane.h">
+      <Filter>Source Files\src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

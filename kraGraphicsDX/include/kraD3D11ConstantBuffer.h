@@ -4,7 +4,7 @@
 namespace kraEngineSDK {
 
   template<typename CONSVERTEX>
-  class  ConstantBuffer : public  GraphicsBuffer
+  class KRA_UTILGFX_EXPORT  ConstantBuffer : public  GraphicsBuffer
   {
   public:
     ConstantBuffer() = default;

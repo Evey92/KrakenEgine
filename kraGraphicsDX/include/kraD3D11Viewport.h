@@ -2,7 +2,7 @@
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
-  class  Viewport
+  class KRA_UTILGFX_EXPORT Viewport
   {
   public:
     Viewport() = default;

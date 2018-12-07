@@ -3,7 +3,7 @@
 #include <windows.h>
 
 namespace kraEngineSDK {
-  class  Device
+  class KRA_UTILGFX_EXPORT Device
   {
   public:
     Device() = default;

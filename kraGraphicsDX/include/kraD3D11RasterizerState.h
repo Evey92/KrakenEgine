@@ -2,7 +2,7 @@
 #include "kraD3D11GraphicsBuffer.h"
 
 namespace kraEngineSDK {
-  class  RasterizerState
+  class KRA_UTILGFX_EXPORT RasterizerState
   {
   public:
     RasterizerState();

@@ -2,7 +2,7 @@
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
-  class  SamplerState
+  class KRA_UTILGFX_EXPORT SamplerState
   {
   public:
     SamplerState() = default;

@@ -1,9 +1,10 @@
 #pragma once
 #include "kraPrerequisitesGFX.h"
-#include "kraMatrix4.h"
+#include <kraMatrix4.h>
 
 namespace kraEngineSDK {
-  
+  class Matrix4;
+
   struct CBNeverChanges {
    public:
     CBNeverChanges() = default;

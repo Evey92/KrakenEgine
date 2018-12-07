@@ -4,7 +4,7 @@
 #include "kraD3D11Shader.h"
 
 namespace kraEngineSDK {
-  class  VertexShader :
+  class KRA_UTILGFX_EXPORT  VertexShader :
     public Shader  {
 
   public:

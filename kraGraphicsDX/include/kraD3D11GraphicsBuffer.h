@@ -2,7 +2,7 @@
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
-  class  GraphicsBuffer
+  class KRA_UTILGFX_EXPORT GraphicsBuffer
   {
   public:
     GraphicsBuffer() = default;

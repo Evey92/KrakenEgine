@@ -3,7 +3,7 @@
 #include <d3dcompiler.h>
 
 namespace kraEngineSDK {
-  class  Shader
+  class KRA_UTILGFX_EXPORT Shader
   {
   public:
     Shader() = default;

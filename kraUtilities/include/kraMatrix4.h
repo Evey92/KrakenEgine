@@ -6,7 +6,7 @@
 namespace kraEngineSDK {
   class Vector4;
 
-  class Matrix4
+  class KRA_UTILITY_EXPORT Matrix4
   {
    public:
     
@@ -21,7 +21,7 @@ namespace kraEngineSDK {
             float m20, float m21, float m22, float m23,
             float m30, float m31, float m32, float m33);
 
-    Matrix4(Matrix4& mat);
+    Matrix4(const Matrix4& mat);
 
     Matrix4(float mat[4][4]);
 

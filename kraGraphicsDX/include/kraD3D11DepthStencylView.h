@@ -3,7 +3,7 @@
 #include "kraD3D11DepthStencil.h" 
 
 namespace kraEngineSDK {
-  class  DepthStencylView
+  class KRA_UTILGFX_EXPORT DepthStencylView
   {
   public:
     DepthStencylView() = default;

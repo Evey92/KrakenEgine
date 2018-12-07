@@ -172,6 +172,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\kraBaseApplication.h" />
+    <ClInclude Include="include\kraConstantBuffer.h" />
+    <ClInclude Include="include\kraDepthStencil.h" />
+    <ClInclude Include="include\kraGraphicsBuffer.h" />
+    <ClInclude Include="include\kraIndexBuffer.h" />
+    <ClInclude Include="include\kraPrerequisitesCore.h" />
+    <ClInclude Include="include\kraTexture.h" />
+    <ClInclude Include="include\kraVertexBuffer.h" />
     <ClInclude Include="kraBaseApplication.h" />
     <ClInclude Include="kraConstantBuffer.h" />
     <ClInclude Include="kraGraphicsBuffer.h" />
@@ -185,6 +193,12 @@
     <ClCompile Include="kraGraphicsBuffer.cpp" />
     <ClCompile Include="kraIndexBuffer.cpp" />
     <ClCompile Include="kraVertexBuffer.cpp" />
+    <ClCompile Include="src\kraBaseApplication.cpp" />
+    <ClCompile Include="src\kraConstantBuffer.cpp" />
+    <ClCompile Include="src\kraDepthStencil.cpp" />
+    <ClCompile Include="src\kraGraphicsBuffer.cpp" />
+    <ClCompile Include="src\kraIndexBuffer.cpp" />
+    <ClCompile Include="src\kraVertexBuffer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

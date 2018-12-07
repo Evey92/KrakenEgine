@@ -2,7 +2,7 @@
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
-  class Texture
+  class KRA_UTILGFX_EXPORT Texture
   {
    public:
      Texture() = default;

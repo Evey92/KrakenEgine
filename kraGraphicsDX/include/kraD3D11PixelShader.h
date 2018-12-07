@@ -4,7 +4,7 @@
 #include "kraD3D11Shader.h"
 
 namespace kraEngineSDK {
-  class  PixelShader :
+  class KRA_UTILGFX_EXPORT PixelShader :
     public Shader {
    
   public:
