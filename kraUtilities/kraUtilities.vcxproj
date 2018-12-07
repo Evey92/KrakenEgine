@@ -189,6 +189,7 @@
     <ClCompile Include="src\kraOOBB.cpp" />
     <ClCompile Include="src\kraPlatformMath.cpp" />
     <ClCompile Include="src\kraProfiler.cpp" />
+    <ClCompile Include="src\kraQuaternion.cpp" />
     <ClCompile Include="src\kraRay.cpp" />
     <ClCompile Include="src\kraSphere.cpp" />
     <ClCompile Include="src\kraTriangle.cpp" />
@@ -205,12 +206,14 @@
     <ClInclude Include="include\kraFrustrum.h" />
     <ClInclude Include="include\kraMath.h" />
     <ClInclude Include="include\kraMatrix4.h" />
+    <ClInclude Include="include\kraModule.h" />
     <ClInclude Include="include\kraOOBB.h" />
     <ClInclude Include="include\kraPlatformDefines.h" />
     <ClInclude Include="include\kraPlatformMath.h" />
     <ClInclude Include="include\kraPlatformTypes.h" />
     <ClInclude Include="include\kraPrerequisitesUtil.h" />
     <ClInclude Include="include\kraProfiler.h" />
+    <ClInclude Include="include\kraQuaternion.h" />
     <ClInclude Include="include\kraRay.h" />
     <ClInclude Include="include\kraSphere.h" />
     <ClInclude Include="include\kraStdheaders.h" />
@@ -220,7 +223,6 @@
     <ClInclude Include="include\kraVector4.h" />
     <ClInclude Include="include\kraVertex.h" />
     <ClInclude Include="include\kraWindowsMath.h" />
-    <ClInclude Include="kraModule.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

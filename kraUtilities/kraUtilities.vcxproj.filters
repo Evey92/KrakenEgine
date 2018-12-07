@@ -64,6 +64,9 @@
     <ClCompile Include="src\kraProfiler.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\kraQuaternion.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\kraMath.h">
@@ -129,7 +132,10 @@
     <ClInclude Include="include\kraVertex.h">
       <Filter>Source Files\Include</Filter>
     </ClInclude>
-    <ClInclude Include="kraModule.h">
+    <ClInclude Include="include\kraModule.h">
+      <Filter>Source Files\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraQuaternion.h">
       <Filter>Source Files\Include</Filter>
     </ClInclude>
   </ItemGroup>
