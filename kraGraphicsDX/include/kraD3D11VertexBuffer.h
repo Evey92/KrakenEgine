@@ -1,20 +1,21 @@
 #pragma once
 #include "kraPrerequisitesGFX.h"
 #include "kraD3D11GraphicsBuffer.h"
+#include <d3d11.h>
 #include <vector>
 
 namespace kraEngineSDK {
 
   template<typename TVERTEX>
-  class KRA_UTILGFX_EXPORT VertexBuffer : public GraphicsBuffer
+  class VertexBuffer : public GraphicsBuffer
   {
    public:
      VertexBuffer() = default;
   
-    void 
-    reserve(size_t numObjects) {
-      m_vertexData.reserve(numObjects);
-    }
+     void
+     reserve(size_t numObjects) {
+       m_vertexData.reserve(numObjects);
+     }
     
     void
     add(const TVERTEX& vertex) {
@@ -55,15 +56,15 @@ namespace kraEngineSDK {
       HRESULT hr = pDevice->CreateBuffer(&bd, &InitData, &m_pBuffer);
       if (FAILED(hr))
       {
-        throw std::exception("Failed to create Vertex Buffer).");
+        throw std::exception("Failed to create Vertex Buffer.");
       }
     }
 
     void
-    setVertexBuffer(ID3D11DeviceContext* pImmediateContext)
+      setVertexBuffer(ID3D11DeviceContext* pImmediateContext)
     {
-      UINT stride = sizeof(TVERTEX);
-      UINT offset = 0;
+      uint32 stride = sizeof(TVERTEX);
+      uint32 offset = 0;
       pImmediateContext->IASetVertexBuffers(0, 1, &m_pBuffer, &stride, &offset);
     }
 
@@ -71,7 +72,7 @@ namespace kraEngineSDK {
     cleanVertexBuffer() {
       m_pBuffer->Release();
     }
-   
+
    private:
     std::vector<TVERTEX> m_vertexData;
   };

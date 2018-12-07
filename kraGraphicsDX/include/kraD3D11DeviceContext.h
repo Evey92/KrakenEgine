@@ -2,7 +2,7 @@
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT DeviceContext
+  class  DeviceContext
   {
   public:
     DeviceContext() = default;

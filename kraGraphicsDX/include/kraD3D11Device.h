@@ -12,6 +12,8 @@ namespace kraEngineSDK {
     HRESULT
     initializeDevice(HWND g_hWnd);
     void
+    setRenderTarget(ID3D11RenderTargetView* pRTV, ID3D11DepthStencilView* pDSV);
+    void
     cleanContext();
     void
     cleanDevice();

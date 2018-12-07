@@ -2,14 +2,14 @@
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT Viewport
+  class  Viewport
   {
   public:
     Viewport() = default;
     ~Viewport() {};
 
     void
-    createViewport(float width, float height, float TopLeftX, float TopLeftY);
+    createViewport(uint32 width, uint32 height, float TopLeftX, float TopLeftY);
 
      void
     setViewport(ID3D11DeviceContext* pDeviceContext);

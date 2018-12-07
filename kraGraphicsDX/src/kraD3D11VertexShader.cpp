@@ -20,9 +20,9 @@ namespace kraEngineSDK {
     VertexShader::createVertexShader(ID3D11Device* pDevice) {
 
     HRESULT hr = S_OK;
-    hr = pDevice->CreateVertexShader(m_blob->GetBufferPointer(),
-      m_blob->GetBufferSize(),
-      NULL, &m_pVertexShader);
+    hr = pDevice->CreateVertexShader(m_blob->GetBufferPointer(), 
+                                     m_blob->GetBufferSize(),
+                                     NULL, &m_pVertexShader);
     if (FAILED(hr))
     {
       m_blob->Release();

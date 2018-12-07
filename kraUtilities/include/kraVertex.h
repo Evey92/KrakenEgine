@@ -3,7 +3,7 @@
 
 namespace kraEngineSDK {
   
-  struct Vertex {
+  /*struct Vertex {
 
     Vector3 m_position;
     Vector2 m_texcoord;
@@ -11,6 +11,6 @@ namespace kraEngineSDK {
     Vector4 m_color;
     float m_u;
     float m_v;
-  };
+  };*/
 
 }

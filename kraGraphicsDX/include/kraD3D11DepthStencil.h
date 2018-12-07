@@ -3,7 +3,7 @@
 #include "kraD3D11Texture.h"
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT DepthStencil
+  class  DepthStencil
   {
    public:
      void
@@ -11,6 +11,7 @@ namespace kraEngineSDK {
      
      void
      cleanDepthStencil();
+     
      Texture m_pd3dDepthStencil;
      D3D11_TEXTURE2D_DESC descDepth;
   };

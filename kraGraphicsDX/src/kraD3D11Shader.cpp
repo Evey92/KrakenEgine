@@ -20,7 +20,7 @@ namespace kraEngineSDK {
     dwShaderFlags |= D3DCOMPILE_DEBUG;
 #endif
 
-    ID3DBlob* pErrorBlob = nullptr;
+    ID3DBlob* pErrorBlob;
     hr = D3DCompileFromFile(filename, NULL, NULL, entryPoint.c_str(),
       shaderModel.c_str(), dwShaderFlags, NULL,
       ppBlobOut, &pErrorBlob);

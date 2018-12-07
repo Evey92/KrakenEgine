@@ -56,7 +56,7 @@ namespace kraEngineSDK {
     inputDesc.SemanticIndex = 0;
     inputDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
     inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 48;
+    inputDesc.AlignedByteOffset = 12;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     inputDesc.InstanceDataStepRate = 0;
     layoutDescVector.push_back(inputDesc);
@@ -70,7 +70,7 @@ namespace kraEngineSDK {
     InputLayout::defineVertexLayout() {
     D3D11_INPUT_ELEMENT_DESC inputDesc;
     memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    inputDesc.SemanticName = "POSIITION";
+    inputDesc.SemanticName = "POSITION";
     inputDesc.SemanticIndex = 0;
     inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
     inputDesc.InputSlot = 0;
@@ -125,7 +125,7 @@ namespace kraEngineSDK {
     inputDesc.SemanticIndex = 0;
     inputDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
     inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 48;
+    inputDesc.AlignedByteOffset = 12;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     inputDesc.InstanceDataStepRate = 0;
     layoutDescVector.push_back(inputDesc);
@@ -134,7 +134,8 @@ namespace kraEngineSDK {
   void
     InputLayout::createInputLayout(ID3D11Device* pDevice, VertexShader* pVShader) {
 
-    pDevice->CreateInputLayout(&layoutDescVector[0], layoutDescVector.size(), pVShader->m_blob->GetBufferPointer(), pVShader->m_blob->GetBufferSize(), &m_pVertexLayout);
+    pDevice->CreateInputLayout(&layoutDescVector[0], (uint32)layoutDescVector.size(), pVShader->m_blob->GetBufferPointer(), pVShader->m_blob->GetBufferSize(), &m_pVertexLayout);
+    pVShader->m_blob->Release();
   }
 
   void

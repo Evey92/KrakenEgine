@@ -1,5 +1,5 @@
 #include "kraD3D11Device.h"
-#include <stb_image.h>
+
 
 namespace kraEngineSDK {
 
@@ -11,8 +11,8 @@ namespace kraEngineSDK {
 
     GetClientRect(g_hWnd, &rc);
 
-    m_height = rc.right - rc.left;
-    m_width = rc.bottom - rc.top;
+    m_width = rc.right - rc.left;
+    m_height = rc.bottom - rc.top;
 
     uint32 createDeviceFlags = 0;
 #ifdef _DEBUG
@@ -67,6 +67,11 @@ namespace kraEngineSDK {
     }
 
     return hr;
+  }
+
+  void
+  Device::setRenderTarget(ID3D11RenderTargetView* pRTV, ID3D11DepthStencilView* pDSV) {
+    m_pImmediateContext->OMSetRenderTargets(1, &pRTV, pDSV);
   }
 
   void

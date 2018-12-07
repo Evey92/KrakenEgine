@@ -3,7 +3,7 @@
 #include "kraD3D11VertexShader.h"
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT InputLayout
+  class  InputLayout
   {
   public:
     InputLayout() = default;

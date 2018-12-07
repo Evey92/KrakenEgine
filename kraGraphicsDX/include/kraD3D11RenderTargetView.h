@@ -3,7 +3,7 @@
 
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT RenderTargetView
+  class  RenderTargetView
   {
   public:
     RenderTargetView() = default;

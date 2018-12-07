@@ -5,7 +5,7 @@
 namespace kraEngineSDK {
 
   template<typename ITYPE>
-  class KRA_UTILGFX_EXPORT IndexBuffer : public GraphicsBuffer
+  class IndexBuffer : public GraphicsBuffer
   {
    public:
      IndexBuffer() = default;
@@ -63,8 +63,13 @@ namespace kraEngineSDK {
     }
 
     void
-    cleanIndexBuffer() {
-      m_pBuffer->Release();
+    setIndexBuffer(ID3D11DeviceContext* pImmediateContext) {
+      pImmediateContext->IASetIndexBuffer(m_pBuffer, DXGI_FORMAT_R16_UINT, 0);
+    }
+
+    void
+      cleanIndexBuffer() {
+
     }
 
    private:
