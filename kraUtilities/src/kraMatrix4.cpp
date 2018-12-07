@@ -235,7 +235,7 @@ namespace kraEngineSDK {
 
   void
   Matrix4::transpose() {
-    Matrix4 tempMat = m;
+    Matrix4 tempMat = *this;
     for (int i = 0; i < 4; ++i) {
       for (int j = 0; j < 4; ++j) {
         m[i][j] = tempMat.m[j][i];
