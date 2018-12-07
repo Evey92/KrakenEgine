@@ -1,6 +1,6 @@
 dist: trusty
-sudo: false
 os: linux
+sudo: false
 language: cpp
 compiler: gcc
 
@@ -14,10 +14,19 @@ addons:
       - cmake
 
 script:
-  - CXX=/usr/bin/g++-7 CC=/usr/bin/gcc-7
   - echo "Creating build directory..."
+  - CXX=/usr/bin/g++-7 CC=/usr/bin/gcc-7
   - mkdir build
   - cd build
   - cmake ..
-  - make
-  - ./TravisBuild
+  - make 
+  - ./UtilitiesTest
+
+after_script:
+  - echo "Finished script..."
+
+after_success:
+  - echo "Congratulations, you didn't fuck up"
+
+after_failure:
+  - echo "Build failed. See above for errors"
