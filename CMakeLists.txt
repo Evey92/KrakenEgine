@@ -1,13 +1,12 @@
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 project(kraUtilityTest)
-include(gtest.cmake)
 
 #Prerequisites
 set(CMAKE_CXX_FLAGS)
 SET(COVERAGE OFF CACHE BOOL "Coverage")
 
-include_directories(UTIL_INCLUDE ./kraUtilities/include)
+include_directories(UTIL_INCLUDE ./kraUtilities/include/)
 
 set(UTIL_SOURCEES
     ./kraUtilities/src/kraPlatformMath.cpp
@@ -28,19 +27,6 @@ set(UTIL_SOURCEES
 
 add_library(Utilities SHARED ${UTILITIES_SOURCES})
 
-#sets cmake to debug build
-set(CMAKE_BUILD_TYPE Debug)
-
-
-
-#creates an executable which can be used to run in travis
-add_executable(kraUtilityTest kraUtilities_UnitTest/main.cpp
-
-#creates an executable which can be used to run in travis
-kraBox2d_executable(kraUtilityTest kraUtilities_UnitTest/main.cpp)
-
-find_package (Threads)
-target_link_libraries(kraUtilities_UnitTest gtest ${CMAKE_THREAD_LIBS_INIT})
 
 #######################################################################################
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
