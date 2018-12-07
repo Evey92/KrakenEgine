@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <cstddef>
 #include "kraPlatformDefines.h"
 
 #if KRA_PLATFORM == KRA_PLATFORM_PS4
