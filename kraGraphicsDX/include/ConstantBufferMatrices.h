@@ -1,14 +1,14 @@
 #pragma once
-#include "kraPrerequisitesGFX.h"
 #include <kraMatrix4.h>
+#include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
   class Matrix4;
 
-  struct CBNeverChanges {
+  struct CBNeverChangesDX {
    public:
-    CBNeverChanges() = default;
-    CBNeverChanges(const CBNeverChanges& constMatt)
+    CBNeverChangesDX() = default;
+    CBNeverChangesDX(const CBNeverChangesDX& constMatt)
     {
       m_view = constMatt.m_view;
     }
@@ -16,11 +16,11 @@ namespace kraEngineSDK {
     Matrix4 m_view;
   };
 
-  struct CBChangeOnResize {
+  struct CBChangeOnResizeDX {
   
    public:
-    CBChangeOnResize() = default;
-    CBChangeOnResize(const CBChangeOnResize& constMatt)
+    CBChangeOnResizeDX() = default;
+    CBChangeOnResizeDX(const CBChangeOnResizeDX& constMatt)
     {
       m_projection = constMatt.m_projection;
     }
@@ -29,11 +29,11 @@ namespace kraEngineSDK {
 
   };
 
-  struct CBChangesEveryFrame {
+  struct CBChangesEveryFrameDX {
    public: 
-    CBChangesEveryFrame() = default;
+    CBChangesEveryFrameDX() = default;
 
-    CBChangesEveryFrame(const CBChangesEveryFrame& constMatt)
+    CBChangesEveryFrameDX(const CBChangesEveryFrameDX& constMatt)
     {
       m_world = constMatt.m_world;
       m_vMeshColor = constMatt.m_vMeshColor;

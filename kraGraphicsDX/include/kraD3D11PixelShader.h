@@ -1,22 +1,21 @@
 #pragma once
 #include "kraPrerequisitesGFX.h"
-#include "kraD3D11GraphicsBuffer.h"
 #include "kraD3D11Shader.h"
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT PixelShader :
-    public Shader {
+  class KRA_UTILGFX_EXPORT PixelShaderDX :
+    public ShaderDX {
    
   public:
-    PixelShader() = default;
-    ~PixelShader() {};
+    PixelShaderDX() = default;
+    ~PixelShaderDX() {}
 
-    HRESULT
+    bool
     compilePixelShader(const wchar_t* fileName,
                        const char* entryPoint);
 
-    HRESULT
-    createPixelShader(ID3D11Device* pDevice);
+    bool
+    createPixelShader(void*  pDevice);
 
     void
     cleanShader();

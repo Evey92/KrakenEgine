@@ -215,19 +215,19 @@ namespace kraEngineSDK {
   }
 
   Matrix4
-  Matrix4::MatrixLookAtLH(Vector4 Eye, Vector4 At, Vector4 Up) {
+  Matrix4::MatrixLookAtLH(Vector3 Eye, Vector3 At, Vector3 Up) {
     
-    Vector4 zAxis = At - Eye;
+    Vector3 zAxis = At - Eye;
     zAxis.normalize();
-    Vector4 xAxis = Vector4::cross(Up, zAxis);
+    Vector3 xAxis = Vector3::cross(Up, zAxis);
     xAxis.normalize();
-    Vector4 yAxis = Vector4::cross(zAxis, xAxis);
+    Vector3 yAxis = Vector3::cross(zAxis, xAxis);
 
     Matrix4 Mat;
     Mat.m[0][0] = xAxis.x; Mat.m[0][1] = yAxis.x; Mat.m[0][2] = zAxis.x; Mat.m[0][3] = 0;
     Mat.m[1][0] = xAxis.y; Mat.m[1][1] = yAxis.y; Mat.m[1][2] = zAxis.y; Mat.m[1][3] = 0;
     Mat.m[2][0] = xAxis.z; Mat.m[2][1] = yAxis.z; Mat.m[2][2] = zAxis.z; Mat.m[2][3] = 0;
-    Mat.m[3][0] = Vector4::dot(xAxis, Eye); Mat.m[3][1] = Vector4::dot(yAxis, Eye); Mat.m[3][2] = Vector4::dot(zAxis, Eye);
+    Mat.m[3][0] = Vector3::dot(xAxis, Eye); Mat.m[3][1] = Vector3::dot(yAxis, Eye); Mat.m[3][2] = Vector3::dot(zAxis, Eye);
     -Mat.m[3][0]; -Mat.m[3][1]; -Mat.m[3][2]; Mat.m[3][3] = 1.0f;
 
     return Mat;

@@ -2,12 +2,6 @@
 
 
 namespace kraEngineSDK {
-  RasterizerState::RasterizerState()
-  {
-  }
-
-
-  RasterizerState::~RasterizerState()
-  {
-  }
+ 
+  
 }

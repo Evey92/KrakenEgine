@@ -1,18 +1,18 @@
 #pragma once
-#include "kraPrerequisitesGFX.h"
-#include "kraD3D11GraphicsBuffer.h"
+#include <kraShaderResourceView.h>
 
+#include "kraPrerequisitesGFX.h"
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT ShaderResourceView
+  class KRA_UTILGFX_EXPORT ShaderResourceViewDX : public ShaderResourceView 
   {
   public:
-    ShaderResourceView() = default;
-    ~ShaderResourceView() {};
+    ShaderResourceViewDX() = default;
+    ~ShaderResourceViewDX() {}
 
-    HRESULT
-    createShaderResourceView(ID3D11Device* pDevice, ID3D11Texture2D* texture);
+    bool
+    createShaderResourceView(void* pDevice, void* texture);
     void
-    setShaderResourceView(ID3D11DeviceContext* pDeviceContext);
+    setShaderResourceView(void* pDeviceContext);
 
     ID3D11ShaderResourceView* m_pTextureRV;
   };

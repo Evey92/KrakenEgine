@@ -1,16 +1,15 @@
 #pragma once
-
 #include "kraGraphicsBuffer.h"
 
 namespace kraEngineSDK {
 
   template<typename TCONST>
-  class KRA_CORE_EXPORT kraConstantBuffer : public kraGraphicsBuffer
+  class KRA_CORE_EXPORT kraConstantBuffer : public GraphicsBuffer
   {
 
   public:
     kraConstantBuffer() {};
-    ~kraConstantBuffer() { clearBuffer(); }
+    virtual ~kraConstantBuffer() { clearBuffer(); }
 
     /**
      * @brief Creates a vertex buffer.
@@ -56,7 +55,7 @@ namespace kraEngineSDK {
     }
 
   private:
-    std::vector<TVERTEX> m_constantData;
+    std::vector<TCONST> m_constantData;
 
   };
 

@@ -1,15 +1,17 @@
 #pragma once
+#include <kraSampler.h>
+
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT SamplerState
+  class KRA_UTILGFX_EXPORT SamplerStateDX : public SamplerState
   {
   public:
-    SamplerState() = default;
-    ~SamplerState() {};
+    SamplerStateDX() = default;
+    ~SamplerStateDX() {}
 
-    HRESULT
-      createSamplerState(ID3D11Device* pDevice);
+    bool
+    createSamplerState(void* pDevice);
 
     ID3D11SamplerState* m_samplerState = nullptr;
   };

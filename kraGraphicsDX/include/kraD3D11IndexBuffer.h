@@ -5,12 +5,12 @@
 namespace kraEngineSDK {
 
   template<typename ITYPE>
-  class KRA_UTILGFX_EXPORT IndexBuffer : public GraphicsBuffer
+  class KRA_UTILGFX_EXPORT IndexBufferDX : public GraphicsBufferDX
   {
    public:
-     IndexBuffer() = default;
-
-    void 
+     IndexBufferDX() = default;
+ 
+     void 
     reserve(size_t numObjects)
     {
       m_indexData.reserve(numObjects);
@@ -63,8 +63,10 @@ namespace kraEngineSDK {
     }
 
     void
-    setIndexBuffer(ID3D11DeviceContext* pImmediateContext) {
-      pImmediateContext->IASetIndexBuffer(m_pBuffer, DXGI_FORMAT_R16_UINT, 0);
+    setIndexBuffer(void* pImmediateContext) {
+      ID3D11DeviceContext* m_immediateContext = reinterpret_cast<ID3D11DeviceContext*>(pImmediateContext);
+
+      m_immediateContext->IASetIndexBuffer(m_pBuffer, DXGI_FORMAT_R16_UINT, 0);
     }
 
     void

@@ -1,21 +1,25 @@
 #pragma once
+#include <kraDepthStencilView.h>
+
 #include "kraPrerequisitesGFX.h"
 #include "kraD3D11DepthStencil.h" 
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT DepthStencylView
+  
+  class KRA_UTILGFX_EXPORT DepthStencylViewDX //: public DepthStencylView
   {
-  public:
-    DepthStencylView() = default;
-    ~DepthStencylView() {};
+   public:
+     DepthStencylViewDX() = default;
+    ~DepthStencylViewDX() {}
 
-    HRESULT
-    createDepthStencilView(ID3D11Device* pDevice,
-                           DepthStencil* pDepthStencil);
+    bool
+    createDepthStencilView(void* pDevice,
+                           void* pDepthStencil);
 
     void
     cleanDSV();
 
     ID3D11DepthStencilView* m_pDepthStencilView = nullptr;
   };
+
 }

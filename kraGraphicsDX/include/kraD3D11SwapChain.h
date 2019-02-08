@@ -1,16 +1,19 @@
 #pragma once
-#include "kraD3D11GraphicsBuffer.h"
+#include <kraSwapChain.h>
+
+#include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT SwapChain
+  class KRA_UTILGFX_EXPORT SwapChainDX : public SwapChain
   {
    public:
-    SwapChain() = default;
-    ~SwapChain() {};
+    SwapChainDX() = default;
+    ~SwapChainDX() {}
 
-    DXGI_SWAP_CHAIN_DESC setSwapChainDescriptor(HWND g_hWnd, 
-                                                int width,
-                                                int height);
+    void
+    setSwapChainDescriptor(void* g_hWnd, 
+                           int width,
+                           int height, void* swapDescriptor);
 
     IDXGISwapChain* m_pd3dSwapChain = nullptr;
   };

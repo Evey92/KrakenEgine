@@ -1,15 +1,17 @@
+#include "kraPrerequisitesGFX.h"
 #include "kraD3D11Device.h"
-
+#include "kraD3D11SwapChain.h"
 
 namespace kraEngineSDK {
 
-  HRESULT
-  Device::initializeDevice(HWND g_hWnd) {
+  bool
+  DeviceDX::initializeDevice(void* g_hWnd) {
 
+    HWND m_hWnd = reinterpret_cast<HWND>(g_hWnd);
     HRESULT hr = S_OK;
     RECT rc;
 
-    GetClientRect(g_hWnd, &rc);
+    GetClientRect(m_hWnd, &rc);
 
     m_width = rc.right - rc.left;
     m_height = rc.bottom - rc.top;
@@ -29,6 +31,8 @@ namespace kraEngineSDK {
     featureLevels.push_back(D3D_FEATURE_LEVEL_10_1);
     featureLevels.push_back(D3D_FEATURE_LEVEL_10_0);
 
+    
+
     DXGI_SWAP_CHAIN_DESC sd;
     memset(&sd, 0, sizeof(sd));
     sd.BufferCount = 1;
@@ -38,7 +42,7 @@ namespace kraEngineSDK {
     sd.BufferDesc.RefreshRate.Numerator = 60;
     sd.BufferDesc.RefreshRate.Denominator = 1;
     sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-    sd.OutputWindow = g_hWnd;
+    sd.OutputWindow = m_hWnd;
     sd.SampleDesc.Count = 1;
     sd.SampleDesc.Quality = 0;
     sd.Windowed = TRUE;
@@ -70,27 +74,31 @@ namespace kraEngineSDK {
   }
 
   void
-  Device::setRenderTarget(ID3D11RenderTargetView* pRTV, ID3D11DepthStencilView* pDSV) {
-    m_pImmediateContext->OMSetRenderTargets(1, &pRTV, pDSV);
+  DeviceDX::setRenderTarget(void* pRTV, void* pDSV) {
+    
+    ID3D11RenderTargetView* m_pRTV = reinterpret_cast<ID3D11RenderTargetView*>(pRTV);
+    ID3D11DepthStencilView* m_pDSV = reinterpret_cast<ID3D11DepthStencilView*>(pDSV);
+
+    m_pImmediateContext->OMSetRenderTargets(1, &m_pRTV, m_pDSV);
   }
 
   void
-    Device::cleanContext() {
+  DeviceDX::cleanContext() {
     m_pImmediateContext->Release();
   }
 
   void
-    Device::cleanDevice() {
+  DeviceDX::cleanDevice() {
     m_pd3dDevice->Release();
   }
 
   void
-    Device::cleanSwapChain() {
+  DeviceDX::cleanSwapChain() {
     m_pSwapChain->Release();
   }
 
   void
-    Device::cleanContextState() {
+  DeviceDX::cleanContextState() {
     m_pImmediateContext->ClearState();
   }
 }

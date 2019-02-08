@@ -1,7 +1,8 @@
 #pragma once
 
 #include <kraPrerequisitesUtil.h>
-
+#include <kraMatrix4.h>
+#include <kraVertex.h>
 /*****************************************************************************************************************************************************/
 /**
   DLL export

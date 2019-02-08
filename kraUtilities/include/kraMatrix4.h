@@ -68,7 +68,7 @@ namespace kraEngineSDK {
     identity();
 
     Matrix4
-    MatrixLookAtLH(Vector4 Eye, Vector4 At, Vector4 Up);
+    MatrixLookAtLH(Vector3 Eye, Vector3 At, Vector3 Up);
 
     void
     transpose();

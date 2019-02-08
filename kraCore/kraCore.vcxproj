@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -70,21 +70,21 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)lib/$(PlatformTarget)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)lib/$(PlatformTarget)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)lib/$(PlatformTarget)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)lib/$(PlatformTarget)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -172,33 +172,55 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\CameraManager.h" />
     <ClInclude Include="include\kraBaseApplication.h" />
     <ClInclude Include="include\kraConstantBuffer.h" />
     <ClInclude Include="include\kraDepthStencil.h" />
+    <ClInclude Include="include\kraDepthStencilView.h" />
+    <ClInclude Include="include\kraDevice.h" />
+    <ClInclude Include="include\kraDeviceContext.h" />
+    <ClInclude Include="include\kraGraphicsAPI.h" />
     <ClInclude Include="include\kraGraphicsBuffer.h" />
     <ClInclude Include="include\kraIndexBuffer.h" />
+    <ClInclude Include="include\kraInputLayout.h" />
+    <ClInclude Include="include\kraModel.h" />
+    <ClInclude Include="include\kraPixelShader.h" />
     <ClInclude Include="include\kraPrerequisitesCore.h" />
+    <ClInclude Include="include\kraRasterizerState.h" />
+    <ClInclude Include="include\kraRenderTargetView.h" />
+    <ClInclude Include="include\kraSampler.h" />
+    <ClInclude Include="include\kraShader.h" />
+    <ClInclude Include="include\kraShaderResourceView.h" />
+    <ClInclude Include="include\kraSwapChain.h" />
     <ClInclude Include="include\kraTexture.h" />
     <ClInclude Include="include\kraVertexBuffer.h" />
-    <ClInclude Include="kraBaseApplication.h" />
-    <ClInclude Include="kraConstantBuffer.h" />
-    <ClInclude Include="kraGraphicsBuffer.h" />
-    <ClInclude Include="kraIndexBuffer.h" />
-    <ClInclude Include="kraPrerequisitesCore.h" />
-    <ClInclude Include="kraVertexBuffer.h" />
+    <ClInclude Include="include\kraVertexShader.h" />
+    <ClInclude Include="include\kraViewport.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="kraBaseApplication.cpp" />
-    <ClCompile Include="kraConstantBuffer.cpp" />
-    <ClCompile Include="kraGraphicsBuffer.cpp" />
-    <ClCompile Include="kraIndexBuffer.cpp" />
-    <ClCompile Include="kraVertexBuffer.cpp" />
+    <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\CameraManager.cpp" />
     <ClCompile Include="src\kraBaseApplication.cpp" />
     <ClCompile Include="src\kraConstantBuffer.cpp" />
     <ClCompile Include="src\kraDepthStencil.cpp" />
+    <ClCompile Include="src\kraDepthStencilView.cpp" />
+    <ClCompile Include="src\kraDevice.cpp" />
+    <ClCompile Include="src\kraDeviceContext.cpp" />
+    <ClCompile Include="src\kraGraphicsAPI.cpp" />
     <ClCompile Include="src\kraGraphicsBuffer.cpp" />
     <ClCompile Include="src\kraIndexBuffer.cpp" />
+    <ClCompile Include="src\kraInputLayout.cpp" />
+    <ClCompile Include="src\kraModel.cpp" />
+    <ClCompile Include="src\kraPixelShader.cpp" />
+    <ClCompile Include="src\kraRasterizerState.cpp" />
+    <ClCompile Include="src\kraSampler.cpp" />
+    <ClCompile Include="src\kraShader.cpp" />
+    <ClCompile Include="src\kraShaderResourceView.cpp" />
+    <ClCompile Include="src\kraSwapChain.cpp" />
     <ClCompile Include="src\kraVertexBuffer.cpp" />
+    <ClCompile Include="src\kraVertexShader.cpp" />
+    <ClCompile Include="src\kraViewport.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

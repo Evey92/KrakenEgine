@@ -1,19 +1,23 @@
 #pragma once
-#include "kraD3D11GraphicsBuffer.h"
 #include <d3dcompiler.h>
+#include <kraShader.h>
+
+#include "kraPrerequisitesGFX.h"
+
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT Shader
+  class KRA_UTILGFX_EXPORT ShaderDX : public Shader
   {
   public:
-    Shader() = default;
-    ~Shader() {};
 
-    HRESULT
+    ShaderDX() = default;
+    ~ShaderDX() {}
+
+    bool
     compileShaderFromFile(const wchar_t* filename,
                                   std::string entryPoint,
                                   std::string shaderModel,
-                                  ID3DBlob** ppBlobOut);
+                                  void** ppBlobOut);
     /*virtual void
     cleanShader();*/
   };

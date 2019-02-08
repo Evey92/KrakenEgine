@@ -1,14 +1,14 @@
 #pragma once
-#include "kraD3D11GraphicsBuffer.h"
+#include <kraD3D11GraphicsBuffer.h>
 
 namespace kraEngineSDK {
 
   template<typename CONSVERTEX>
-  class KRA_UTILGFX_EXPORT  ConstantBuffer : public  GraphicsBuffer
+  class KRA_UTILGFX_EXPORT  ConstantBufferDX : public  GraphicsBufferDX
   {
   public:
-    ConstantBuffer() = default;
-    
+    ConstantBufferDX() = default;
+    ~ConstantBufferDX() {}
 
     void reserve(size_t numObjects)
     {

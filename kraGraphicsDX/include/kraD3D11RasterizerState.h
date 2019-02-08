@@ -1,11 +1,11 @@
 #pragma once
-#include "kraD3D11GraphicsBuffer.h"
+#include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT RasterizerState
+  class KRA_UTILGFX_EXPORT RasterizerStateDX
   {
   public:
-    RasterizerState();
-    ~RasterizerState();
+    RasterizerStateDX() = default;
+    ~RasterizerStateDX() {}
   };
 }

@@ -1,4 +1,10 @@
 #pragma once
+#include <kraGraphicsAPI.h>
+#include <kraVertex.h>
+#include <kraVector4.h>
+#include <kraMatrix4.h>
+#include <d3d11.h>
+#include <windows.h>
 
 #include "kraPrerequisitesGFX.h"
 #include "kraD3D11Device.h"
@@ -17,48 +23,50 @@
 #include "ConstantBufferMatrices.h"
 #include "kraD3D11ShaderResourceView.h"
 #include "kraD3D11Sampler.h"
-#include <kraVector4.h>
-#include <kraVertex.h>
-#include <kraMatrix4.h>
-#include <d3d11.h>
-#include <windows.h>
+#include "ConstantBufferMatrices.h"
+
 
 namespace kraEngineSDK {
   class Matrix4;
 
-  class KRA_UTILGFX_EXPORT GraphicsAPI
+  class KRA_UTILGFX_EXPORT GraphicsAPIDX : public GraphicsAPI
   {
-  public:
-    GraphicsAPI() = default;
-    ~GraphicsAPI() {};
-
-     HRESULT
-    initializeAPI(HWND g_hWnd);
+   public:
+    GraphicsAPIDX() = default;
+    ~GraphicsAPIDX() {}
+    
+    bool
+    initializeAPI(void* g_hWnd);
     void 
     Render();
     void
     Cleanup();
 
-    Device m_device;
-    RenderTargetView m_renderTargetView;
-    DepthStencil m_depthStencil;
-    DepthStencylView m_depthStencilView;
-    Viewport m_viewport;
-    VertexShader m_vertexShader;
-    InputLayout m_inputLayout;
-    PixelShader m_pixelShader;
-    VertexBuffer<Vertex> m_vertexBuffer;
-    IndexBuffer<unsigned short> m_indexbuffer;
-    ConstantBuffer<CBNeverChanges> m_neverChanges;
-    ConstantBuffer<CBChangeOnResize> m_changesOnResize;
-    ConstantBuffer<CBChangesEveryFrame> m_changesEveryFrame;
-    Texture m_pBackBuffer;
-    Texture m_texture;
-    ShaderResourceView m_shaderRV;
-    SamplerState m_samplerState;
+    DeviceDX m_device;
+    RenderTargetViewDX m_renderTargetView;
+    DepthStencilDX m_depthStencil;
+    DepthStencylViewDX m_depthStencilView;
+    ViewportDX m_viewport;
+    VertexShaderDX m_vertexShader;
+    InputLayoutDX m_inputLayout;
+    PixelShaderDX m_pixelShader;
+    VertexBufferDX<Vertex> m_vertexBuffer;
+    IndexBufferDX<unsigned short> m_indexbuffer;
+    ConstantBufferDX<CBNeverChangesDX> m_neverChanges;
+    ConstantBufferDX<CBChangeOnResizeDX> m_changesOnResize;
+    ConstantBufferDX<CBChangesEveryFrameDX> m_changesEveryFrame;
+    TextureDX m_pBackBuffer;
+    TextureDX m_texture;
+    ShaderResourceViewDX m_shaderRV;
+    SamplerStateDX m_samplerState;
     Matrix4 m_World;
     Matrix4 m_View;
     Matrix4 m_Projection;
     Vector4 m_meshColor = Vector4(.7f, .7f, .7f, 1.0f);
   };
+
+  /*extern "C" KRA_UTILGFX_EXPORT
+  kraEngineSDK::GraphicsAPI* createGFXAPI() {
+    return new kraEngineSDK::GraphicsAPIDX();
+  }*/
 }

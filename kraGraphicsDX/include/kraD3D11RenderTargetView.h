@@ -1,17 +1,19 @@
 #pragma once
+#include <kraRenderTargetView.h>
+
 #include "kraPrerequisitesGFX.h"
 
-
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT RenderTargetView
+  class KRA_UTILGFX_EXPORT RenderTargetViewDX //: public RenderTargetView
   {
-  public:
-    RenderTargetView() = default;
-    ~RenderTargetView() {};
+    public:
 
-    HRESULT
-    createRenderTargetView(ID3D11Device* pDevice,
-                           IDXGISwapChain* pSwapChain);
+    RenderTargetViewDX() = default;
+    ~RenderTargetViewDX() {}
+
+    bool
+    createRenderTargetView(void* pDevice,
+                           void* pSwapChain);
     void 
     cleanRTV();
 

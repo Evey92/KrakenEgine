@@ -4,19 +4,18 @@
 #include "kraD3D11Shader.h"
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT  VertexShader :
-    public Shader  {
+  class KRA_UTILGFX_EXPORT  VertexShaderDX : public ShaderDX {
 
   public:
-    VertexShader() = default;
-    ~VertexShader() {};
+    VertexShaderDX() = default;
+    ~VertexShaderDX() {}
 
-    HRESULT
+    bool
     compileVertexShader(const wchar_t* fileName,
                         const char* entryPoint);
 
-    HRESULT
-    createVertexShader(ID3D11Device* pDevice);
+    bool
+    createVertexShader(void* pDevice);
 
     void 
     cleanShader();

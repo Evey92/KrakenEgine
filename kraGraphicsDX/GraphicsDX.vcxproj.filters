@@ -80,9 +80,6 @@
     <ClInclude Include="include\kraPrerequisitesGFX.h">
       <Filter>Source Files\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\kraVertex.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
     <ClInclude Include="include\ConstantBufferMatrices.h">
       <Filter>Source Files\include</Filter>
     </ClInclude>

@@ -1,12 +1,15 @@
 #pragma once
+#include <kraGraphicsBuffer.h>
+
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT GraphicsBuffer
+  class KRA_UTILGFX_EXPORT GraphicsBufferDX : public GraphicsBuffer
   {
   public:
-    GraphicsBuffer() = default;
-    virtual ~GraphicsBuffer() {
+    GraphicsBufferDX() = default;
+    
+    virtual ~GraphicsBufferDX() {
       if (m_pBuffer)
         m_pBuffer->Release();
     }

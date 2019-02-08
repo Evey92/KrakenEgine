@@ -1,11 +1,14 @@
 #include "kraD3D11GraphicsAPI.h"
-#include "ConstantBufferMatrices.h"
+
 
 
 namespace kraEngineSDK {
   
-  HRESULT
-  GraphicsAPI::initializeAPI(HWND g_hWnd) {
+  bool
+  GraphicsAPIDX::initializeAPI(void* g_hWnd) {
+    
+    HWND* m_hWnd = reinterpret_cast<HWND*>(g_hWnd);
+
     HRESULT hr = S_OK;
     /*
     * Init device and Swap Chain
@@ -32,15 +35,16 @@ namespace kraEngineSDK {
     */
     
     m_device.initializeDevice(g_hWnd);
-    m_renderTargetView.createRenderTargetView(m_device.m_pd3dDevice,
-                                             m_device.m_pSwapChain);
+    m_renderTargetView.createRenderTargetView(reinterpret_cast<void*>(m_device.m_pd3dDevice),
+                                             reinterpret_cast<void*>(m_device.m_pSwapChain));
 
-    m_depthStencil.createDepthStencil(m_device.m_pd3dDevice, 
+    m_depthStencil.createDepthStencil(reinterpret_cast<void*>(m_device.m_pd3dDevice),
                                       m_device.m_height,
                                       m_device.m_width);
 
-    m_depthStencilView.createDepthStencilView(m_device.m_pd3dDevice,
-                                              &m_depthStencil);
+    m_depthStencilView.createDepthStencilView(reinterpret_cast<void*>(m_device.m_pd3dDevice),
+      reinterpret_cast<void*>(&m_depthStencil));
+
     m_device.setRenderTarget(m_renderTargetView.m_pRenderTargetView,
                              m_depthStencilView.m_pDepthStencilView);
    
@@ -255,10 +259,10 @@ namespace kraEngineSDK {
 
     m_device.m_pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     
-    Texture m_cubeTexture;
+    TextureDX m_cubeTexture;
     m_cubeTexture.createTexture2DFromFile(m_device.m_pd3dDevice, "cube.png",
-                                          DXGI_FORMAT_R8G8B8A8_UNORM,
-                                          D3D11_BIND_SHADER_RESOURCE);
+                                          reinterpret_cast<void*>(DXGI_FORMAT_R8G8B8A8_UNORM),
+                                          reinterpret_cast<void*>(D3D11_BIND_SHADER_RESOURCE));
 
     m_shaderRV.createShaderResourceView(m_device.m_pd3dDevice,
                                         m_cubeTexture.m_pd3dTexture2D);
@@ -266,13 +270,13 @@ namespace kraEngineSDK {
     
     m_World.identity();
 
-    Vector4 Eye = Vector4(0.0f, 3.0f, -6.0f, 0.0f);
-    Vector4 At = Vector4(0.0f, 1.0f, 0.0f, 0.0f);
-    Vector4 Up = Vector4(0.0f, 1.0f, 0.0f, 0.0f);
+    Vector3 Eye = Vector3(0.0f, 3.0f, -6.0f);
+    Vector3 At = Vector3(0.0f, 1.0f, 0.0f);
+    Vector3 Up = Vector3(0.0f, 1.0f, 0.0f);
 
     m_View.MatrixLookAtLH(Eye, At, Up);
 
-    CBNeverChanges constNeverChange;
+    CBNeverChangesDX constNeverChange;
     constNeverChange.m_view.transpose();
     m_device.m_pImmediateContext->UpdateSubresource(m_neverChanges.m_pBuffer,
                                                     0, nullptr,
@@ -280,7 +284,7 @@ namespace kraEngineSDK {
 
     //m_Projection = ;
 
-    CBChangeOnResize constChangeResize;
+    CBChangeOnResizeDX constChangeResize;
     constChangeResize.m_projection.transpose();
     m_device.m_pImmediateContext->UpdateSubresource(m_changesOnResize.m_pBuffer,
                                                     0, nullptr,
@@ -297,7 +301,7 @@ namespace kraEngineSDK {
   }
 
   void
-  GraphicsAPI::Render() {
+  GraphicsAPIDX::Render() {
     
     /*Vector4 clearColor = { 1.0f, 0.125f, 0.3f, 1.0f };
     m_device.m_pImmediateContext->ClearRenderTargetView(m_renderTargetView.m_pRenderTargetView, &clearColor[0]);
@@ -320,7 +324,7 @@ namespace kraEngineSDK {
   }
 
   void
-  GraphicsAPI::Cleanup() {
+  GraphicsAPIDX::Cleanup() {
     
     m_device.cleanContextState();
     

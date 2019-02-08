@@ -6,7 +6,7 @@ namespace kraEngineSDK {
    * @brief Function to define full Input Layout
    */
   void
-    InputLayout::defineInputLayout() {
+    InputLayoutDX::defineInputLayout() {
 
     D3D11_INPUT_ELEMENT_DESC inputDesc;
     /*
@@ -67,7 +67,7 @@ namespace kraEngineSDK {
    * @brief Define Vertex layout
    */
   void
-    InputLayout::defineVertexLayout() {
+  InputLayoutDX::defineVertexLayout() {
     D3D11_INPUT_ELEMENT_DESC inputDesc;
     memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
     inputDesc.SemanticName = "POSITION";
@@ -84,7 +84,7 @@ namespace kraEngineSDK {
    * @brief Define Vertex layout
    */
   void
-    InputLayout::defineIndexLayout() {
+  InputLayoutDX::defineIndexLayout() {
     D3D11_INPUT_ELEMENT_DESC inputDesc;
     memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
     inputDesc.SemanticName = "COLOR";
@@ -101,7 +101,7 @@ namespace kraEngineSDK {
    * @brief Define Vertex layout
    */
   void
-    InputLayout::defineNormalLayout() {
+  InputLayoutDX::defineNormalLayout() {
     D3D11_INPUT_ELEMENT_DESC inputDesc;
     memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
     inputDesc.SemanticName = "NORMAL";
@@ -118,7 +118,7 @@ namespace kraEngineSDK {
    * @brief Define Vertex layout
    */
   void
-    InputLayout::defineTexcoordLayout() {
+  InputLayoutDX::defineTexcoordLayout() {
     D3D11_INPUT_ELEMENT_DESC inputDesc;
     memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
     inputDesc.SemanticName = "TEXCOORD";
@@ -132,19 +132,25 @@ namespace kraEngineSDK {
   }
 
   void
-    InputLayout::createInputLayout(ID3D11Device* pDevice, VertexShader* pVShader) {
+  InputLayoutDX::createInputLayout(void* pDevice, void* pVShader) {
 
-    pDevice->CreateInputLayout(&layoutDescVector[0], (uint32)layoutDescVector.size(), pVShader->m_blob->GetBufferPointer(), pVShader->m_blob->GetBufferSize(), &m_pVertexLayout);
-    pVShader->m_blob->Release();
+    ID3D11Device* m_pDevice = reinterpret_cast<ID3D11Device*>(pDevice);
+    VertexShaderDX* m_pVShader = reinterpret_cast<VertexShaderDX*>(pVShader);
+
+    m_pDevice->CreateInputLayout(&layoutDescVector[0], (uint32)layoutDescVector.size(), m_pVShader->m_blob->GetBufferPointer(), m_pVShader->m_blob->GetBufferSize(), &m_pVertexLayout);
+    m_pVShader->m_blob->Release();
   }
 
   void
-    InputLayout::setInputLayout(ID3D11DeviceContext* pDeviceContext) {
-    pDeviceContext->IASetInputLayout(m_pVertexLayout);
+  InputLayoutDX::setInputLayout(void* pDeviceContext) {
+
+    ID3D11DeviceContext* m_pDeviceContext = reinterpret_cast<ID3D11DeviceContext*>(pDeviceContext);
+
+    m_pDeviceContext->IASetInputLayout(m_pVertexLayout);
   }
 
   void
-    InputLayout::cleanInputLayout() {
+  InputLayoutDX::cleanInputLayout() {
     m_pVertexLayout->Release();
   }
 }

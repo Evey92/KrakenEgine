@@ -7,14 +7,15 @@
 /******************************************************************************/
 
 #pragma once
+#include "kraPrerequisitesCore.h"
 
 namespace kraEngineSdk {
-  class kraBaseApplication
+  class KRA_CORE_EXPORT kraBaseApplication
   {
   public:
-    kraBaseApplication() {}
+    kraBaseApplication() = default;
     virtual
-    ~kraBaseApplication() = 0;
+     ~kraBaseApplication() {}
 
     /**
     * @brief Main funtion to execute a program.
@@ -96,5 +97,12 @@ namespace kraEngineSdk {
     */
     /*virtual void
     onMouseMove(float x, float y, buttons) = 0; */
+
+    /**
+    * @brief Function to create an specific type of Graphics API.
+    */
+    void
+    CreateGraphicsAPI();
+
   };
 }

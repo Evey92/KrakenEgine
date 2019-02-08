@@ -2,4 +2,9 @@
 
 namespace kraEngineSdk {
 
+  void
+  kraBaseApplication::CreateGraphicsAPI() {
+
+  }
+
 }

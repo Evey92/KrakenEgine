@@ -6,25 +6,21 @@ namespace kraEngineSDK {
   {
    public:
      Texture() = default;
-    ~Texture();
+     virtual 
+     ~Texture() {}
 
-    void
+    virtual void
     createTexture2D(void* pDevice, int height, int width,
-                    void* format, void* bindFlag);
-    void
-      createTexture2D(void** pDevice, int height, int width,
-                      void* format, void* bindFlag, D3D11_TEXTURE2D_DESC desc);
-    HRESULT
+                    void* format, void* bindFlag) = 0;
+    virtual void
+      createTexture2D(void* pDevice, int height, int width,
+                      void* format, void* bindFlag, void* desc) = 0;
+    virtual bool
     createTexture2DFromFile(void* pDevice, const char*  filename,
-                            DXGI_FORMAT format, D3D11_BIND_FLAG bindFlag);
+                            void* format, void* bindFlag) = 0;
 
-    void
-    releaseTexture();
+    virtual void
+    releaseTexture() = 0;
 
-    int m_height;
-    int m_width; 
-    const char m_missingTexture[19] = "missingChecker.png";
-
-    void* m_pd3dTexture2D = nullptr;
   };
 }

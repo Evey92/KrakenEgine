@@ -3,12 +3,15 @@
 
 namespace kraEngineSDK {
 
-  HRESULT
-  Shader::compileShaderFromFile(const wchar_t* filename,
+  bool
+  ShaderDX::compileShaderFromFile(const wchar_t* filename,
       std::string entryPoint,
       std::string shaderModel,
-      ID3DBlob** ppBlobOut)
+      void** ppBlobOut)
   {
+
+    ID3DBlob** m_pBlob = reinterpret_cast<ID3DBlob**>(ppBlobOut);
+
     HRESULT hr = S_OK;
 
     DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
@@ -23,7 +26,7 @@ namespace kraEngineSDK {
     ID3DBlob* pErrorBlob;
     hr = D3DCompileFromFile(filename, NULL, NULL, entryPoint.c_str(),
       shaderModel.c_str(), dwShaderFlags, NULL,
-      ppBlobOut, &pErrorBlob);
+      m_pBlob, &pErrorBlob);
 
     if (FAILED(hr))
     {

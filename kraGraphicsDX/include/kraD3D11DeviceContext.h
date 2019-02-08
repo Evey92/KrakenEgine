@@ -1,12 +1,12 @@
 #pragma once
-#include "kraPrerequisitesGFX.h"
+#include <kraPrerequisitesGFX.h>
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT  DeviceContext
+  class KRA_UTILGFX_EXPORT  DeviceContextDX
   {
   public:
-    DeviceContext() = default;
-    ~DeviceContext() {};
+    DeviceContextDX() = default;
+    ~DeviceContextDX() {}
 
   };
 }

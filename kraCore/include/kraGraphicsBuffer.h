@@ -4,14 +4,20 @@
 #include <vector>
 
 namespace kraEngineSDK {
-  class kraGraphicsBuffer
+  class KRA_CORE_EXPORT GraphicsBuffer
   {
-  public:
+   public:
 
-    kraGraphicsBuffer() = default;
-    virtual ~kraGraphicsBuffer() { clearBuffer(); };
-    virtual void clearBuffer() = 0;
+    GraphicsBuffer() = default;
+    
+    virtual 
+    ~GraphicsBuffer() {}
 
+    virtual void
+      reserve(size_t numObjects) {};
+
+    virtual void
+    clear() = 0;
   };
 
 }

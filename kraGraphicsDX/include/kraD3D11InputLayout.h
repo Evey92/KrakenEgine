@@ -1,30 +1,33 @@
 #pragma once
-#include "kraD3D11GraphicsBuffer.h"
+#include <kraInputLayout.h>
+
+#include "kraPrerequisitesGFX.h"
 #include "kraD3D11VertexShader.h"
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT InputLayout
+  class KRA_UTILGFX_EXPORT InputLayoutDX : public InputLayout
   {
   public:
-    InputLayout() = default;
-    ~InputLayout() {};
+  
+    InputLayoutDX() = default;
+    ~InputLayoutDX() {}
 
     void
-      defineInputLayout();
+    defineInputLayout();
     void
-      defineVertexLayout();
+    defineVertexLayout();
     void
-      defineIndexLayout();
+    defineIndexLayout();
     void
-      defineNormalLayout();
+    defineNormalLayout();
     void
-      defineTexcoordLayout();
+    defineTexcoordLayout();
     void
-      createInputLayout(ID3D11Device* pd3dDevice, VertexShader* pVShader);
+    createInputLayout(void* pd3dDevice, void* pVShader);
     void
-      setInputLayout(ID3D11DeviceContext* pDeviceContext);
+    setInputLayout(void* pDeviceContext);
     void
-      cleanInputLayout();
+    cleanInputLayout();
 
     std::vector<D3D11_INPUT_ELEMENT_DESC> layoutDescVector;
     ID3D11InputLayout* m_pVertexLayout;

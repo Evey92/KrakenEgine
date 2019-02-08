@@ -6,13 +6,15 @@ namespace kraEngineSDK {
   class KRA_CORE_EXPORT DepthStencil
   {
    public:
-     void
-     createDepthStencil(void* pDevice, int height, int width);
+
+     DepthStencil() = default;
+     virtual ~DepthStencil() {};
+
+     virtual void
+     createDepthStencil(void* pDevice, int height, int width) = 0;
      
-     void
-     cleanDepthStencil();
-     
-     Texture m_pd3dDepthStencil;
-     void* descDepth; // IDK if I'm supposed to create my own descriptors.
+     virtual void
+     cleanDepthStencil() = 0;
+
   };
 }

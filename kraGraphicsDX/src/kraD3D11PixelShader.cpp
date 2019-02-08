@@ -2,12 +2,12 @@
 
 namespace kraEngineSDK {
 
-  HRESULT
-    PixelShader::compilePixelShader(const wchar_t* fileName,
+  bool
+  PixelShaderDX::compilePixelShader(const wchar_t* fileName,
       const char* entryPoint) {
     HRESULT hr = S_OK;
 
-    hr = compileShaderFromFile(fileName, entryPoint, "ps_4_0", &m_blob);
+    hr = compileShaderFromFile(fileName, entryPoint, "ps_4_0", reinterpret_cast<void**>(m_blob));
 
     if (FAILED(hr))
     {
@@ -15,11 +15,13 @@ namespace kraEngineSDK {
     }
   }
 
-  HRESULT
-    PixelShader::createPixelShader(ID3D11Device* pDevice) {
+  bool
+  PixelShaderDX::createPixelShader(void* pDevice) {
+
+    ID3D11Device* m_pDevice = reinterpret_cast<ID3D11Device*>(pDevice);
 
     HRESULT hr = S_OK;
-    hr = pDevice->CreatePixelShader(m_blob->GetBufferPointer(),
+    hr = m_pDevice->CreatePixelShader(m_blob->GetBufferPointer(),
                                     m_blob->GetBufferSize(),
                                     NULL, &m_pPixelShader);
     if (FAILED(hr))
@@ -30,7 +32,7 @@ namespace kraEngineSDK {
   }
 
   void
-    PixelShader::cleanShader() {
+    PixelShaderDX::cleanShader() {
     m_blob->Release();
     m_pPixelShader->Release();
   }

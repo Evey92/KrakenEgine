@@ -3,12 +3,12 @@
 
 namespace kraEngineSDK {
 
-  HRESULT
-    VertexShader::compileVertexShader(const wchar_t* fileName,
+  bool
+  VertexShaderDX::compileVertexShader(const wchar_t* fileName,
       const char* entryPoint) {
     HRESULT hr = S_OK;
 
-    hr = compileShaderFromFile(fileName, entryPoint, "vs_5_0", &m_blob);
+    hr = compileShaderFromFile(fileName, entryPoint, "vs_5_0", reinterpret_cast<void**>(m_blob));
 
     if (FAILED(hr))
     {
@@ -16,11 +16,13 @@ namespace kraEngineSDK {
     }
   }
 
-  HRESULT
-    VertexShader::createVertexShader(ID3D11Device* pDevice) {
+  bool
+  VertexShaderDX::createVertexShader(void* pDevice) {
+
+    ID3D11Device* m_pDevice = reinterpret_cast<ID3D11Device*>(pDevice);
 
     HRESULT hr = S_OK;
-    hr = pDevice->CreateVertexShader(m_blob->GetBufferPointer(), 
+    hr = m_pDevice->CreateVertexShader(m_blob->GetBufferPointer(),
                                      m_blob->GetBufferSize(),
                                      NULL, &m_pVertexShader);
     if (FAILED(hr))
@@ -31,7 +33,7 @@ namespace kraEngineSDK {
   }
 
   void
-    VertexShader::cleanShader() {
+  VertexShaderDX::cleanShader() {
     m_pVertexShader->Release();
   }
 }

@@ -1,22 +1,24 @@
 #pragma once
+#include <kraTexture.h>
+
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT Texture
+  class KRA_UTILGFX_EXPORT TextureDX : public Texture
   {
    public:
-     Texture() = default;
-    ~Texture();
+     TextureDX() = default;
+     ~TextureDX() {}
 
     void
-    createTexture2D(ID3D11Device* pDevice, int height, int width,
-                    DXGI_FORMAT format, D3D11_BIND_FLAG bindFlag);
+    createTexture2D(void* pDevice, int height, int width,
+                    void* format, void* bindFlag);
     void
-      createTexture2D(ID3D11Device* pDevice, int height, int width,
-                      DXGI_FORMAT format, D3D11_BIND_FLAG bindFlag, D3D11_TEXTURE2D_DESC desc);
-    HRESULT
-    createTexture2DFromFile(ID3D11Device* pDevice, const char*  filename,
-                            DXGI_FORMAT format, D3D11_BIND_FLAG bindFlag);
+      createTexture2D(void* pDevice, int height, int width,
+                      void* format, void* bindFlag, void* desc);
+    bool
+    createTexture2DFromFile(void* pDevice, const char*  filename,
+                            void* format, void* bindFlag);
 
     void
     releaseTexture();

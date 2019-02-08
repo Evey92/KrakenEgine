@@ -1,18 +1,21 @@
 #pragma once
-#include "kraPrerequisitesGFX.h"
 #include <windows.h>
+#include <kraDevice.h>
+
+#include "kraPrerequisitesGFX.h"
+
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT Device
+  class KRA_UTILGFX_EXPORT DeviceDX : public Device
   {
   public:
-    Device() = default;
-    ~Device() {};
+    DeviceDX() = default;
+    ~DeviceDX() {}
 
-    HRESULT
-    initializeDevice(HWND g_hWnd);
+    bool
+    initializeDevice(void* g_hWnd);
     void
-    setRenderTarget(ID3D11RenderTargetView* pRTV, ID3D11DepthStencilView* pDSV);
+    setRenderTarget(void* pRTV, void* pDSV);
     void
     cleanContext();
     void

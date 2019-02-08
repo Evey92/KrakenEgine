@@ -1,0 +1,1 @@
+#include "kraShaderResourceView.h"
