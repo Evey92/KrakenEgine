@@ -1,9 +1,9 @@
 #pragma once
+
 #include "kraPrerequisitesUtil.h"
-#include <kraVertex.h>
+
 #include <d3d11.h>
-#include <vector>
-#include <string>
+#include <kraVertex.h>
 
 #   define PLUGIN_EXPORT __declspec(dllexport);
 

@@ -3,11 +3,17 @@
 #include <kraDevice.h>
 
 #include "kraPrerequisitesGFX.h"
+#include "kraD3D11SwapChain.h"
+#include "kraD3D11DepthStencil.h"
+
 
 
 namespace kraEngineSDK {
+  class DepthStencil;
+
   class KRA_UTILGFX_EXPORT DeviceDX : public Device
   {
+
   public:
     DeviceDX() = default;
     ~DeviceDX() {}
@@ -16,6 +22,10 @@ namespace kraEngineSDK {
     initializeDevice(void* g_hWnd);
     void
     setRenderTarget(void* pRTV, void* pDSV);
+    DepthStencil
+    createDepthStencil(int height, int width);
+    void
+    cleanDepthStencil(DepthStencil* depthStencil);
     void
     cleanContext();
     void

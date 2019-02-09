@@ -14,7 +14,9 @@ namespace kraEngineSDK {
     ~GraphicsBuffer() {}
 
     virtual void
-      reserve(size_t numObjects) {};
+    reserve(size_t numObjects) {
+      KRA_UNDEFINED_PARAMETER(numObjects);
+    }
 
     virtual void
     clear() = 0;

@@ -286,10 +286,12 @@ Aqu� ir� mi cabecera
 */
 # define _CRT_SECURE_NO_WARNINGS
 
-# pragma warning (disabled: 4251)
+# pragma warning (disable: 4251)
 
-# pragma warning (disabled: 4996)
+# pragma warning (disable: 4275)
 
-# pragma warning (disabled: 4503)
+# pragma warning (disable: 4996)
+
+# pragma warning (disable: 4503)
 
 #endif

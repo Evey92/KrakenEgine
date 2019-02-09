@@ -1,6 +1,6 @@
-#include "kraPrerequisitesGFX.h"
+#include <kraDepthStencil.h>
+
 #include "kraD3D11Device.h"
-#include "kraD3D11SwapChain.h"
 
 namespace kraEngineSDK {
 
@@ -80,6 +80,45 @@ namespace kraEngineSDK {
     ID3D11DepthStencilView* m_pDSV = reinterpret_cast<ID3D11DepthStencilView*>(pDSV);
 
     m_pImmediateContext->OMSetRenderTargets(1, &m_pRTV, m_pDSV);
+  }
+
+  DepthStencil
+  DeviceDX::createDepthStencil(int height, int width) {
+    
+    DepthStencilDX m_depthText;
+
+    D3D11_TEXTURE2D_DESC descTexture;
+    memset(&descTexture, 0, sizeof(descTexture));
+    descTexture.Height = height;
+    descTexture.Width = width;
+    descTexture.MipLevels = 1;
+    descTexture.ArraySize = 1;
+    descTexture.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+    descTexture.SampleDesc.Count = 1;
+    descTexture.SampleDesc.Quality = 0;
+    descTexture.Usage = D3D11_USAGE_DEFAULT;
+    descTexture.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+    descTexture.CPUAccessFlags = 0;
+    descTexture.MiscFlags = 0;
+
+    D3D11_SUBRESOURCE_DATA initBuffer;
+    memset(&initBuffer, 0, sizeof(initBuffer));
+
+    if (!m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_depthText->m_pd3dDepthStencil))
+    {
+      std::cout << "No se pudo crear depth sctencil";
+      return;
+    }
+
+    return m_depthText;
+
+  }
+
+  void
+  cleanDepthStencil(DepthStencil* depthStencil) {
+    
+    DepthStencilDX* m_depthText = reinterpret_cast<DepthStencilDX*>(depthStencil);
+    m_depthText->m_pd3dDepthStencil->Release();
   }
 
   void

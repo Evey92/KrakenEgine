@@ -1,5 +1,7 @@
 #pragma once
 #include "kraPrerequisitesUtil.h"
+#include "kraVector2.h"
+#include "kraVector3.h"
 #include "kraVector4.h"
 
 namespace kraEngineSDK {
@@ -9,7 +11,7 @@ namespace kraEngineSDK {
   class Vector2;
 
 
-  class KRA_UTILITY_EXPORT Vertex
+  class Vertex
   {
   public:
 
@@ -19,7 +21,7 @@ namespace kraEngineSDK {
       Pos.w = 1.0f;
     }
 
-    Vertex(Vertex& copyVert)
+    Vertex(const Vertex& copyVert)
     {
       Pos.x = copyVert.Pos.x;
       Pos.y = copyVert.Pos.y;

@@ -185,7 +185,7 @@
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
       <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(SolutionDir)kraCore/include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>KRA_UTILITY_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>KRA_UTILGFX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -209,7 +209,7 @@
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
       <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(SolutionDir)kraCore/include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>KRA_UTILITY_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>KRA_UTILGFX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>

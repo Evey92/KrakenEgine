@@ -141,5 +141,8 @@
     <ClInclude Include="CameraManager.h">
       <Filter>Source Files\Include</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraMacros.h">
+      <Filter>Source Files\Include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -44,7 +44,8 @@ namespace kraEngineSDK {
 
     DeviceDX m_device;
     RenderTargetViewDX m_renderTargetView;
-    DepthStencilDX m_depthStencil;
+    DepthStencilDX* m_depthStencil;
+    DepthStencil m_depthS;
     DepthStencylViewDX m_depthStencilView;
     ViewportDX m_viewport;
     VertexShaderDX m_vertexShader;

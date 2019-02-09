@@ -3,7 +3,7 @@
 
 namespace kraEngineSDK {
 
-  class KRA_CORE_EXPORT RenderTargetView
+  class RenderTargetView
   {
    public:
     

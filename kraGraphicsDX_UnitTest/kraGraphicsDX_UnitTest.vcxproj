@@ -156,7 +156,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)googletest/lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kraCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kraUtilities.lib;gtest.lib;gtest_main.lib;kraCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -181,7 +181,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)googletest/lib/$(PlatformTarget)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kraCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kraUtilities.lib;gtest.lib;gtest_main.lib;kraCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -9,10 +9,7 @@ namespace kraEngineSDK {
 
     hr = compileShaderFromFile(fileName, entryPoint, "ps_4_0", reinterpret_cast<void**>(m_blob));
 
-    if (FAILED(hr))
-    {
-      return hr;
-    }
+    return !FAILED(hr);
   }
 
   bool
@@ -24,11 +21,7 @@ namespace kraEngineSDK {
     hr = m_pDevice->CreatePixelShader(m_blob->GetBufferPointer(),
                                     m_blob->GetBufferSize(),
                                     NULL, &m_pPixelShader);
-    if (FAILED(hr))
-    {
-      m_blob->Release();
-      return hr;
-    }
+    return !FAILED(hr);
   }
 
   void

@@ -7,13 +7,5 @@
  /*****************************************************************************/
 #include "kraPlatformDefines.h"
 #include "kraPlatformTypes.h"        //Platform types
+#include "kraMacros.h"
 #include "kraStdheaders.h"
-
-namespace kraEngineSDK
-{
-  /*template<class T, Args &&...arg>
-  {
-
-  }*/
-
-}

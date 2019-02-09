@@ -4,7 +4,7 @@
 namespace kraEngineSDK {
 
   template<typename TCONST>
-  class KRA_CORE_EXPORT kraConstantBuffer : public GraphicsBuffer
+  class kraConstantBuffer : public GraphicsBuffer
   {
 
   public:

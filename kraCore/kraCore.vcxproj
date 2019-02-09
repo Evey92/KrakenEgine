@@ -197,6 +197,7 @@
     <ClInclude Include="include\kraVertexBuffer.h" />
     <ClInclude Include="include\kraVertexShader.h" />
     <ClInclude Include="include\kraViewport.h" />
+    <ClInclude Include="include\RenderAPIManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp" />
@@ -221,6 +222,7 @@
     <ClCompile Include="src\kraVertexBuffer.cpp" />
     <ClCompile Include="src\kraVertexShader.cpp" />
     <ClCompile Include="src\kraViewport.cpp" />
+    <ClCompile Include="src\RenderAPIManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

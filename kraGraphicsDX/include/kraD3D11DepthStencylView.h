@@ -6,7 +6,7 @@
 
 namespace kraEngineSDK {
   
-  class KRA_UTILGFX_EXPORT DepthStencylViewDX //: public DepthStencylView
+  class KRA_UTILGFX_EXPORT DepthStencylViewDX : public DepthStencylView
   {
    public:
      DepthStencylViewDX() = default;

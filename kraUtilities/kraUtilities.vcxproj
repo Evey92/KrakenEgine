@@ -204,6 +204,7 @@
     <ClInclude Include="include\kraAABB.h" />
     <ClInclude Include="include\kraBox2d.h" />
     <ClInclude Include="include\kraFrustrum.h" />
+    <ClInclude Include="include\kraMacros.h" />
     <ClInclude Include="include\kraMath.h" />
     <ClInclude Include="include\kraMatrix4.h" />
     <ClInclude Include="include\kraModule.h" />

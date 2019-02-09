@@ -3,13 +3,13 @@
 #include "kraDepthStencil.h"
 
 namespace kraEngineSDK {
-  class KRA_CORE_EXPORT DepthStencylView
+  class DepthStencylView
   {
   public:
     
     DepthStencylView() = default;
     virtual
-      ~DepthStencylView() {}
+    ~DepthStencylView() = default;
 
     virtual bool
     createDepthStencilView(void* pDevice,

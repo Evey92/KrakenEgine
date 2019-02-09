@@ -4,7 +4,7 @@
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT RenderTargetViewDX //: public RenderTargetView
+  class KRA_UTILGFX_EXPORT RenderTargetViewDX : public RenderTargetView
   {
     public:
 

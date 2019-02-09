@@ -7,11 +7,12 @@ namespace kraEngineSDK {
   bool
   GraphicsAPIDX::initializeAPI(void* g_hWnd) {
     
-    HWND* m_hWnd = reinterpret_cast<HWND*>(g_hWnd);
+    HWND m_hWnd = reinterpret_cast<HWND>(g_hWnd);
 
     HRESULT hr = S_OK;
     /*
     * Init device and Swap Chain
+    
     * Create Render target view
     * Create Depth Stencil texture
     * Create Depth Stencil view
@@ -38,9 +39,7 @@ namespace kraEngineSDK {
     m_renderTargetView.createRenderTargetView(reinterpret_cast<void*>(m_device.m_pd3dDevice),
                                              reinterpret_cast<void*>(m_device.m_pSwapChain));
 
-    m_depthStencil.createDepthStencil(reinterpret_cast<void*>(m_device.m_pd3dDevice),
-                                      m_device.m_height,
-                                      m_device.m_width);
+    //m_depthStencil = m_device.createDepthStencil(&m_depthS, m_device.m_height, m_device.m_width);
 
     m_depthStencilView.createDepthStencilView(reinterpret_cast<void*>(m_device.m_pd3dDevice),
       reinterpret_cast<void*>(&m_depthStencil));
@@ -333,7 +332,7 @@ namespace kraEngineSDK {
     m_inputLayout.cleanInputLayout();
     m_vertexShader.cleanShader();
     m_pixelShader.cleanShader();
-    m_depthStencil.cleanDepthStencil();
+    m_device.cleanDepthStencil(&m_depthS);
     m_depthStencilView.cleanDSV();
     m_renderTargetView.cleanRTV();
     m_device.cleanSwapChain();
