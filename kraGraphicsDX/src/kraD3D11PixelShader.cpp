@@ -1,4 +1,7 @@
+#include <kraDevice.h>
+
 #include "kraD3D11PixelShader.h"
+#include "kraD3D11Device.h"
 
 namespace kraEngineSDK {
 
@@ -13,15 +16,27 @@ namespace kraEngineSDK {
   }
 
   bool
-  PixelShaderDX::createPixelShader(void* pDevice) {
+  PixelShaderDX::createPixelShader(Device* pDevice) {
 
-    ID3D11Device* m_pDevice = reinterpret_cast<ID3D11Device*>(pDevice);
+    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
 
     HRESULT hr = S_OK;
-    hr = m_pDevice->CreatePixelShader(m_blob->GetBufferPointer(),
+
+    hr = m_pDevice->m_pd3dDevice->CreatePixelShader(m_blob->GetBufferPointer(),
+                                                    m_blob->GetBufferSize(),
+                                                    NULL,
+                                                    &m_pPixelShader);
+
+    /*hr = m_pDevice->CreatePixelShader(m_blob->GetBufferPointer(),
                                     m_blob->GetBufferSize(),
-                                    NULL, &m_pPixelShader);
-    return !FAILED(hr);
+                                    NULL, &m_pPixelShader);*/
+
+    if (FAILED(hr))
+    {
+      return false;
+    }
+
+    return true;
   }
 
   void

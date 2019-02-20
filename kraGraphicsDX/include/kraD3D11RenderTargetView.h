@@ -4,6 +4,10 @@
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
+
+  class Device;
+  class SwapChain;
+
   class KRA_UTILGFX_EXPORT RenderTargetViewDX : public RenderTargetView
   {
     public:
@@ -12,8 +16,7 @@ namespace kraEngineSDK {
     ~RenderTargetViewDX() {}
 
     bool
-    createRenderTargetView(void* pDevice,
-                           void* pSwapChain);
+    createRenderTargetView(Device* pDevice);
     void 
     cleanRTV();
 

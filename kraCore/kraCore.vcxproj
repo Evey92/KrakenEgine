@@ -172,8 +172,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\Camera.h" />
-    <ClInclude Include="include\CameraManager.h" />
+    <ClInclude Include="include\kraCamera.h" />
+    <ClInclude Include="include\kraCameraManager.h" />
     <ClInclude Include="include\kraBaseApplication.h" />
     <ClInclude Include="include\kraConstantBuffer.h" />
     <ClInclude Include="include\kraDepthStencil.h" />
@@ -197,11 +197,11 @@
     <ClInclude Include="include\kraVertexBuffer.h" />
     <ClInclude Include="include\kraVertexShader.h" />
     <ClInclude Include="include\kraViewport.h" />
-    <ClInclude Include="include\RenderAPIManager.h" />
+    <ClInclude Include="include\kraRenderAPIManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\CameraManager.cpp" />
+    <ClCompile Include="src\kraCamera.cpp" />
+    <ClCompile Include="src\kraCameraManager.cpp" />
     <ClCompile Include="src\kraBaseApplication.cpp" />
     <ClCompile Include="src\kraConstantBuffer.cpp" />
     <ClCompile Include="src\kraDepthStencil.cpp" />
@@ -222,7 +222,7 @@
     <ClCompile Include="src\kraVertexBuffer.cpp" />
     <ClCompile Include="src\kraVertexShader.cpp" />
     <ClCompile Include="src\kraViewport.cpp" />
-    <ClCompile Include="src\RenderAPIManager.cpp" />
+    <ClCompile Include="src\kraRenderAPIManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

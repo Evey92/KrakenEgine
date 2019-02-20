@@ -13,7 +13,6 @@ namespace kraEngineSDK {
      DepthStencilDX() = default;
      ~DepthStencilDX() = default;
 
-     
      ID3D11Texture2D* m_pd3dDepthStencil;
   };
 }

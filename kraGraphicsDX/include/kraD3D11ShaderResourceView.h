@@ -2,6 +2,7 @@
 #include <kraShaderResourceView.h>
 
 #include "kraPrerequisitesGFX.h"
+
 namespace kraEngineSDK {
   class KRA_UTILGFX_EXPORT ShaderResourceViewDX : public ShaderResourceView 
   {
@@ -10,9 +11,10 @@ namespace kraEngineSDK {
     ~ShaderResourceViewDX() {}
 
     bool
-    createShaderResourceView(void* pDevice, void* texture);
+    createShaderResourceView(Device* pDevice, Texture* texture);
+    
     void
-    setShaderResourceView(void* pDeviceContext);
+    setShaderResourceView(Device* pDeviceContext);
 
     ID3D11ShaderResourceView* m_pTextureRV;
   };

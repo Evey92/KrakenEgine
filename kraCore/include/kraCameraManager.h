@@ -1,6 +1,6 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
-#include "Camera.h"
+#include "kraCamera.h"
 
 namespace kraEngineSDK {
   class KRA_CORE_EXPORT CameraManager {

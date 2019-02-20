@@ -1,5 +1,6 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
+#include "kraDevice.h"
 
 namespace kraEngineSDK {
   class KRA_CORE_EXPORT SamplerState
@@ -10,7 +11,7 @@ namespace kraEngineSDK {
     ~SamplerState() {}
 
     virtual bool
-    createSamplerState(void* pDevice) = 0;
+    createSamplerState(Device* pDevice) = 0;
 
   };
 }

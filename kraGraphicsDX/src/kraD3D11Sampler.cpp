@@ -1,12 +1,14 @@
-#include "kraD3D11Sampler.h"
+#include <kraDevice.h>
 
+#include "kraD3D11Sampler.h"
+#include "kraD3D11Device.h"
 
 namespace kraEngineSDK {
   
   bool
-  SamplerStateDX::createSamplerState(void* pDevice) {
+  SamplerStateDX::createSamplerState(Device* pDevice) {
 
-    ID3D11Device* m_pDevice = reinterpret_cast<ID3D11Device*>(pDevice);
+    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
 
     HRESULT hr = S_OK;
 
@@ -19,13 +21,14 @@ namespace kraEngineSDK {
     sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
     sampDesc.MinLOD = 0;
     sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
-    hr = m_pDevice->CreateSamplerState(&sampDesc, &m_samplerState);
-    
+
+    hr = m_pDevice->m_pd3dDevice->CreateSamplerState(&sampDesc, &m_samplerState);
+        
     if (FAILED(hr)) {
-      return hr;
+      return false;
     }
 
-    return hr;
+    return true;
   }
 
 }

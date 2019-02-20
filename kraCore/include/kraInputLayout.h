@@ -1,5 +1,6 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
+#include "kraDevice.h"
 #include "kraVertexShader.h"
 
 namespace kraEngineSDK {
@@ -22,9 +23,9 @@ namespace kraEngineSDK {
     virtual void
     defineTexcoordLayout() = 0;
     virtual void
-    createInputLayout(void* pd3dDevice, void* pVShader) = 0;
+    createInputLayout(Device* pd3dDevice, VertexShader* pVShader) = 0;
     virtual void
-      setInputLayout(void* pDeviceContext) = 0;
+      setInputLayout(Device* pDeviceContext) = 0;
     virtual void
       cleanInputLayout() = 0;
   };

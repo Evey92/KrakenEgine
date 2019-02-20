@@ -1,4 +1,8 @@
 #include "kraD3D11InputLayout.h"
+#include <kraDevice.h>
+#include <kraVertexShader.h>
+#include "kraD3D11Device.h"
+#include "kraD3D11VertexShader.h"
 
 namespace kraEngineSDK {
 
@@ -132,21 +136,29 @@ namespace kraEngineSDK {
   }
 
   void
-  InputLayoutDX::createInputLayout(void* pDevice, void* pVShader) {
+  InputLayoutDX::createInputLayout(Device* pDevice, VertexShader* pVShader) {
 
-    ID3D11Device* m_pDevice = reinterpret_cast<ID3D11Device*>(pDevice);
+    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
     VertexShaderDX* m_pVShader = reinterpret_cast<VertexShaderDX*>(pVShader);
 
-    m_pDevice->CreateInputLayout(&layoutDescVector[0], (uint32)layoutDescVector.size(), m_pVShader->m_blob->GetBufferPointer(), m_pVShader->m_blob->GetBufferSize(), &m_pVertexLayout);
+    m_pDevice->m_pd3dDevice->CreateInputLayout(&layoutDescVector[0], 
+                                               (uint32)layoutDescVector.size(), 
+                                               m_pVShader->m_blob->GetBufferPointer(),
+                                               m_pVShader->m_blob->GetBufferSize(),
+                                               &m_pVertexLayout);
+
+    //m_pDevice->CreateInputLayout(&layoutDescVector[0], (uint32)layoutDescVector.size(), m_pVShader->m_blob->GetBufferPointer(), m_pVShader->m_blob->GetBufferSize(), &m_pVertexLayout);
+    
     m_pVShader->m_blob->Release();
   }
 
   void
-  InputLayoutDX::setInputLayout(void* pDeviceContext) {
+  InputLayoutDX::setInputLayout(Device* pDevice) {
 
-    ID3D11DeviceContext* m_pDeviceContext = reinterpret_cast<ID3D11DeviceContext*>(pDeviceContext);
+    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
 
-    m_pDeviceContext->IASetInputLayout(m_pVertexLayout);
+    m_pDevice->m_pImmediateContext->IASetInputLayout(m_pVertexLayout);
+    
   }
 
   void

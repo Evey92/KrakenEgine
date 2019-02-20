@@ -13,8 +13,8 @@ namespace kraEngineSDK {
     ~DepthStencylViewDX() {}
 
     bool
-    createDepthStencilView(void* pDevice,
-                           void* pDepthStencil);
+    createDepthStencilView(Device* pDevice,
+                           DepthStencil* pDepthStencil);
 
     void
     cleanDSV();

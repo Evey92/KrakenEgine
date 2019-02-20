@@ -9,7 +9,6 @@
 
 
 namespace kraEngineSDK {
-  class DepthStencil;
 
   class KRA_UTILGFX_EXPORT DeviceDX : public Device
   {
@@ -39,7 +38,7 @@ namespace kraEngineSDK {
     uint32 m_width;
     ID3D11Device* m_pd3dDevice = nullptr;
     ID3D11DeviceContext* m_pImmediateContext = nullptr;
-    IDXGISwapChain* m_pSwapChain = nullptr; // not anymore
+    SwapChainDX* m_pSwapChain;
   };
 }
 

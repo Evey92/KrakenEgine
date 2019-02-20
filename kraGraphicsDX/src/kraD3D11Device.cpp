@@ -30,9 +30,8 @@ namespace kraEngineSDK {
     featureLevels.push_back(D3D_FEATURE_LEVEL_11_0);
     featureLevels.push_back(D3D_FEATURE_LEVEL_10_1);
     featureLevels.push_back(D3D_FEATURE_LEVEL_10_0);
-
     
-
+    
     DXGI_SWAP_CHAIN_DESC sd;
     memset(&sd, 0, sizeof(sd));
     sd.BufferCount = 1;
@@ -47,6 +46,7 @@ namespace kraEngineSDK {
     sd.SampleDesc.Quality = 0;
     sd.Windowed = TRUE;
 
+
     D3D_FEATURE_LEVEL selectedFL;
 
     for (size_t driverTypeIndex = 0;
@@ -58,7 +58,7 @@ namespace kraEngineSDK {
         createDeviceFlags, &featureLevels[0],
         static_cast<UINT>(featureLevels.size()),
         D3D11_SDK_VERSION,
-        &sd, &m_pSwapChain,
+        &sd, &m_pSwapChain->m_pd3dSwapChain,
         &m_pd3dDevice, &selectedFL,
         &m_pImmediateContext);
 
@@ -104,10 +104,10 @@ namespace kraEngineSDK {
     D3D11_SUBRESOURCE_DATA initBuffer;
     memset(&initBuffer, 0, sizeof(initBuffer));
 
-    if (!m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_depthText->m_pd3dDepthStencil))
+    if (!m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_depthText.m_pd3dDepthStencil))
     {
       std::cout << "No se pudo crear depth sctencil";
-      return;
+
     }
 
     return m_depthText;
@@ -115,11 +115,12 @@ namespace kraEngineSDK {
   }
 
   void
-  cleanDepthStencil(DepthStencil* depthStencil) {
-    
+  DeviceDX::cleanDepthStencil(DepthStencil* depthStencil)
+  {
     DepthStencilDX* m_depthText = reinterpret_cast<DepthStencilDX*>(depthStencil);
     m_depthText->m_pd3dDepthStencil->Release();
   }
+
 
   void
   DeviceDX::cleanContext() {
@@ -133,7 +134,7 @@ namespace kraEngineSDK {
 
   void
   DeviceDX::cleanSwapChain() {
-    m_pSwapChain->Release();
+    m_pSwapChain->m_pd3dSwapChain->Release();
   }
 
   void

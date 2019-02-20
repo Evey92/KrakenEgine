@@ -1,10 +1,12 @@
 #pragma once
 #include <kraInputLayout.h>
-
 #include "kraPrerequisitesGFX.h"
-#include "kraD3D11VertexShader.h"
+
 
 namespace kraEngineSDK {
+  class Device;
+  class VertexShader;
+
   class KRA_UTILGFX_EXPORT InputLayoutDX : public InputLayout
   {
   public:
@@ -23,9 +25,9 @@ namespace kraEngineSDK {
     void
     defineTexcoordLayout();
     void
-    createInputLayout(void* pd3dDevice, void* pVShader);
+    createInputLayout(Device* pd3dDevice, VertexShader* pVShader);
     void
-    setInputLayout(void* pDeviceContext);
+    setInputLayout(Device* pDevice);
     void
     cleanInputLayout();
 

@@ -3,6 +3,9 @@
 #include "kraD3D11Shader.h"
 
 namespace kraEngineSDK {
+
+  class Device;
+
   class KRA_UTILGFX_EXPORT PixelShaderDX :
     public ShaderDX {
    
@@ -15,7 +18,7 @@ namespace kraEngineSDK {
                        const char* entryPoint);
 
     bool
-    createPixelShader(void*  pDevice);
+    createPixelShader(Device*  pDevice);
 
     void
     cleanShader();

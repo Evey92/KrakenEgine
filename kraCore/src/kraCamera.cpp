@@ -1,4 +1,4 @@
-#include "Camera.h"
+#include "kraCamera.h"
 
 namespace kraEngineSDK {
 

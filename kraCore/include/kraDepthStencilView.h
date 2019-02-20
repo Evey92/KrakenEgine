@@ -1,5 +1,6 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
+#include "kraDevice.h"
 #include "kraDepthStencil.h"
 
 namespace kraEngineSDK {
@@ -12,8 +13,8 @@ namespace kraEngineSDK {
     ~DepthStencylView() = default;
 
     virtual bool
-    createDepthStencilView(void* pDevice,
-        void* pDepthStencil) = 0;
+    createDepthStencilView(Device* pDevice,
+        DepthStencil* pDepthStencil) = 0;
 
     virtual void
     cleanDSV() = 0;

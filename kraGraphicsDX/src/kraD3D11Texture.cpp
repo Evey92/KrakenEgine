@@ -1,14 +1,16 @@
+#include <kraDevice.h>
 #include "kraD3D11Texture.h"
+#include "kraD3D11Device.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
 namespace kraEngineSDK {
 
   void
-  TextureDX::createTexture2D(void* pDevice, int height, int width,
+  TextureDX::createTexture2D(Device* pDevice, int height, int width,
                              void* format, void* bindFlag) {
 
-    ID3D11Device* m_pDevice = reinterpret_cast<ID3D11Device*>(pDevice);
+    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
     DXGI_FORMAT* m_format = reinterpret_cast<DXGI_FORMAT*>(format);
     D3D11_BIND_FLAG* m_bindFlag = reinterpret_cast<D3D11_BIND_FLAG*>(bindFlag);
 
@@ -28,7 +30,7 @@ namespace kraEngineSDK {
 
     D3D11_SUBRESOURCE_DATA initBuffer;
     memset(&initBuffer, 0, sizeof(initBuffer));
-    m_pDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
+    m_pDevice->m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
   }
 
   void

@@ -10,7 +10,7 @@ namespace kraEngineSDK {
    public:
 
      DepthStencil() = default;
-     virtual ~DepthStencil() {};
+     virtual ~DepthStencil() = default;
 
   };
 }

@@ -13,12 +13,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Camera.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CameraManager.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
     <ClInclude Include="include\kraBaseApplication.h">
       <Filter>Source Files\include</Filter>
     </ClInclude>
@@ -88,14 +82,17 @@
     <ClInclude Include="include\kraRenderTargetView.h">
       <Filter>Source Files\include</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraCamera.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraCameraManager.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraRenderAPIManager.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Camera.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CameraManager.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
     <ClCompile Include="src\kraBaseApplication.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
@@ -154,6 +151,15 @@
       <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="src\kraViewport.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraCamera.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraCameraManager.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraRenderAPIManager.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
   </ItemGroup>

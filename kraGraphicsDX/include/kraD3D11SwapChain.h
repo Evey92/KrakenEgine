@@ -13,7 +13,7 @@ namespace kraEngineSDK {
     void
     setSwapChainDescriptor(void* g_hWnd, 
                            int width,
-                           int height, void* swapDescriptor);
+                           int height);
 
     IDXGISwapChain* m_pd3dSwapChain = nullptr;
   };

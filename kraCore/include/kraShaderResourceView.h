@@ -1,7 +1,10 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
+#include "kraDevice.h"
+#include "kraTexture.h"
 
 namespace kraEngineSDK {
+
   class KRA_CORE_EXPORT ShaderResourceView
   {
   public:
@@ -10,8 +13,8 @@ namespace kraEngineSDK {
     ~ShaderResourceView() {}
 
     virtual bool
-    createShaderResourceView(void* pDevice, void* texture) = 0;
+    createShaderResourceView(Device* pDevice, Texture* texture) = 0;
     virtual void
-    setShaderResourceView(void* pDeviceContext) = 0;
+    setShaderResourceView(Device* pDeviceContext) = 0;
   };
 }

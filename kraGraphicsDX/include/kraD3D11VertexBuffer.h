@@ -16,32 +16,32 @@ namespace kraEngineSDK {
     ~VertexBufferDX() {}
 
     void
-      reserve(size_t numObjects) {
+    reserve(size_t numObjects) {
       m_vertexData.reserve(numObjects);
     }
 
     void
-      add(const TVERTEX& vertex) {
+    add(const TVERTEX& vertex) {
       m_vertexData.push_back(vertex);
     }
 
     void
-      add(const std::vector<TVERTEX>& vertices) {
+    add(const std::vector<TVERTEX>& vertices) {
       m_vertexData.insert(m_vertexData.end(), vertices.begin(), vertices.end());
     }
 
     void
-      add(const TVERTEX* pVertices, size_t numVertices) {
+    add(const TVERTEX* pVertices, size_t numVertices) {
       m_vertexData.insert(m_vertexData.end(), pVertices, pVertices + numVertices);
     }
 
     void
-      clear() {
+    clear() {
       m_vertexData.clear();
     }
 
     void
-      createHardwareBuffer(void* pDevice)
+    createHardwareBuffer(Device* pDevice)
     {
 
       ID3D11Device* m_pDevice = reinterpret_cast<ID3D11Device*>(pDevice);
