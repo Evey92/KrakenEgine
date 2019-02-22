@@ -5,7 +5,7 @@
 
 namespace kraEngineSDK {
 
-  class KRA_CORE_EXPORT ShaderResourceView
+  class ShaderResourceView
   {
   public:
     ShaderResourceView() = default;

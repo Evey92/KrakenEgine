@@ -1,9 +1,10 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
 #include "kraShader.h"
+#include "kraDevice.h"
 
 namespace kraEngineSDK {
-  class KRA_CORE_EXPORT PixelShader : public Shader {
+  class PixelShader : public Shader {
 
   public:
     PixelShader() = default;
@@ -15,7 +16,7 @@ namespace kraEngineSDK {
         const char* entryPoint) = 0;
 
     virtual bool
-    createPixelShader(void* pDevice) = 0;
+    createPixelShader(Device* pDevice) = 0;
 
     virtual void
     cleanShader() = 0;

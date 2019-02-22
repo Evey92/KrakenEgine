@@ -4,7 +4,7 @@
 namespace kraEngineSDK {
  
   template<typename TVERTEX>
-  class KRA_CORE_EXPORT VertexBuffer : public GraphicsBuffer
+  class VertexBuffer : public GraphicsBuffer
   {
 
   public:

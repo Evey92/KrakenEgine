@@ -2,7 +2,7 @@
 #include "kraPrerequisitesCore.h"
 
 namespace kraEngineSDK {
-  class DeviceContext
+  class  DeviceContext
   {
   public:
     

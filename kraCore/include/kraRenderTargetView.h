@@ -1,7 +1,10 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
+#include "kraRenderTargetView.h"
+#include "kraDevice.h"
 
 namespace kraEngineSDK {
+  class Device;
 
   class RenderTargetView
   {

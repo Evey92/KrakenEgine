@@ -1,3 +1,5 @@
+#include <kraDevice.h>
+
 #include "kraD3D11VertexShader.h"
 
 
@@ -17,19 +19,21 @@ namespace kraEngineSDK {
   }
 
   bool
-  VertexShaderDX::createVertexShader(void* pDevice) {
+  VertexShaderDX::createVertexShader(Device* pDevice) {
 
-    ID3D11Device* m_pDevice = reinterpret_cast<ID3D11Device*>(pDevice);
+    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
 
     HRESULT hr = S_OK;
-    hr = m_pDevice->CreateVertexShader(m_blob->GetBufferPointer(),
+    hr = m_pDevice->m_pd3dDevice->CreateVertexShader(m_blob->GetBufferPointer(),
                                      m_blob->GetBufferSize(),
                                      NULL, &m_pVertexShader);
     if (FAILED(hr))
     {
       m_blob->Release();
-      return hr;
+      return false;
     }
+
+    else return true;
   }
 
   void

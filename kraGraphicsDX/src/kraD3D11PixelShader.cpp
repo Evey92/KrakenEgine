@@ -27,9 +27,7 @@ namespace kraEngineSDK {
                                                     NULL,
                                                     &m_pPixelShader);
 
-    /*hr = m_pDevice->CreatePixelShader(m_blob->GetBufferPointer(),
-                                    m_blob->GetBufferSize(),
-                                    NULL, &m_pPixelShader);*/
+   
 
     if (FAILED(hr))
     {

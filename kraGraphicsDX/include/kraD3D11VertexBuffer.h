@@ -1,7 +1,7 @@
 #pragma once
 #include <d3d11.h>
 #include <vector>
-
+#include <kraDevice.h>
 #include "kraPrerequisitesGFX.h"
 #include "kraD3D11GraphicsBuffer.h"
 

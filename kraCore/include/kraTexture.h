@@ -1,8 +1,9 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
+#include "kraDevice.h"
 
 namespace kraEngineSDK {
-  class KRA_CORE_EXPORT Texture
+  class Texture
   {
    public:
      Texture() = default;
@@ -10,7 +11,7 @@ namespace kraEngineSDK {
      ~Texture() {}
 
     virtual void
-    createTexture2D(void* pDevice, int height, int width,
+    createTexture2D(Device* pDevice, int height, int width,
                     void* format, void* bindFlag) = 0;
     virtual void
       createTexture2D(void* pDevice, int height, int width,

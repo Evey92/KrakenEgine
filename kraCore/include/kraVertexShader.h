@@ -2,9 +2,10 @@
 #include "kraPrerequisitesCore.h"
 #include "kraGraphicsBuffer.h"
 #include "kraShader.h"
+#include "kraDevice.h"
 
 namespace kraEngineSDK {
-  class KRA_CORE_EXPORT  VertexShader :
+  class VertexShader :
     public Shader {
 
   public:
@@ -17,7 +18,7 @@ namespace kraEngineSDK {
         const char* entryPoint) = 0;
 
     virtual bool
-    createVertexShader(void* pDevice) = 0;
+    createVertexShader(Device* pDevice) = 0;
 
     virtual void
     cleanShader() = 0;

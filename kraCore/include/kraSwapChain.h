@@ -2,7 +2,7 @@
 #include "kraPrerequisitesCore.h"
 
 namespace kraEngineSDK {
-  class KRA_CORE_EXPORT SwapChain
+  class SwapChain
   {
   public:
     SwapChain() = default;

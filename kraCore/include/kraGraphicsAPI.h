@@ -4,7 +4,7 @@
 
 namespace kraEngineSDK {
 
-  class KRA_CORE_EXPORT GraphicsAPI
+  class GraphicsAPI
   {
   public:
 

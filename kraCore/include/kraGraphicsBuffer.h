@@ -4,7 +4,7 @@
 #include <vector>
 
 namespace kraEngineSDK {
-  class KRA_CORE_EXPORT GraphicsBuffer
+  class GraphicsBuffer
   {
    public:
 

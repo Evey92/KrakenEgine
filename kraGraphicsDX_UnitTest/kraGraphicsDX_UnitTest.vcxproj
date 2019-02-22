@@ -100,7 +100,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(SolutionDir)kraGraphicsDX_UnitTest/include/</AdditionalIncludeDirectories>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -121,7 +121,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(SolutionDir)kraGraphicsDX_UnitTest/include/</AdditionalIncludeDirectories>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -185,13 +185,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="kraGraphicsDX_UnitTest.h" />
+    <ClInclude Include="include\kraGraphicsDX_UnitTest.h" />
+    <ClInclude Include="include\kraApp.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="kraGraphicsDX_UnitTest.cpp" />
+    <ClCompile Include="src\kraApp.cpp" />
+    <ClCompile Include="src\kraGraphicsDX_UnitTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -10,6 +10,8 @@
 
 namespace kraEngineSDK {
 
+  class RenderTargetView;
+
   class KRA_UTILGFX_EXPORT DeviceDX : public Device
   {
 
@@ -20,8 +22,9 @@ namespace kraEngineSDK {
     bool
     initializeDevice(void* g_hWnd);
     void
-    setRenderTarget(void* pRTV, void* pDSV);
-    DepthStencil
+    setRenderTarget(RenderTargetView* pRTV, void* pDSV);
+
+    DepthStencil*
     createDepthStencil(int height, int width);
     void
     cleanDepthStencil(DepthStencil* depthStencil);

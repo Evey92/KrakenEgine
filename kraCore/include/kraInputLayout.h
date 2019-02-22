@@ -4,7 +4,7 @@
 #include "kraVertexShader.h"
 
 namespace kraEngineSDK {
-  class KRA_CORE_EXPORT InputLayout
+  class InputLayout
   {
    public:
 

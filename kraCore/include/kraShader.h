@@ -2,7 +2,7 @@
 #include "kraPrerequisitesCore.h"
 
 namespace kraEngineSDK {
-  class KRA_CORE_EXPORT Shader
+  class Shader
   {
   public:
     Shader() = default;

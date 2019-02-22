@@ -9,13 +9,13 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
 
-namespace kraEngineSdk {
-  class KRA_CORE_EXPORT kraBaseApplication
+namespace kraEngineSDK {
+  class KRA_CORE_EXPORT BaseApplication
   {
   public:
-    kraBaseApplication() = default;
+    BaseApplication() = default;
     virtual
-     ~kraBaseApplication() {}
+     ~BaseApplication() {}
 
     /**
     * @brief Main funtion to execute a program.
@@ -101,8 +101,9 @@ namespace kraEngineSdk {
     /**
     * @brief Function to create an specific type of Graphics API.
     */
-    void
-    CreateGraphicsAPI();
-
   };
+
+
+  
+
 }

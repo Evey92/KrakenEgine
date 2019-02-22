@@ -42,8 +42,8 @@ namespace kraEngineSDK {
     void
     Cleanup();
 
-    DeviceDX m_device;
-    RenderTargetViewDX m_renderTargetView;
+    DeviceDX* m_device;
+    /*RenderTargetViewDX m_renderTargetView;
     DepthStencilDX* m_depthStencil;
     DepthStencil m_depthS;
     DepthStencylViewDX m_depthStencilView;
@@ -60,14 +60,10 @@ namespace kraEngineSDK {
     TextureDX m_texture;
     ShaderResourceViewDX m_shaderRV;
     SamplerStateDX m_samplerState;
+    */
     Matrix4 m_World;
     Matrix4 m_View;
     Matrix4 m_Projection;
     Vector4 m_meshColor = Vector4(.7f, .7f, .7f, 1.0f);
   };
-
-  /*extern "C" KRA_UTILGFX_EXPORT
-  kraEngineSDK::GraphicsAPI* createGFXAPI() {
-    return new kraEngineSDK::GraphicsAPIDX();
-  }*/
 }

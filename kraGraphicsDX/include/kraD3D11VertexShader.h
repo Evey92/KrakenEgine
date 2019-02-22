@@ -2,8 +2,11 @@
 #include "kraPrerequisitesGFX.h"
 #include "kraD3D11GraphicsBuffer.h"
 #include "kraD3D11Shader.h"
+#include "kraD3D11Device.h"
 
 namespace kraEngineSDK {
+  class Device;
+
   class KRA_UTILGFX_EXPORT  VertexShaderDX : public ShaderDX {
 
   public:
@@ -15,7 +18,7 @@ namespace kraEngineSDK {
                         const char* entryPoint);
 
     bool
-    createVertexShader(void* pDevice);
+    createVertexShader(Device* pDevice);
 
     void 
     cleanShader();

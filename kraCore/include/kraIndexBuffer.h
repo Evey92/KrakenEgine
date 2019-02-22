@@ -4,7 +4,7 @@
 namespace kraEngineSDK {
 
   template<typename TINDEX>
-  class KRA_CORE_EXPORT IndexBuffer : public GraphicsBuffer
+  class IndexBuffer : public GraphicsBuffer
   {
 
    public:

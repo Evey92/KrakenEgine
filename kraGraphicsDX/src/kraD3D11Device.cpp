@@ -1,7 +1,8 @@
 #include <kraDepthStencil.h>
+#include <kraRenderTargetView.h>
 
 #include "kraD3D11Device.h"
-
+#include "kraD3D11RenderTargetView.h"
 namespace kraEngineSDK {
 
   bool
@@ -74,15 +75,15 @@ namespace kraEngineSDK {
   }
 
   void
-  DeviceDX::setRenderTarget(void* pRTV, void* pDSV) {
+  DeviceDX::setRenderTarget(RenderTargetView* pRTV, void* pDSV) {
     
-    ID3D11RenderTargetView* m_pRTV = reinterpret_cast<ID3D11RenderTargetView*>(pRTV);
+    RenderTargetViewDX* m_pRTV = reinterpret_cast<RenderTargetViewDX*>(pRTV);
     ID3D11DepthStencilView* m_pDSV = reinterpret_cast<ID3D11DepthStencilView*>(pDSV);
 
-    m_pImmediateContext->OMSetRenderTargets(1, &m_pRTV, m_pDSV);
+    m_pImmediateContext->OMSetRenderTargets(1, &m_pRTV->m_pRenderTargetView, m_pDSV);
   }
 
-  DepthStencil
+  DepthStencil*
   DeviceDX::createDepthStencil(int height, int width) {
     
     DepthStencilDX m_depthText;
@@ -110,7 +111,7 @@ namespace kraEngineSDK {
 
     }
 
-    return m_depthText;
+    return &m_depthText;
 
   }
 
