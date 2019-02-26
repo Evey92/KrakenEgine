@@ -10,10 +10,9 @@ namespace kraEngineSDK {
     
     if (!m_APIInitialized) {
       m_APIInitialized = true;
-      return new GraphicsAPIDX();
+      return &GraphicsAPIDX();
     }
 
     return nullptr;
   }
-
 }

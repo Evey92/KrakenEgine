@@ -9,7 +9,10 @@ class App : public BaseApplication
 {
  
  public:
-  void startUp(GraphicsAPI* APIInstance);
+  void
+  startUp(GraphicsAPI* APIInstance);
+  HINSTANCE
+  loadDLL();
 
   RenderAPIManager* apiManager;
   

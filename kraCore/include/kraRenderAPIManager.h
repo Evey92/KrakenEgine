@@ -9,7 +9,7 @@ namespace kraEngineSDK {
    public:
 
     RenderAPIManager() = default;
-    RenderAPIManager() {}
+    ~RenderAPIManager() {}
 
     virtual GraphicsAPI*
     initializeGraphicsAPI() = 0;
