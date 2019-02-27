@@ -59,7 +59,7 @@ namespace kraEngineSDK {
         createDeviceFlags, &featureLevels[0],
         static_cast<UINT>(featureLevels.size()),
         D3D11_SDK_VERSION,
-        &sd, &m_pSwapChain->m_pd3dSwapChain,
+        &sd, &m_pSwapChain.m_pd3dSwapChain,
         &m_pd3dDevice, &selectedFL,
         &m_pImmediateContext);
 
@@ -135,11 +135,43 @@ namespace kraEngineSDK {
 
   void
   DeviceDX::cleanSwapChain() {
-    m_pSwapChain->m_pd3dSwapChain->Release();
+    m_pSwapChain.m_pd3dSwapChain->Release();
   }
 
   void
   DeviceDX::cleanContextState() {
     m_pImmediateContext->ClearState();
   }
+
+  void
+  DeviceDX::setPrimitiveTopology() {
+    m_pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+  }
+
+  uint32
+  DeviceDX::getHeight() {
+    return m_height;
+  }
+
+  uint32
+  DeviceDX::getWidth() {
+    return m_width;
+  }
+
+  void
+  DeviceDX::Draw(uint32 numVertex, uint32 startIndex) {
+    m_pImmediateContext->Draw(numVertex, startIndex);
+  }
+
+  void
+  DeviceDX::DrawIndexed() {
+
+  }
+
+  //TODO fix this bullshit.
+  void
+  DeviceDX::PresentSwapChain() {
+    m_pSwapChain.present(0,0);
+  }
+
 }

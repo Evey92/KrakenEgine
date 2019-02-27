@@ -19,7 +19,8 @@ namespace kraEngineSDK {
     createRenderTargetView(Device* pDevice);
     void 
     cleanRTV();
-
+    void
+    clearRenderTargetView(Device* pDevice, Vector4 clearColor);
     ID3D11RenderTargetView* m_pRenderTargetView;
   };
 }

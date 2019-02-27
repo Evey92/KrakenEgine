@@ -2,9 +2,10 @@
 #include <d3d11.h>
 #include <vector>
 #include <kraDevice.h>
+
 #include "kraPrerequisitesGFX.h"
 #include "kraD3D11GraphicsBuffer.h"
-
+#include "kraDevice.h"
 
 namespace kraEngineSDK {
 
@@ -44,7 +45,7 @@ namespace kraEngineSDK {
     createHardwareBuffer(Device* pDevice)
     {
 
-      ID3D11Device* m_pDevice = reinterpret_cast<ID3D11Device*>(pDevice);
+      DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
       //D3D11_USAGE m_usage = usage;
 
       D3D11_BUFFER_DESC bd;
@@ -59,7 +60,7 @@ namespace kraEngineSDK {
       memset(&InitData, 0, sizeof(InitData));
       InitData.pSysMem = &m_vertexData[0];
 
-      HRESULT hr = m_pDevice->CreateBuffer(&bd, &InitData, &m_pBuffer);
+      HRESULT hr = m_pDevice->m_pd3dDevice->CreateBuffer(&bd, &InitData, &m_pBuffer);
       if (FAILED(hr))
       {
         throw std::exception("Failed to create Vertex Buffer.");
@@ -67,13 +68,13 @@ namespace kraEngineSDK {
     }
 
     void
-      setVertexBuffer(void* pImmediateContext)
+      setVertexBuffer(Device* pImmediateContext)
     {
-      ID3D11DeviceContext* m_immediatecontext = reinterpret_cast<ID3D11DeviceContext*>(pImmediateContext);
+      DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pImmediateContext);
 
       uint32 stride = sizeof(TVERTEX);
       uint32 offset = 0;
-      m_immediatecontext->IASetVertexBuffers(0, 1, &m_pBuffer, &stride, &offset);
+      m_pDevice->m_pImmediateContext->IASetVertexBuffers(0, 1, &m_pBuffer, &stride, &offset);
     }
 
     void

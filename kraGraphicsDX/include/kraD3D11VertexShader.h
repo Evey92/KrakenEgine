@@ -16,12 +16,13 @@ namespace kraEngineSDK {
     bool
     compileVertexShader(const wchar_t* fileName,
                         const char* entryPoint);
-
     bool
     createVertexShader(Device* pDevice);
-
     void 
     cleanShader();
+    void
+    setVertexShader(Device* pDevice);
+
     ID3DBlob* m_blob = nullptr;
     ID3D11VertexShader* m_pVertexShader;
   };

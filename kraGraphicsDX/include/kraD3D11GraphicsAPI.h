@@ -23,7 +23,7 @@
 #include "ConstantBufferMatrices.h"
 #include "kraD3D11ShaderResourceView.h"
 #include "kraD3D11Sampler.h"
-#include "ConstantBufferMatrices.h"
+
 
 
 namespace kraEngineSDK {
@@ -32,17 +32,17 @@ namespace kraEngineSDK {
   class KRA_UTILGFX_EXPORT GraphicsAPIDX : public GraphicsAPI
   {
    public:
-    GraphicsAPIDX() = default;
+     GraphicsAPIDX() = default;
     ~GraphicsAPIDX() {}
     
-    bool
+    Device*
     initializeAPI(void* g_hWnd);
     void 
     Render();
     void
     Cleanup();
 
-    DeviceDX* m_device;
+    DeviceDX m_device;
     /*RenderTargetViewDX m_renderTargetView;
     DepthStencilDX* m_depthStencil;
     DepthStencil m_depthS;

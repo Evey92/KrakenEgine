@@ -23,4 +23,9 @@ namespace kraEngineSDK {
     sd.Windowed = TRUE;
   }
 
+  void
+  SwapChainDX::present(uint32 interval, uint32 flags) {
+    m_pd3dSwapChain->Present(interval, flags);
+  }
+
 }

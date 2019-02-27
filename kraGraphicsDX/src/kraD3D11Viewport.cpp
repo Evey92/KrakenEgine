@@ -1,5 +1,7 @@
+#include <kraDevice.h>
 #include "kraD3D11Viewport.h"
 
+#include "kraD3D11Device.h"
 
 namespace kraEngineSDK {
 
@@ -15,10 +17,10 @@ namespace kraEngineSDK {
   }
 
   void
-    ViewportDX::setViewport(void* pDeviceContext) {
+    ViewportDX::setViewport(Device* pDeviceContext) {
 
-    ID3D11DeviceContext* m_pDeviceContext = reinterpret_cast<ID3D11DeviceContext*>(pDeviceContext);
+    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDeviceContext);
 
-    m_pDeviceContext->RSSetViewports(1, &m_pd3dviewport);
+    m_pDevice->m_pImmediateContext->RSSetViewports(1, &m_pd3dviewport);
   }
 }

@@ -11,7 +11,9 @@ namespace kraEngineSDK {
 
     virtual void setSwapChainDescriptor(void* g_hWnd,
                                          int width,
-                                         int height, void* swapDescriptor) = 0;
-
+                                         int height) = 0;
+    virtual void
+    present(uint32 interval, uint32 flags) = 0;
+  
   };
 }

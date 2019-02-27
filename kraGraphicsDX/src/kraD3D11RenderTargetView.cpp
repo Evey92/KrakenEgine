@@ -17,7 +17,7 @@ namespace kraEngineSDK {
     ID3D11Texture2D* pBackBuffer = NULL;
     HRESULT hr = S_OK;
     
-    hr = m_pDevice->m_pSwapChain->m_pd3dSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
+    hr = m_pDevice->m_pSwapChain.m_pd3dSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
 
     if (FAILED(hr))
       return hr;
@@ -31,6 +31,14 @@ namespace kraEngineSDK {
   void
   RenderTargetViewDX::cleanRTV() {
     m_pRenderTargetView->Release();
+  }
+
+  void
+  RenderTargetViewDX::clearRenderTargetView(Device* pDevice, Vector4 clearColor) {
+    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
+
+    m_pDevice->m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView,
+                                                          &clearColor[0]);
   }
 
 }

@@ -40,4 +40,13 @@ namespace kraEngineSDK {
   VertexShaderDX::cleanShader() {
     m_pVertexShader->Release();
   }
+
+  void
+  VertexShaderDX::setVertexShader(Device* pDevice) {
+    
+    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
+    m_pDevice->m_pImmediateContext->VSSetShader(m_pVertexShader, NULL, 0);
+
+  }
+
 }

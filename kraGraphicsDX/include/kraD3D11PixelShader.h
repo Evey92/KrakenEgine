@@ -16,12 +16,13 @@ namespace kraEngineSDK {
     bool
     compilePixelShader(const wchar_t* fileName,
                        const char* entryPoint);
-
     bool
     createPixelShader(Device*  pDevice);
-
     void
     cleanShader();
+    void
+    setPixelShader(Device* pDevice);
+
     ID3DBlob* m_blob = nullptr;
     ID3D11PixelShader* m_pPixelShader;
   };

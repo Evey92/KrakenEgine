@@ -1,6 +1,6 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
-
+#include "kraDevice.h"
 
 namespace kraEngineSDK {
 
@@ -12,7 +12,7 @@ namespace kraEngineSDK {
     virtual
      ~GraphicsAPI() {}
 
-    virtual bool
+    virtual Device*
     initializeAPI(void* g_hWnd) = 0;
 
     virtual void

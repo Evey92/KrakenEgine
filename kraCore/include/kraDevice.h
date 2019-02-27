@@ -6,7 +6,7 @@
 
 namespace kraEngineSDK {
   class RenderTargetView;
-
+  
   class Device
   {
   public:
@@ -35,5 +35,17 @@ namespace kraEngineSDK {
     
     virtual void
     cleanContextState() = 0;
+    virtual void
+    setPrimitiveTopology() = 0;
+    virtual uint32
+    getHeight() = 0;
+    virtual uint32
+    getWidth() = 0;
+    virtual void
+    Draw(uint32 numVertex, uint32 startIndex) = 0;
+    virtual void
+    DrawIndexed() = 0;
+    virtual void
+    PresentSwapChain() = 0;
   };
 }

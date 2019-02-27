@@ -10,7 +10,7 @@
 #include "kraPrerequisitesCore.h"
 
 namespace kraEngineSDK {
-  class KRA_CORE_EXPORT BaseApplication
+  class BaseApplication
   {
   public:
     BaseApplication() = default;
@@ -29,16 +29,14 @@ namespace kraEngineSDK {
     /**
     * @brief Main function to initialize all the main libraries like GFX, network, systems etc.
     */
-    void
-    Initialize() {
-
-    }
+     virtual void
+     Initialize() = 0;
     
     /**
     * @brief Main loop of the app.
     */
     void
-      update(float deltaTime) {}
+    update(float deltaTime) {}
     
     /**
     * @brief Main function to visualize the game logic.

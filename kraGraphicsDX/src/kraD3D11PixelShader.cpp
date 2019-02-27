@@ -42,4 +42,13 @@ namespace kraEngineSDK {
     m_blob->Release();
     m_pPixelShader->Release();
   }
+
+  void
+  PixelShaderDX::setPixelShader(Device* pDevice) {
+    
+    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
+    m_pDevice->m_pImmediateContext->PSSetShader(m_pPixelShader, NULL, 0);
+
+  }
+
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "kraGraphicsBuffer.h"
+#include "kraDevice.h"
 
 namespace kraEngineSDK {
  
@@ -49,10 +50,10 @@ namespace kraEngineSDK {
  * @param size of te vertex, number of vertexes, and a flag for usage.
  */
     virtual void
-    createHardwareBuffer(void* pDevice, uint32* usage) = 0;
+    createHardwareBuffer(Device* pDevice) = 0;
 
     virtual void
-    setVertexBuffer(void* pImmediateContext) = 0;
+    setVertexBuffer(Device* pImmediateContext) = 0;
 
     /**
     * @brief Cleans the vertex buffer.

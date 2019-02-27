@@ -176,6 +176,7 @@
     <ClInclude Include="include\kraCameraManager.h" />
     <ClInclude Include="include\kraBaseApplication.h" />
     <ClInclude Include="include\kraConstantBuffer.h" />
+    <ClInclude Include="include\kraConstantBufferMatrices.h" />
     <ClInclude Include="include\kraDepthStencil.h" />
     <ClInclude Include="include\kraDepthStencilView.h" />
     <ClInclude Include="include\kraDevice.h" />
