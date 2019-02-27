@@ -5,14 +5,9 @@
 
 namespace kraEngineSDK {
 
-  GraphicsAPI* 
+  /*GraphicsAPI* 
   RenderAPIManagerDX::initializeGraphicsAPI() {
     
-    if (!m_APIInitialized) {
-      m_APIInitialized = true;
       return &GraphicsAPIDX();
-    }
-
-    return nullptr;
-  }
+  }*/
 }
