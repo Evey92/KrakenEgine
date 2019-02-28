@@ -2,6 +2,8 @@
 #include "kraPrerequisitesCore.h"
 
 namespace kraEngineSDK {
+
+  class Device;
   class Viewport
   {
    public:
@@ -14,6 +16,6 @@ namespace kraEngineSDK {
     createViewport(uint32 width, uint32 height, float TopLeftX, float TopLeftY) = 0;
 
     virtual void
-    setViewport(void* pDeviceContext) = 0;
+    setViewport(Device* pDeviceContext) = 0;
   };
 }

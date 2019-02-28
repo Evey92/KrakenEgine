@@ -70,21 +70,21 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)lib/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)lib/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)lib/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)lib/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -104,6 +104,7 @@
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>EASTL.lib;kraUtilitiesd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>$(SolutionDir)lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -123,6 +124,7 @@
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>EASTL.lib;kraUtilitiesd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>$(SolutionDir)lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -146,6 +148,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>EASTL.lib;kraUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>$(SolutionDir)lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -169,9 +172,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>EASTL.lib;kraUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>$(SolutionDir)lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\kraBlob.h" />
     <ClInclude Include="include\kraCamera.h" />
     <ClInclude Include="include\kraCameraManager.h" />
     <ClInclude Include="include\kraBaseApplication.h" />

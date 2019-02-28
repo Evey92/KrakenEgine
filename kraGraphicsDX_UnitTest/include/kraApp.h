@@ -82,6 +82,7 @@ class App : public BaseApplication
   */
   void
   preDestroy();
+
   Device* m_device;
   RenderTargetView* m_renderTargetView;
   DepthStencil* m_depthStencil;

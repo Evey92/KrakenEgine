@@ -1,8 +1,17 @@
 #include <kraDepthStencil.h>
 #include <kraRenderTargetView.h>
+#include <kraViewport.h>
+#include <kraInputLayout.h>
 
 #include "kraD3D11Device.h"
 #include "kraD3D11RenderTargetView.h"
+#include "kraD3D11DepthStencil.h"
+#include "kraD3D11Viewport.h"
+#include "kraD3D11InputLayout.h"
+#include "kraD3D11VertexShader.h"
+#include "kraD3D11PixelShader.h"
+#include "kraD3D11VertexBuffer.h"
+
 namespace kraEngineSDK {
 
   bool
@@ -172,6 +181,39 @@ namespace kraEngineSDK {
   void
   DeviceDX::PresentSwapChain() {
     m_pSwapChain.present(0,0);
+  }
+
+  RenderTargetView*
+  DeviceDX::createRenderTargetInsttance() {
+    return new RenderTargetViewDX();
+  }
+
+  Viewport*
+  DeviceDX::createViewportInstance() {
+    return new ViewportDX();
+  }
+
+  InputLayout*
+  DeviceDX::createInputLayoutInstance() {
+    return new InputLayoutDX();
+  }
+
+  DepthStencil*
+  DeviceDX::createDepthStencilInstance() {
+    return new DepthStencilDX();
+  }
+
+  VertexShader*
+  DeviceDX::createVertexShaderInstance() {
+    return new VertexShaderDX();
+  }
+  Shader*
+  DeviceDX::createPixelShaderInstance() {
+    return new PixelShaderDX();
+  }
+  GraphicsBuffer*
+  DeviceDX::createVertexBufferInstance() {
+    return new VertexBufferDX<Vertex>();
   }
 
 }

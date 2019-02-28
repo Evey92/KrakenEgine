@@ -6,6 +6,8 @@
 
 
 namespace kraEngineSDK {
+  class Blob;
+
   class KRA_UTILGFX_EXPORT ShaderDX : public Shader
   {
   public:
@@ -17,7 +19,7 @@ namespace kraEngineSDK {
     compileShaderFromFile(const wchar_t* filename,
                                   std::string entryPoint,
                                   std::string shaderModel,
-                                  void** ppBlobOut);
+                                  Blob* ppBlobOut);
     /*virtual void
     cleanShader();*/
   };

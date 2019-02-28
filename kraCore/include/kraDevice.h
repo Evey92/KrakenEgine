@@ -1,12 +1,16 @@
 #pragma once
-
 #include "kraPrerequisitesCore.h"
-#include "kraDepthStencil.h"
-#include "kraRenderTargetView.h"
+
 
 namespace kraEngineSDK {
   class RenderTargetView;
-  
+  class InputLayout;
+  class Viewport;
+  class DepthStencil;
+  class Shader;
+  class VertexShader;
+  class GraphicsBuffer;
+
   class Device
   {
   public:
@@ -47,5 +51,20 @@ namespace kraEngineSDK {
     DrawIndexed() = 0;
     virtual void
     PresentSwapChain() = 0;
+    virtual RenderTargetView*
+    createRenderTargetInsttance() = 0;
+    virtual Viewport*
+    createViewportInstance() = 0;
+    virtual InputLayout*
+    createInputLayoutInstance() = 0;
+    virtual DepthStencil*
+    createDepthStencilInstance() = 0;
+    virtual VertexShader*
+    createVertexShaderInstance() = 0;
+    virtual Shader*
+    createPixelShaderInstance() = 0;
+    virtual GraphicsBuffer*
+    createVertexBufferInstance() = 0;
+
   };
 }

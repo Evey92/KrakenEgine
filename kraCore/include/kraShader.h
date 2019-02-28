@@ -2,6 +2,8 @@
 #include "kraPrerequisitesCore.h"
 
 namespace kraEngineSDK {
+  class Blob;
+
   class Shader
   {
   public:
@@ -13,7 +15,7 @@ namespace kraEngineSDK {
     compileShaderFromFile(const wchar_t* filename,
                           std::string entryPoint,
                           std::string shaderModel,
-                          void** ppBlobOut) = 0;
+                          Blob* ppBlobOut) = 0;
     virtual void
     cleanShader() = 0;
   };

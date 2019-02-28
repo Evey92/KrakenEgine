@@ -4,13 +4,18 @@
 
 #include "kraD3D11SwapChain.h"
 #include "kraPrerequisitesGFX.h"
-#include "kraD3D11DepthStencil.h"
 
 
 
 namespace kraEngineSDK {
 
   class RenderTargetView;
+  class InputLayout;
+  class Viewport;
+  class DepthStencil;
+  class VertexShader;
+  class PixelShader;
+  class VertexBuffer;
 
   class KRA_UTILGFX_EXPORT DeviceDX : public Device
   {
@@ -48,6 +53,20 @@ namespace kraEngineSDK {
     DrawIndexed();
     void
     PresentSwapChain();
+    RenderTargetView*
+    createRenderTargetInsttance();
+    Viewport*
+    createViewportInstance();
+    InputLayout*
+    createInputLayoutInstance();
+    DepthStencil*
+    createDepthStencilInstance();
+    VertexShader*
+    createVertexShaderInstance();
+    Shader*
+    createPixelShaderInstance();
+    GraphicsBuffer*
+    createVertexBufferInstance();
 
     SwapChainDX m_pSwapChain;
     uint32 m_height;

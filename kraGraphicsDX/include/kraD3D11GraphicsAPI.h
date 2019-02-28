@@ -43,6 +43,7 @@ namespace kraEngineSDK {
     Cleanup();
 
     DeviceDX m_device;
+    
     /*RenderTargetViewDX m_renderTargetView;
     DepthStencilDX* m_depthStencil;
     DepthStencil m_depthS;

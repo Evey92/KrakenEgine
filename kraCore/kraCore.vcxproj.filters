@@ -94,6 +94,9 @@
     <ClInclude Include="include\kraConstantBufferMatrices.h">
       <Filter>Source Files\include</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraBlob.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraBaseApplication.cpp">

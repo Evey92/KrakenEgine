@@ -3,14 +3,20 @@
 #include "kraD3D11GraphicsBuffer.h"
 #include "kraD3D11Shader.h"
 #include "kraD3D11Device.h"
+#include "kraD3D11Blob.h"
 
 namespace kraEngineSDK {
+  class BlobDX;
+
   class Device;
 
   class KRA_UTILGFX_EXPORT  VertexShaderDX : public ShaderDX {
 
   public:
-    VertexShaderDX() = default;
+    VertexShaderDX()
+    {
+      m_blob = getBlobasDX();
+    }
     ~VertexShaderDX() {}
 
     bool
@@ -22,8 +28,10 @@ namespace kraEngineSDK {
     cleanShader();
     void
     setVertexShader(Device* pDevice);
+    BlobDX*
+    getBlobasDX();
 
-    ID3DBlob* m_blob = nullptr;
+    Blob* m_blob;
     ID3D11VertexShader* m_pVertexShader;
   };
 }

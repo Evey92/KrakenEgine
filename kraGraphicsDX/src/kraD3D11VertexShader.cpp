@@ -1,7 +1,8 @@
 #include <kraDevice.h>
+#include <kraBlob.h>
 
 #include "kraD3D11VertexShader.h"
-
+#include "kraD3D11Blob.h"
 
 namespace kraEngineSDK {
 
@@ -10,7 +11,7 @@ namespace kraEngineSDK {
       const char* entryPoint) {
     HRESULT hr = S_OK;
 
-    hr = compileShaderFromFile(fileName, entryPoint, "vs_5_0", reinterpret_cast<void**>(m_blob));
+    hr = compileShaderFromFile(fileName, entryPoint, "vs_5_0", m_blob);
 
     if (FAILED(hr))
     {
@@ -22,14 +23,14 @@ namespace kraEngineSDK {
   VertexShaderDX::createVertexShader(Device* pDevice) {
 
     DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
-
+    BlobDX* myBlob = reinterpret_cast<BlobDX*>(m_blob);
     HRESULT hr = S_OK;
-    hr = m_pDevice->m_pd3dDevice->CreateVertexShader(m_blob->GetBufferPointer(),
-                                     m_blob->GetBufferSize(),
-                                     NULL, &m_pVertexShader);
+    hr = m_pDevice->m_pd3dDevice->CreateVertexShader(myBlob->m_blob->GetBufferPointer(),
+                                                     myBlob->m_blob->GetBufferSize(),
+                                                     NULL, &m_pVertexShader);
     if (FAILED(hr))
     {
-      m_blob->Release();
+      myBlob->m_blob->Release();
       return false;
     }
 
@@ -47,6 +48,11 @@ namespace kraEngineSDK {
     DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
     m_pDevice->m_pImmediateContext->VSSetShader(m_pVertexShader, NULL, 0);
 
+  }
+
+  BlobDX*
+  VertexShaderDX::getBlobasDX() {
+    return reinterpret_cast<BlobDX*>(m_blob);
   }
 
 }

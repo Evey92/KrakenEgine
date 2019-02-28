@@ -3,6 +3,7 @@
 #include <kraVertexShader.h>
 #include "kraD3D11Device.h"
 #include "kraD3D11VertexShader.h"
+#include "kraD3D11Blob.h"
 
 namespace kraEngineSDK {
 
@@ -140,16 +141,17 @@ namespace kraEngineSDK {
 
     DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
     VertexShaderDX* m_pVShader = reinterpret_cast<VertexShaderDX*>(pVShader);
+    BlobDX* myBlob = m_pVShader->getBlobasDX();
 
     m_pDevice->m_pd3dDevice->CreateInputLayout(&layoutDescVector[0], 
                                                (uint32)layoutDescVector.size(), 
-                                               m_pVShader->m_blob->GetBufferPointer(),
-                                               m_pVShader->m_blob->GetBufferSize(),
+                                               myBlob->m_blob->GetBufferPointer(),
+                                               myBlob->m_blob->GetBufferSize(),
                                                &m_pVertexLayout);
-
+    
     //m_pDevice->CreateInputLayout(&layoutDescVector[0], (uint32)layoutDescVector.size(), m_pVShader->m_blob->GetBufferPointer(), m_pVShader->m_blob->GetBufferSize(), &m_pVertexLayout);
     
-    m_pVShader->m_blob->Release();
+
   }
 
   void

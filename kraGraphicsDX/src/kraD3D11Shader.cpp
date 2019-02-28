@@ -1,5 +1,7 @@
-#include "kraD3D11Shader.h"
+#include <kraBlob.h>
 
+#include "kraD3D11Shader.h"
+#include "kraD3D11Blob.h"
 
 namespace kraEngineSDK {
 
@@ -7,10 +9,10 @@ namespace kraEngineSDK {
   ShaderDX::compileShaderFromFile(const wchar_t* filename,
       std::string entryPoint,
       std::string shaderModel,
-      void** ppBlobOut)
+      Blob* ppBlobOut)
   {
 
-    ID3DBlob** m_pBlob = reinterpret_cast<ID3DBlob**>(ppBlobOut);
+    BlobDX* m_pBlob = reinterpret_cast<BlobDX*>(ppBlobOut);
 
     HRESULT hr = S_OK;
 
@@ -26,7 +28,7 @@ namespace kraEngineSDK {
     ID3DBlob* pErrorBlob;
     hr = D3DCompileFromFile(filename, NULL, NULL, entryPoint.c_str(),
       shaderModel.c_str(), dwShaderFlags, NULL,
-      m_pBlob, &pErrorBlob);
+      &m_pBlob->m_blob, &pErrorBlob);
 
     if (FAILED(hr))
     {

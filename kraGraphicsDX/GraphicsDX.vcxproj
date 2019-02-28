@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ConstantBufferMatrices.h" />
+    <ClInclude Include="include\kraD3D11Blob.h" />
     <ClInclude Include="include\kraD3D11ConstantBuffer.h" />
     <ClInclude Include="include\kraD3D11DepthStencil.h" />
     <ClInclude Include="include\kraD3D11DepthStencylView.h" />
@@ -119,7 +120,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)lib/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
     <TargetName>$(ProjectName)d</TargetName>
     <TargetExt>.dll</TargetExt>
@@ -130,7 +131,7 @@
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)lib/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
     <TargetName>$(ProjectName)d</TargetName>
     <TargetExt>.dll</TargetExt>
