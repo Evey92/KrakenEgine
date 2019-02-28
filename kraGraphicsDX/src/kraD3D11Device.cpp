@@ -211,9 +211,9 @@ namespace kraEngineSDK {
   DeviceDX::createPixelShaderInstance() {
     return new PixelShaderDX();
   }
-  GraphicsBuffer*
+  /*GraphicsBuffer*
   DeviceDX::createVertexBufferInstance() {
     return new VertexBufferDX<Vertex>();
-  }
+  }*/
 
 }
