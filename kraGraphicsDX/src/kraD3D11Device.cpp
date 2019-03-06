@@ -207,7 +207,7 @@ namespace kraEngineSDK {
   DeviceDX::createVertexShaderInstance() {
     return new VertexShaderDX();
   }
-  Shader*
+  PixelShader*
   DeviceDX::createPixelShaderInstance() {
     return new PixelShaderDX();
   }

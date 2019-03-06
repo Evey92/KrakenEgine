@@ -10,7 +10,9 @@ namespace kraEngineSDK {
      BlobDX() = default;
     ~BlobDX() {}
 
-    ID3DBlob* m_blob = nullptr;
+    void releaseBlob();
+
+    ID3DBlob* m_blob;
 
   };
 }

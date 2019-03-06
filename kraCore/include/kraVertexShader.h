@@ -4,8 +4,7 @@
 #include "kraDevice.h"
 
 namespace kraEngineSDK {
-  class VertexShader :
-    public Shader {
+  class VertexShader {
 
   public:
     VertexShader() = default;

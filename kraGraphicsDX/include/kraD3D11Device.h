@@ -63,10 +63,11 @@ namespace kraEngineSDK {
     createDepthStencilInstance();
     VertexShader*
     createVertexShaderInstance();
-    Shader*
+    PixelShader*
     createPixelShaderInstance();
-    GraphicsBuffer*
-    createVertexBufferInstance();
+    
+    /*GraphicsBuffer*
+    createVertexBufferInstance();*/
 
     SwapChainDX m_pSwapChain;
     uint32 m_height;

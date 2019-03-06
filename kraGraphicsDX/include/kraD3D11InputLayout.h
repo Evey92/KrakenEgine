@@ -25,7 +25,7 @@ namespace kraEngineSDK {
     void
     defineTexcoordLayout();
     void
-    createInputLayout(Device* pd3dDevice, VertexShader* pVShader);
+    createInputLayout(const Device& pd3dDevice, const VertexShader& pVShader);
     void
     setInputLayout(Device* pDevice);
     void

@@ -154,5 +154,8 @@
     <ClCompile Include="src\kraD3D11RenderAPIManager.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\kraD3D11Blob.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

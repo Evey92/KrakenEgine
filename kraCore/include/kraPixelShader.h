@@ -4,7 +4,7 @@
 #include "kraDevice.h"
 
 namespace kraEngineSDK {
-  class PixelShader : public Shader {
+  class PixelShader {
 
   public:
     PixelShader() = default;

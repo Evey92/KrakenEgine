@@ -80,7 +80,7 @@ App::run() {
       return FALSE;
     }
 
-    m_pixelShader = reinterpret_cast<PixelShader*>(m_device->createPixelShaderInstance());
+    /*m_pixelShader = reinterpret_cast<PixelShader*>(m_device->createPixelShaderInstance());
     if (!m_pixelShader)
     {
       std::cout << "could not find specified function" << std::endl;
@@ -93,7 +93,7 @@ App::run() {
     {
       std::cout << "could not find specified function" << std::endl;
       return FALSE;
-    }
+    }*/
 
   }
 
@@ -115,7 +115,7 @@ App::run() {
       return;
     }*/
 
-    //m_vertexShader->createVertexShader(m_device);
+    m_vertexShader->createVertexShader(m_device);
 
     m_inputLayout->defineVertexLayout();
     m_inputLayout->createInputLayout(m_device, m_vertexShader);

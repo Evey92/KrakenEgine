@@ -20,7 +20,7 @@ namespace kraEngineSDK {
     memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
     inputDesc.SemanticName = "POSIITION";
     inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+    inputDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
     inputDesc.InputSlot = 0;
     inputDesc.AlignedByteOffset = 0;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
@@ -77,7 +77,7 @@ namespace kraEngineSDK {
     memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
     inputDesc.SemanticName = "POSITION";
     inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+    inputDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
     inputDesc.InputSlot = 0;
     inputDesc.AlignedByteOffset = 0;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
@@ -137,21 +137,18 @@ namespace kraEngineSDK {
   }
 
   void
-  InputLayoutDX::createInputLayout(Device* pDevice, VertexShader* pVShader) {
+  InputLayoutDX::createInputLayout(const Device& pDevice, const VertexShader& pVShader) {
 
-    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
-    VertexShaderDX* m_pVShader = reinterpret_cast<VertexShaderDX*>(pVShader);
-    BlobDX* myBlob = m_pVShader->getBlobasDX();
-
-    m_pDevice->m_pd3dDevice->CreateInputLayout(&layoutDescVector[0], 
-                                               (uint32)layoutDescVector.size(), 
-                                               myBlob->m_blob->GetBufferPointer(),
-                                               myBlob->m_blob->GetBufferSize(),
+    const DeviceDX& m_pDevice = reinterpret_cast<const DeviceDX&>(pDevice);
+    const VertexShaderDX& m_pVShader = reinterpret_cast<const VertexShaderDX&>(pVShader);
+    //BlobDX* myBlob = reinterpret_cast<BlobDX*>(m_pVShader->m_blob);
+    
+    m_pDevice.m_pd3dDevice->CreateInputLayout(&layoutDescVector[0], 
+                                               static_cast<uint32>(layoutDescVector.size()), 
+                                               m_pVShader.m_pBlob->GetBufferPointer(),
+                                               m_pVShader.m_pBlob->GetBufferSize(),
                                                &m_pVertexLayout);
     
-    //m_pDevice->CreateInputLayout(&layoutDescVector[0], (uint32)layoutDescVector.size(), m_pVShader->m_blob->GetBufferPointer(), m_pVShader->m_blob->GetBufferSize(), &m_pVertexLayout);
-    
-
   }
 
   void

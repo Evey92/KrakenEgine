@@ -7,7 +7,7 @@ namespace kraEngineSDK {
   class InputLayout;
   class Viewport;
   class DepthStencil;
-  class Shader;
+  class PixelShader;
   class VertexShader;
   class GraphicsBuffer;
 
@@ -61,10 +61,11 @@ namespace kraEngineSDK {
     createDepthStencilInstance() = 0;
     virtual VertexShader*
     createVertexShaderInstance() = 0;
-    virtual Shader*
+    virtual PixelShader*
     createPixelShaderInstance() = 0;
+    /*
     virtual GraphicsBuffer*
-    createVertexBufferInstance() = 0;
+    createVertexBufferInstance() = 0;*/
 
   };
 }

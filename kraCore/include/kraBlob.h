@@ -7,5 +7,9 @@ namespace kraEngineSDK {
 
     Blob() = default;
     virtual ~Blob() {}
+
+    virtual void
+      releaseBlob() = 0;
+
   };
 }

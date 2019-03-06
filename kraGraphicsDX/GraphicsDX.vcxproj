@@ -45,6 +45,7 @@
     <ClInclude Include="include\kraPrerequisitesGFX.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\kraD3D11Blob.cpp" />
     <ClCompile Include="src\kraD3D11ConstantBuffer.cpp" />
     <ClCompile Include="src\kraD3D11DepthStencil.cpp" />
     <ClCompile Include="src\kraD3D11DepthStencylView.cpp" />

@@ -11,11 +11,11 @@ namespace kraEngineSDK {
     virtual 
     ~Shader() {}
 
-    virtual bool
+    /*virtual bool
     compileShaderFromFile(const wchar_t* filename,
                           std::string entryPoint,
                           std::string shaderModel,
-                          Blob* ppBlobOut) = 0;
+                          Blob* ppBlobOut) = 0;*/
     virtual void
     cleanShader() = 0;
   };
