@@ -11,7 +11,7 @@ namespace kraEngineSDK {
       const char* entryPoint) {
     HRESULT hr = S_OK;
 
-    hr = compileShaderFromFile(fileName, entryPoint, "vs_5_0", &m_pBlob);
+    hr = compileShaderFromFile(fileName, entryPoint, "vs_4_0", &m_pBlob);
 
     if (FAILED(hr))
     {
@@ -44,10 +44,10 @@ namespace kraEngineSDK {
   }
 
   void
-  VertexShaderDX::setVertexShader(Device* pDevice) {
+  VertexShaderDX::setVertexShader(const Device& pDevice) {
     
-    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
-    m_pDevice->m_pImmediateContext->VSSetShader(m_pVertexShader, NULL, 0);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
+    m_pDevice.m_pImmediateContext->VSSetShader(m_pVertexShader, NULL, 0);
 
   }
 
@@ -105,6 +105,9 @@ namespace kraEngineSDK {
     if (pErrorBlob) {
       pErrorBlob->Release();
     }
+
+    return true;
+
   }
 
 }

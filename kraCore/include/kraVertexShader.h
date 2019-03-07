@@ -19,7 +19,7 @@ namespace kraEngineSDK {
     virtual void
     cleanShader() = 0;
     virtual void
-    setVertexShader(Device* pDevice) = 0;
+    setVertexShader(const Device& pDevice) = 0;
 
   };
 }

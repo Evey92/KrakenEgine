@@ -18,19 +18,19 @@ namespace kraEngineSDK {
     ~PixelShaderDX() {}
 
     bool
-    compilePixelShader(const wchar_t* fileName,
+    compilePixelShader(std::string fileName,
                        const char* entryPoint);
     bool
-    createPixelShader(Device*  pDevice);
+    createPixelShader(const Device&  pDevice);
     void
     cleanShader();
     void
-    setPixelShader(Device* pDevice);
+    setPixelShader(const Device& pDevice);
     /*BlobDX*
     getBlobasDX();
     */
     bool
-    compileShaderFromFile(const wchar_t* filename,
+    compileShaderFromFile(std::string filename,
                           std::string entryPoint,
                           std::string shaderModel,
                           ID3DBlob** ppBlobOut);

@@ -80,40 +80,44 @@ App::run() {
       return FALSE;
     }
 
-    /*m_pixelShader = reinterpret_cast<PixelShader*>(m_device->createPixelShaderInstance());
+    m_pixelShader = m_device->createPixelShaderInstance();
     if (!m_pixelShader)
     {
       std::cout << "could not find specified function" << std::endl;
       return FALSE;
     }
 
-
-    m_vertBuffer = reinterpret_cast<VertexBuffer<Vertex>*>(m_device->createVertexBufferInstance());
+   
+    m_vertBuffer = m_device->createVertexBufferInstance();
     if (!m_vertBuffer)
     {
       std::cout << "could not find specified function" << std::endl;
       return FALSE;
-    }*/
+    }
 
   }
 
   void
-  App::RenderTriangle() {
+  App::LoadTriangle() {
 
     
-    m_renderTargetView->createRenderTargetView(m_device);
+    m_renderTargetView->createRenderTargetView(*m_device);
+
+    m_renderTargetView->setRenderTarget(*m_device);
 
     m_viewport->createViewport(m_device->getHeight(), m_device->getWidth(), 1.0f, 1.0f);
 
     m_viewport->setViewport(m_device);
  
-    m_vertexShader->compileVertexShader("VS.hlsl", "VS");
-    /*if (!m_vertexShader->compileVertexShader(L"VS.hlsl", "VS"))
+   
+    if (!m_vertexShader->compileVertexShader("VS.hlsl", "VS"))
     {
       DWORD err = GetLastError();
+      MessageBox(NULL, "Failed to compile Vertex shader", "Error", MB_OK);
+
       std::cout <<"Failed to compile shader\n";
       return;
-    }*/
+    }
 
     m_vertexShader->createVertexShader(*m_device);
 
@@ -123,12 +127,14 @@ App::run() {
     
     m_inputLayout->setInputLayout(*m_device);
 
-    if (!m_pixelShader->compilePixelShader(L"PS.hlsl", "PS"))
+    if (!m_pixelShader->compilePixelShader("PS.hlsl", "PS"))
     {
+      MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
+
       std::cout << "Failed to compile shader\n";
       return;
     }
-    m_pixelShader->createPixelShader(m_device);
+    m_pixelShader->createPixelShader(*m_device);
     
     Vertex vert1(Vector3(0.0f, 0.5f, 0.5f));
     m_vertBuffer->add(vert1);
@@ -169,12 +175,40 @@ App::run() {
 
   void
   App::render() {
-    Vector4 ClearColor = { 0.0f, 0.125f, 0.3f, 1.0f };
+
+    Vector4 ClearColor = { 0.5f, 0.0f, 0.8f, 1.0f };
     m_renderTargetView->clearRenderTargetView(m_device, ClearColor);
-    m_vertexShader->setVertexShader(m_device);
-    m_pixelShader->setPixelShader(m_device);
+    m_vertexShader->setVertexShader(*m_device);
+    m_pixelShader->setPixelShader(*m_device);
     m_device->Draw(3, 0);
     m_device->PresentSwapChain();
+  }
+
+  void
+  App::CleanupDevice() {
+    if (m_device) {
+      m_device->cleanContextState();
+    }
+    if (m_vertBuffer) {
+      m_vertBuffer->Release();
+    }
+    if (m_inputLayout) {
+      m_inputLayout->cleanInputLayout();
+    }
+    if (m_vertexShader) {
+      m_vertexShader->cleanShader();
+    }
+    if (m_pixelShader) {
+      m_pixelShader->cleanShader();
+    }
+    if (m_renderTargetView) {
+      m_renderTargetView->cleanRTV();
+    }
+    if (m_device) {
+      m_device->cleanSwapChain();
+      m_device->cleanContext();
+      m_device->cleanDevice();
+    }
   }
 
   void

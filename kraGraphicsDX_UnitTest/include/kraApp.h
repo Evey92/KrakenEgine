@@ -37,10 +37,11 @@ class App : public BaseApplication
   int
   startUp(void* m_hWnd);
   void
-  RenderTriangle();
+  LoadTriangle();
   void
   render();
-
+  void 
+  CleanupDevice();
  private:
   
   void
@@ -91,7 +92,7 @@ class App : public BaseApplication
   VertexShader* m_vertexShader;
   InputLayout* m_inputLayout;
   PixelShader* m_pixelShader;
-  VertexBuffer<Vertex>* m_vertBuffer;
+  VertexBuffer* m_vertBuffer;
   IndexBuffer<unsigned short>* m_indexBuffer;
   Texture* m_pBackBuffer;
   Texture* m_texture;

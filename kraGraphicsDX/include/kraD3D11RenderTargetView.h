@@ -16,7 +16,9 @@ namespace kraEngineSDK {
     ~RenderTargetViewDX() {}
 
     bool
-    createRenderTargetView(Device* pDevice);
+    createRenderTargetView(const Device& pDevice);
+    void
+    setRenderTarget(const Device& pDevice);
     void 
     cleanRTV();
     void

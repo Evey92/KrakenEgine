@@ -12,13 +12,13 @@ namespace kraEngineSDK {
     ~PixelShader() {}
 
     virtual bool
-    compilePixelShader(const wchar_t* fileName,
+    compilePixelShader(std::string fileName,
                        const char* entryPoint) = 0;
     virtual bool
-    createPixelShader(Device* pDevice) = 0;
+    createPixelShader(const Device& pDevice) = 0;
     virtual void
     cleanShader() = 0;
     virtual void
-    setPixelShader(Device* pDevice) = 0;
+    setPixelShader(const Device& pDevice) = 0;
   };
 }

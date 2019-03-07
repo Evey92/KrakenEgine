@@ -66,8 +66,8 @@ namespace kraEngineSDK {
     PixelShader*
     createPixelShaderInstance();
     
-    /*GraphicsBuffer*
-    createVertexBufferInstance();*/
+    VertexBuffer*
+    createVertexBufferInstance();
 
     SwapChainDX m_pSwapChain;
     uint32 m_height;

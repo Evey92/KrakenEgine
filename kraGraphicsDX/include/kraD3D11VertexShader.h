@@ -29,7 +29,7 @@ namespace kraEngineSDK {
     void 
     cleanShader();
     void
-    setVertexShader(Device* pDevice);
+    setVertexShader(const Device& pDevice);
     /*BlobDX*
     getBlobasDX();*/
 

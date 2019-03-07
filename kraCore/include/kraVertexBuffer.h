@@ -4,7 +4,7 @@
 
 namespace kraEngineSDK {
  
-  template<typename TVERTEX>
+  //template<typename TVERTEX>
   class VertexBuffer : public GraphicsBuffer
   {
 
@@ -27,23 +27,26 @@ namespace kraEngineSDK {
     * @param the address of the vertex.
     */
     virtual void
-    add(const TVERTEX& vertex) = 0;
+    add(const Vertex& vertex) = 0;
     /**
     * @brief Copies a whole vertex vector into the buffer.
     * @param the vector containing the vertexes.
     */
     virtual void
-    add(const std::vector<TVERTEX>& vertices) = 0;
+    add(const std::vector<Vertex>& vertices) = 0;
 
     /**
     * @brief Adds multiple vertexes onto the buffer.
     * @param A pointer to the start position of the vertexes, ad the number of vertexes.
     */
     virtual void
-    add(const TVERTEX* pVertices, size_t numVertices) = 0;
+    add(const Vertex* pVertices, size_t numVertices) = 0;
 
     virtual void
     clear() = 0;
+
+    virtual void
+    Release() = 0;
 
     /**
  * @brief Creates a vertex buffer.

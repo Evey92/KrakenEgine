@@ -15,7 +15,7 @@ namespace kraEngineSDK {
      ~Model() {}
 
     IndexBuffer<unsigned short>* m_indexBuffer;
-    VertexBuffer<Vertex>* m_vertexBurffer;
+    VertexBuffer* m_vertexBurffer;
 
     void 
     load(const std::string& fileName);

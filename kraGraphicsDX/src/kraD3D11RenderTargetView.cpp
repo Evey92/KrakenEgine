@@ -9,23 +9,35 @@
 namespace kraEngineSDK {
 
   bool
-  RenderTargetViewDX::createRenderTargetView(Device* pDevice) {
+  RenderTargetViewDX::createRenderTargetView(const Device& pDevice) {
 
-    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
     //SwapChainDX* m_pSwapChain = reinterpret_cast<SwapChainDX*>(pSwapChain);
 
     ID3D11Texture2D* pBackBuffer = nullptr;
     HRESULT hr = S_OK;
     
-    hr = m_pDevice->m_pSwapChain.m_pd3dSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*>(&pBackBuffer));
+    hr = m_pDevice.m_pSwapChain.m_pd3dSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*>(&pBackBuffer));
 
     if (FAILED(hr))
       return false;
 
-    m_pDevice->m_pd3dDevice->CreateRenderTargetView(pBackBuffer, nullptr, &m_pRenderTargetView);
+    m_pDevice.m_pd3dDevice->CreateRenderTargetView(pBackBuffer, nullptr, &m_pRenderTargetView);
     pBackBuffer->Release();
 
     return true;
+  }
+
+  void
+  RenderTargetViewDX::setRenderTarget(const Device& pDevice) {
+
+    const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
+
+    HRESULT hr = S_OK;
+
+    m_device.m_pImmediateContext->OMSetRenderTargets(1, &m_pRenderTargetView, nullptr);
+
+
   }
 
   void

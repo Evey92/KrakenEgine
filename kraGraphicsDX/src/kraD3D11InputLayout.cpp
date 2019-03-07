@@ -75,7 +75,7 @@ namespace kraEngineSDK {
   InputLayoutDX::defineVertexLayout() {
 
     D3D11_INPUT_ELEMENT_DESC inputDesc;
-    //memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
+    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
     inputDesc.SemanticName = "POSITION";
     inputDesc.SemanticIndex = 0;
     inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;

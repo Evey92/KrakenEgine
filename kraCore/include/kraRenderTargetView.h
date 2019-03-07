@@ -14,7 +14,10 @@ namespace kraEngineSDK {
     virtual ~RenderTargetView() {}
     
     virtual bool
-    createRenderTargetView(Device* pDevice) = 0;
+    createRenderTargetView(const Device& pDevice) = 0;
+
+    virtual void
+    setRenderTarget(const Device& pDevice) = 0;
 
     virtual void
     cleanRTV() = 0;

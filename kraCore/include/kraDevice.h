@@ -9,7 +9,7 @@ namespace kraEngineSDK {
   class DepthStencil;
   class PixelShader;
   class VertexShader;
-  class GraphicsBuffer;
+  class VertexBuffer;
 
   class Device
   {
@@ -63,9 +63,8 @@ namespace kraEngineSDK {
     createVertexShaderInstance() = 0;
     virtual PixelShader*
     createPixelShaderInstance() = 0;
-    /*
-    virtual GraphicsBuffer*
-    createVertexBufferInstance() = 0;*/
+    virtual VertexBuffer*
+    createVertexBufferInstance() = 0;
 
   };
 }

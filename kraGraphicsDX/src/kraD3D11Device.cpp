@@ -37,6 +37,7 @@ namespace kraEngineSDK {
     driverTypes.push_back(D3D_DRIVER_TYPE_REFERENCE);
 
     std::vector<D3D_FEATURE_LEVEL> featureLevels;
+    featureLevels.push_back(D3D_FEATURE_LEVEL_11_1);
     featureLevels.push_back(D3D_FEATURE_LEVEL_11_0);
     featureLevels.push_back(D3D_FEATURE_LEVEL_10_1);
     featureLevels.push_back(D3D_FEATURE_LEVEL_10_0);
@@ -180,7 +181,7 @@ namespace kraEngineSDK {
   //TODO fix this bullshit.
   void
   DeviceDX::PresentSwapChain() {
-    m_pSwapChain.present(0,0);
+    m_pSwapChain.m_pd3dSwapChain->Present(0, 0);
   }
 
   RenderTargetView*
@@ -211,9 +212,9 @@ namespace kraEngineSDK {
   DeviceDX::createPixelShaderInstance() {
     return new PixelShaderDX();
   }
-  /*GraphicsBuffer*
+  VertexBuffer*
   DeviceDX::createVertexBufferInstance() {
-    return new VertexBufferDX<Vertex>();
-  }*/
+    return new VertexBufferDX();
+  }
 
 }
