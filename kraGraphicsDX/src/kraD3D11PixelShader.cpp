@@ -20,7 +20,7 @@ namespace kraEngineSDK {
   bool
   PixelShaderDX::createPixelShader(Device* pDevice) {
 
-    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
+    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
  
     HRESULT hr = S_OK;
 
@@ -48,7 +48,7 @@ namespace kraEngineSDK {
   void
   PixelShaderDX::setPixelShader(Device* pDevice) {
     
-    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
+    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
     m_pDevice->m_pImmediateContext->PSSetShader(m_pPixelShader, NULL, 0);
 
   }

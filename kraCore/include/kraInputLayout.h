@@ -24,10 +24,10 @@ namespace kraEngineSDK {
     defineNormalLayout() = 0;
     virtual void
     defineTexcoordLayout() = 0;
+    virtual bool
+    createInputLayout(const Device& pd3dDevice, const VertexShader& pVShader) = 0;
     virtual void
-    createInputLayout(Device* pd3dDevice, VertexShader* pVShader) = 0;
-    virtual void
-    setInputLayout(Device* pDeviceContext) = 0;
+    setInputLayout(const Device& pDeviceContext) = 0;
     virtual void
     cleanInputLayout() = 0;
   };

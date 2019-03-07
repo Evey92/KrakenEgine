@@ -86,8 +86,8 @@ namespace kraEngineSDK {
   void
   DeviceDX::setRenderTarget(RenderTargetView* pRTV, void* pDSV) {
     
-    RenderTargetViewDX* m_pRTV = reinterpret_cast<RenderTargetViewDX*>(pRTV);
-    ID3D11DepthStencilView* m_pDSV = reinterpret_cast<ID3D11DepthStencilView*>(pDSV);
+    RenderTargetViewDX* m_pRTV = static_cast<RenderTargetViewDX*>(pRTV);
+    ID3D11DepthStencilView* m_pDSV = static_cast<ID3D11DepthStencilView*>(pDSV);
 
     m_pImmediateContext->OMSetRenderTargets(1, &m_pRTV->m_pRenderTargetView, m_pDSV);
   }
@@ -127,7 +127,7 @@ namespace kraEngineSDK {
   void
   DeviceDX::cleanDepthStencil(DepthStencil* depthStencil)
   {
-    DepthStencilDX* m_depthText = reinterpret_cast<DepthStencilDX*>(depthStencil);
+    DepthStencilDX* m_depthText = static_cast<DepthStencilDX*>(depthStencil);
     m_depthText->m_pd3dDepthStencil->Release();
   }
 

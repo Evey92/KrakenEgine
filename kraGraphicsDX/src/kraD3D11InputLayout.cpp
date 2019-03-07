@@ -25,7 +25,7 @@ namespace kraEngineSDK {
     inputDesc.AlignedByteOffset = 0;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
+    m_layoutDescVector.push_back(inputDesc);
 
     /*
     * @brief Index layout
@@ -38,7 +38,7 @@ namespace kraEngineSDK {
     inputDesc.AlignedByteOffset = 16;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
+    m_layoutDescVector.push_back(inputDesc);
 
     /*
     * @brief Normal layout
@@ -51,7 +51,7 @@ namespace kraEngineSDK {
     inputDesc.AlignedByteOffset = 32;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
+    m_layoutDescVector.push_back(inputDesc);
 
     /*
     * @brief TEXCOORD layout
@@ -64,7 +64,7 @@ namespace kraEngineSDK {
     inputDesc.AlignedByteOffset = 12;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
+    m_layoutDescVector.push_back(inputDesc);
 
   }
 
@@ -73,16 +73,17 @@ namespace kraEngineSDK {
    */
   void
   InputLayoutDX::defineVertexLayout() {
+
     D3D11_INPUT_ELEMENT_DESC inputDesc;
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
+    //memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
     inputDesc.SemanticName = "POSITION";
     inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
+    inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
     inputDesc.InputSlot = 0;
     inputDesc.AlignedByteOffset = 0;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
+    m_layoutDescVector.push_back(inputDesc);
   }
 
   /*
@@ -99,7 +100,7 @@ namespace kraEngineSDK {
     inputDesc.AlignedByteOffset = 16;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
+    m_layoutDescVector.push_back(inputDesc);
   }
 
   /*
@@ -116,7 +117,7 @@ namespace kraEngineSDK {
     inputDesc.AlignedByteOffset = 32;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
+    m_layoutDescVector.push_back(inputDesc);
   }
 
   /*
@@ -133,30 +134,38 @@ namespace kraEngineSDK {
     inputDesc.AlignedByteOffset = 12;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     inputDesc.InstanceDataStepRate = 0;
-    layoutDescVector.push_back(inputDesc);
+    m_layoutDescVector.push_back(inputDesc);
   }
 
-  void
+  bool
   InputLayoutDX::createInputLayout(const Device& pDevice, const VertexShader& pVShader) {
 
-    const DeviceDX& m_pDevice = reinterpret_cast<const DeviceDX&>(pDevice);
-    const VertexShaderDX& m_pVShader = reinterpret_cast<const VertexShaderDX&>(pVShader);
-    //BlobDX* myBlob = reinterpret_cast<BlobDX*>(m_pVShader->m_blob);
+    HRESULT hr = S_OK;
+
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
+    const VertexShaderDX& m_pVShader = static_cast<const VertexShaderDX&>(pVShader);
     
-    m_pDevice.m_pd3dDevice->CreateInputLayout(&layoutDescVector[0], 
-                                               static_cast<uint32>(layoutDescVector.size()), 
-                                               m_pVShader.m_pBlob->GetBufferPointer(),
-                                               m_pVShader.m_pBlob->GetBufferSize(),
-                                               &m_pVertexLayout);
+    hr = m_pDevice.m_pd3dDevice->CreateInputLayout(&m_layoutDescVector[0],
+                                                    (UINT)m_layoutDescVector.size(), 
+                                                    m_pVShader.m_pBlob->GetBufferPointer(),
+                                                    m_pVShader.m_pBlob->GetBufferSize(),
+                                                    &m_pVertexLayout);
+    if (FAILED(hr))
+    {
+      std::cout << "Failed to create Vertex Shader";
+      return false;
+    }
+    
+    return true;
     
   }
 
   void
-  InputLayoutDX::setInputLayout(Device* pDevice) {
+  InputLayoutDX::setInputLayout(const Device& pDevice) {
 
-    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
-    m_pDevice->m_pImmediateContext->IASetInputLayout(m_pVertexLayout);
+    m_pDevice.m_pImmediateContext->IASetInputLayout(m_pVertexLayout);
     
   }
 

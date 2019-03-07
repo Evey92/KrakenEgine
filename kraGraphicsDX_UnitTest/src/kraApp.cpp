@@ -13,8 +13,8 @@ App::run() {
     HINSTANCE GFXDLL;
     
 
-    //std::string path = "C:\\Users\\Usuario\\Documents\\UAD\\8vo\\KrakenEgine\\lib\\x64\\kraGraphicsDXd.dll";
-    std::string path = "C:\\Users\\Ivan\\Documents\\UAD\\8vo\\Motores\\KrakenEgine\\bin\\x64\\kraGraphicsDXd.dll";
+    std::string path = "C:\\Users\\Usuario\\Documents\\UAD\\8vo\\KrakenEgine\\bin\\x64\\kraGraphicsDXd.dll";
+    //std::string path = "C:\\Users\\Ivan\\Documents\\UAD\\8vo\\Motores\\KrakenEgine\\bin\\x64\\kraGraphicsDXd.dll";
   
     GFXDLL = LoadLibraryExA(path.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
     if (!GFXDLL) {
@@ -73,7 +73,7 @@ App::run() {
       return FALSE;
     }
 
-    m_vertexShader = reinterpret_cast<VertexShader*>(m_device->createVertexShaderInstance());
+    m_vertexShader = m_device->createVertexShaderInstance();
     if (!m_vertexShader)
     {
       std::cout << "could not find specified function" << std::endl;
@@ -103,11 +103,11 @@ App::run() {
     
     m_renderTargetView->createRenderTargetView(m_device);
 
-    m_viewport->createViewport(m_device->getHeight(), m_device->getWidth(), 0, 0);
+    m_viewport->createViewport(m_device->getHeight(), m_device->getWidth(), 1.0f, 1.0f);
 
     m_viewport->setViewport(m_device);
  
-    m_vertexShader->compileVertexShader(L"VS.hlsl", "VS");
+    m_vertexShader->compileVertexShader("VS.hlsl", "VS");
     /*if (!m_vertexShader->compileVertexShader(L"VS.hlsl", "VS"))
     {
       DWORD err = GetLastError();
@@ -115,11 +115,13 @@ App::run() {
       return;
     }*/
 
-    m_vertexShader->createVertexShader(m_device);
+    m_vertexShader->createVertexShader(*m_device);
 
     m_inputLayout->defineVertexLayout();
-    m_inputLayout->createInputLayout(m_device, m_vertexShader);
-    m_inputLayout->setInputLayout(m_device);
+
+    m_inputLayout->createInputLayout(*m_device, *m_vertexShader);
+    
+    m_inputLayout->setInputLayout(*m_device);
 
     if (!m_pixelShader->compilePixelShader(L"PS.hlsl", "PS"))
     {

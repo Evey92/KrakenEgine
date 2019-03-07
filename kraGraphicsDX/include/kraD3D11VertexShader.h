@@ -17,15 +17,15 @@ namespace kraEngineSDK {
   public:
     VertexShaderDX()
     {
-      //m_blob = new BlobDX();
+      m_pBlob = nullptr;
     }
     ~VertexShaderDX() {}
 
     bool
-    compileVertexShader(const wchar_t* fileName,
+    compileVertexShader(std::string fileName,
                         const char* entryPoint);
     bool
-    createVertexShader(Device* pDevice);
+    createVertexShader(const Device& pDevice);
     void 
     cleanShader();
     void
@@ -34,7 +34,7 @@ namespace kraEngineSDK {
     getBlobasDX();*/
 
     bool
-    compileShaderFromFile(const wchar_t* filename,
+    compileShaderFromFile(std::string filename,
         std::string entryPoint,
         std::string shaderModel,
       ID3DBlob** ppBlobOut);

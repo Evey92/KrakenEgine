@@ -10,9 +10,9 @@ namespace kraEngineSDK {
   TextureDX::createTexture2D(Device* pDevice, int height, int width,
                              void* format, void* bindFlag) {
 
-    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
-    DXGI_FORMAT* m_format = reinterpret_cast<DXGI_FORMAT*>(format);
-    D3D11_BIND_FLAG* m_bindFlag = reinterpret_cast<D3D11_BIND_FLAG*>(bindFlag);
+    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
+    DXGI_FORMAT* m_format = static_cast<DXGI_FORMAT*>(format);
+    D3D11_BIND_FLAG* m_bindFlag = static_cast<D3D11_BIND_FLAG*>(bindFlag);
 
     D3D11_TEXTURE2D_DESC descTexture;
     memset(&descTexture, 0, sizeof(descTexture));
@@ -38,10 +38,10 @@ namespace kraEngineSDK {
       void* format, void* bindFlag,
       void*  descTexture) {
 
-    ID3D11Device* m_pDevice = reinterpret_cast<ID3D11Device*>(pDevice);
-    DXGI_FORMAT* m_format = reinterpret_cast<DXGI_FORMAT*>(format);
-    D3D11_BIND_FLAG* m_bindFlag = reinterpret_cast<D3D11_BIND_FLAG*>(bindFlag);
-    D3D11_TEXTURE2D_DESC* m_desc = reinterpret_cast<D3D11_TEXTURE2D_DESC*>(descTexture);
+    ID3D11Device* m_pDevice = static_cast<ID3D11Device*>(pDevice);
+    DXGI_FORMAT* m_format = static_cast<DXGI_FORMAT*>(format);
+    D3D11_BIND_FLAG* m_bindFlag = static_cast<D3D11_BIND_FLAG*>(bindFlag);
+    D3D11_TEXTURE2D_DESC* m_desc = static_cast<D3D11_TEXTURE2D_DESC*>(descTexture);
 
 
     memset(&m_desc, 0, sizeof(m_desc));
@@ -66,9 +66,9 @@ namespace kraEngineSDK {
   TextureDX::createTexture2DFromFile(void* pDevice, const char*  filename,
                                     void* format, void* bindFlag) {
     
-    ID3D11Device* m_pDevice = reinterpret_cast<ID3D11Device*>(pDevice);
-    DXGI_FORMAT* m_fomrat = reinterpret_cast<DXGI_FORMAT*>(format);
-    D3D11_BIND_FLAG* m_bindFlag = reinterpret_cast<D3D11_BIND_FLAG*>(bindFlag);
+    ID3D11Device* m_pDevice = static_cast<ID3D11Device*>(pDevice);
+    DXGI_FORMAT* m_fomrat = static_cast<DXGI_FORMAT*>(format);
+    D3D11_BIND_FLAG* m_bindFlag = static_cast<D3D11_BIND_FLAG*>(bindFlag);
 
     HRESULT hr = S_OK;
     int channels;

@@ -7,7 +7,7 @@
 namespace kraEngineSDK {
 
   bool
-  VertexShaderDX::compileVertexShader(const wchar_t* fileName,
+  VertexShaderDX::compileVertexShader(std::string fileName,
       const char* entryPoint) {
     HRESULT hr = S_OK;
 
@@ -20,14 +20,15 @@ namespace kraEngineSDK {
   }
 
   bool
-  VertexShaderDX::createVertexShader(Device* pDevice) {
+  VertexShaderDX::createVertexShader(const Device& pDevice) {
 
-    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
-    //BlobDX* myBlob = reinterpret_cast<BlobDX*>(m_blob);
+    const DeviceDX& m_pDevice = reinterpret_cast<const DeviceDX&>(pDevice);
+    
     HRESULT hr = S_OK;
-    hr = m_pDevice->m_pd3dDevice->CreateVertexShader(m_pBlob->GetBufferPointer(),
+    hr = m_pDevice.m_pd3dDevice->CreateVertexShader(m_pBlob->GetBufferPointer(),
                                                      m_pBlob->GetBufferSize(),
-                                                     NULL, &m_pVertexShader);
+                                                     nullptr,
+                                                     &m_pVertexShader);
     if (FAILED(hr))
     {
       m_pBlob->Release();
@@ -45,26 +46,31 @@ namespace kraEngineSDK {
   void
   VertexShaderDX::setVertexShader(Device* pDevice) {
     
-    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
+    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
     m_pDevice->m_pImmediateContext->VSSetShader(m_pVertexShader, NULL, 0);
 
   }
 
-  /*BlobDX*
-  VertexShaderDX::getBlobasDX() {
-    return reinterpret_cast<BlobDX*>(m_blob);
-  }*/
-
   bool
-  VertexShaderDX::compileShaderFromFile(const wchar_t* filename,
+  VertexShaderDX::compileShaderFromFile(std::string filename,
       std::string entryPoint,
       std::string shaderModel,
     ID3DBlob** ppBlobOut)
   {
 
-    //BlobDX* m_pBlob = reinterpret_cast<BlobDX*>(ppBlobOut);
-
     HRESULT hr = S_OK;
+    std::ifstream VSfile(filename.c_str());
+    
+    VSfile.open(filename.c_str());
+
+    std::string src;
+
+    if (!VSfile.is_open()) {
+      return false;
+    }
+
+    src = { std::istreambuf_iterator<char>(VSfile), std::istreambuf_iterator<char>() };
+    VSfile.close();
 
     DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
 #if defined( DEBUG ) || defined( _DEBUG )
@@ -75,23 +81,30 @@ namespace kraEngineSDK {
     dwShaderFlags |= D3DCOMPILE_DEBUG;
 #endif
 
-    ID3DBlob* pErrorBlob;
-    hr = D3DCompileFromFile(filename, NULL, NULL, entryPoint.c_str(),
+    ID3DBlob* pErrorBlob = nullptr;
+    /*hr = D3DCompileFromFile(filename.c_str(), NULL, NULL, entryPoint.c_str(),
       shaderModel.c_str(), dwShaderFlags, NULL,
-      ppBlobOut, &pErrorBlob);
+      ppBlobOut, &pErrorBlob);*/
+
+    hr = D3DCompile(src.c_str(), src.size(), filename.c_str(), 0, 0, entryPoint.c_str(), shaderModel.c_str(), D3DCOMPILE_ENABLE_STRICTNESS, 0, &m_pBlob, &pErrorBlob);
+
 
     if (FAILED(hr))
     {
-      if (pErrorBlob != NULL)
+      if (pErrorBlob != NULL) {
         OutputDebugStringA((char*)pErrorBlob->GetBufferPointer());
-      if (pErrorBlob) pErrorBlob->Release();
-      return hr;
+        return false;
+      }
+
+      if (pErrorBlob) {
+        pErrorBlob->Release();
+        return false;
+      }
     }
+
     if (pErrorBlob) {
       pErrorBlob->Release();
     }
-
-    return S_OK;
   }
 
 }

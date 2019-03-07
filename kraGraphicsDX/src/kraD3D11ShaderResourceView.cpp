@@ -8,8 +8,8 @@ namespace kraEngineSDK {
   ShaderResourceViewDX::createShaderResourceView(Device* pDevice, 
                                                  Texture* texture) {
 
-    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
-    TextureDX* m_texture = reinterpret_cast<TextureDX*>(texture);
+    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
+    TextureDX* m_texture = static_cast<TextureDX*>(texture);
 
     HRESULT hr;
 
@@ -27,7 +27,7 @@ namespace kraEngineSDK {
   void
   ShaderResourceViewDX::setShaderResourceView(Device* pDevice) {
     
-    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
+    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
 
     m_pDevice->m_pImmediateContext->PSSetShaderResources(0, 1, &m_pTextureRV);
   }

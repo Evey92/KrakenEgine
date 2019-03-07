@@ -8,7 +8,7 @@ namespace kraEngineSDK {
   bool
   SamplerStateDX::createSamplerState(Device* pDevice) {
 
-    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
+    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
 
     HRESULT hr = S_OK;
 

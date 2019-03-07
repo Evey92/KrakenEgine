@@ -12,10 +12,10 @@ namespace kraEngineSDK {
     ~VertexShader() {}
 
     virtual bool
-    compileVertexShader(const wchar_t* fileName,
+    compileVertexShader(std::string fileName,
                           const char* entryPoint) = 0;
     virtual bool
-    createVertexShader(Device* pDevice) = 0;
+    createVertexShader(const Device& pDevice) = 0;
     virtual void
     cleanShader() = 0;
     virtual void

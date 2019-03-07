@@ -9,8 +9,8 @@ namespace kraEngineSDK {
   DepthStencylViewDX::createDepthStencilView(Device* pDevice,
                                            DepthStencil* pDepthStencil) {
     
-    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
-    DepthStencilDX* m_pDepthStencil = reinterpret_cast<DepthStencilDX*>(pDepthStencil);
+    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
+    DepthStencilDX* m_pDepthStencil = static_cast<DepthStencilDX*>(pDepthStencil);
 
     HRESULT hr = S_OK;
     D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;

@@ -24,14 +24,15 @@ namespace kraEngineSDK {
     defineNormalLayout();
     void
     defineTexcoordLayout();
-    void
+    bool
     createInputLayout(const Device& pd3dDevice, const VertexShader& pVShader);
     void
-    setInputLayout(Device* pDevice);
+    setInputLayout(const Device& pDevice);
     void
     cleanInputLayout();
 
-    std::vector<D3D11_INPUT_ELEMENT_DESC> layoutDescVector;
     ID3D11InputLayout* m_pVertexLayout;
+    std::vector<D3D11_INPUT_ELEMENT_DESC> m_layoutDescVector;
+    
   };
 }

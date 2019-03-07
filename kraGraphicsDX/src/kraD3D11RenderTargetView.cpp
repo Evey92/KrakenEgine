@@ -11,21 +11,21 @@ namespace kraEngineSDK {
   bool
   RenderTargetViewDX::createRenderTargetView(Device* pDevice) {
 
-    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
+    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
     //SwapChainDX* m_pSwapChain = reinterpret_cast<SwapChainDX*>(pSwapChain);
 
-    ID3D11Texture2D* pBackBuffer = NULL;
+    ID3D11Texture2D* pBackBuffer = nullptr;
     HRESULT hr = S_OK;
     
-    hr = m_pDevice->m_pSwapChain.m_pd3dSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
+    hr = m_pDevice->m_pSwapChain.m_pd3dSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*>(&pBackBuffer));
 
     if (FAILED(hr))
-      return hr;
+      return false;
 
-    m_pDevice->m_pd3dDevice->CreateRenderTargetView(pBackBuffer, NULL, &m_pRenderTargetView);
+    m_pDevice->m_pd3dDevice->CreateRenderTargetView(pBackBuffer, nullptr, &m_pRenderTargetView);
     pBackBuffer->Release();
 
-    return hr;
+    return true;
   }
 
   void
@@ -35,7 +35,7 @@ namespace kraEngineSDK {
 
   void
   RenderTargetViewDX::clearRenderTargetView(Device* pDevice, Vector4 clearColor) {
-    DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
+    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
 
     m_pDevice->m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView,
                                                           &clearColor[0]);
