@@ -1,7 +1,8 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
-#include "kraRenderTargetView.h"
+#include "kraDepthStencilView.h"
 #include "kraDevice.h"
+
 
 namespace kraEngineSDK {
   class Device;
@@ -18,6 +19,9 @@ namespace kraEngineSDK {
 
     virtual void
     setRenderTarget(const Device& pDevice) = 0;
+
+    virtual void
+    setRenderTarget(const Device& pDevice, const DepthStencylView& pDSV) = 0;
 
     virtual void
     cleanRTV() = 0;

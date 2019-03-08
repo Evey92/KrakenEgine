@@ -39,6 +39,8 @@ class App : public BaseApplication
   void
   LoadTriangle();
   void
+  LoadCube();
+  void
   render();
   void 
   CleanupDevice();

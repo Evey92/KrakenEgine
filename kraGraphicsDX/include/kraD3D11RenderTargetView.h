@@ -19,6 +19,8 @@ namespace kraEngineSDK {
     createRenderTargetView(const Device& pDevice);
     void
     setRenderTarget(const Device& pDevice);
+    void
+    setRenderTarget(const Device& pDevice, const DepthStencylView& pDSV);
     void 
     cleanRTV();
     void

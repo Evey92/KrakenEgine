@@ -28,11 +28,6 @@ namespace kraEngineSDK {
     initializeDevice(void* g_hWnd);
     void
     setRenderTarget(RenderTargetView* pRTV, void* pDSV);
-
-    DepthStencil*
-    createDepthStencil(int height, int width);
-    void
-    cleanDepthStencil(DepthStencil* depthStencil);
     void
     cleanContext();
     void

@@ -1,5 +1,6 @@
 #include <kraDevice.h>
 #include <kraSwapChain.h>
+#include <kraD3D11DepthStencylView.h>
 
 #include "kraPrerequisitesGFX.h"
 #include "kraD3D11RenderTargetView.h"
@@ -29,13 +30,21 @@ namespace kraEngineSDK {
   }
 
   void
-  RenderTargetViewDX::setRenderTarget(const Device& pDevice) {
+    RenderTargetViewDX::setRenderTarget(const Device& pDevice) {
 
     const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
 
-    HRESULT hr = S_OK;
-
     m_device.m_pImmediateContext->OMSetRenderTargets(1, &m_pRenderTargetView, nullptr);
+  }
+
+  void
+  RenderTargetViewDX::setRenderTarget(const Device& pDevice, const DepthStencylView& pDSV) {
+
+    const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
+    const DepthStencylViewDX& m_DSV = static_cast<const DepthStencylViewDX&>(pDSV);
+
+
+    m_device.m_pImmediateContext->OMSetRenderTargets(1, &m_pRenderTargetView, m_DSV.m_pDepthStencilView);
 
 
   }

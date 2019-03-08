@@ -35,9 +35,6 @@
     <ClInclude Include="include\kraD3D11GraphicsAPI.h">
       <Filter>Source Files\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\kraD3D11GraphicsBuffer.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
     <ClInclude Include="include\kraD3D11IndexBuffer.h">
       <Filter>Source Files\include</Filter>
     </ClInclude>
@@ -88,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="include\kraD3D11Blob.h">
       <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11GraphicsBuffer.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

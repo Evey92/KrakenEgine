@@ -13,8 +13,8 @@ App::run() {
     HINSTANCE GFXDLL;
     
 
-    std::string path = "C:\\Users\\Usuario\\Documents\\UAD\\8vo\\KrakenEgine\\bin\\x64\\kraGraphicsDXd.dll";
-    //std::string path = "C:\\Users\\Ivan\\Documents\\UAD\\8vo\\Motores\\KrakenEgine\\bin\\x64\\kraGraphicsDXd.dll";
+    //std::string path = "C:\\Users\\Usuario\\Documents\\UAD\\8vo\\KrakenEgine\\bin\\x64\\kraGraphicsDXd.dll";
+    std::string path = "C:\\Users\\Ivan\\Documents\\UAD\\8vo\\Motores\\KrakenEgine\\bin\\x64\\kraGraphicsDXd.dll";
   
     GFXDLL = LoadLibraryExA(path.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
     if (!GFXDLL) {
@@ -58,6 +58,8 @@ App::run() {
       std::cout << "could not find specified function" << std::endl;
       return FALSE;
     }
+
+    m_depthStencil = m_device->createDepthStencilInstance();
 
     m_inputLayout = m_device->createInputLayoutInstance();
     if (!m_inputLayout)
@@ -147,6 +149,49 @@ App::run() {
     m_vertBuffer->setVertexBuffer(m_device);
 
     m_device->setPrimitiveTopology();
+  }
+
+  void
+  App::LoadCube() {
+    m_renderTargetView->createRenderTargetView(*m_device);
+    
+    m_depthStencil->setDepthStencil(*m_device, m_device->getHeight, m_device->getWidth);
+  
+    m_depthStencilView->createDepthStencilView(*m_device, *m_depthStencil);
+
+    m_renderTargetView->setRenderTarget(*m_device, *m_depthStencilView);
+
+    m_viewport->createViewport(m_device->getHeight(), m_device->getWidth(), 1.0f, 1.0f);
+
+    m_viewport->setViewport(m_device);
+
+    if (!m_vertexShader->compileVertexShader("VS.hlsl", "VS"))
+    {
+      DWORD err = GetLastError();
+      MessageBox(NULL, "Failed to compile Vertex shader", "Error", MB_OK);
+
+      std::cout << "Failed to compile shader\n";
+      return;
+    }
+
+    m_vertexShader->createVertexShader(*m_device);
+
+    m_inputLayout->defineVertexLayout();
+    m_inputLayout->defineTexcoordLayout();
+
+    m_inputLayout->createInputLayout(*m_device, *m_vertexShader);
+
+    m_inputLayout->setInputLayout(*m_device);
+
+    if (!m_pixelShader->compilePixelShader("PS.hlsl", "PS"))
+    {
+      MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
+
+      std::cout << "Failed to compile shader\n";
+      return;
+    }
+    m_pixelShader->createPixelShader(*m_device);
+
   }
 
   HINSTANCE
