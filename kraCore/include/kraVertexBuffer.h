@@ -56,14 +56,7 @@ namespace kraEngineSDK {
     createHardwareBuffer(Device* pDevice) = 0;
 
     virtual void
-    setVertexBuffer(Device* pImmediateContext) = 0;
-
-    /**
-    * @brief Cleans the vertex buffer.
-    */
-    virtual void
-      cleanVertexBuffer() = 0;
-    
+    setVertexBuffer(Device* pImmediateContext) = 0;    
 
   };
 

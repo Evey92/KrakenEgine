@@ -30,6 +30,15 @@ namespace kraEngineSDK {
       Tex.x = copyVert.Tex.x;
       Tex.y = copyVert.Tex.y;
     }
+
+    Vertex(Vector3 vert)
+    {
+      Pos.x = vert.x;
+      Pos.y = vert.y;
+      Pos.z = vert.z;
+      Pos.w = 1.0f;
+    }
+
     Vertex(Vector3 vert, Vector2 tex)
     {
       Pos.x = vert.x;

@@ -1,8 +1,12 @@
 #include <kraDepthStencil.h>
+#include <kraDepthStencilView.h>
 #include <kraRenderTargetView.h>
 #include <kraViewport.h>
 #include <kraInputLayout.h>
+#include <kraVertexBuffer.h>
+#include <kraIndexBuffer.h>
 
+#include "kraD3D11DepthStencylView.h"
 #include "kraD3D11Device.h"
 #include "kraD3D11RenderTargetView.h"
 #include "kraD3D11DepthStencil.h"
@@ -11,6 +15,7 @@
 #include "kraD3D11VertexShader.h"
 #include "kraD3D11PixelShader.h"
 #include "kraD3D11VertexBuffer.h"
+#include "kraD3D11IndexBuffer.h"
 
 namespace kraEngineSDK {
 
@@ -134,8 +139,8 @@ namespace kraEngineSDK {
   }
 
   void
-  DeviceDX::DrawIndexed() {
-
+  DeviceDX::DrawIndexed(uint32 count, uint32 start, int32 baseLoc) {
+    m_pImmediateContext->DrawIndexed(count, start, baseLoc);
   }
 
   //TODO fix this bullshit.
@@ -164,6 +169,11 @@ namespace kraEngineSDK {
     return new DepthStencilDX();
   }
 
+  DepthStencylView*
+    createDepthStencilViewInstance() {
+    return new DepthStencylViewDX();
+  }
+
   VertexShader*
   DeviceDX::createVertexShaderInstance() {
     return new VertexShaderDX();
@@ -175,6 +185,10 @@ namespace kraEngineSDK {
   VertexBuffer*
   DeviceDX::createVertexBufferInstance() {
     return new VertexBufferDX();
+  }
+  IndexBuffer*
+  DeviceDX::createIndexBufferInstance() {
+    return new IndexBufferDX();
   }
 
 }

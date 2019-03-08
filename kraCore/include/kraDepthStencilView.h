@@ -1,9 +1,11 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
-#include "kraDevice.h"
-#include "kraDepthStencil.h"
 
 namespace kraEngineSDK {
+
+  class Device;
+  class DepthStencil;
+
   class DepthStencylView
   {
   public:
@@ -18,6 +20,9 @@ namespace kraEngineSDK {
 
     virtual void
     cleanDSV() = 0;
+
+    virtual void
+    clearDSV(const Device& pDevice) = 0;
 
   };
 }

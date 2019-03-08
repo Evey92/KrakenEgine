@@ -7,9 +7,12 @@ namespace kraEngineSDK {
   class InputLayout;
   class Viewport;
   class DepthStencil;
+  class DepthStencylView;
   class PixelShader;
   class VertexShader;
   class VertexBuffer;
+  class IndexBuffer;
+
 
   class Device
   {
@@ -23,10 +26,10 @@ namespace kraEngineSDK {
     virtual void
     setRenderTarget(RenderTargetView* pRTV, void* pDSV) = 0;
     
-    virtual DepthStencil*
-    createDepthStencil(int height, int width) = 0;
+    /*virtual DepthStencil*
+    createDepthStencil(int height, int width) = 0;*/
     
-    virtual void cleanDepthStencil(DepthStencil* depthStencil) = 0;
+    /*virtual void cleanDepthStencil(DepthStencil* depthStencil) = 0;*/
     
     virtual void
     cleanContext() = 0;
@@ -48,7 +51,7 @@ namespace kraEngineSDK {
     virtual void
     Draw(uint32 numVertex, uint32 startIndex) = 0;
     virtual void
-    DrawIndexed() = 0;
+    DrawIndexed(uint32 count, uint32 start, int32 baseLoc) = 0;
     virtual void
     PresentSwapChain() = 0;
     virtual RenderTargetView*
@@ -59,12 +62,16 @@ namespace kraEngineSDK {
     createInputLayoutInstance() = 0;
     virtual DepthStencil*
     createDepthStencilInstance() = 0;
+    virtual DepthStencylView*
+    createDepthStencilViewInstance() = 0;
     virtual VertexShader*
     createVertexShaderInstance() = 0;
     virtual PixelShader*
     createPixelShaderInstance() = 0;
     virtual VertexBuffer*
     createVertexBufferInstance() = 0;
+    virtual IndexBuffer*
+    createIndexBufferInstance() = 0;
 
   };
 }

@@ -12,10 +12,13 @@ App::run() {
     typedef GraphicsAPI*(*initFunc)();
     HINSTANCE GFXDLL;
     
+    color.x = 0.7f;
+    color.y = 0.7f;
+    color.z = 0.7f;
+    color.w = 1.0f;
 
-    //std::string path = "C:\\Users\\Usuario\\Documents\\UAD\\8vo\\KrakenEgine\\bin\\x64\\kraGraphicsDXd.dll";
-    std::string path = "C:\\Users\\Ivan\\Documents\\UAD\\8vo\\Motores\\KrakenEgine\\bin\\x64\\kraGraphicsDXd.dll";
-  
+    std::string path = "kraGraphicsDXd.dll";
+
     GFXDLL = LoadLibraryExA(path.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
     if (!GFXDLL) {
       DWORD err = GetLastError();
@@ -61,6 +64,7 @@ App::run() {
 
     m_depthStencil = m_device->createDepthStencilInstance();
 
+    m_depthStencilView = m_device->createDepthStencilViewInstance();
     m_inputLayout = m_device->createInputLayoutInstance();
     if (!m_inputLayout)
     {
@@ -94,6 +98,12 @@ App::run() {
     if (!m_vertBuffer)
     {
       std::cout << "could not find specified function" << std::endl;
+      return FALSE;
+    }
+
+    m_indexBuffer = m_device->createIndexBufferInstance();
+    {
+      MessageBox(NULL, "Failed to create Index Buffer", "Error", MB_OK);
       return FALSE;
     }
 
@@ -155,7 +165,7 @@ App::run() {
   App::LoadCube() {
     m_renderTargetView->createRenderTargetView(*m_device);
     
-    m_depthStencil->setDepthStencil(*m_device, m_device->getHeight, m_device->getWidth);
+    m_depthStencil->setDepthStencil(*m_device, m_device->getHeight(), m_device->getWidth());
   
     m_depthStencilView->createDepthStencilView(*m_device, *m_depthStencil);
 
@@ -192,6 +202,112 @@ App::run() {
     }
     m_pixelShader->createPixelShader(*m_device);
 
+    
+        Vertex vert1(Vector3(-1.0f, 1.0f, -1.0f), Vector2(0.0f, 0.0f));
+        m_vertBuffer->add(vert1);
+        Vertex vert2(Vector3(1.0f, 1.0f, -1.0f), Vector2(1.0f, 0.0f));
+        m_vertBuffer->add(vert2);
+        Vertex vert3(Vector3(1.0f, 1.0f, 1.0f), Vector2(1.0f, 1.0f));
+        m_vertBuffer->add(vert3);
+
+        Vertex vert4(Vector3(-1.0f, 1.0f, 1.0f), Vector2(0.0f, 1.0f));
+        m_vertBuffer->add(vert4);
+        Vertex vert5(Vector3(-1.0f, -1.0f, -1.0f), Vector2(0.0f, 0.0f));
+        m_vertBuffer->add(vert5);
+        Vertex vert6(Vector3(1.0f, -1.0f, -1.0f), Vector2(1.0f, 0.0f));
+        m_vertBuffer->add(vert6);
+        Vertex vert7(Vector3(1.0f, -1.0f, 1.0f), Vector2(1.0f, 1.0f));
+        m_vertBuffer->add(vert7);
+        Vertex vert8(Vector3(-1.0f, -1.0f, 1.0f), Vector2(0.0f, 1.0f));
+        m_vertBuffer->add(vert8);
+
+        Vertex vert9(Vector3(-1.0f, -1.0f, 1.0f), Vector2(0.0f, 0.0f));
+        m_vertBuffer->add(vert9);
+        Vertex vert10(Vector3(-1.0f, -1.0f, -1.0f), Vector2(1.0f, 0.0f));
+        m_vertBuffer->add(vert10);
+        Vertex vert11(Vector3(-1.0f, 1.0f, -1.0f), Vector2(1.0f, 1.0f));
+        m_vertBuffer->add(vert11);
+        Vertex vert12(Vector3(-1.0f, 1.0f, 1.0f), Vector2(0.0f, 1.0f));
+        m_vertBuffer->add(vert12);
+        
+        Vertex vert13(Vector3(1.0f, -1.0f, 1.0f), Vector2(0.0f, 0.0f));
+        m_vertBuffer->add(vert13);
+        Vertex vert14(Vector3(1.0f, -1.0f, -1.0f), Vector2(1.0f, 0.0f));
+        m_vertBuffer->add(vert14);
+        Vertex vert15(Vector3(1.0f, 1.0f, -1.0f), Vector2(1.0f, 1.0f));
+        m_vertBuffer->add(vert15);
+        Vertex vert16(Vector3(1.0f, 1.0f, 1.0f), Vector2(0.0f, 1.0f));
+        m_vertBuffer->add(vert16);
+        
+        Vertex vert17(Vector3(-1.0f, -1.0f, -1.0f), Vector2(0.0f, 0.0f));
+        m_vertBuffer->add(vert17);
+        Vertex vert18(Vector3(1.0f, -1.0f, -1.0f), Vector2(1.0f, 0.0f));
+        m_vertBuffer->add(vert18);
+        Vertex vert19(Vector3(1.0f, 1.0f, -1.0f), Vector2(1.0f, 1.0f));
+        m_vertBuffer->add(vert19);
+        Vertex vert20(Vector3(-1.0f, 1.0f, -1.0f), Vector2(0.0f, 1.0f));
+        m_vertBuffer->add(vert20);
+        
+        Vertex vert21(Vector3(-1.0f, -1.0f, 1.0f), Vector2(0.0f, 0.0f));
+        m_vertBuffer->add(vert21);
+        Vertex vert22(Vector3(1.0f, -1.0f, 1.0f), Vector2(1.0f, 0.0f));
+        m_vertBuffer->add(vert22);
+        Vertex vert23(Vector3(1.0f, 1.0f, 1.0f), Vector2(1.0f, 1.0f));
+        m_vertBuffer->add(vert23);
+        Vertex vert24(Vector3(-1.0f, 1.0f, 1.0f), Vector2(0.0f, 1.0f));
+        m_vertBuffer->add(vert24);
+    
+        m_vertBuffer->createHardwareBuffer(m_device);
+        m_vertBuffer->setVertexBuffer(m_device);
+
+        m_indexBuffer->add(3); m_indexBuffer->add(1); m_indexBuffer->add(0);
+        m_indexBuffer->add(2); m_indexBuffer->add(1); m_indexBuffer->add(3);
+        
+        m_indexBuffer->add(6); m_indexBuffer->add(4); m_indexBuffer->add(5);
+        m_indexBuffer->add(7); m_indexBuffer->add(4); m_indexBuffer->add(6);
+        
+        m_indexBuffer->add(11); m_indexBuffer->add(9); m_indexBuffer->add(8);
+        m_indexBuffer->add(10); m_indexBuffer->add(9); m_indexBuffer->add(11);
+        
+        m_indexBuffer->add(14); m_indexBuffer->add(12); m_indexBuffer->add(13);
+        m_indexBuffer->add(15); m_indexBuffer->add(12); m_indexBuffer->add(14);
+
+        m_indexBuffer->add(19); m_indexBuffer->add(17); m_indexBuffer->add(16);
+        m_indexBuffer->add(18); m_indexBuffer->add(17); m_indexBuffer->add(19);
+
+        m_indexBuffer->add(22); m_indexBuffer->add(20); m_indexBuffer->add(21);
+        m_indexBuffer->add(23); m_indexBuffer->add(20); m_indexBuffer->add(22);
+        
+        m_indexBuffer->createIndexBuffer(*m_device);
+        m_indexBuffer->setIndexBuffer(*m_device);
+
+        m_device->setPrimitiveTopology();
+
+        m_CBNeverChanges->createConstantBuffer(*m_device);
+        m_CBChangesOnResize->createConstantBuffer(*m_device);
+        m_CBChangesEveryframe->createConstantBuffer(*m_device);
+
+        m_samplerState->createSamplerState(*m_device);
+
+        Vector4 Eye(0.0f, 3.0f, - 6.0f, 0.0f);
+        Vector4 At(0.0f, 1.0f, 0.0f, 0.0f);
+        Vector4 Up(0.0f, 1.0f, 0.0f, 0.0f);
+
+        m_view = m_view.MatrixLookAtLH(Eye, At, Up);
+
+        CBNeverChanges cbNeverChanges;
+        cbNeverChanges.m_view = m_view.transpose();
+
+        m_CBNeverChanges->updateSubResources(*m_device, cbNeverChanges);
+        
+        //TODO: Make this function FFS...
+
+        //m_projection = XMMatrixPerspectiveFovLH();
+
+        CBChangeOnResize cbChangesOnRezise;
+        cbChangesOnRezise.m_projection = m_projection.transpose();
+        m_CBChangesOnResize->updateSubResources(*m_device, cbChangesOnRezise);
+
   }
 
   HINSTANCE
@@ -227,6 +343,42 @@ App::run() {
     m_pixelShader->setPixelShader(*m_device);
     m_device->Draw(3, 0);
     m_device->PresentSwapChain();
+  }
+
+  void
+  App::RenderCube() {
+    
+    static float t = 0.0f;
+
+    color.x = (sinf(t * 1.0) + 1.0f) * 0.5f;
+    color.y = (sinf(t * 3.0) + 1.0f) * 0.5f;
+    color.x = (sinf(t * 5.0) + 1.0f) * 0.5f;
+
+    Vector4 ClearColor = { 0.5f, 0.0f, 0.8f, 1.0f };
+    m_renderTargetView->clearRenderTargetView(m_device, ClearColor);
+
+    m_depthStencilView->clearDSV(*m_device);
+
+    CBChangesEveryFrame cbChangesEvryFrame;
+    
+    cbChangesEvryFrame.m_world = m_world.transpose();
+    cbChangesEvryFrame.m_vMeshColor = color;
+
+    m_CBChangesEveryframe->updateSubResources(*m_device, cbChangesEvryFrame);
+
+    m_vertexShader->setVertexShader(*m_device);
+    m_CBNeverChanges->setVertexConstantBuffer(*m_device, 0, 1);
+    m_CBChangesOnResize->setVertexConstantBuffer(*m_device, 1, 1);
+    m_CBChangesEveryframe->setVertexConstantBuffer(*m_device, 2, 1);
+    m_pixelShader->setPixelShader(*m_device);
+    m_CBChangesEveryframe->setPixelConstantBuffer(*m_device, 2, 1);
+
+    m_samplerState->setSamplerState(*m_device);
+    
+    m_device->DrawIndexed(36, 0, 0);
+
+    m_device->PresentSwapChain();
+
   }
 
   void

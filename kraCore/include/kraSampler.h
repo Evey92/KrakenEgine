@@ -11,7 +11,10 @@ namespace kraEngineSDK {
     ~SamplerState() {}
 
     virtual bool
-    createSamplerState(Device* pDevice) = 0;
+    createSamplerState(const Device& pDevice) = 0;
+
+    virtual void
+    setSamplerState(const Device& pDevice) = 0;
 
   };
 }

@@ -1,9 +1,11 @@
 #pragma once
 #include "kraGraphicsBuffer.h"
+#include "kraDevice.h"
 
 namespace kraEngineSDK {
 
-  template<typename TINDEX>
+  //template<typename TINDEX>
+
   class IndexBuffer : public GraphicsBuffer
   {
 
@@ -28,20 +30,20 @@ namespace kraEngineSDK {
     * @param the address of the vertex.
     */
     virtual void
-      add(const TINDEX& index) = 0;
+      add(const uint32& index) = 0;
     /**
     * @brief Copies a whole vertex vector into the buffer.
     * @param the vector containing the vertexes.
     */
     virtual void
-    add(const std::vector<TINDEX>& indexes) = 0;
+    add(const std::vector<uint32>& indexes) = 0;
 
     /**
     * @brief Adds multiple vertexes onto the buffer.
     * @param A pointer to the start position of the vertexes, ad the number of vertexes.
     */
     virtual void
-    add(const TINDEX* pVertices, size_t numVertices) = 0;
+    add(const uint32* pVertices, size_t numVertices) = 0;
 
     /**
     * @brief Cleans the vertex buffer.
@@ -49,15 +51,17 @@ namespace kraEngineSDK {
     virtual void
     clear() = 0;
 
+    virtual void
+    Release() = 0;
     /**
      * @brief Creates a vertex buffer.
      * @param size of te vertex, number of vertexes, and a flag for usage.
      */
     virtual void
-    createIndexBuffer(uint32 indexSize, uint32 numIndex/*, here should go the usage flag */) = 0;
+    createIndexBuffer(const Device& pDevice) = 0;
 
     virtual void
-      setIndexBuffer(void* pImmediateContext) = 0;
+      setIndexBuffer(const Device& pDevice) = 0;
 
   };
 

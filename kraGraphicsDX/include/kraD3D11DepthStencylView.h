@@ -2,10 +2,12 @@
 #include <kraDepthStencilView.h>
 
 #include "kraPrerequisitesGFX.h"
-#include "kraD3D11DepthStencil.h" 
 
 namespace kraEngineSDK {
-  
+
+  class DepthStencil;
+ 
+
   class KRA_UTILGFX_EXPORT DepthStencylViewDX : public DepthStencylView
   {
    public:
@@ -18,6 +20,9 @@ namespace kraEngineSDK {
 
     void
     cleanDSV();
+
+    void
+    clearDSV(const Device& pDevice);
 
     ID3D11DepthStencilView* m_pDepthStencilView = nullptr;
   };

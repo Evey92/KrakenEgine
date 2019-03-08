@@ -13,6 +13,7 @@ namespace kraEngineSDK {
   class InputLayout;
   class Viewport;
   class DepthStencil;
+  class DepthStencylView;
   class VertexShader;
   class PixelShader;
   class VertexBuffer;
@@ -45,7 +46,7 @@ namespace kraEngineSDK {
     void
     Draw(uint32 numVertex, uint32 startIndex);
     void
-    DrawIndexed();
+    DrawIndexed(uint32 count, uint32 start, int32 baseLoc);
     void
     PresentSwapChain();
     RenderTargetView*
@@ -56,13 +57,16 @@ namespace kraEngineSDK {
     createInputLayoutInstance();
     DepthStencil*
     createDepthStencilInstance();
+    DepthStencylView*
+    createDepthStencilViewInstance();
     VertexShader*
     createVertexShaderInstance();
     PixelShader*
     createPixelShaderInstance();
-    
     VertexBuffer*
     createVertexBufferInstance();
+    IndexBuffer*
+    createIndexBufferInstance();
 
     SwapChainDX m_pSwapChain;
     uint32 m_height;

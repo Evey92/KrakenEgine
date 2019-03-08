@@ -14,7 +14,10 @@ namespace kraEngineSDK {
     ~SamplerStateDX() {}
 
     bool
-    createSamplerState(Device* pDevice);
+    createSamplerState(const Device& pDevice);
+
+    void
+    setSamplerState(const Device& pDevice);
 
     ID3D11SamplerState* m_samplerState = nullptr;
   };

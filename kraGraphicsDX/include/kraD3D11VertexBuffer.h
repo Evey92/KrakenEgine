@@ -84,10 +84,6 @@ namespace kraEngineSDK {
       m_pDevice->m_pImmediateContext->IASetVertexBuffers(0, 1, &m_pBuffer, &stride, &offset);
     }
 
-    void
-    cleanVertexBuffer() {
-      m_pBuffer->Release();
-    }
 
    private:
     std::vector<Vertex> m_vertexData;

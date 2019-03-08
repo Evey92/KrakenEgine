@@ -35,7 +35,7 @@ namespace kraEngineSDK {
 
   }*/
 
-  Matrix4 Camera::GetViewMatrix(Vector3 objective, Vector3 UP) 
+  Matrix4 Camera::GetViewMatrix(Vector4 objective, Vector4 UP) 
   {
       return m_viewMat.MatrixLookAtLH(m_pos, objective, UP);
   }

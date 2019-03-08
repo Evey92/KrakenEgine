@@ -1,10 +1,16 @@
 #pragma once
-#include <kraD3D11GraphicsBuffer.h>
+#include <kraConstantBuffer.h>
+#include <kraDevice.h>
+
+#include "kraPrerequisitesGFX.h"
+#include "kraD3D11GraphicsBuffer.h"
+#include "kraD3D11Device.h"
 
 namespace kraEngineSDK {
 
   template<typename CONSVERTEX>
-  class KRA_UTILGFX_EXPORT  ConstantBufferDX : public  GraphicsBufferDX
+  class KRA_UTILGFX_EXPORT  ConstantBufferDX : 
+    public GraphicsBufferDX, public ConstantBuffer<CONSVERTEX>
   {
   public:
     ConstantBufferDX() = default;
@@ -35,25 +41,72 @@ namespace kraEngineSDK {
       m_constData.clear();
     }
 
-    void createHardwareBuffer(ID3D11Device* pDevice, D3D11_USAGE usage = D3D11_USAGE_DEFAULT)
+    void createConstantBuffer(const Device& pDevice)
     {
+      const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
+
       D3D11_BUFFER_DESC bd;
       memset(&bd, 0, sizeof(bd));
 
-      bd.Usage = usage;
+      bd.Usage = D3D11_USAGE_DEFAULT;
       bd.ByteWidth = static_cast<uint32>(sizeof(CONSVERTEX));
       bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
       bd.CPUAccessFlags = 0;
-
-      D3D11_SUBRESOURCE_DATA InitData;
-      memset(&InitData, 0, sizeof(InitData));
-      //InitData.pSysMem = &m_constData[0];
-
-      HRESULT hr = pDevice->CreateBuffer(&bd, NULL ,&m_pBuffer);
+    
+      HRESULT hr = m_device.m_pd3dDevice->CreateBuffer(&bd, nullptr ,&m_pBuffer);
       if (FAILED(hr))
       {
         throw std::exception("Failed to create Constant Buffer).");
       }
+    }
+
+    void
+    setConstantBuffer(const Device& pDevice) {
+      const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
+
+    }
+
+    void
+    updateSubResources(const Device& pDevice, CBNeverChanges cbNvrMat) {
+      
+      const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
+
+      m_device.m_pImmediateContext->UpdateSubresource(m_pBuffer, 0, nullptr, &cbNvrMat, 0, 0);
+        
+    }
+
+    void
+    updateSubResources(const Device& pDevice, CBChangeOnResize cbNvrMat) {
+
+      const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
+
+      m_device.m_pImmediateContext->UpdateSubresource(m_pBuffer, 0, nullptr, &cbNvrMat, 0, 0);
+
+    }
+
+    void
+    updateSubResources(const Device& pDevice, CBChangesEveryFrame cbNvrMat) {
+
+      const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
+
+      m_device.m_pImmediateContext->UpdateSubresource(m_pBuffer, 0, nullptr, &cbNvrMat, 0, 0);
+
+    }
+
+    void
+    setVertexConstantBuffer(const Device& pDevice, uint32 startSlot, uint32 NumBuffs) {
+      const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
+
+      m_device.m_pImmediateContext.VSSetConstantBuffers(startSlot, NumBuffs, &m_pBuffer);
+      
+    }
+
+    void
+    setPixelConstantBuffer(const Device& pDevice, uint32 startSlot, uint32 NumBuffs) {
+      const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
+
+      m_device.m_pImmediateContext.PSSetConstantBuffers(startSlot, NumBuffs, &m_pBuffer);
+
     }
 
   private:

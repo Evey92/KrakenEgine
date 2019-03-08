@@ -14,7 +14,7 @@ namespace kraEngineSDK {
      virtual
      ~Model() {}
 
-    IndexBuffer<unsigned short>* m_indexBuffer;
+    IndexBuffer* m_indexBuffer;
     VertexBuffer* m_vertexBurffer;
 
     void 

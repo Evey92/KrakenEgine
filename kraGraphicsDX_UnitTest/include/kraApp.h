@@ -19,7 +19,8 @@
 #include <kraConstantBufferMatrices.h>
 #include <kraShaderResourceView.h>
 #include <kraSampler.h>
-
+#include <kraVector4.h>
+#include <kraMatrix4.h>
 
 using namespace kraEngineSDK;
 
@@ -42,6 +43,8 @@ class App : public BaseApplication
   LoadCube();
   void
   render();
+  void
+  RenderCube();
   void 
   CleanupDevice();
  private:
@@ -95,12 +98,18 @@ class App : public BaseApplication
   InputLayout* m_inputLayout;
   PixelShader* m_pixelShader;
   VertexBuffer* m_vertBuffer;
-  IndexBuffer<unsigned short>* m_indexBuffer;
+  IndexBuffer* m_indexBuffer;
+  ConstantBuffer<CBNeverChanges>* m_CBNeverChanges;
+  ConstantBuffer<CBChangeOnResize>* m_CBChangesOnResize;
+  ConstantBuffer<CBChangesEveryFrame>* m_CBChangesEveryframe;
   Texture* m_pBackBuffer;
   Texture* m_texture;
   ShaderResourceView* m_SRV;
   SamplerState* m_samplerState;
   RenderAPIManager* apiManager;
   GraphicsAPI* gfxAPIInstance;
-  
+  Matrix4 m_world;
+  Matrix4 m_view;
+  Matrix4 m_projection;
+  Vector4 color;
 };

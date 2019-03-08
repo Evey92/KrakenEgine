@@ -2,7 +2,9 @@
 #include "kraPrerequisitesCore.h"
 
 namespace kraEngineSDK {
- 
+
+  class Device;
+
   class DepthStencil
   {
    public:

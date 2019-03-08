@@ -6,9 +6,9 @@
 namespace kraEngineSDK {
   
   bool
-  SamplerStateDX::createSamplerState(Device* pDevice) {
+  SamplerStateDX::createSamplerState(const Device& pDevice) {
 
-    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
     HRESULT hr = S_OK;
 
@@ -22,13 +22,20 @@ namespace kraEngineSDK {
     sampDesc.MinLOD = 0;
     sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
-    hr = m_pDevice->m_pd3dDevice->CreateSamplerState(&sampDesc, &m_samplerState);
+    hr = m_pDevice.m_pd3dDevice->CreateSamplerState(&sampDesc, &m_samplerState);
         
     if (FAILED(hr)) {
       return false;
     }
 
     return true;
+  }
+
+  void
+  SamplerStateDX::setSamplerState(const Device& pDevice) {
+    const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
+
+    m_device.m_pImmediateContext->PSSetSamplers(0, 1, &m_samplerState);
   }
 
 }

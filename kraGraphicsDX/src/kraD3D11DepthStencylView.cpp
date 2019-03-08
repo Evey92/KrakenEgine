@@ -1,7 +1,9 @@
+#include <kraDevice.h>
+#include <kraDepthStencil.h>
+
 #include "kraD3D11DepthStencylView.h"
 #include "kraD3D11Device.h"
-#include "kraDevice.h"
-#include "kraDepthStencil.h"
+#include "kraD3D11DepthStencil.h"
 
 namespace kraEngineSDK {
   
@@ -30,6 +32,15 @@ namespace kraEngineSDK {
   void
   DepthStencylViewDX::cleanDSV() {
     m_pDepthStencilView->Release();
+  }
+
+  void
+  DepthStencylViewDX::clearDSV(const Device& pDevice) {
+
+    const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
+    
+    m_device.m_pImmediateContext->ClearDepthStencilView(m_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+
   }
 
 }

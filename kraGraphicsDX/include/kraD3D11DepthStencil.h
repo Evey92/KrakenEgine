@@ -18,6 +18,7 @@ namespace kraEngineSDK {
      setDepthStencil(const Device& pDevice, int height, int width);
      void
      cleanDepthStencil();
+     
 
      ID3D11Texture2D* m_pd3dDepthStencil;
   };
