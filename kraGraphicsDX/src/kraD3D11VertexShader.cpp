@@ -11,11 +11,12 @@ namespace kraEngineSDK {
       const char* entryPoint) {
     HRESULT hr = S_OK;
 
-    hr = compileShaderFromFile(fileName, entryPoint, "vs_4_0", &m_pBlob);
+    hr = compileShaderFromFile(fileName, entryPoint, "vs_5_0", &m_pBlob);
 
-    if (FAILED(hr))
+    if (!m_pBlob)
     {
-      return hr;
+      MessageBox(NULL, "Failed to compile Vertex Shader", "Error", MB_OK);
+      return FALSE;
     }
   }
 
@@ -55,7 +56,7 @@ namespace kraEngineSDK {
   VertexShaderDX::compileShaderFromFile(std::string filename,
       std::string entryPoint,
       std::string shaderModel,
-    ID3DBlob** ppBlobOut)
+      ID3DBlob** ppBlobOut)
   {
 
     HRESULT hr = S_OK;
@@ -92,18 +93,12 @@ namespace kraEngineSDK {
     if (FAILED(hr))
     {
       if (pErrorBlob != NULL) {
+        DWORD err = GetLastError();
+        MessageBox(NULL, "Failed to compile Vertex Shader Blob", "Error", MB_OK);
         OutputDebugStringA((char*)pErrorBlob->GetBufferPointer());
-        return false;
-      }
-
-      if (pErrorBlob) {
         pErrorBlob->Release();
         return false;
       }
-    }
-
-    if (pErrorBlob) {
-      pErrorBlob->Release();
     }
 
     return true;

@@ -138,7 +138,13 @@ App::run() {
       MessageBox(NULL, "Failed to create Constant Buffer CEF", "Error", MB_OK);
       return FALSE;
     }
-
+    m_samplerState = m_device->createSamplerStateInstance();
+    
+    if (!m_CBChangesEveryframe)
+    {
+      MessageBox(NULL, "Failed to create Sampler State", "Error", MB_OK);
+      return FALSE;
+    }
   }
 
   void
@@ -210,7 +216,7 @@ App::run() {
     if (!m_vertexShader->compileVertexShader("VS.hlsl", "VS"))
     {
       DWORD err = GetLastError();
-      MessageBox(NULL, "Failed to compile Vertex shader", "Error", MB_OK);
+      MessageBox(NULL, "Failed to create Vertex shader", "Error", MB_OK);
 
       std::cout << "Failed to compile shader\n";
       return;
@@ -336,9 +342,9 @@ App::run() {
 
         //m_projection = XMMatrixPerspectiveFovLH();
 
-        CBChangeOnResize cbChangesOnRezise;
-        cbChangesOnRezise.m_projection = m_projection.transpose();
-        m_CBChangesOnResize->updateSubResources(*m_device, cbChangesOnRezise);
+        CBChangeOnResize cbChangeOnResize;
+        cbChangeOnResize.m_projection = m_projection.transpose();
+        m_CBChangesOnResize->updateSubResources(*m_device, cbChangeOnResize);
 
   }
 
@@ -391,12 +397,12 @@ App::run() {
 
     m_depthStencilView->clearDSV(*m_device);
 
-    CBChangesEveryFrame cbChangesEvryFrame;
+    CBChangesEveryFrame cbChangesEveryFrame;
     
-    cbChangesEvryFrame.m_world = m_world.transpose();
-    cbChangesEvryFrame.m_vMeshColor = color;
+    cbChangesEveryFrame.m_world = m_world.transpose();
+    cbChangesEveryFrame.m_vMeshColor = color;
 
-    m_CBChangesEveryframe->updateSubResources(*m_device, cbChangesEvryFrame);
+    m_CBChangesEveryframe->updateSubResources(*m_device, cbChangesEveryFrame);
 
     m_vertexShader->setVertexShader(*m_device);
     m_CBNeverChanges->setVertexConstantBuffer(*m_device, 0, 1);

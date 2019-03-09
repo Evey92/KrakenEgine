@@ -1,4 +1,5 @@
-
+#include  <kraDevice.h>
+#include <kraDepthStencil.h>
 
 #include "kraD3D11DepthStencylView.h"
 #include "kraD3D11Device.h"
@@ -20,12 +21,16 @@ namespace kraEngineSDK {
     descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
     descDSV.Texture2D.MipSlice = 0;
 
-    hr = m_pDevice.m_pd3dDevice->CreateDepthStencilView(m_pDepthStencil.m_pd3dDepthStencil,
-      &descDSV, &m_pDepthStencilView);
-    if (FAILED(hr))
-      return hr;
+    m_pDevice.m_pd3dDevice->CreateDepthStencilView(m_pDepthStencil.m_pd3dDepthStencil,
+                                                   &descDSV, &m_pDepthStencilView);
+    
+    if (!m_pDepthStencilView)
+    {
+      MessageBox(NULL, "Failed to create Depth Stencil View", "Error", MB_OK);
+      return false;
+    }
 
-    return hr;
+    return true;
   }
 
   void

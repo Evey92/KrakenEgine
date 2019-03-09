@@ -25,8 +25,11 @@ namespace kraEngineSDK {
     D3D11_SUBRESOURCE_DATA initBuffer;
     memset(&initBuffer, 0, sizeof(initBuffer));
 
-    if (!m_device.m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dDepthStencil))
+    m_device.m_pd3dDevice->CreateTexture2D(&descTexture, nullptr, &m_pd3dDepthStencil);
+
+    if (!m_pd3dDepthStencil)
     {
+      DWORD err = GetLastError();
       MessageBox(NULL, "Failed to set the Depth Stencil", "Error", MB_OK);
       //std::cout << "No se pudo crear depth sctencil";
       return false;

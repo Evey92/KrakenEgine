@@ -12,9 +12,13 @@ namespace kraEngineSDK {
       const char* entryPoint) {
     HRESULT hr = S_OK;
 
-    hr = compileShaderFromFile(fileName, entryPoint, "ps_4_0", &m_pBlob);
+    hr = compileShaderFromFile(fileName, entryPoint, "ps_5_0", &m_pBlob);
 
-    return !FAILED(hr);
+    if (!m_pBlob)
+    {
+      MessageBox(NULL, "Failed to compile Pixel Shader", "Error", MB_OK);
+      return false;
+    }
   }
 
   bool
@@ -51,13 +55,8 @@ namespace kraEngineSDK {
 
   }
 
-  /*BlobDX*
-  PixelShaderDX::getBlobasDX() {
-    return reinterpret_cast<BlobDX*>(m_blob);
-  }*/
-
   bool
-    PixelShaderDX::compileShaderFromFile(std::string  filename,
+  PixelShaderDX::compileShaderFromFile(std::string  filename,
       std::string entryPoint,
       std::string shaderModel,
       ID3DBlob** ppBlobOut)
@@ -99,16 +98,10 @@ namespace kraEngineSDK {
     if (FAILED(hr))
     {
       if (pErrorBlob != NULL) {
+        MessageBox(NULL, "Failed to compile Pixel Shader Blob", "Error", MB_OK);
         OutputDebugStringA((char*)pErrorBlob->GetBufferPointer());
-        return false;
-      }
-
-      if (pErrorBlob) {
         pErrorBlob->Release();
         return false;
-      }
-      if (pErrorBlob) {
-        pErrorBlob->Release();
       }
 
       return true;

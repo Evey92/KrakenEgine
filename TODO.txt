@@ -1,0 +1,3 @@
+-Create object factory
+-Integrate Assimp ASAP
+-Set The Cameras ASAP

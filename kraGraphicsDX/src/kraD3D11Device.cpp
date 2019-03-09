@@ -146,9 +146,12 @@ namespace kraEngineSDK {
   void
   DeviceDX::DrawIndexed(uint32 count, uint32 start, int32 baseLoc) {
     m_pImmediateContext->DrawIndexed(count, start, baseLoc);
+    DWORD err = GetLastError();
+
+
   }
 
-  //TODO fix this bullshit.
+  //TODO fix this bullshit with a factory.
   void
   DeviceDX::PresentSwapChain() {
     m_pSwapChain.m_pd3dSwapChain->Present(0, 0);
@@ -210,7 +213,7 @@ namespace kraEngineSDK {
     return new ConstantBufferDX<CBChangesEveryFrame>();
   }
   SamplerState*
-  createSamplerStateInstance() {
+  DeviceDX::createSamplerStateInstance() {
     return new SamplerStateDX();
   }
 

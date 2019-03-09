@@ -152,10 +152,9 @@ namespace kraEngineSDK {
                                                     &m_pVertexLayout);
     if (FAILED(hr))
     {
-      std::cout << "Failed to create Vertex Shader";
+      MessageBox(NULL, "Failed to create Input Layout", "Error", MB_OK);
       return false;
     }
-    
     return true;
     
   }
