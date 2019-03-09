@@ -1,12 +1,14 @@
 #pragma once
 #include <kraTexture.h>
+#include <kraDevice.h>
 
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
   
+  class Texture;
   class Device;
-
+  
   class KRA_UTILGFX_EXPORT TextureDX : public Texture
   {
    public:

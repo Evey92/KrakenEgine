@@ -1,12 +1,15 @@
 #pragma once
 #include <kraDepthStencilView.h>
+#include <kraDevice.h>
+#include <kraDepthStencil.h>
 
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
 
+  class DepthStencylView;
   class DepthStencil;
- 
+  class Device;
 
   class KRA_UTILGFX_EXPORT DepthStencylViewDX : public DepthStencylView
   {

@@ -1,6 +1,6 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
-
+#include "kraConstantBufferMatrices.h"
 
 namespace kraEngineSDK {
   class RenderTargetView;
@@ -12,6 +12,9 @@ namespace kraEngineSDK {
   class VertexShader;
   class VertexBuffer;
   class IndexBuffer;
+  class SamplerState;
+
+  template<typename CONSVERTEX> class ConstantBuffer;
 
 
   class Device
@@ -72,6 +75,14 @@ namespace kraEngineSDK {
     createVertexBufferInstance() = 0;
     virtual IndexBuffer*
     createIndexBufferInstance() = 0;
+    virtual ConstantBuffer<CBNeverChanges>*
+    createConstantBufferNever() = 0;
+    virtual ConstantBuffer<CBChangeOnResize>*
+    createConstantBufferResize() = 0;
+    virtual ConstantBuffer<CBChangesEveryFrame>*
+    createConstantBufferEveryFrame() = 0;
+    virtual SamplerState*
+    createSamplerStateInstance() = 0;
 
   };
 }

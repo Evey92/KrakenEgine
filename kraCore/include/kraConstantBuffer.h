@@ -5,7 +5,7 @@
 
 namespace kraEngineSDK {
 
-  template<typename TCONST>
+  template<typename CONSVERTEX>
   class ConstantBuffer : public GraphicsBuffer
   {
 
@@ -27,7 +27,7 @@ namespace kraEngineSDK {
     * @param the address of the vertex.
     */
     virtual void
-    add(const Vector<TCONST>& constant) = 0;
+    add(const CONSVERTEX& constant) = 0;
     /**
     * @brief Copies a whole vertex vector into the buffer.
     * @param the vector containing the vertexes.

@@ -1,14 +1,14 @@
 #pragma once
 #include <windows.h>
-#include <kraDevice.h>
 
-#include "kraD3D11SwapChain.h"
 #include "kraPrerequisitesGFX.h"
+#include "kraD3D11SwapChain.h"
 
 
 
 namespace kraEngineSDK {
 
+  class Device;
   class RenderTargetView;
   class InputLayout;
   class Viewport;
@@ -17,6 +17,10 @@ namespace kraEngineSDK {
   class VertexShader;
   class PixelShader;
   class VertexBuffer;
+  class IndexBuffer;
+  class SamplerState;
+
+  template<typename CONSVERTEX> class ConstantBuffer;
 
   class KRA_UTILGFX_EXPORT DeviceDX : public Device
   {
@@ -67,6 +71,14 @@ namespace kraEngineSDK {
     createVertexBufferInstance();
     IndexBuffer*
     createIndexBufferInstance();
+    ConstantBuffer<CBNeverChanges>*
+    createConstantBufferNever();
+    ConstantBuffer<CBChangeOnResize>*
+    createConstantBufferResize();
+    ConstantBuffer<CBChangesEveryFrame>*
+    createConstantBufferEveryFrame();
+    SamplerState*
+    createSamplerStateInstance(); 
 
     SwapChainDX m_pSwapChain;
     uint32 m_height;

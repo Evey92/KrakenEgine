@@ -41,6 +41,11 @@ namespace kraEngineSDK {
       m_constData.clear();
     }
 
+    void
+    Release() {
+
+    }
+
     void createConstantBuffer(const Device& pDevice)
     {
       const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
@@ -97,7 +102,7 @@ namespace kraEngineSDK {
     setVertexConstantBuffer(const Device& pDevice, uint32 startSlot, uint32 NumBuffs) {
       const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
 
-      m_device.m_pImmediateContext.VSSetConstantBuffers(startSlot, NumBuffs, &m_pBuffer);
+      m_device.m_pImmediateContext->VSSetConstantBuffers(startSlot, NumBuffs, &m_pBuffer);
       
     }
 
@@ -105,7 +110,7 @@ namespace kraEngineSDK {
     setPixelConstantBuffer(const Device& pDevice, uint32 startSlot, uint32 NumBuffs) {
       const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
 
-      m_device.m_pImmediateContext.PSSetConstantBuffers(startSlot, NumBuffs, &m_pBuffer);
+      m_device.m_pImmediateContext->PSSetConstantBuffers(startSlot, NumBuffs, &m_pBuffer);
 
     }
 

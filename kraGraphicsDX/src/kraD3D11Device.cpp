@@ -1,3 +1,4 @@
+#include <kraDevice.h>
 #include <kraDepthStencil.h>
 #include <kraDepthStencilView.h>
 #include <kraRenderTargetView.h>
@@ -5,17 +6,21 @@
 #include <kraInputLayout.h>
 #include <kraVertexBuffer.h>
 #include <kraIndexBuffer.h>
+#include <kraConstantBuffer.h>
+#include <kraSampler.h>
 
-#include "kraD3D11DepthStencylView.h"
 #include "kraD3D11Device.h"
 #include "kraD3D11RenderTargetView.h"
 #include "kraD3D11DepthStencil.h"
+#include "kraD3D11DepthStencylView.h"
 #include "kraD3D11Viewport.h"
 #include "kraD3D11InputLayout.h"
 #include "kraD3D11VertexShader.h"
 #include "kraD3D11PixelShader.h"
 #include "kraD3D11VertexBuffer.h"
 #include "kraD3D11IndexBuffer.h"
+#include "kraD3D11ConstantBuffer.h"
+#include "kraD3D11Sampler.h"
 
 namespace kraEngineSDK {
 
@@ -170,7 +175,7 @@ namespace kraEngineSDK {
   }
 
   DepthStencylView*
-    createDepthStencilViewInstance() {
+  DeviceDX::createDepthStencilViewInstance() {
     return new DepthStencylViewDX();
   }
 
@@ -190,5 +195,24 @@ namespace kraEngineSDK {
   DeviceDX::createIndexBufferInstance() {
     return new IndexBufferDX();
   }
+  ConstantBuffer<CBNeverChanges>*
+  DeviceDX::createConstantBufferNever() {
+ 
+    return new ConstantBufferDX<CBNeverChanges>();
+
+  }
+  ConstantBuffer<CBChangeOnResize>*
+  DeviceDX::createConstantBufferResize() {
+    return new ConstantBufferDX<CBChangeOnResize>();
+  }
+  ConstantBuffer<CBChangesEveryFrame>*
+  DeviceDX::createConstantBufferEveryFrame() {
+    return new ConstantBufferDX<CBChangesEveryFrame>();
+  }
+  SamplerState*
+  createSamplerStateInstance() {
+    return new SamplerStateDX();
+  }
+
 
 }

@@ -42,54 +42,64 @@ App::run() {
 
     gfxAPIInstance = initAPIFunc();
     if (!gfxAPIInstance) {
-      std::cout << "could not create GFX API" << std::endl;
+      MessageBox(NULL, "Failed to create Graphics API", "Error", MB_OK);
 
       return 0;
     }
 
     m_device = gfxAPIInstance->initializeAPI(reinterpret_cast<void*>(m_hWnd));
-
     if (!m_device)
     {
-      std::cout << "could not find specified function" << std::endl;
+      MessageBox(NULL, "Failed to create Initialize API Device", "Error", MB_OK);
       return FALSE;
     }
 
     m_renderTargetView = m_device->createRenderTargetInsttance();
     if (!m_renderTargetView)
     {
-      std::cout << "could not find specified function" << std::endl;
+      MessageBox(NULL, "Failed to create Render Target", "Error", MB_OK);
       return FALSE;
     }
 
     m_depthStencil = m_device->createDepthStencilInstance();
+    if (!m_depthStencil)
+    {
+      MessageBox(NULL, "Failed to create Depth Stencil", "Error", MB_OK);
+      return FALSE;
+    }
 
     m_depthStencilView = m_device->createDepthStencilViewInstance();
+    if (!m_depthStencilView)
+    {
+      MessageBox(NULL, "Failed to create Depth Stencil View", "Error", MB_OK);
+      return FALSE;
+    }
+
     m_inputLayout = m_device->createInputLayoutInstance();
     if (!m_inputLayout)
     {
-      std::cout << "could not find specified function" << std::endl;
+      MessageBox(NULL, "Failed to create Input Layout", "Error", MB_OK);
       return FALSE;
     }
 
     m_viewport = m_device->createViewportInstance();
     if (!m_viewport)
     {
-      std::cout << "could not find specified function" << std::endl;
+      MessageBox(NULL, "Failed to create Viewport", "Error", MB_OK);
       return FALSE;
     }
 
     m_vertexShader = m_device->createVertexShaderInstance();
     if (!m_vertexShader)
     {
-      std::cout << "could not find specified function" << std::endl;
+      MessageBox(NULL, "Failed to create Vertex Shader", "Error", MB_OK);
       return FALSE;
     }
 
     m_pixelShader = m_device->createPixelShaderInstance();
     if (!m_pixelShader)
     {
-      std::cout << "could not find specified function" << std::endl;
+      MessageBox(NULL, "Failed to create Pixel Shader", "Error", MB_OK);
       return FALSE;
     }
 
@@ -97,13 +107,35 @@ App::run() {
     m_vertBuffer = m_device->createVertexBufferInstance();
     if (!m_vertBuffer)
     {
-      std::cout << "could not find specified function" << std::endl;
+      MessageBox(NULL, "Failed to create Vertex Buffer", "Error", MB_OK);
       return FALSE;
     }
 
     m_indexBuffer = m_device->createIndexBufferInstance();
+    if(!m_indexBuffer)
     {
       MessageBox(NULL, "Failed to create Index Buffer", "Error", MB_OK);
+      return FALSE;
+    }
+
+    m_CBNeverChanges = m_device->createConstantBufferNever();
+    if (!m_CBNeverChanges)
+    {
+      MessageBox(NULL, "Failed to create Constant Buffer NC", "Error", MB_OK);
+      return FALSE;
+    }
+
+    m_CBChangesOnResize = m_device->createConstantBufferResize();
+    if (!m_CBChangesOnResize)
+    {
+      MessageBox(NULL, "Failed to create Constsnt Buffer CR", "Error", MB_OK);
+      return FALSE;
+    }
+
+    m_CBChangesEveryframe = m_device->createConstantBufferEveryFrame();
+    if (!m_CBChangesEveryframe)
+    {
+      MessageBox(NULL, "Failed to create Constant Buffer CEF", "Error", MB_OK);
       return FALSE;
     }
 

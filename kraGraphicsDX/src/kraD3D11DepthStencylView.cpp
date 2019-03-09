@@ -1,5 +1,4 @@
-#include <kraDevice.h>
-#include <kraDepthStencil.h>
+
 
 #include "kraD3D11DepthStencylView.h"
 #include "kraD3D11Device.h"

@@ -1,4 +1,4 @@
-#include <kraDevice.h>
+
 #include "kraD3D11Texture.h"
 #include "kraD3D11Device.h"
 #define STB_IMAGE_IMPLEMENTATION
