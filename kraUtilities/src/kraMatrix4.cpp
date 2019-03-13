@@ -233,14 +233,51 @@ namespace kraEngineSDK {
     return Mat;
   }
 
-  Matrix4
-  Matrix4::transpose() {
+  void
+  Matrix4::MatrixPerspectiveFOV(float FOV, float aspectRatio, float nearZ, float farZ) {
     Matrix4 tempMat;
+
+    row[0] = Vector4(1.0f/(kraMath::tan(FOV/2.0f)), 0.0f, 0.0f, 0.0f);
+    row[1] = Vector4(0.0f, aspectRatio * 1.0f/kraMath::tan(FOV/2.0f), 0.0f, 0.0f);
+    row[2] = Vector4(0.0f, 0.0f, farZ /(farZ - nearZ), -nearZ * (farZ/(farZ - nearZ)));
+    row[3] = Vector4(0.0f, 0.0f, 1.0, 0.0f);
+  }
+
+  void
+  Matrix4::MatrixRotY(float angle) {
+    float fSinAngle = kraMath::sin(angle);
+    float fCosAngle = kraMath::cos(angle);
+
+    m[0][0] = fCosAngle;
+    m[0][1] = 0.0f;
+    m[0][2] = -fSinAngle;
+    m[0][3] = 0.0f;
+
+    m[1][0] = 0.0f;
+    m[1][1] = 1.0f;
+    m[1][2] = 0.0f;
+    m[1][3] = 0.0f;
+
+    m[2][0] = fSinAngle;
+    m[2][1] = 0.0f;
+    m[2][2] = fCosAngle;
+    m[2][3] = 0.0f;
+
+    m[0][0] = 0;
+    m[0][1] = 0.0f;
+    m[0][2] = 0;
+    m[0][3] = 1.0f;
+
+  }
+
+  void
+  Matrix4::transpose() {
+    Matrix4 tempMat = m;
     for (int i = 0; i < 4; ++i) {
       for (int j = 0; j < 4; ++j) {
         m[i][j] = tempMat.m[j][i];
       }
     }
-    return tempMat;
+    
   }
 }

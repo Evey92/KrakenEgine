@@ -201,6 +201,11 @@ App::run() {
 
   void
   App::LoadCube() {
+    
+    float m_fov = kraMath::DEG2RAD(90.0f);
+    float m_nearZ = 0.01f;
+    float m_farZ = 100.0f;
+
     m_renderTargetView->createRenderTargetView(*m_device);
     
     m_depthStencil->setDepthStencil(*m_device, m_device->getHeight(), m_device->getWidth());
@@ -247,9 +252,9 @@ App::run() {
         m_vertBuffer->add(vert2);
         Vertex vert3(Vector3(1.0f, 1.0f, 1.0f), Vector2(1.0f, 1.0f));
         m_vertBuffer->add(vert3);
-
         Vertex vert4(Vector3(-1.0f, 1.0f, 1.0f), Vector2(0.0f, 1.0f));
         m_vertBuffer->add(vert4);
+
         Vertex vert5(Vector3(-1.0f, -1.0f, -1.0f), Vector2(0.0f, 0.0f));
         m_vertBuffer->add(vert5);
         Vertex vert6(Vector3(1.0f, -1.0f, -1.0f), Vector2(1.0f, 0.0f));
@@ -332,18 +337,19 @@ App::run() {
         Vector4 Up(0.0f, 1.0f, 0.0f, 0.0f);
 
         m_view = m_view.MatrixLookAtLH(Eye, At, Up);
+        m_view.transpose();
 
         CBNeverChanges cbNeverChanges;
-        cbNeverChanges.m_view = m_view.transpose();
+        cbNeverChanges.m_view = m_view;
 
         m_CBNeverChanges->updateSubResources(*m_device, cbNeverChanges);
         
         //TODO: Make this function FFS...
-
-        //m_projection = XMMatrixPerspectiveFovLH();
-
+        m_projection.MatrixPerspectiveFOV(m_fov, static_cast<float>(m_device->getWidth() / m_device->getHeight()), m_nearZ, m_farZ);
+        m_projection.transpose();
+        
         CBChangeOnResize cbChangeOnResize;
-        cbChangeOnResize.m_projection = m_projection.transpose();
+        cbChangeOnResize.m_projection = m_projection;
         m_CBChangesOnResize->updateSubResources(*m_device, cbChangeOnResize);
 
   }
@@ -388,6 +394,11 @@ App::run() {
     
     static float t = 0.0f;
 
+    m_world.identity();
+    m_world.MatrixRotY(t);
+    
+    m_world.transpose();
+
     color.x = (sinf(t * 1.0) + 1.0f) * 0.5f;
     color.y = (sinf(t * 3.0) + 1.0f) * 0.5f;
     color.x = (sinf(t * 5.0) + 1.0f) * 0.5f;
@@ -399,7 +410,7 @@ App::run() {
 
     CBChangesEveryFrame cbChangesEveryFrame;
     
-    cbChangesEveryFrame.m_world = m_world.transpose();
+    cbChangesEveryFrame.m_world = m_world;
     cbChangesEveryFrame.m_vMeshColor = color;
 
     m_CBChangesEveryframe->updateSubResources(*m_device, cbChangesEveryFrame);

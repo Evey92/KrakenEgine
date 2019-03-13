@@ -70,7 +70,13 @@ namespace kraEngineSDK {
     Matrix4
     MatrixLookAtLH(Vector4 Eye, Vector4 At, Vector4 Up);
 
-    Matrix4
+    void 
+    MatrixPerspectiveFOV(float FOV, float aspectRatio, float nearz, float farZ);
+
+    void
+    MatrixRotY(float angle);
+
+    void
     transpose();
 
    public:
@@ -85,6 +91,7 @@ namespace kraEngineSDK {
     union {
       float _m[16];
       float m[4][4];
+      Vector4 row[4];
     };
   };
 }

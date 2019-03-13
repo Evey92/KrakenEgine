@@ -131,7 +131,7 @@ namespace kraEngineSDK {
     inputDesc.SemanticIndex = 0;
     inputDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
     inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 12;
+    inputDesc.AlignedByteOffset = 16;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     inputDesc.InstanceDataStepRate = 0;
     m_layoutDescVector.push_back(inputDesc);

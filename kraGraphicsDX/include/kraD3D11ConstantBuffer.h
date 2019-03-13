@@ -95,7 +95,6 @@ namespace kraEngineSDK {
       const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
 
       m_device.m_pImmediateContext->UpdateSubresource(m_pBuffer, 0, nullptr, &cbNvrMat, 0, 0);
-
     }
 
     void

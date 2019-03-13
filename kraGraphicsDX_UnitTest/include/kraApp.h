@@ -112,4 +112,7 @@ class App : public BaseApplication
   Matrix4 m_view;
   Matrix4 m_projection;
   Vector4 color;
+  float m_fov;
+  float m_nearZ;
+  float m_farZ;
 };

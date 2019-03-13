@@ -293,5 +293,18 @@ namespace kraEngineSDK {
         result *= i;
       return result;
     }
+
+    template<typename T>
+    static T
+    DEG2RAD(T deg) {
+      return (deg * RADIAN);
+    }
+
+    template<typename T>
+    static T
+    RAD2DEG(T rad) {
+      return (rad * DEGREE);
+    }
+
   };
 }
