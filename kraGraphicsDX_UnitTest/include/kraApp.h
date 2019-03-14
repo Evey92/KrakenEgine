@@ -21,7 +21,7 @@
 #include <kraSampler.h>
 #include <kraVector4.h>
 #include <kraMatrix4.h>
-
+#include <kraModel.h>
 using namespace kraEngineSDK;
 
 class App : public BaseApplication

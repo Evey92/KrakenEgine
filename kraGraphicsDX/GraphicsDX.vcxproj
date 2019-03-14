@@ -127,7 +127,7 @@
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)lib/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)lib/$(PlatformTarget)/$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
@@ -138,7 +138,7 @@
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)lib/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)lib/$(PlatformTarget)/$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>

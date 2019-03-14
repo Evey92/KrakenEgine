@@ -332,6 +332,23 @@ App::run() {
 
         m_samplerState->createSamplerState(*m_device);
 
+        //////////////////////////////////////
+        ///////////////////TEST//////////////
+
+        Model newModel;
+
+        for (uint32 i = 0; i < newModel.getMeshVecSize(); i++) {
+
+          newModel.getMeshVec()[i].m_vertexBurffer->createHardwareBuffer(m_device);
+
+          newModel.getMeshVec()[i].m_vertexBurffer->setVertexBuffer(m_device);
+          newModel.getMeshVec()[i].m_indexBuffer->setIndexBuffer(*m_device);
+        }
+
+        
+
+        /////////////////////////////////////
+
         Vector4 Eye(0.0f, 3.0f, - 6.0f, 0.0f);
         Vector4 At(0.0f, 1.0f, 0.0f, 0.0f);
         Vector4 Up(0.0f, 1.0f, 0.0f, 0.0f);
