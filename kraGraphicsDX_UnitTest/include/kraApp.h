@@ -42,6 +42,8 @@ class App : public BaseApplication
   void
   LoadCube();
   void
+  LoadModel();
+  void
   render();
   void
   RenderCube();
@@ -112,6 +114,7 @@ class App : public BaseApplication
   Matrix4 m_view;
   Matrix4 m_projection;
   Vector4 color;
+  Vector<Model> m_modelsVec;
   float m_fov;
   float m_nearZ;
   float m_farZ;

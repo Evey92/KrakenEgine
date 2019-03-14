@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
     <TargetName>$(ProjectName)d</TargetName>
     <TargetExt>.dll</TargetExt>
@@ -81,7 +81,7 @@
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
     <TargetName>$(ProjectName)d</TargetName>
     <TargetExt>.dll</TargetExt>

@@ -61,8 +61,10 @@ namespace kraEngineSDK {
     createIndexBuffer(const Device& pDevice) = 0;
 
     virtual void
-      setIndexBuffer(const Device& pDevice) = 0;
-
+    setIndexBuffer(const Device& pDevice) = 0;
+    
+    virtual uint32
+    getBufferSize() = 0;
   };
 
 }

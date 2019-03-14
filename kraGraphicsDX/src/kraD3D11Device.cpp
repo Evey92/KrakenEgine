@@ -147,14 +147,12 @@ namespace kraEngineSDK {
   DeviceDX::DrawIndexed(uint32 count, uint32 start, int32 baseLoc) {
     m_pImmediateContext->DrawIndexed(count, start, baseLoc);
     DWORD err = GetLastError();
-
-
   }
 
   //TODO fix this bullshit with a factory.
   void
   DeviceDX::PresentSwapChain() {
-    m_pSwapChain.m_pd3dSwapChain->Present(0, 0);
+    m_pSwapChain.m_pd3dSwapChain->Present(DXGI_SWAP_EFFECT_FLIP_DISCARD, DXGI_PRESENT_DO_NOT_WAIT);
   }
 
   RenderTargetView*

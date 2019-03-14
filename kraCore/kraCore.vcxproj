@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
@@ -79,7 +79,7 @@
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/$(Configuration)/</OutDir>
     <IntDir>$(SolutionDir)intermediates/$(ProjectName)/$(PlatformTarget)/$(Configuration)/</IntDir>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
@@ -93,7 +93,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(DEVLIBS)assimp/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(DEVLIBS)assimp/include;$(DEVLIBS)assimp/build/x64/include/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -102,7 +102,7 @@
       <UseFullPaths>false</UseFullPaths>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>EASTL.lib;kraUtilitiesd.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
@@ -113,7 +113,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(DEVLIBS)assimp/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(DEVLIBS)assimp/include;$(DEVLIBS)assimp/build/Win32/include/;$(DEVLIBS)assimp/build/Win32/include/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -122,7 +122,7 @@
       <UseFullPaths>false</UseFullPaths>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>EASTL.lib;kraUtilitiesd.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
@@ -135,7 +135,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(DEVLIBS)assimp/build/$(PlatformTarget)/inlcude;$(DEVLIBS)assimp/include;$(DEVLIBS)assimp/build/Win32/include/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -146,7 +146,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/;;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>EASTL.lib;kraUtilities.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
@@ -159,7 +159,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(DEVLIBS)assimp/include;$(DEVLIBS)assimp/build/x64/include/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -170,7 +170,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/;;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>EASTL.lib;kraUtilities.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>

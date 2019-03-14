@@ -36,7 +36,10 @@ namespace kraEngineSDK {
     * @brief Main loop of the app.
     */
     void
-    update(float deltaTime) {}
+    update(float deltaTime) {
+      float dt = deltaTime;
+      dt = dt * 4;
+    }
     
     /**
     * @brief Main function to visualize the game logic.

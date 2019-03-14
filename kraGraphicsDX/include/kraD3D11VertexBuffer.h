@@ -44,22 +44,23 @@ namespace kraEngineSDK {
     }
 
     void
-    Release() {
-      m_pBuffer->Release();
+      Release() {
+      if (m_pBuffer) {
+        m_pBuffer->Release();
+      }
     }
-
     void
-    createHardwareBuffer(Device* pDevice)
+    createHardwareBuffer(const Device& pDevice)
     {
 
-      DeviceDX* m_pDevice = reinterpret_cast<DeviceDX*>(pDevice);
+      const DeviceDX& m_pDevice = reinterpret_cast<const DeviceDX&>(pDevice);
       //D3D11_USAGE m_usage = usage;
 
       D3D11_BUFFER_DESC bd;
       memset(&bd, 0, sizeof(bd));
 
       bd.Usage = D3D11_USAGE_DEFAULT;
-      bd.ByteWidth = static_cast<uint32>(sizeof(Vertex)* m_vertexData.size());
+      bd.ByteWidth = sizeof(Vertex) * m_vertexData.size();
       bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
       bd.CPUAccessFlags = 0;
 
@@ -67,7 +68,7 @@ namespace kraEngineSDK {
       memset(&InitData, 0, sizeof(InitData));
       InitData.pSysMem = &m_vertexData[0];
 
-      HRESULT hr = m_pDevice->m_pd3dDevice->CreateBuffer(&bd, &InitData, &m_pBuffer);
+      HRESULT hr = m_pDevice.m_pd3dDevice->CreateBuffer(&bd, &InitData, &m_pBuffer);
       if (FAILED(hr))
       {
         throw std::exception("Failed to create Vertex Buffer.");
@@ -75,13 +76,15 @@ namespace kraEngineSDK {
     }
 
     void
-      setVertexBuffer(Device* pImmediateContext)
+      setVertexBuffer(const Device& pDevice)
     {
-      DeviceDX* m_pDevice = static_cast<DeviceDX*>(pImmediateContext);
+      const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
       uint32 stride = sizeof(Vertex);
       uint32 offset = 0;
-      m_pDevice->m_pImmediateContext->IASetVertexBuffers(0, 1, &m_pBuffer, &stride, &offset);
+      m_pDevice.m_pImmediateContext->IASetVertexBuffers(0, 1, &m_pBuffer, &stride, &offset);
+
+
     }
 
 

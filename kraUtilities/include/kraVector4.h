@@ -22,11 +22,35 @@ namespace kraEngineSDK {
     Vector4() = default;
 
     /**
-     * @brief Constructor con valores X y Y inicializados.
+     * @brief Copy constructor.
+     */
+
+    Vector4(const Vector4& copyVec);
+
+    /**
+     * @brief Constructor initialized by 4 floats.
      */
 
     Vector4(float X, float Y, float Z, float W);
 
+
+    /**
+     * @brief Constructor initialized by a Vector3 and a float.
+     */
+
+    Vector4(Vector3 vecXYZ, float w);
+
+    /**
+     * @brief Constructor initialized by a Vector3.
+     */
+
+    Vector4(Vector3 vecXYZ);
+
+    /**
+     * @brief Constructor initialized by a Vector2.
+     */
+
+    Vector4(Vector2 vecXY);
 
     /**
      * @brief Construir un Vector4 a partir de los valores X y Y de un Vector4.
@@ -179,7 +203,7 @@ namespace kraEngineSDK {
      * @return Regresa una copia de vector resultado.
      */
     Vector4&
-      operator-() const;
+    operator-() const;
 
     /**
      * @brief Le suma un vetor secundario a este mismo vetcor.
@@ -307,14 +331,18 @@ namespace kraEngineSDK {
      * @brief Normaliza el vector.
      * @return Regresa el vector normalizado.
      */
+
+    Vector4
+    normalize();
+    
     void
-      normalize();
+    normalized();
 
     void
-      floor();
+    floor();
 
     void
-      ceil();
+    ceil();
 
   public:
     /**

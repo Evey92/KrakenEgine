@@ -307,7 +307,7 @@ namespace kraEngineSDK {
   }
 
   float
-    Vector3::component(uint32 Index) const {
+  Vector3::component(uint32 Index) const {
 
     if (Index == 0) {
       return x;
@@ -319,4 +319,19 @@ namespace kraEngineSDK {
       return z;
     }
   }
+
+  static const Vector3 ZERO = Vector3(0.0f, 0.0f, 0.0f);
+
+  static const Vector3 ONE = Vector3(1.0f, 1.0f, 1.0f);
+
+  static const Vector3 ONEX = Vector3(1.0f, 0.0f, 0.0f);
+
+  static const Vector3 ONEY = Vector3(0.0f, 1.0f, 0.0f);
+
+  static const Vector3 ONEZ = Vector3(0.0f, 0.0f, 1.0f);
+
+  static const Vector3 UP = ONEY;
+
+  static const Vector3 FRONT = ONEZ;
+
 }

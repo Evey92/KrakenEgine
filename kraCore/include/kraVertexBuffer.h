@@ -53,10 +53,10 @@ namespace kraEngineSDK {
  * @param size of te vertex, number of vertexes, and a flag for usage.
  */
     virtual void
-    createHardwareBuffer(Device* pDevice) = 0;
+    createHardwareBuffer(const Device& pDevice) = 0;
 
     virtual void
-    setVertexBuffer(Device* pImmediateContext) = 0;    
+    setVertexBuffer(const Device& pDevice) = 0;
 
   };
 

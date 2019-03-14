@@ -1,5 +1,8 @@
 #pragma once
 #include <kraVertex.h>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>         
+#include <assimp/postprocess.h> 
 
 #include "kraPrerequisitesCore.h"
 #include "kraIndexBuffer.h"
@@ -8,6 +11,7 @@
 
 namespace kraEngineSDK {
   
+  class Device;
   class KRA_CORE_EXPORT Model
   {
    public:
@@ -18,16 +22,18 @@ namespace kraEngineSDK {
 
 
     bool 
-    loadModelFromFile(const std::string& fileName);
-    bool
-    Model::processNode(aiNode* rootNode, const aiScene* pScene);
+    loadModelFromFile(const std::string& fileName,  Device& pDevice);
+    void
+    Model::processNode(aiNode* rootNode, const aiScene* pScene,  Device& pDevice);
     Mesh
-    processMesh(aiMesh* pMesh, const aiScene* scene);
+    processMesh(aiMesh* pMesh, const aiScene* scene,  Device& pDevice);
     uint32
     getMeshVecSize();
     std::vector<Mesh>
     getMeshVec();
-   
+    void
+    Draw(Device* pDevice);
+
    private:
     std::vector<Mesh> meshVec;
   };

@@ -7,8 +7,36 @@ namespace kraEngineSDK {
    * Funciones de Vector4
    */
    /***************************************************************************/
+  Vector4::Vector4(const Vector4& copyVec) {
+    x = copyVec.x;
+    y = copyVec.y;
+    z = copyVec.z;
+    w = copyVec.w;
+  }
+
 
   Vector4::Vector4(float X, float Y, float Z, float W) : x(X), y(Y), z(Z), w(W) {}
+
+  Vector4::Vector4(Vector3 vecXYZ, float w) {
+    x = vecXYZ.x;
+    y = vecXYZ.y;
+    z = vecXYZ.z;
+    w = w;
+  }
+
+  Vector4::Vector4(Vector3 vecXYZ) {
+    x = vecXYZ.x;
+    y = vecXYZ.y;
+    z = vecXYZ.z;
+    w = 0.0f;
+  }
+
+  Vector4::Vector4(Vector2 vecXY) {
+    x = vecXY.x;
+    y = vecXY.y;
+    z = 0.0f;
+    w = 0.0f;
+  }
 
   Vector4
     Vector4::operator+(const Vector4& Vec)const {
@@ -152,12 +180,12 @@ namespace kraEngineSDK {
 
   }
 
-  /*Vector4
-    Vector4::operator-() const {
+  Vector4&
+  Vector4::operator-() const {
 
     return Vector4(-x, -y, -z, -w);
 
-  }*/
+  }
 
   Vector4&
     Vector4::operator+=(const Vector4& Vec) {
@@ -216,8 +244,7 @@ namespace kraEngineSDK {
   float
   Vector4::lenght() const {
 
-    return kraMath::sqrt(x*x + y * y + z * z + w * w);
-
+    return kraMath::sqrt(x * x + y * y + z * z + w * w);
   }
 
   float
@@ -244,13 +271,33 @@ namespace kraEngineSDK {
 
   }
 
+  Vector4
+  Vector4::normalize() {
+
+    Vector4 newVec;
+    float m = newVec.lenght();
+  
+    float fisqrt = kraMath::invSqrt(m);
+
+    newVec.x = x * fisqrt;
+    newVec.y = y * fisqrt;
+    newVec.z = z * fisqrt;
+    newVec.w = w * fisqrt;
+    
+    return newVec;
+  }
+
   void
-    Vector4::normalize() {
-    float vec = kraMath::sqrt(x*x + y * y + z * z + w * w);
-    x /= vec;
-    y /= vec;
-    z /= vec;
-    w /= vec;
+  Vector4::normalized() {
+    
+    float m = lenght();
+
+    float fisqrt = kraMath::invSqrt(m);
+
+    x *= fisqrt;
+    y *= fisqrt;
+    z *= fisqrt;
+    w *= fisqrt;
   }
 
   void

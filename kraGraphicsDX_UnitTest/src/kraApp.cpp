@@ -193,8 +193,8 @@ App::run() {
     Vertex vert3(Vector3(-0.5f, -0.5f, 0.5f));
     m_vertBuffer->add(vert3);
 
-    m_vertBuffer->createHardwareBuffer(m_device);
-    m_vertBuffer->setVertexBuffer(m_device);
+    m_vertBuffer->createHardwareBuffer(*m_device);
+    m_vertBuffer->setVertexBuffer(*m_device);
 
     m_device->setPrimitiveTopology();
   }
@@ -218,7 +218,7 @@ App::run() {
 
     m_viewport->setViewport(m_device);
 
-    if (!m_vertexShader->compileVertexShader("VS.hlsl", "VS"))
+    if (!m_vertexShader->compileVertexShader("../VS.hlsl", "VS"))
     {
       DWORD err = GetLastError();
       MessageBox(NULL, "Failed to create Vertex shader", "Error", MB_OK);
@@ -236,7 +236,7 @@ App::run() {
 
     m_inputLayout->setInputLayout(*m_device);
 
-    if (!m_pixelShader->compilePixelShader("PS.hlsl", "PS"))
+    if (!m_pixelShader->compilePixelShader("../PS.hlsl", "PS"))
     {
       MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
 
@@ -300,8 +300,8 @@ App::run() {
         Vertex vert24(Vector3(-1.0f, 1.0f, 1.0f), Vector2(0.0f, 1.0f));
         m_vertBuffer->add(vert24);
     
-        m_vertBuffer->createHardwareBuffer(m_device);
-        m_vertBuffer->setVertexBuffer(m_device);
+        m_vertBuffer->createHardwareBuffer(*m_device);
+        m_vertBuffer->setVertexBuffer(*m_device);
 
         m_indexBuffer->add(3); m_indexBuffer->add(1); m_indexBuffer->add(0);
         m_indexBuffer->add(2); m_indexBuffer->add(1); m_indexBuffer->add(3);
@@ -335,15 +335,15 @@ App::run() {
         //////////////////////////////////////
         ///////////////////TEST//////////////
 
-        Model newModel;
+        /*Model newModel;
 
         for (uint32 i = 0; i < newModel.getMeshVecSize(); i++) {
 
-          newModel.getMeshVec()[i].m_vertexBurffer->createHardwareBuffer(m_device);
+          newModel.getMeshVec()[i].m_vertexBurffer->createHardwareBuffer(*m_device);
 
-          newModel.getMeshVec()[i].m_vertexBurffer->setVertexBuffer(m_device);
+          newModel.getMeshVec()[i].m_vertexBurffer->setVertexBuffer(*m_device);
           newModel.getMeshVec()[i].m_indexBuffer->setIndexBuffer(*m_device);
-        }
+        }*/
 
         
 
@@ -361,13 +361,100 @@ App::run() {
 
         m_CBNeverChanges->updateSubResources(*m_device, cbNeverChanges);
         
-        //TODO: Make this function FFS...
+       
         m_projection.MatrixPerspectiveFOV(m_fov, static_cast<float>(m_device->getWidth() / m_device->getHeight()), m_nearZ, m_farZ);
         m_projection.transpose();
         
         CBChangeOnResize cbChangeOnResize;
         cbChangeOnResize.m_projection = m_projection;
         m_CBChangesOnResize->updateSubResources(*m_device, cbChangeOnResize);
+
+  }
+
+  void
+  App::LoadModel() {
+     float m_fov = kraMath::DEG2RAD(90.0f);
+    float m_nearZ = 0.01f;
+    float m_farZ = 100.0f;
+
+    m_renderTargetView->createRenderTargetView(*m_device);
+
+    m_depthStencil->setDepthStencil(*m_device, m_device->getHeight(), m_device->getWidth());
+
+    m_depthStencilView->createDepthStencilView(*m_device, *m_depthStencil);
+
+    m_renderTargetView->setRenderTarget(*m_device, *m_depthStencilView);
+
+    m_viewport->createViewport(m_device->getHeight(), m_device->getWidth(), 1.0f, 1.0f);
+
+    m_viewport->setViewport(m_device);
+
+    if (!m_vertexShader->compileVertexShader("../VS.hlsl", "VS"))
+    {
+      DWORD err = GetLastError();
+      MessageBox(NULL, "Failed to create Vertex shader", "Error", MB_OK);
+
+      std::cout << "Failed to compile shader\n";
+      return;
+    }
+
+    m_vertexShader->createVertexShader(*m_device);
+
+    m_inputLayout->defineVertexLayout();
+    m_inputLayout->defineTexcoordLayout();
+
+    m_inputLayout->createInputLayout(*m_device, *m_vertexShader);
+
+    m_inputLayout->setInputLayout(*m_device);
+
+    if (!m_pixelShader->compilePixelShader("../PS.hlsl", "PS"))
+    {
+      MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
+
+      std::cout << "Failed to compile shader\n";
+      return;
+    }
+    m_pixelShader->createPixelShader(*m_device);
+
+    //TODO: Load an actual Model
+    Model newModel;
+
+    if (!newModel.loadModelFromFile("../Vela/Vela_Mat_1.X", *m_device))
+    {
+      MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
+
+      return;
+    }
+
+    m_modelsVec.push_back(newModel);
+
+    m_device->setPrimitiveTopology();
+
+    m_CBNeverChanges->createConstantBuffer(*m_device);
+    m_CBChangesOnResize->createConstantBuffer(*m_device);
+    m_CBChangesEveryframe->createConstantBuffer(*m_device);
+
+    m_samplerState->createSamplerState(*m_device);
+
+    Vector4 Eye(0.0f, 3.0f, -6.0f, 0.0f);
+    Vector4 At(0.0f, 1.0f, 0.0f, 0.0f);
+    Vector4 Up(0.0f, 1.0f, 0.0f, 0.0f);
+
+    m_view = m_view.MatrixLookAtLH(Eye, At, Up);
+    m_view.transpose();
+
+    CBNeverChanges cbNeverChanges;
+    cbNeverChanges.m_view = m_view;
+
+    m_CBNeverChanges->updateSubResources(*m_device, cbNeverChanges);
+
+
+    m_projection.MatrixPerspectiveFOV(m_fov, static_cast<float>(m_device->getWidth() / m_device->getHeight()), m_nearZ, m_farZ);
+    m_projection.transpose();
+
+    CBChangeOnResize cbChangeOnResize;
+    cbChangeOnResize.m_projection = m_projection;
+    m_CBChangesOnResize->updateSubResources(*m_device, cbChangeOnResize);
 
   }
 
@@ -398,11 +485,42 @@ App::run() {
   void
   App::render() {
 
+    static float t = 0.0f;
+
+    m_world.identity();
+    m_world.MatrixRotY(t);
+
+    m_world.transpose();
+
     Vector4 ClearColor = { 0.5f, 0.0f, 0.8f, 1.0f };
     m_renderTargetView->clearRenderTargetView(m_device, ClearColor);
+
+    m_depthStencilView->clearDSV(*m_device);
+
+    CBChangesEveryFrame cbChangesEveryFrame;
+
+    cbChangesEveryFrame.m_world = m_world;
+    cbChangesEveryFrame.m_vMeshColor = color;
+
+    m_CBChangesEveryframe->updateSubResources(*m_device, cbChangesEveryFrame);
+
     m_vertexShader->setVertexShader(*m_device);
+    m_CBNeverChanges->setVertexConstantBuffer(*m_device, 0, 1);
+    m_CBChangesOnResize->setVertexConstantBuffer(*m_device, 1, 1);
+    m_CBChangesEveryframe->setVertexConstantBuffer(*m_device, 2, 1);
     m_pixelShader->setPixelShader(*m_device);
-    m_device->Draw(3, 0);
+    m_CBChangesEveryframe->setPixelConstantBuffer(*m_device, 2, 1);
+
+    m_samplerState->setSamplerState(*m_device);
+
+    //TODO: Replace this with the function to draw from each mesh.
+    
+    for (uint32 i = 0; i < m_modelsVec.size(); i++) {
+
+      m_modelsVec[i].Draw(m_device);
+
+    }
+
     m_device->PresentSwapChain();
   }
 

@@ -10,15 +10,16 @@ namespace kraEngineSDK {
   {
    public:
     
-     Mesh() = default;
+     Mesh(Device& pDevice);
      Mesh(std::vector<Vertex> vertices, std::vector<uint32> indices);
      Mesh(const Mesh& copyMesh);
     ~Mesh() {}
 
+    void
+    DrawMesh(Device* pDevice);
 
-    IndexBuffer* m_indexBuffer;
-    VertexBuffer* m_vertexBurffer;
-    Vector<Vertex> m_vertices;
-    Vector<uint32> m_indices;
+    IndexBuffer* m_indexBuffer = nullptr;
+    VertexBuffer* m_vertexBurffer = nullptr;
+    
   };
 }

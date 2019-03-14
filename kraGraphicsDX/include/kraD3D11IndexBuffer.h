@@ -82,6 +82,11 @@ namespace kraEngineSDK {
       m_device.m_pImmediateContext->IASetIndexBuffer(m_pBuffer, DXGI_FORMAT_R16_UINT, 0);
     }
 
+    uint32
+    getBufferSize() {
+      return m_indexData.size();
+    }
+
    private:
     std::vector<uint32> m_indexData;
        
