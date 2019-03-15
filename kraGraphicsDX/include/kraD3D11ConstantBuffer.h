@@ -115,5 +115,7 @@ namespace kraEngineSDK {
 
   private:
     std::vector<CONSVERTEX> m_constData;
+    ID3D11Buffer* m_pBuffer = nullptr;
+
   };
 }

@@ -15,6 +15,7 @@ namespace kraEngineSDK {
 
     if (!m_pBlob)
     {
+      DWORD err = GetLastError();
       MessageBox(NULL, "Failed to compile Vertex Shader", "Error", MB_OK);
       return FALSE;
     }

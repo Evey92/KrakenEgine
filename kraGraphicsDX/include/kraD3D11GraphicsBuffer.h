@@ -9,10 +9,7 @@ namespace kraEngineSDK {
   public:
     GraphicsBufferDX() = default;
     
-    virtual ~GraphicsBufferDX() {
-      if (m_pBuffer)
-        m_pBuffer->Release();
-    }
+    virtual ~GraphicsBufferDX() {}
 
     virtual void
       reserve(size_t numObjects) = 0;
@@ -25,6 +22,6 @@ namespace kraEngineSDK {
 
 
 
-    ID3D11Buffer* m_pBuffer = nullptr;
+    
   };
 }

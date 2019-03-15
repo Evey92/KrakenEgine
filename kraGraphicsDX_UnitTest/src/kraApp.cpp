@@ -12,10 +12,10 @@ App::run() {
     typedef GraphicsAPI*(*initFunc)();
     HINSTANCE GFXDLL;
     
-    color.x = 0.7f;
+    /*color.x = 0.7f;
     color.y = 0.7f;
     color.z = 0.7f;
-    color.w = 1.0f;
+    color.w = 1.0f;*/
 
     std::string path = "kraGraphicsDXd.dll";
 
@@ -389,7 +389,7 @@ App::run() {
 
     m_viewport->setViewport(m_device);
 
-    if (!m_vertexShader->compileVertexShader("../VS.hlsl", "VS"))
+    if (!m_vertexShader->compileVertexShader("VS.hlsl", "VS"))
     {
       DWORD err = GetLastError();
       MessageBox(NULL, "Failed to create Vertex shader", "Error", MB_OK);
@@ -407,7 +407,7 @@ App::run() {
 
     m_inputLayout->setInputLayout(*m_device);
 
-    if (!m_pixelShader->compilePixelShader("../PS.hlsl", "PS"))
+    if (!m_pixelShader->compilePixelShader("PS.hlsl", "PS"))
     {
       MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
 

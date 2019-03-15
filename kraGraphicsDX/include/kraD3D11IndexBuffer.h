@@ -89,6 +89,7 @@ namespace kraEngineSDK {
 
    private:
     std::vector<uint32> m_indexData;
+    ID3D11Buffer* m_pBuffer = nullptr;
        
   };
 }

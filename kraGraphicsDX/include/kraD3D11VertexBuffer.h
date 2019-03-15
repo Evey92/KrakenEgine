@@ -90,5 +90,6 @@ namespace kraEngineSDK {
 
    private:
     std::vector<Vertex> m_vertexData;
+    ID3D11Buffer* m_pBuffer = nullptr;
   };
 }
