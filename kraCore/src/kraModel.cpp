@@ -1,4 +1,6 @@
-#include "kraPrerequisitesCore.h"
+#include <kraVector2.h>
+#include <kraVector3.h>
+
 #include "kraModel.h"
 #include "kraDevice.h"
 
@@ -58,25 +60,41 @@ namespace kraEngineSDK {
         vert.Tex.x = static_cast<float>(pMesh->mTextureCoords[0][i].x);
         vert.Tex.y = static_cast<float>(pMesh->mTextureCoords[0][i].y);
       }
-      else
+      if (pMesh->mNormals)
       {
-        vert.Tex.x = 0.0f;
-        vert.Tex.y = 0.0f;
+        vert.m_normal.x = pMesh->mNormals->x;
+        vert.m_normal.y = pMesh->mNormals->y;
+        vert.m_normal.z = pMesh->mNormals->z;
+      }
+      if (pMesh->mTangents)
+      {
+        vert.m_tangent.x = pMesh->mTangents->x;
+        vert.m_tangent.y = pMesh->mTangents->y;
+        vert.m_tangent.z = pMesh->mTangents->z;
+
+        
+      }
+      if (pMesh->mBitangents)
+      {
+        vert.m_binormal.x = pMesh->mBitangents->x;
+        vert.m_binormal.y = pMesh->mBitangents->y;
+        vert.m_binormal.z = pMesh->mBitangents->z;
       }
       newMesh.m_vertexBurffer->add(vert);
     }
-    newMesh.m_vertexBurffer->createHardwareBuffer(pDevice);
-    newMesh.m_vertexBurffer->setVertexBuffer(pDevice);
+    
 
     for (uint32 i = 0; i < pMesh->mNumFaces; i++) {
-      aiFace face = pMesh->mFaces[i];
+      const aiFace& face = pMesh->mFaces[i];
 
       for (uint32 j = 0; j < face.mNumIndices; j++) {
         newMesh.m_indexBuffer->add(face.mIndices[j]);
       }
     }
     
+    newMesh.m_vertexBurffer->createHardwareBuffer(pDevice);
     newMesh.m_indexBuffer->createIndexBuffer(pDevice);
+    newMesh.m_vertexBurffer->setVertexBuffer(pDevice);
     newMesh.m_indexBuffer->setIndexBuffer(pDevice);
       
     return newMesh;

@@ -79,7 +79,7 @@ namespace kraEngineSDK {
     setIndexBuffer(const Device& pDevice) {
       const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
 
-      m_device.m_pImmediateContext->IASetIndexBuffer(m_pBuffer, DXGI_FORMAT_R16_UINT, 0);
+      m_device.m_pImmediateContext->IASetIndexBuffer(m_pBuffer, DXGI_FORMAT_R32_UINT, 0);
     }
 
     uint32

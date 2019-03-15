@@ -1,3 +1,4 @@
+#include "kraVector2.h"
 #include "kraVector3.h"
 
 
@@ -320,18 +321,18 @@ namespace kraEngineSDK {
     }
   }
 
-  static const Vector3 ZERO = Vector3(0.0f, 0.0f, 0.0f);
+  const Vector3 ZERO = Vector3(0.0f, 0.0f, 0.0f);
 
-  static const Vector3 ONE = Vector3(1.0f, 1.0f, 1.0f);
+  const Vector3 ONE = Vector3(1.0f, 1.0f, 1.0f);
 
-  static const Vector3 ONEX = Vector3(1.0f, 0.0f, 0.0f);
+  const Vector3 ONEX = Vector3(1.0f, 0.0f, 0.0f);
 
-  static const Vector3 ONEY = Vector3(0.0f, 1.0f, 0.0f);
+  const Vector3 ONEY = Vector3(0.0f, 1.0f, 0.0f);
 
-  static const Vector3 ONEZ = Vector3(0.0f, 0.0f, 1.0f);
+  const Vector3 ONEZ = Vector3(0.0f, 0.0f, 1.0f);
 
-  static const Vector3 UP = ONEY;
+  const Vector3 UP = ONEY;
 
-  static const Vector3 FRONT = ONEZ;
+  const Vector3 FRONT = ONEZ;
 
 }

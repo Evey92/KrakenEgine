@@ -1,5 +1,6 @@
 #pragma once
 #include <kraVertex.h>
+
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>         
 #include <assimp/postprocess.h> 
@@ -9,9 +10,12 @@
 #include "kraVertexBuffer.h"
 #include "kraMesh.h"
 
+
 namespace kraEngineSDK {
   
   class Device;
+  class Vector2;
+  class Vector3;
   class KRA_CORE_EXPORT Model
   {
    public:

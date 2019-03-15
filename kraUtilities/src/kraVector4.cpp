@@ -1,3 +1,5 @@
+#include "kraVector2.h"
+#include "kraVector3.h"
 #include "kraVector4.h"
 
 namespace kraEngineSDK {
@@ -28,14 +30,14 @@ namespace kraEngineSDK {
     x = vecXYZ.x;
     y = vecXYZ.y;
     z = vecXYZ.z;
-    w = 0.0f;
+    w = 1.0f;
   }
 
   Vector4::Vector4(Vector2 vecXY) {
     x = vecXY.x;
     y = vecXY.y;
     z = 0.0f;
-    w = 0.0f;
+    w = 1.0f;
   }
 
   Vector4
@@ -382,6 +384,21 @@ namespace kraEngineSDK {
     else if (Index == 3) {
       return w;
     }
+
+    static const Vector4 ZERO = Vector3(0.0f, 0.0f, 0.0f);
+
+    static const Vector4 ONE = Vector3(1.0f, 1.0f, 1.0f);
+
+    static const Vector4 ONEX = Vector3(1.0f, 0.0f, 0.0f);
+
+    static const Vector4 ONEY = Vector3(0.0f, 1.0f, 0.0f);
+
+    static const Vector4 ONEZ = Vector3(0.0f, 0.0f, 1.0f);
+
+    static const Vector4 UP = ONEY;
+
+    static const Vector4 FRONT = ONEZ;
+
   }
 
 }

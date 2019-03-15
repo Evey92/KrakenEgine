@@ -2,12 +2,12 @@
 
 #include "kraPrerequisitesUtil.h"
 #include "kraMath.h"
-#include "kraVector2.h"
-#include "kraVector3.h"
-
 
 namespace kraEngineSDK {
   
+  class Vector2;
+  class Vector3;
+
   class KRA_UTILITY_EXPORT Vector4
   {
     /**
@@ -344,7 +344,23 @@ namespace kraEngineSDK {
     void
     ceil();
 
+
+
   public:
+    static const Vector4 ZERO;
+
+    static const Vector4 ONE;
+
+    static const Vector4 ONEX;
+
+    static const Vector4 ONEY;
+
+    static const Vector4 ONEZ;
+
+    static const Vector4 UP;
+
+    static const Vector4 FRONT;
+
     /**
      * @brief Componente X.
      */

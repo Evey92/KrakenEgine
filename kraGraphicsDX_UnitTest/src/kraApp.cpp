@@ -389,7 +389,7 @@ App::run() {
 
     m_viewport->setViewport(m_device);
 
-    if (!m_vertexShader->compileVertexShader("../VS.hlsl", "VS"))
+    if (!m_vertexShader->compileVertexShader("VS.hlsl", "VS"))
     {
       DWORD err = GetLastError();
       MessageBox(NULL, "Failed to create Vertex shader", "Error", MB_OK);
@@ -407,7 +407,7 @@ App::run() {
 
     m_inputLayout->setInputLayout(*m_device);
 
-    if (!m_pixelShader->compilePixelShader("../PS.hlsl", "PS"))
+    if (!m_pixelShader->compilePixelShader("PS.hlsl", "PS"))
     {
       MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
 
@@ -418,7 +418,7 @@ App::run() {
 
     Model newModel;
 
-    if (!newModel.loadModelFromFile("../resources/ninjaHead.obj", *m_device))
+    if (!newModel.loadModelFromFile("resources/Models/cube.obj", *m_device))
     {
       MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
 
@@ -435,8 +435,8 @@ App::run() {
 
     m_samplerState->createSamplerState(*m_device);
 
-    Vector4 Eye(0.0f, 0.0f, 0.0f, 0.0f);
-    Vector4 At(0.0f, 0.0f, 0.0f, 0.0f);
+    Vector4 Eye(0.0f, 3.0f, -6.0f, 0.0f);
+    Vector4 At(0.0f, 1.0f, 0.0f, 0.0f);
     Vector4 Up(0.0f, 1.0f, 0.0f, 0.0f);
 
     m_view = m_view.MatrixLookAtLH(Eye, At, Up);

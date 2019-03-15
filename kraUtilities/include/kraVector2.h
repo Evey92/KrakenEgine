@@ -29,7 +29,7 @@ namespace kraEngineSDK {
     /**
      * @brief Construir un Vector2 a partir de los valores X y Y de un Vector2.
      */
-     explicit inline Vector2(const Vector2& V, float w);
+     Vector2(const Vector2& V);
 
 
      /**
@@ -317,6 +317,14 @@ namespace kraEngineSDK {
     ceil();
 
    public:
+
+     static const Vector2 ZERO;
+
+     static const Vector2 ONE;
+
+     static const Vector2 ONEX;
+
+     static const Vector2 ONEY;
 
     /**
      * @brief Componente X.

@@ -1,5 +1,5 @@
 #include "kraVector2.h"
-#include "kraVector3.h"
+
 
 namespace kraEngineSDK {
   /***************************************************************************/
@@ -9,6 +9,11 @@ namespace kraEngineSDK {
    /***************************************************************************/
 
   Vector2::Vector2(float X, float Y) : x(X), y(Y) {}
+  
+  Vector2::Vector2(const Vector2& V){
+    x = V.x;
+    y = V.y;
+  }
 
   Vector2
     Vector2::operator+(const Vector2& Vec)const {
@@ -277,6 +282,15 @@ namespace kraEngineSDK {
     else if (Index == 1) {
       return y;
     }
+
+    const Vector2 ZERO = Vector2(0.0f, 0.0f);
+
+    const Vector2 ONE = Vector2(1.0f, 1.0f);
+
+    const Vector2 ONEX = Vector2(1.0f, 0.0f);
+
+    const Vector2 ONEY = Vector2(0.0f, 1.0f);
+
   }
 }
 

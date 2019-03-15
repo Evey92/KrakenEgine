@@ -2,9 +2,10 @@
 
 #include "kraPrerequisitesUtil.h"
 #include "kraMath.h"
-#include "kraVector2.h"
 
 namespace kraEngineSDK {
+
+  class Vector2;
 
   class KRA_UTILITY_EXPORT Vector3
   {

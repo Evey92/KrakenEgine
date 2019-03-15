@@ -6,11 +6,6 @@
 
 namespace kraEngineSDK {
 
-  class Vector4;
-  class Vector3;
-  class Vector2;
-
-
   class Vertex
   {
   public:
@@ -18,17 +13,24 @@ namespace kraEngineSDK {
     //Vertex() = default;
 
     Vertex() {
-      Pos.w = 1.0f;
+      Pos = Vector3(0.0f, 0.0f, 0.0f);
+      Tex = Vector2(0.0f, 0.0f);
+      m_normal = Vector3(0.0f, 0.0f, 0.0f);
+      m_tangent = Vector3(0.0f, 0.0f, 0.0f);
+      m_binormal = Vector3(0.0f, 0.0f, 0.0f);
+      m_color = Vector3(0.0f, 0.0f, 0.0f);
+      
     }
 
     Vertex(const Vertex& copyVert)
     {
-      Pos.x = copyVert.Pos.x;
-      Pos.y = copyVert.Pos.y;
-      Pos.z = copyVert.Pos.z;
+      Pos = copyVert.Pos;
       Pos.w = 1.0f;
-      Tex.x = copyVert.Tex.x;
-      Tex.y = copyVert.Tex.y;
+      Tex = copyVert.Tex;
+      m_normal = copyVert.m_normal;
+      m_tangent = copyVert.m_tangent;
+      m_binormal = copyVert.m_binormal;
+      m_color = copyVert.m_color;
     }
 
     Vertex(Vector3 vert)
@@ -69,9 +71,9 @@ namespace kraEngineSDK {
 
     Vector4 Pos;
     Vector2 Tex;
-    /*Vector3 m_normal;
+    Vector3 m_normal;
+    Vector3 m_tangent;
+    Vector3 m_binormal;
     Vector4 m_color;
-    float m_u;
-    float m_v;*/
   };
 }
