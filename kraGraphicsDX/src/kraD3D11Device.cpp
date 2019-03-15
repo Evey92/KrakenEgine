@@ -146,7 +146,6 @@ namespace kraEngineSDK {
   void
   DeviceDX::DrawIndexed(uint32 count, uint32 start, int32 baseLoc) {
     m_pImmediateContext->DrawIndexed(count, start, baseLoc);
-    DWORD err = GetLastError();
   }
 
   //TODO fix this bullshit with a factory.

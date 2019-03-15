@@ -98,6 +98,9 @@ namespace kraEngineSDK {
     if (FAILED(hr))
     {
       if (pErrorBlob != NULL) {
+
+        DWORD err = GetLastError();
+
         MessageBox(NULL, "Failed to compile Pixel Shader Blob", "Error", MB_OK);
         OutputDebugStringA((char*)pErrorBlob->GetBufferPointer());
         pErrorBlob->Release();

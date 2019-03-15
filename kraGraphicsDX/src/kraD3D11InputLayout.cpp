@@ -17,10 +17,11 @@ namespace kraEngineSDK {
     /*
     * @brief Vertex layout
     */
+   
     memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    inputDesc.SemanticName = "POSIITION";
+    inputDesc.SemanticName = "POSITION";
     inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
+    inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
     inputDesc.InputSlot = 0;
     inputDesc.AlignedByteOffset = 0;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
@@ -61,7 +62,7 @@ namespace kraEngineSDK {
     inputDesc.SemanticIndex = 0;
     inputDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
     inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 12;
+    inputDesc.AlignedByteOffset = 48;
     inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     inputDesc.InstanceDataStepRate = 0;
     m_layoutDescVector.push_back(inputDesc);

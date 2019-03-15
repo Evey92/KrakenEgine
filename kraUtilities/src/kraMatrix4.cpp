@@ -225,24 +225,24 @@ namespace kraEngineSDK {
 
     Matrix4 Mat;
     Mat.m[0][0] = xAxis.x; 
-    Mat.m[1][0] = xAxis.y; 
-    Mat.m[2][0] = xAxis.z; 
-    Mat.m[3][0] = Vector4::dot(xAxis, Eye); Mat.m[3][1] = Vector4::dot(yAxis, Eye); Mat.m[3][2] = Vector4::dot(zAxis, Eye);
+    Mat.m[1][0] = yAxis.x;
+    Mat.m[2][0] = zAxis.x;
+    Mat.m[3][0] = 0.0f;
     -Mat.m[3][0]; 
 
-    Mat.m[0][1] = yAxis.x; 
-    Mat.m[1][1] = yAxis.y; 
-    Mat.m[2][1] = yAxis.z; 
+    Mat.m[0][1] = xAxis.y;
+    Mat.m[1][1] = yAxis.y;
+    Mat.m[2][1] = zAxis.y;
     -Mat.m[3][1];
 
-    Mat.m[0][2] = zAxis.x; 
-    Mat.m[1][2] = zAxis.y; 
-    Mat.m[2][2] = zAxis.z; 
+    Mat.m[0][2] = xAxis.z;
+    Mat.m[1][2] = yAxis.z;
+    Mat.m[2][2] = zAxis.z;
     -Mat.m[3][2];
 
-    Mat.m[0][3] = 0;
-    Mat.m[1][3] = 0;
-    Mat.m[2][3] = 0;
+    Mat.m[0][3] = Vector4::dot(xAxis, Eye);
+    Mat.m[1][3] = Vector4::dot(yAxis, Eye);
+    Mat.m[2][3] = Vector4::dot(zAxis, Eye);
     Mat.m[3][3] = 1.0f;
 
     return Mat;

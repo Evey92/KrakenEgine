@@ -389,7 +389,7 @@ App::run() {
 
     m_viewport->setViewport(m_device);
 
-    if (!m_vertexShader->compileVertexShader("VS.hlsl", "VS"))
+    if (!m_vertexShader->compileVertexShader("../VS.hlsl", "VS"))
     {
       DWORD err = GetLastError();
       MessageBox(NULL, "Failed to create Vertex shader", "Error", MB_OK);
@@ -400,14 +400,14 @@ App::run() {
 
     m_vertexShader->createVertexShader(*m_device);
 
-    m_inputLayout->defineVertexLayout();
-    m_inputLayout->defineTexcoordLayout();
+    m_inputLayout->defineInputLayout();
+    //m_inputLayout->defineTexcoordLayout();
 
     m_inputLayout->createInputLayout(*m_device, *m_vertexShader);
 
     m_inputLayout->setInputLayout(*m_device);
 
-    if (!m_pixelShader->compilePixelShader("PS.hlsl", "PS"))
+    if (!m_pixelShader->compilePixelShader("../PS.hlsl", "PS"))
     {
       MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
 
@@ -416,10 +416,9 @@ App::run() {
     }
     m_pixelShader->createPixelShader(*m_device);
 
-    //TODO: Load an actual Model
     Model newModel;
 
-    if (!newModel.loadModelFromFile("../Vela/Vela_Mat_1.X", *m_device))
+    if (!newModel.loadModelFromFile("../resources/ninjaHead.obj", *m_device))
     {
       MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
 
@@ -436,12 +435,12 @@ App::run() {
 
     m_samplerState->createSamplerState(*m_device);
 
-    Vector4 Eye(0.0f, 3.0f, -6.0f, 0.0f);
-    Vector4 At(0.0f, 1.0f, 0.0f, 0.0f);
+    Vector4 Eye(0.0f, 0.0f, 0.0f, 0.0f);
+    Vector4 At(0.0f, 0.0f, 0.0f, 0.0f);
     Vector4 Up(0.0f, 1.0f, 0.0f, 0.0f);
 
     m_view = m_view.MatrixLookAtLH(Eye, At, Up);
-    m_view.transpose();
+    //m_view.transpose();
 
     CBNeverChanges cbNeverChanges;
     cbNeverChanges.m_view = m_view;
@@ -450,7 +449,7 @@ App::run() {
 
 
     m_projection.MatrixPerspectiveFOV(m_fov, static_cast<float>(m_device->getWidth() / m_device->getHeight()), m_nearZ, m_farZ);
-    m_projection.transpose();
+    //m_projection.transpose();
 
     CBChangeOnResize cbChangeOnResize;
     cbChangeOnResize.m_projection = m_projection;
@@ -496,6 +495,7 @@ App::run() {
     m_renderTargetView->clearRenderTargetView(m_device, ClearColor);
 
     m_depthStencilView->clearDSV(*m_device);
+    m_samplerState->setSamplerState(*m_device);
 
     CBChangesEveryFrame cbChangesEveryFrame;
 
@@ -511,7 +511,7 @@ App::run() {
     m_pixelShader->setPixelShader(*m_device);
     m_CBChangesEveryframe->setPixelConstantBuffer(*m_device, 2, 1);
 
-    m_samplerState->setSamplerState(*m_device);
+    
 
     //TODO: Replace this with the function to draw from each mesh.
     
