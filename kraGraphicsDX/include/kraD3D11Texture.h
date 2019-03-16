@@ -1,36 +1,34 @@
 #pragma once
 #include <kraTexture.h>
-#include <kraDevice.h>
 
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
   
-  class Texture;
-  class Device;
   
-  class KRA_UTILGFX_EXPORT TextureDX : public Texture
-  {
+  class Device;
+
+  class KRA_UTILGFX_EXPORT TextureDX : 
+  public Texture {
+
    public:
      TextureDX() = default;
      ~TextureDX() {}
 
     void
-    createTexture2D(Device* pDevice, int height, int width,
-                    void* format, void* bindFlag);
+    createTexture2D(const Device& pDevice, int height, int width);
     void
     createTexture2D(void* pDevice, int height, int width,
-                      void* format, void* bindFlag, void* desc);
+                    void* format, void* bindFlag, void* desc);
     bool
-    createTexture2DFromFile(void* pDevice, const char*  filename,
-                            void* format, void* bindFlag);
+    createTexture2DFromFile(const Device&, std::string filename);
 
     void
     releaseTexture();
 
     int m_height;
     int m_width; 
-    const char m_missingTexture[19] = "missingChecker.png";
+    std::string m_missingTexture = "missingChecker.png";
 
     //ID3D11Texture1D* m_pd3dTexture1D = nullptr;
     ID3D11Texture2D* m_pd3dTexture2D = nullptr;

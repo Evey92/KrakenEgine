@@ -218,27 +218,24 @@ namespace kraEngineSDK {
   Matrix4::MatrixLookAtLH(Vector4 Eye, Vector4 At, Vector4 Up) {
     
     Vector4 zAxis = (At - Eye).normalize();
-    zAxis.normalize();
     Vector4 xAxis = Vector4::cross(Up, zAxis).normalize();
-    xAxis.normalize();
-    Vector4 yAxis = Vector4::cross(zAxis, xAxis);
+    Vector4 yAxis = Vector4::cross(zAxis, xAxis).normalize();
 
     Matrix4 Mat;
     Mat.m[0][0] = xAxis.x; 
     Mat.m[1][0] = yAxis.x;
     Mat.m[2][0] = zAxis.x;
     Mat.m[3][0] = 0.0f;
-    -Mat.m[3][0]; 
 
     Mat.m[0][1] = xAxis.y;
     Mat.m[1][1] = yAxis.y;
     Mat.m[2][1] = zAxis.y;
-    -Mat.m[3][1];
+    Mat.m[3][1] = 0.0f;
 
     Mat.m[0][2] = xAxis.z;
     Mat.m[1][2] = yAxis.z;
     Mat.m[2][2] = zAxis.z;
-    -Mat.m[3][2];
+    Mat.m[3][2] = 0.0f;
 
     Mat.m[0][3] = Vector4::dot(xAxis, Eye);
     Mat.m[1][3] = Vector4::dot(yAxis, Eye);
@@ -254,8 +251,8 @@ namespace kraEngineSDK {
 
     row[0] = Vector4(1.0f/(kraMath::tan(FOV/2.0f)), 0.0f, 0.0f, 0.0f);
     row[1] = Vector4(0.0f, aspectRatio * 1.0f/kraMath::tan(FOV/2.0f), 0.0f, 0.0f);
-    row[2] = Vector4(0.0f, 0.0f, farZ /(farZ - nearZ), -nearZ * (farZ/(farZ - nearZ)));
-    row[3] = Vector4(0.0f, 0.0f, 1.0, 0.0f);
+    row[2] = Vector4(0.0f, 0.0f, farZ /(farZ - nearZ), 1.0f);
+    row[3] = Vector4(0.0f, 0.0f, (-nearZ * (farZ / (farZ - nearZ))), 0.0f);
   }
 
   void

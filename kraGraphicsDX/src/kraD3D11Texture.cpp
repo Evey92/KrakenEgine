@@ -1,18 +1,19 @@
+#include <kraDevice.h>
 
-#include "kraD3D11Texture.h"
 #include "kraD3D11Device.h"
+#include "kraD3D11Texture.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
 namespace kraEngineSDK {
 
   void
-  TextureDX::createTexture2D(Device* pDevice, int height, int width,
-                             void* format, void* bindFlag) {
+  TextureDX::createTexture2D(const Device& pDevice, int height, int width) {
 
-    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
-    DXGI_FORMAT* m_format = static_cast<DXGI_FORMAT*>(format);
-    D3D11_BIND_FLAG* m_bindFlag = static_cast<D3D11_BIND_FLAG*>(bindFlag);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
+    /*DXGI_FORMAT* m_format = static_cast<DXGI_FORMAT*>(format);
+    D3D11_BIND_FLAG* m_bindFlag = static_cast<D3D11_BIND_FLAG*>(bindFlag);*/
 
     D3D11_TEXTURE2D_DESC descTexture;
     memset(&descTexture, 0, sizeof(descTexture));
@@ -20,17 +21,17 @@ namespace kraEngineSDK {
     descTexture.Width = width;
     descTexture.MipLevels = 1;
     descTexture.ArraySize = 1;
-    descTexture.Format = *m_format;
+    descTexture.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     descTexture.SampleDesc.Count = 1;
     descTexture.SampleDesc.Quality = 0;
     descTexture.Usage = D3D11_USAGE_DEFAULT;
-    descTexture.BindFlags = *m_bindFlag;
+    descTexture.BindFlags = D3D11_BIND_SHADER_RESOURCE;
     descTexture.CPUAccessFlags = 0;
     descTexture.MiscFlags = 0;
 
     D3D11_SUBRESOURCE_DATA initBuffer;
     memset(&initBuffer, 0, sizeof(initBuffer));
-    m_pDevice->m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
+    m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
   }
 
   void
@@ -63,37 +64,36 @@ namespace kraEngineSDK {
   }
 
   bool
-  TextureDX::createTexture2DFromFile(void* pDevice, const char*  filename,
-                                    void* format, void* bindFlag) {
+  TextureDX::createTexture2DFromFile(const Device& pDevice, 
+                                     std::string filename) {
     
-    ID3D11Device* m_pDevice = static_cast<ID3D11Device*>(pDevice);
-    DXGI_FORMAT* m_fomrat = static_cast<DXGI_FORMAT*>(format);
-    D3D11_BIND_FLAG* m_bindFlag = static_cast<D3D11_BIND_FLAG*>(bindFlag);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
+
 
     HRESULT hr = S_OK;
     int channels;
 
-    auto image = stbi_load(filename, &m_width, &m_height, &channels, 4);
+    auto image = stbi_load(filename.c_str(), &m_width, &m_height, &channels, 4);
 
     if (!image)
     {
       throw std::exception("Texture couldn't be loaded." );
       stbi_image_free(image);
-      image = stbi_load(m_missingTexture, &m_width, &m_height, &channels, 4);
+      image = stbi_load(m_missingTexture.c_str(), &m_width, &m_height, &channels, 4);
     }
 
     D3D11_TEXTURE2D_DESC descTexture;
 
     memset(&descTexture, 0, sizeof(descTexture));
-    descTexture.Height = m_height;
-    descTexture.Width = m_width;
+    descTexture.Height = static_cast<uint32>(m_height);
+    descTexture.Width = static_cast<uint32>(m_width);
     descTexture.MipLevels = 1;
     descTexture.ArraySize = 1;
-    descTexture.Format = *m_fomrat;
+    descTexture.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     descTexture.SampleDesc.Count = 1;
     descTexture.SampleDesc.Quality = 0;
     descTexture.Usage = D3D11_USAGE_DEFAULT;
-    descTexture.BindFlags = *m_bindFlag;
+    descTexture.BindFlags = D3D11_BIND_SHADER_RESOURCE;
     descTexture.CPUAccessFlags = 0;
     descTexture.MiscFlags = 0;
 
@@ -102,7 +102,7 @@ namespace kraEngineSDK {
     initBuffer.pSysMem = image;
     initBuffer.SysMemPitch = m_width * 4;
 
-    m_pDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
+    m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
     if (FAILED(hr)) {
       return hr;
     }

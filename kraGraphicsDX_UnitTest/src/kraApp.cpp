@@ -145,6 +145,21 @@ App::run() {
       MessageBox(NULL, "Failed to create Sampler State", "Error", MB_OK);
       return FALSE;
     }
+
+    textureManager = m_device->createTextureInstance();
+    if (!m_indexBuffer)
+    {
+      MessageBox(NULL, "Failed to create Index Buffer", "Error", MB_OK);
+      return FALSE;
+    }
+
+    m_SRV = m_device->createShaderRVInstance();
+    if (!m_indexBuffer)
+    {
+      MessageBox(NULL, "Failed to create Index Buffer", "Error", MB_OK);
+      return FALSE;
+    }
+
   }
 
   void
@@ -401,7 +416,6 @@ App::run() {
     m_vertexShader->createVertexShader(*m_device);
 
     m_inputLayout->defineInputLayout();
-    //m_inputLayout->defineTexcoordLayout();
 
     m_inputLayout->createInputLayout(*m_device, *m_vertexShader);
 
@@ -418,7 +432,7 @@ App::run() {
 
     Model newModel;
 
-    if (!newModel.loadModelFromFile("resources/Models/cube.obj", *m_device))
+    if (!newModel.loadModelFromFile("resources/Models/Crate1.obj", *m_device))
     {
       MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
 
@@ -433,23 +447,30 @@ App::run() {
     m_CBChangesOnResize->createConstantBuffer(*m_device);
     m_CBChangesEveryframe->createConstantBuffer(*m_device);
 
+    textureManager->createTexture2DFromFile(*m_device,
+                                            "resources/Textures/crate_1.jpg");
+
+    m_SRV->createShaderResourceView(*m_device, textureManager);
+
+
     m_samplerState->createSamplerState(*m_device);
+
+    m_world.identity();
 
     Vector4 Eye(0.0f, 3.0f, -6.0f, 0.0f);
     Vector4 At(0.0f, 1.0f, 0.0f, 0.0f);
     Vector4 Up(0.0f, 1.0f, 0.0f, 0.0f);
 
     m_view = m_view.MatrixLookAtLH(Eye, At, Up);
-    //m_view.transpose();
+    m_view.transpose();
 
     CBNeverChanges cbNeverChanges;
     cbNeverChanges.m_view = m_view;
-
     m_CBNeverChanges->updateSubResources(*m_device, cbNeverChanges);
 
 
     m_projection.MatrixPerspectiveFOV(m_fov, static_cast<float>(m_device->getWidth() / m_device->getHeight()), m_nearZ, m_farZ);
-    //m_projection.transpose();
+    m_projection.transpose();
 
     CBChangeOnResize cbChangeOnResize;
     cbChangeOnResize.m_projection = m_projection;
@@ -486,22 +507,19 @@ App::run() {
 
     static float t = 0.0f;
 
-    m_world.identity();
     m_world.MatrixRotY(t);
 
-    m_world.transpose();
 
     Vector4 ClearColor = { 0.5f, 0.0f, 0.8f, 1.0f };
+
     m_renderTargetView->clearRenderTargetView(m_device, ClearColor);
 
     m_depthStencilView->clearDSV(*m_device);
-    m_samplerState->setSamplerState(*m_device);
-
+    
     CBChangesEveryFrame cbChangesEveryFrame;
-
+    m_world.transpose();
     cbChangesEveryFrame.m_world = m_world;
     cbChangesEveryFrame.m_vMeshColor = color;
-
     m_CBChangesEveryframe->updateSubResources(*m_device, cbChangesEveryFrame);
 
     m_vertexShader->setVertexShader(*m_device);
@@ -510,10 +528,8 @@ App::run() {
     m_CBChangesEveryframe->setVertexConstantBuffer(*m_device, 2, 1);
     m_pixelShader->setPixelShader(*m_device);
     m_CBChangesEveryframe->setPixelConstantBuffer(*m_device, 2, 1);
-
-    
-
-    //TODO: Replace this with the function to draw from each mesh.
+    m_SRV->setShaderResourceView(*m_device);
+    m_samplerState->setSamplerState(*m_device);
     
     for (uint32 i = 0; i < m_modelsVec.size(); i++) {
 

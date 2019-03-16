@@ -8,6 +8,8 @@
 #include <kraIndexBuffer.h>
 #include <kraConstantBuffer.h>
 #include <kraSampler.h>
+#include <kraTexture.h>
+#include <kraShaderResourceView.h>
 
 #include "kraD3D11Device.h"
 #include "kraD3D11RenderTargetView.h"
@@ -21,6 +23,8 @@
 #include "kraD3D11IndexBuffer.h"
 #include "kraD3D11ConstantBuffer.h"
 #include "kraD3D11Sampler.h"
+#include "kraD3D11Texture.h"
+#include "kraD3D11ShaderResourceView.h"
 
 namespace kraEngineSDK {
 
@@ -214,5 +218,13 @@ namespace kraEngineSDK {
     return new SamplerStateDX();
   }
 
+  Texture*
+  DeviceDX::createTextureInstance() {
+    return new TextureDX();
+  }
+  ShaderResourceView*
+  DeviceDX::createShaderRVInstance() {
+    return new ShaderResourceViewDX();
+  }
 
 }

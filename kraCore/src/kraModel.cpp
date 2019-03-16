@@ -22,7 +22,7 @@ namespace kraEngineSDK {
 
     if (!scene)
     {
-      //Log error
+      
 
       return false;
     }

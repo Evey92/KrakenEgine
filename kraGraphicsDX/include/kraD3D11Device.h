@@ -19,6 +19,8 @@ namespace kraEngineSDK {
   class VertexBuffer;
   class IndexBuffer;
   class SamplerState;
+  class Texture;
+  class ShaderResourceView;
 
   template<typename CONSVERTEX> class ConstantBuffer;
 
@@ -79,6 +81,10 @@ namespace kraEngineSDK {
     createConstantBufferEveryFrame();
     SamplerState*
     createSamplerStateInstance(); 
+    Texture*
+    createTextureInstance();
+    ShaderResourceView*
+    createShaderRVInstance();
 
     SwapChainDX m_pSwapChain;
     uint32 m_height;

@@ -1,9 +1,9 @@
 #pragma once
 #include "kraGraphicsBuffer.h"
-#include "kraDevice.h"
 
 namespace kraEngineSDK {
  
+  class Device;
   //template<typename TVERTEX>
   class VertexBuffer : public GraphicsBuffer
   {

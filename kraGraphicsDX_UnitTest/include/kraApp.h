@@ -115,6 +115,7 @@ class App : public BaseApplication
   Matrix4 m_projection;
   Vector4 color;
   Vector<Model> m_modelsVec;
+  Texture* textureManager;
   float m_fov;
   float m_nearZ;
   float m_farZ;
