@@ -30,14 +30,14 @@ namespace kraEngineSDK {
     x = vecXYZ.x;
     y = vecXYZ.y;
     z = vecXYZ.z;
-    w = 1.0f;
+    w = 0.0f;
   }
 
   Vector4::Vector4(Vector2 vecXY) {
     x = vecXY.x;
     y = vecXY.y;
     z = 0.0f;
-    w = 1.0f;
+    w = 0.0f;
   }
 
   Vector4
@@ -130,17 +130,21 @@ namespace kraEngineSDK {
   }
 
   float
-    Vector4::operator|(const Vector4& Vec)const {
+  Vector4::operator|(const Vector4& Vec)const {
 
-    float escalar = (x * Vec.x) + (y * Vec.y) + (z * Vec.z) + (w * Vec.w);
+    return (x * Vec.x) + (y * Vec.y) + (z * Vec.z) + (w * Vec.w);
 
-    return escalar;
   }
 
   Vector4
   Vector4::operator^(const Vector4 Vec)const {
+    Vector4 newVec;
 
-    return Vector4((y * Vec.z - z * Vec.y), (z * Vec.x - x * Vec.z), (x * Vec.y - y * Vec.x), 0.0f);
+    newVec.x = (y * Vec.z) - (z * Vec.y);
+    newVec.y = (z * Vec.x) - (x * Vec.z);
+    newVec.z = (x * Vec.y) - (y * Vec.x);
+    
+    return newVec;
 
   }
 
@@ -246,7 +250,7 @@ namespace kraEngineSDK {
   float
   Vector4::lenght() const {
 
-    return kraMath::sqrt(x * x + y * y + z * z + w * w);
+    return kraMath::sqrt((x * x) + (y * y) + (z * z) + (w * w));
   }
 
   float
@@ -274,18 +278,14 @@ namespace kraEngineSDK {
   }
 
   Vector4
-  Vector4::normalize() {
+  Vector4::normalize(Vector4 newVec) {
 
-    Vector4 newVec;
     float m = newVec.lenght();
-  
-    float fisqrt = kraMath::invSqrt(m);
+    newVec.x /= m;
+    newVec.y /= m;
+    newVec.z /= m;
+    newVec.w /= m;
 
-    newVec.x = x * fisqrt;
-    newVec.y = y * fisqrt;
-    newVec.z = z * fisqrt;
-    newVec.w = w * fisqrt;
-    
     return newVec;
   }
 

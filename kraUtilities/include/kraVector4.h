@@ -332,8 +332,8 @@ namespace kraEngineSDK {
      * @return Regresa el vector normalizado.
      */
 
-    Vector4
-    normalize();
+    static Vector4
+    normalize(Vector4 newVec);
     
     void
     normalized();

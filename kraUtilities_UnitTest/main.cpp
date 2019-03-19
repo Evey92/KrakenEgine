@@ -57,3 +57,22 @@ TEST_F(Testing, Basic_Types)
   EXPECT_TRUE(sizeof(double) == 8);
   fails += ::testing::Test::HasFailure();
 }
+
+TEST_F(Testing, Vector_Test)
+{
+  Vector2 vec2(2, 3);
+  Vector3 eye(0.0f, 3.0f, -6.0f);
+  Vector3 at(0.0f, 1.0f, 0.0f);
+
+  Vector3 eyePositio = at - eye;
+  EXPECT_EQ(kraMath::cos(0), 1);
+  EXPECT_EQ((eyePositio), Vector3(0.0f, -2.0f, 6.0f));
+
+  //EXPECT_EQ((eyePositio.normalized(eyePositio)), (-0.31622776601683793319988935444327185337195551393252168268f));
+
+  eyePositio.normalize();
+
+  std::cout << "Normalized vector: (" << eyePositio.x <<", " << eyePositio.y <<", " << eyePositio.z <<")" << std::endl;
+
+  fails += ::testing::Test::HasFailure();
+}

@@ -51,7 +51,6 @@ namespace kraEngineSDK {
     driverTypes.push_back(D3D_DRIVER_TYPE_REFERENCE);
 
     std::vector<D3D_FEATURE_LEVEL> featureLevels;
-    featureLevels.push_back(D3D_FEATURE_LEVEL_11_1);
     featureLevels.push_back(D3D_FEATURE_LEVEL_11_0);
     featureLevels.push_back(D3D_FEATURE_LEVEL_10_1);
     featureLevels.push_back(D3D_FEATURE_LEVEL_10_0);
@@ -69,7 +68,7 @@ namespace kraEngineSDK {
     sd.OutputWindow = m_hWnd;
     sd.SampleDesc.Count = 1;
     sd.SampleDesc.Quality = 0;
-    sd.Windowed = TRUE;
+    sd.Windowed = true;
 
 
     D3D_FEATURE_LEVEL selectedFL;
@@ -79,23 +78,29 @@ namespace kraEngineSDK {
       ++driverTypeIndex)
     {
       D3D_DRIVER_TYPE& dt = driverTypes[driverTypeIndex];
-      hr = D3D11CreateDeviceAndSwapChain(nullptr, dt, nullptr,
-        createDeviceFlags, &featureLevels[0],
-        static_cast<UINT>(featureLevels.size()),
-        D3D11_SDK_VERSION,
-        &sd, &m_pSwapChain.m_pd3dSwapChain,
-        &m_pd3dDevice, &selectedFL,
-        &m_pImmediateContext);
+
+      hr = D3D11CreateDeviceAndSwapChain(nullptr,
+                                         dt,
+                                         nullptr,
+                                         createDeviceFlags,
+                                         &featureLevels[0],
+                                         static_cast<UINT>(featureLevels.size()),
+                                         D3D11_SDK_VERSION,
+                                         &sd,
+                                         &m_pSwapChain.m_pd3dSwapChain,
+                                         &m_pd3dDevice, 
+                                         &selectedFL,
+                                         &m_pImmediateContext);
 
       if (SUCCEEDED(hr)) {
         break;
       }
     }
     if (FAILED(hr)) {
-      return hr;
+      return false;
     }
 
-    return hr;
+    return true;
   }
 
   void
@@ -212,6 +217,10 @@ namespace kraEngineSDK {
   ConstantBuffer<CBChangesEveryFrame>*
   DeviceDX::createConstantBufferEveryFrame() {
     return new ConstantBufferDX<CBChangesEveryFrame>();
+  }
+  ConstantBuffer<Matrix4>*
+  DeviceDX::createConstantBufferInstance() {
+    return new ConstantBufferDX<Matrix4>();
   }
   SamplerState*
   DeviceDX::createSamplerStateInstance() {

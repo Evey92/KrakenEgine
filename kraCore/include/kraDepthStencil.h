@@ -13,7 +13,7 @@ namespace kraEngineSDK {
      virtual ~DepthStencil() {};
 
      virtual bool
-     setDepthStencil(const Device& pDevice, int height, int width) = 0;
+     setDepthStencil(const Device& pDevice, uint32 height, uint32 width) = 0;
 
      virtual void
      cleanDepthStencil() = 0;

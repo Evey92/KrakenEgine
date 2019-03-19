@@ -107,7 +107,7 @@ namespace kraEngineSDK {
      * @return Regresa el producto punto.
      */
     float
-      operator|(const Vector3& Vec) const;
+      operator|(const Vector3 Vec) const;
 
     /**
      * @brief Obtiene el producto cruz de este vector y otro.
@@ -305,13 +305,16 @@ namespace kraEngineSDK {
      * @return Regresa el vector normalizado.
      */
     void
-      normalize();
+    normalize();
+    
+    void
+    normalized();
 
     void
-      floor();
+    floor();
 
     void
-      ceil();
+    ceil();
 
   public:
 

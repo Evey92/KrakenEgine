@@ -160,6 +160,12 @@ App::run() {
       return FALSE;
     }
 
+    m_mainCB = m_device->createConstantBufferInstance();
+    if (!m_mainCB)
+    {
+      MessageBox(NULL, "Failed to create const Buffer", "Error", MB_OK);
+      return FALSE;
+    }
   }
 
   void
@@ -364,20 +370,19 @@ App::run() {
 
         /////////////////////////////////////
 
-        Vector4 Eye(0.0f, 3.0f, - 6.0f, 0.0f);
-        Vector4 At(0.0f, 1.0f, 0.0f, 0.0f);
-        Vector4 Up(0.0f, 1.0f, 0.0f, 0.0f);
+        Vector3 Eye(0.0f, 3.0f, - 6.0f);
+        Vector3 At(0.0f, 1.0f, 0.0f);
+        Vector3 Up(0.0f, 1.0f, 0.0f);
 
-        m_view = m_view.MatrixLookAtLH(Eye, At, Up);
-        m_view.transpose();
 
         CBNeverChanges cbNeverChanges;
-        cbNeverChanges.m_view = m_view;
+
+
 
         m_CBNeverChanges->updateSubResources(*m_device, cbNeverChanges);
         
        
-        m_projection.MatrixPerspectiveFOV(m_fov, static_cast<float>(m_device->getWidth() / m_device->getHeight()), m_nearZ, m_farZ);
+        m_projection.MatrixPerspectiveFOV(m_fov, m_device->getWidth(), m_device->getHeight(), m_nearZ, m_farZ);
         m_projection.transpose();
         
         CBChangeOnResize cbChangeOnResize;
@@ -390,7 +395,7 @@ App::run() {
   App::LoadModel() {
      float m_fov = kraMath::DEG2RAD(90.0f);
     float m_nearZ = 0.01f;
-    float m_farZ = 100.0f;
+    float m_farZ = 1000.0f;
 
     m_renderTargetView->createRenderTargetView(*m_device);
 
@@ -400,7 +405,7 @@ App::run() {
 
     m_renderTargetView->setRenderTarget(*m_device, *m_depthStencilView);
 
-    m_viewport->createViewport(m_device->getHeight(), m_device->getWidth(), 1.0f, 1.0f);
+    m_viewport->createViewport(m_device->getHeight(), m_device->getWidth(), 0.0f, 0.0f);
 
     m_viewport->setViewport(m_device);
 
@@ -419,7 +424,6 @@ App::run() {
 
     m_inputLayout->createInputLayout(*m_device, *m_vertexShader);
 
-    m_inputLayout->setInputLayout(*m_device);
 
     if (!m_pixelShader->compilePixelShader("PS.hlsl", "PS"))
     {
@@ -432,7 +436,7 @@ App::run() {
 
     Model newModel;
 
-    if (!newModel.loadModelFromFile("resources/Models/Crate1.obj", *m_device))
+    if (!newModel.loadModelFromFile("resources/Models/crate1.obj", *m_device))
     {
       MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
 
@@ -443,9 +447,6 @@ App::run() {
 
     m_device->setPrimitiveTopology();
 
-    m_CBNeverChanges->createConstantBuffer(*m_device);
-    m_CBChangesOnResize->createConstantBuffer(*m_device);
-    m_CBChangesEveryframe->createConstantBuffer(*m_device);
 
     textureManager->createTexture2DFromFile(*m_device,
                                             "resources/Textures/crate_1.jpg");
@@ -457,25 +458,28 @@ App::run() {
 
     m_world.identity();
 
-    Vector4 Eye(0.0f, 3.0f, -6.0f, 0.0f);
-    Vector4 At(0.0f, 1.0f, 0.0f, 0.0f);
-    Vector4 Up(0.0f, 1.0f, 0.0f, 0.0f);
+    //m_mainCB->add(Matrix4::transposed(m_world));
+    m_mainCB->add(m_world);
+    
 
-    m_view = m_view.MatrixLookAtLH(Eye, At, Up);
-    m_view.transpose();
+    mainCam.SetPosition(Vector3(0.0f, 0.0f, -10.0f));
+    mainCam.SetObjecive(Vector3(0.0f, 0.0f, 0.0f));
+    mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
+    /*mainCam.setFront(0.0f, 0.0f, 1.0f);
+    mainCam.setRight(1.0f, 0.0f, 0.0f);*/
 
-    CBNeverChanges cbNeverChanges;
-    cbNeverChanges.m_view = m_view;
-    m_CBNeverChanges->updateSubResources(*m_device, cbNeverChanges);
+    mainCam.createViewMat();
+    m_mainCB->add(mainCam.GetViewMatrix());
 
+    m_projection.MatrixPerspectiveFOV(m_fov, m_device->getWidth() , m_device->getHeight(), m_nearZ, m_farZ);
+    m_mainCB->add(m_projection);
 
-    m_projection.MatrixPerspectiveFOV(m_fov, static_cast<float>(m_device->getWidth() / m_device->getHeight()), m_nearZ, m_farZ);
-    m_projection.transpose();
+    /*Matrix4 WVP = m_world * mainCam.GetViewMatrix() * m_projection;
+    m_mainCB->add(WVP);*/
 
-    CBChangeOnResize cbChangeOnResize;
-    cbChangeOnResize.m_projection = m_projection;
-    m_CBChangesOnResize->updateSubResources(*m_device, cbChangeOnResize);
+    m_mainCB->createConstantBuffer(*m_device);
 
+    m_mainCB->updateSubResources(*m_device);
   }
 
   HINSTANCE
@@ -507,8 +511,18 @@ App::run() {
 
     static float t = 0.0f;
 
-    m_world.MatrixRotY(t);
+    t += kraMath::PI * .0125f;
 
+    //m_world.MatrixRotY(t);
+
+    m_vertexShader->setVertexShader(*m_device);
+    m_pixelShader->setPixelShader(*m_device);
+    
+    m_mainCB->updateSubResources(*m_device);
+    m_mainCB->setVertexConstantBuffer(*m_device, 0, 1);
+    m_mainCB->setPixelConstantBuffer(*m_device, 0, 1);
+
+    m_inputLayout->setInputLayout(*m_device);
 
     Vector4 ClearColor = { 0.5f, 0.0f, 0.8f, 1.0f };
 
@@ -516,20 +530,12 @@ App::run() {
 
     m_depthStencilView->clearDSV(*m_device);
     
-    CBChangesEveryFrame cbChangesEveryFrame;
-    m_world.transpose();
-    cbChangesEveryFrame.m_world = m_world;
-    cbChangesEveryFrame.m_vMeshColor = color;
-    m_CBChangesEveryframe->updateSubResources(*m_device, cbChangesEveryFrame);
-
-    m_vertexShader->setVertexShader(*m_device);
-    m_CBNeverChanges->setVertexConstantBuffer(*m_device, 0, 1);
-    m_CBChangesOnResize->setVertexConstantBuffer(*m_device, 1, 1);
-    m_CBChangesEveryframe->setVertexConstantBuffer(*m_device, 2, 1);
-    m_pixelShader->setPixelShader(*m_device);
-    m_CBChangesEveryframe->setPixelConstantBuffer(*m_device, 2, 1);
-    m_SRV->setShaderResourceView(*m_device);
     m_samplerState->setSamplerState(*m_device);
+
+    //m_mainCB->getConstData()[0] = m_world;
+    //m_mainCB->updateSubResources(*m_device);
+
+    m_SRV->setShaderResourceView(*m_device);
     
     for (uint32 i = 0; i < m_modelsVec.size(); i++) {
 
@@ -562,7 +568,7 @@ App::run() {
     CBChangesEveryFrame cbChangesEveryFrame;
     
     cbChangesEveryFrame.m_world = m_world;
-    cbChangesEveryFrame.m_vMeshColor = color;
+
 
     m_CBChangesEveryframe->updateSubResources(*m_device, cbChangesEveryFrame);
 

@@ -17,22 +17,29 @@ namespace kraEngineSDK {
   void Camera::MoveForward(float defaz) 
   {
     m_pos += m_front * defaz;
+    dirty = true;
   }
 
   void Camera::MoveRight(float defaz) 
   {
+    m_pos += m_right * defaz;
+    dirty = true;
 
   }
 
   void Camera::Rotate(Vector3 Axis, float angle)
   {
 
+    dirty = true;
+
   }
 
   void
   Camera::SetPosition(Vector3 Pos) {
     
-    m_pos = Pos;
+    m_pos.x = Pos.x;
+    m_pos.y = Pos.y;
+    m_pos.z = Pos.z;
     dirty = true;
   }
 
@@ -49,7 +56,9 @@ namespace kraEngineSDK {
   void
   Camera::SetObjecive(Vector3 Objective) {
 
-    m_objective = Objective;
+    m_objective.x = Objective.x;
+    m_objective.y = Objective.y;
+    m_objective.z = Objective.z;
 
     dirty = true;
 
@@ -65,24 +74,92 @@ namespace kraEngineSDK {
 
   }
 
-  Matrix4 Camera::GetViewMatrix(Vector4 objective, Vector4 UP) 
+  void
+  Camera::setUp(Vector3 UP) {
+    m_up = UP;
+    dirty = true;
+
+  }
+
+  void
+  Camera::setUp(float X, float Y, float Z) {
+    m_up.x = X;
+    m_up.y = Y;
+    m_up.z = Z;
+    dirty = true;
+
+  }
+
+  void
+  Camera::setFront(Vector3 Front) {
+    m_front = Front;
+    dirty = true;
+
+  }
+
+  void
+  Camera::setFront(float X, float Y, float Z) {
+    m_front.x = X;
+    m_front.y = Y;
+    m_front.z = Z;
+    dirty = true;
+
+  }
+
+  void
+  Camera::setRight(Vector3 Right) {
+    m_right = Right;
+    dirty = true;
+
+  }
+
+  void
+  Camera::setRight(float X, float Y, float Z) {
+    m_right.x = X;
+    m_right.y = Y;
+    m_right.z = Z;
+    dirty = true;
+
+  }
+
+  Matrix4 
+  Camera::GetViewMatrix() 
   {
-      return m_viewMat.MatrixLookAtLH(Vector4(m_pos, 1.0f), objective, UP);
+    if (dirty) {
+      createViewMat();
+    }
+
+    return m_viewMat;
+  }
+
+  void
+  Camera::createViewMat() {
+    
+    m_viewMat = Matrix4::MatrixLookAtLH(m_pos, m_objective, m_up);
+
+    dirty = false;
+
   }
 
   void Camera::Yaw(float angle)
   {
-    //Rotate(m_up, angle);
+    Rotate(m_up, angle);
+    dirty = true;
+
   }
 
   void Camera::Pitch(float angle)
   {
-    //Rotate(m_right, angle);
+    Rotate(m_right, angle);
+    dirty = true;
+
   }
 
   void Camera::Roll(float angle)
   {
-    //Rotate(m_front, angle);
+    Rotate(m_front, angle);
+    dirty = true;
+
   }
    
 

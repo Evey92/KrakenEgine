@@ -57,10 +57,16 @@ namespace kraEngineSDK {
     updateSubResources(const Device& pDevice, CBChangesEveryFrame cbNvrMat) = 0;
 
     virtual void
+    updateSubResources(const Device& pDevice) = 0;
+
+    virtual void
     setVertexConstantBuffer(const Device& pDevice, uint32 startSlot, uint32 NumBuffs) = 0;
 
     virtual void
     setPixelConstantBuffer(const Device& pDevice, uint32 startSlot, uint32 NumBuffs) = 0;
+
+    virtual std::vector<CONSVERTEX>
+    getConstData() = 0;
   };
 
 }

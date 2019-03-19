@@ -26,7 +26,7 @@ namespace kraEngineSDK {
       m_constData.push_back(vertex);
     }
 
-    void add(const std::vector<CONSVERTEX>& vertices)
+    void add(const std::vector<CONSVERTEX>&  )
     {
       m_constData.insert(m_constData.end(), vertices.begin(), vertices.end());
     }
@@ -54,11 +54,15 @@ namespace kraEngineSDK {
       memset(&bd, 0, sizeof(bd));
 
       bd.Usage = D3D11_USAGE_DEFAULT;
-      bd.ByteWidth = static_cast<uint32>(sizeof(CONSVERTEX));
+      bd.ByteWidth = static_cast<uint32>(sizeof(CONSVERTEX)) * m_constData.size();
       bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
       bd.CPUAccessFlags = 0;
     
-      HRESULT hr = m_device.m_pd3dDevice->CreateBuffer(&bd, nullptr ,&m_pBuffer);
+      D3D11_SUBRESOURCE_DATA InitData;
+      memset(&InitData, 0, sizeof(InitData));
+      InitData.pSysMem = &m_constData[0];
+
+      HRESULT hr = m_device.m_pd3dDevice->CreateBuffer(&bd, &InitData,&m_pBuffer);
       if (FAILED(hr))
       {
         throw std::exception("Failed to create Constant Buffer).");
@@ -98,6 +102,15 @@ namespace kraEngineSDK {
     }
 
     void
+    updateSubResources(const Device& pDevice) {
+
+      const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
+
+      m_device.m_pImmediateContext->UpdateSubresource(m_pBuffer, 0, nullptr, &m_constData[0],
+                                                      m_constData.size(), 0);
+    }
+    //TODO: Think of a way to update only the wolrd matrix. Maybe creating a Cbuffer that changes every frame?
+    void
     setVertexConstantBuffer(const Device& pDevice, uint32 startSlot, uint32 NumBuffs) {
       const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
 
@@ -111,6 +124,11 @@ namespace kraEngineSDK {
 
       m_device.m_pImmediateContext->PSSetConstantBuffers(startSlot, NumBuffs, &m_pBuffer);
 
+    }
+
+    std::vector<CONSVERTEX>
+    getConstData() {
+      return m_constData;
     }
 
   private:

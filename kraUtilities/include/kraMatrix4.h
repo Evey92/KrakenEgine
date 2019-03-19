@@ -4,13 +4,14 @@
 #include "kraVector4.h"
 
 namespace kraEngineSDK {
-  class Vector4;
+  class Vector2;
+  class Vector3;
 
   class KRA_UTILITY_EXPORT Matrix4
   {
    public:
     
-    Matrix4() = default;
+     Matrix4();
     
     /**
      * @brief All docs are on english at least!!!
@@ -67,18 +68,30 @@ namespace kraEngineSDK {
     void
     identity();
 
-    Matrix4
-    MatrixLookAtLH(Vector4 Eye, Vector4 At, Vector4 Up);
+    static Matrix4
+    MatrixLookAtLH(const Vector3& Eye, const Vector3& At, const Vector3& Up);
 
     void 
-    MatrixPerspectiveFOV(float FOV, float aspectRatio, float nearz, float farZ);
+    MatrixPerspectiveFOV(float FOV, float width, float height, float nearZ, float farZ);
 
     void
     MatrixRotY(float angle);
 
+    /**
+     * @brief Transpose *this
+     */
     void
     transpose();
 
+    /**
+     * @brief Return a new transposed matrix from a source matirx
+     */
+    static Matrix4
+    transposed(const Matrix4& mat);
+
+    void 
+    tranlsate();
+    
    public:
 
     bool
@@ -91,7 +104,7 @@ namespace kraEngineSDK {
     union {
       float _m[16];
       float m[4][4];
-      Vector4 row[4];
+      Vector4 row[4]; 
     };
   };
 }

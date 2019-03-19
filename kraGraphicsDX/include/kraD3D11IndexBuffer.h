@@ -52,7 +52,7 @@ namespace kraEngineSDK {
     }
 
     void 
-      createIndexBuffer(const Device& pDevice) {
+    createIndexBuffer(const Device& pDevice) {
 
       const DeviceDX& m_pDevice = reinterpret_cast<const DeviceDX&>(pDevice);
       

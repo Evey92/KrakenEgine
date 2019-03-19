@@ -1,4 +1,7 @@
 #pragma once
+#include <kraMatrix4.h>
+#include <kraVector3.h>
+
 #include "kraPrerequisitesCore.h"
 
 namespace kraEngineSDK {
@@ -30,9 +33,30 @@ namespace kraEngineSDK {
     void
     SetObjecive(float X, float Y, float Z);
 
+    void
+    setUp(Vector3 UP);
+
+    void
+    setUp(float X, float Y, float Z);
+
+    void
+    setFront(Vector3 Front);
+
+    void
+    setFront(float X, float Y, float Z);
+
+    void
+    setRight(Vector3 Right);
+
+    void
+    setRight(float X, float Y, float Z);
+
     Matrix4 
-    GetViewMatrix(Vector4 objective, Vector4 UP);
+    GetViewMatrix();
     
+    void
+    createViewMat();
+
     void 
     Yaw(float angle);
     
@@ -42,8 +66,7 @@ namespace kraEngineSDK {
     void 
     Roll(float angle);
 
-    void
-    createViewMat();
+    
 
   private:
     uint32 m_id;

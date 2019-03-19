@@ -79,6 +79,8 @@ namespace kraEngineSDK {
     createConstantBufferResize();
     ConstantBuffer<CBChangesEveryFrame>*
     createConstantBufferEveryFrame();
+    ConstantBuffer<Matrix4>*
+    createConstantBufferInstance();
     SamplerState*
     createSamplerStateInstance(); 
     Texture*

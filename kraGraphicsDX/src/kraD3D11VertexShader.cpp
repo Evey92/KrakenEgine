@@ -49,7 +49,7 @@ namespace kraEngineSDK {
   VertexShaderDX::setVertexShader(const Device& pDevice) {
     
     const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
-    m_pDevice.m_pImmediateContext->VSSetShader(m_pVertexShader, NULL, 0);
+    m_pDevice.m_pImmediateContext->VSSetShader(m_pVertexShader, 0, 0);
 
   }
 
@@ -88,7 +88,7 @@ namespace kraEngineSDK {
       shaderModel.c_str(), dwShaderFlags, NULL,
       ppBlobOut, &pErrorBlob);*/
 
-    hr = D3DCompile(src.c_str(), src.size(), filename.c_str(), 0, 0, entryPoint.c_str(), shaderModel.c_str(), D3DCOMPILE_ENABLE_STRICTNESS, 0, &m_pBlob, &pErrorBlob);
+    hr = D3DCompile(src.c_str(), src.size(), filename.c_str(), 0, 0, entryPoint.c_str(), shaderModel.c_str(), D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG, 0, &m_pBlob, &pErrorBlob);
 
 
     if (FAILED(hr))

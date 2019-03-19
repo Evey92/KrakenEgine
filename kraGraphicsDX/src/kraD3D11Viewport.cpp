@@ -12,8 +12,8 @@ namespace kraEngineSDK {
     m_pd3dviewport.Width = (float)width;
     m_pd3dviewport.TopLeftX = TopLeftX;
     m_pd3dviewport.TopLeftY = TopLeftY;
-    m_minDepth = m_minDepth;
-    m_maxDepth = m_maxDepth;
+    /*m_minDepth = m_minDepth;
+    m_maxDepth = m_maxDepth;*/
   }
 
   void

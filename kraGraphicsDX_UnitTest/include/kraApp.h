@@ -22,6 +22,8 @@
 #include <kraVector4.h>
 #include <kraMatrix4.h>
 #include <kraModel.h>
+#include <kraCamera.h>
+
 using namespace kraEngineSDK;
 
 class App : public BaseApplication
@@ -104,6 +106,7 @@ class App : public BaseApplication
   ConstantBuffer<CBNeverChanges>* m_CBNeverChanges;
   ConstantBuffer<CBChangeOnResize>* m_CBChangesOnResize;
   ConstantBuffer<CBChangesEveryFrame>* m_CBChangesEveryframe;
+  ConstantBuffer<Matrix4>* m_mainCB;
   Texture* m_pBackBuffer;
   Texture* m_texture;
   ShaderResourceView* m_SRV;
@@ -111,11 +114,12 @@ class App : public BaseApplication
   RenderAPIManager* apiManager;
   GraphicsAPI* gfxAPIInstance;
   Matrix4 m_world;
-  Matrix4 m_view;
   Matrix4 m_projection;
   Vector4 color;
   Vector<Model> m_modelsVec;
   Texture* textureManager;
+  Camera mainCam;
+
   float m_fov;
   float m_nearZ;
   float m_farZ;

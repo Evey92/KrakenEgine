@@ -4,7 +4,7 @@
 
 namespace kraEngineSDK {
   bool
-  DepthStencilDX::setDepthStencil(const Device& pDevice, int height, int width) {
+  DepthStencilDX::setDepthStencil(const Device& pDevice, uint32 height, uint32 width) {
     
     const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
 

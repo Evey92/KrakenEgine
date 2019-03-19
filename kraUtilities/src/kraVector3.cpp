@@ -99,11 +99,10 @@ namespace kraEngineSDK {
   }
 
   float
-    Vector3::operator|(const Vector3& Vec)const {
+  Vector3::operator|(const Vector3 Vec)const {
 
-    float escalar = (x * Vec.x) + (y * Vec.y) + (z * Vec.z);
+   return  x * Vec.x + y * Vec.y + z * Vec.z;
 
-    return escalar;
   }
 
   Vector3
@@ -227,28 +226,41 @@ namespace kraEngineSDK {
   }
 
   float
-    Vector3::dot(Vector3& V1, Vector3& V2) {
+  Vector3::dot(Vector3& V1, Vector3& V2) {
     return V1 | V2;
   }
 
   Vector3
-    Vector3::cross(Vector3& V1, Vector3& V2) {
+  Vector3::cross(Vector3& V1, Vector3& V2) {
     return V1 ^ V2;
   }
 
+
   float
-    Vector3::distance(const Vector3& V1, const Vector3& V2) {
+  Vector3::distance(const Vector3& V1, const Vector3& V2) {
 
     return kraMath::sqrt(kraMath::pow((V1.x - V2.x), 2.0f) + kraMath::pow((V1.y - V2.y), 2.0f) + kraMath::pow((V1.z - V2.z), 2.0f));
 
   }
 
   void
-    Vector3::normalize() {
+  Vector3::normalize() {
     float vec = kraMath::sqrt(x*x + y * y + z * z);
     x /= vec;
     y /= vec;
     z /= vec;
+  }
+
+  void
+  Vector3::normalized() {
+
+    float m = lenght();
+
+    float fisqrt = kraMath::invSqrt(m);
+
+    x *= fisqrt;
+    y *= fisqrt;
+    z *= fisqrt;
   }
 
   void
