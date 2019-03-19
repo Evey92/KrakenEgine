@@ -428,7 +428,7 @@ App::run() {
     if (!m_pixelShader->compilePixelShader("PS.hlsl", "PS"))
     {
       MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
-
+       
       std::cout << "Failed to compile shader\n";
       return;
     }
@@ -436,7 +436,7 @@ App::run() {
 
     Model newModel;
 
-    if (!newModel.loadModelFromFile("resources/Models/crate1.obj", *m_device))
+    if (!newModel.loadModelFromFile("resources/Models/ninjaHead.obj", *m_device))
     {
       MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
 
@@ -457,25 +457,18 @@ App::run() {
     m_samplerState->createSamplerState(*m_device);
 
     m_world.identity();
-
-    //m_mainCB->add(Matrix4::transposed(m_world));
     m_mainCB->add(m_world);
     
 
-    mainCam.SetPosition(Vector3(0.0f, 0.0f, -10.0f));
+    mainCam.SetPosition(Vector3(0.0f, 0.0f, -100.0f));
     mainCam.SetObjecive(Vector3(0.0f, 0.0f, 0.0f));
     mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
-    /*mainCam.setFront(0.0f, 0.0f, 1.0f);
-    mainCam.setRight(1.0f, 0.0f, 0.0f);*/
-
+    
     mainCam.createViewMat();
     m_mainCB->add(mainCam.GetViewMatrix());
 
-    m_projection.MatrixPerspectiveFOV(m_fov, m_device->getWidth() , m_device->getHeight(), m_nearZ, m_farZ);
+    m_projection.MatrixPerspectiveFOV(m_fov, static_cast<float>(m_device->getWidth()), static_cast<float>(m_device->getHeight()), m_nearZ, m_farZ);
     m_mainCB->add(m_projection);
-
-    /*Matrix4 WVP = m_world * mainCam.GetViewMatrix() * m_projection;
-    m_mainCB->add(WVP);*/
 
     m_mainCB->createConstantBuffer(*m_device);
 

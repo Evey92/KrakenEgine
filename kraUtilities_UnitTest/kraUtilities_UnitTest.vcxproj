@@ -70,22 +70,22 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/$(Configuration)/</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
-    <IntDir>$(SolutionDir)bin/$(PlatformTarget)/$(Configuration)/</IntDir>
+    <IntDir>$(SolutionDir)intermediates/$(PlatformTarget)/$(Configuration)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
-    <IntDir>$(SolutionDir)bin/$(PlatformTarget)/$(Configuration)/</IntDir>
+    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/$(Configuration)/</OutDir>
+    <IntDir>$(SolutionDir)intermediates/$(PlatformTarget)/$(Configuration)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
+    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/$(Configuration)/</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
-    <IntDir>$(SolutionDir)bin/$(PlatformTarget)/$(Configuration)/</IntDir>
+    <IntDir>$(SolutionDir)intermediates/$(PlatformTarget)/$(Configuration)/</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/</OutDir>
-    <IntDir>$(SolutionDir)bin/$(PlatformTarget)/$(Configuration)/</IntDir>
+    <OutDir>$(SolutionDir)bin/$(PlatformTarget)/$(Configuration)/</OutDir>
+    <IntDir>$(SolutionDir)intermediates/$(PlatformTarget)/$(Configuration)/</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -93,7 +93,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)/Include/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions />
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -113,7 +113,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;C:/Program Files (x86)/Microsoft DirectX SDK (June 2010)/Include/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions />
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>

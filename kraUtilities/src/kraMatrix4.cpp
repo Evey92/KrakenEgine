@@ -261,15 +261,19 @@ namespace kraEngineSDK {
   void
   Matrix4::MatrixPerspectiveFOV(float FOV, float width, float height, float nearZ, float farZ) {
 
-    float hfov = FOV /2.0f;
+    float hfov = FOV *0.5f;
+    float sinFov = kraMath::sin(hfov);
+    float cosFov = kraMath::cos(hfov);
+    float aspectRatio = width / height;
 
-    float aspectRatio = static_cast<float>(width / height);
+    float m_height = cosFov/ sinFov;
+    float m_width = m_height / aspectRatio;
 
-    float ratio = width / (1.0f / kraMath::tan(hfov)) / height;
+    //float aspectRatio = static_cast<float>(width / height);
 
-    m[0][0] = 1.0f / (kraMath::tan(hfov));
-    //m[1][1] = aspectRatio * (1.0f / kraMath::tan(hfov));
-    m[1][1] = ratio;
+
+    m[0][0] = 1.0f / kraMath::tan(hfov);
+    m[1][1] = aspectRatio * 1.0f / kraMath::tan(hfov);;
     m[2][2] = farZ / (farZ - nearZ);
     m[2][3] = -nearZ * (farZ / (farZ - nearZ));
     m[3][2] = 1.0f;
@@ -309,7 +313,7 @@ namespace kraEngineSDK {
   Matrix4
   Matrix4::transposed(const Matrix4& mat) {
     Matrix4 tempMat = mat;
-    Matrix4 transpMat = mat;
+    Matrix4 transpMat;
     for (int i = 0; i < 4; ++i) {
       for (int j = 0; j < 4; ++j) {
         transpMat.m[i][j] = tempMat.m[j][i];
