@@ -56,22 +56,18 @@ namespace kraEngineSDK {
         vert.Tex.x = static_cast<float>(pMesh->mTextureCoords[0][i].x);
         vert.Tex.y = static_cast<float>(pMesh->mTextureCoords[0][i].y);
       }
-      if (pMesh->mNormals)
+      if (pMesh->HasNormals())
       {
         vert.m_normal.x = pMesh->mNormals->x;
         vert.m_normal.y = pMesh->mNormals->y;
         vert.m_normal.z = pMesh->mNormals->z;
       }
-      if (pMesh->mTangents)
+      if (pMesh->HasTangentsAndBitangents())
       {
         vert.m_tangent.x = pMesh->mTangents->x;
         vert.m_tangent.y = pMesh->mTangents->y;
         vert.m_tangent.z = pMesh->mTangents->z;
 
-        
-      }
-      if (pMesh->mBitangents)
-      {
         vert.m_binormal.x = pMesh->mBitangents->x;
         vert.m_binormal.y = pMesh->mBitangents->y;
         vert.m_binormal.z = pMesh->mBitangents->z;

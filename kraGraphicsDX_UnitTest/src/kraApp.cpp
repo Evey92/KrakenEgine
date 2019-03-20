@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <string>
 #include "kraApp.h"
- 
+
 void
 App::run() {
 
@@ -445,45 +445,6 @@ App::run() {
 
     m_modelsVec.push_back(newModel);
 
-/*
-    if (!newModel.loadModelFromFile("resources/Models/vela_mat_2.x", *m_device))
-    {
-      MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
-
-      return;
-    }
-
-    m_modelsVec.push_back(newModel);
-
-    if (!newModel.loadModelFromFile("resources/Models/vela_mat_3.x", *m_device))
-    {
-      MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
-
-      return;
-    }
-
-    m_modelsVec.push_back(newModel);
-*/
-
-    /*if (!newModel.loadModelFromFile("resources/Models/vela_mat_4.x", *m_device))
-    {
-      MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
-
-      return;
-    }
-
-
-    m_modelsVec.push_back(newModel);
-
-    if (!newModel.loadModelFromFile("resources/Models/vela_mat_5.x", *m_device))
-    {
-      MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
-
-      return;
-    }*/
-
-    //m_modelsVec.push_back(newModel);
-
 
     m_device->setPrimitiveTopology();
 
@@ -493,6 +454,9 @@ App::run() {
 
     m_SRV->createShaderResourceView(*m_device, textureManager);
 
+    textureManager->releaseTexture();
+
+
 
     m_samplerState->createSamplerState(*m_device);
 
@@ -500,8 +464,8 @@ App::run() {
     m_mainCB->add(m_world);
     
 
-    mainCam.SetPosition(Vector3(0.0f, 200.0f, -200.0f));
-    mainCam.SetObjecive(Vector3(0.0f, 0.0f, 0.0f));
+    mainCam.SetPosition(Vector3(0.0f, 350.0f, 200.0f));
+    mainCam.SetObjecive(Vector3(0.0f, 0.0f, -1.0f));
     mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
     
     mainCam.createViewMat();
@@ -568,7 +532,7 @@ App::run() {
     m_mainCB->setConstData(0, m_world);
     m_mainCB->updateSubResources(*m_device);
 
-    m_SRV->setShaderResourceView(*m_device);
+    m_SRV->setShaderResourceView(m_device, 0, 1);
     
     for (uint32 i = 0; i < m_modelsVec.size(); i++) {
 

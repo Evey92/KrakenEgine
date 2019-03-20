@@ -51,8 +51,6 @@ class App : public BaseApplication
   RenderCube();
   void 
   CleanupDevice();
- private:
-  
   void
   Initialize();
   void

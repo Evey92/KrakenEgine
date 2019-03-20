@@ -32,6 +32,7 @@ namespace kraEngineSDK {
 
     //ID3D11Texture1D* m_pd3dTexture1D = nullptr;
     ID3D11Texture2D* m_pd3dTexture2D = nullptr;
+    ShaderResourceView* m_texSRV;
     //ID3D11Texture3D* m_pd3dTexture3D = nullptr;
   };
 }

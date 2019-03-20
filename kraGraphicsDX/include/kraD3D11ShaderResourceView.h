@@ -14,7 +14,9 @@ namespace kraEngineSDK {
     createShaderResourceView(const Device& pDevice, Texture* texture);
     
     void
-    setShaderResourceView(const Device& pDeviceContext);
+    setShaderResourceView(const Device* pDeviceContext, 
+                          uint32 startSlot,
+                          uint32 numViews);
 
     ID3D11ShaderResourceView* m_pTextureRV;
   };

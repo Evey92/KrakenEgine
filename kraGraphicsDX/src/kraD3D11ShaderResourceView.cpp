@@ -26,11 +26,15 @@ namespace kraEngineSDK {
   }
 
   void
-  ShaderResourceViewDX::setShaderResourceView(const Device& pDevice) {
+  ShaderResourceViewDX::setShaderResourceView(const Device* pDevice,
+                                              uint32 startSlot,
+                                              uint32 numViews) {
     
-    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
+    const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
 
-    m_pDevice.m_pImmediateContext->PSSetShaderResources(0, 1, &m_pTextureRV);
+    m_pDevice->m_pImmediateContext->PSSetShaderResources(startSlot,
+                                                         numViews,
+                                                         &m_pTextureRV);
   }
 
 }
