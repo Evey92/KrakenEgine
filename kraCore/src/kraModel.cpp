@@ -14,11 +14,7 @@ namespace kraEngineSDK {
     Assimp::Importer aImporter;
 
     const aiScene* scene = aImporter.ReadFile(fileName,
-                                              aiProcess_CalcTangentSpace |
-                                              aiProcess_Triangulate |
-                                              aiProcess_JoinIdenticalVertices |
-                                              aiProcess_SortByPType |
-                                              aiProcess_MakeLeftHanded);
+      aiProcessPreset_TargetRealtime_MaxQuality);
 
     if (!scene)
     {
@@ -55,7 +51,7 @@ namespace kraEngineSDK {
       vert.Pos.y = pMesh->mVertices[i].y;
       vert.Pos.z = pMesh->mVertices[i].z;
 
-      if (pMesh->mTextureCoords[0])
+      if (pMesh->HasTextureCoords(0))
       {
         vert.Tex.x = static_cast<float>(pMesh->mTextureCoords[0][i].x);
         vert.Tex.y = static_cast<float>(pMesh->mTextureCoords[0][i].y);
@@ -84,18 +80,17 @@ namespace kraEngineSDK {
     }
     
 
-    for (uint32 i = 0; i < pMesh->mNumFaces; i++) {
+    for (uint32 i = 0; i < pMesh->mNumFaces; ++i) {
       const aiFace& face = pMesh->mFaces[i];
 
-      for (uint32 j = 0; j < face.mNumIndices; j++) {
+      for (uint32 j = 0; j < face.mNumIndices; ++j) {
         newMesh.m_indexBuffer->add(face.mIndices[j]);
       }
     }
     
     newMesh.m_vertexBurffer->createHardwareBuffer(pDevice);
     newMesh.m_indexBuffer->createIndexBuffer(pDevice);
-    newMesh.m_vertexBurffer->setVertexBuffer(pDevice);
-    newMesh.m_indexBuffer->setIndexBuffer(pDevice);
+
       
     return newMesh;
   }

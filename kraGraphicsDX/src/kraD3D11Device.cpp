@@ -160,7 +160,7 @@ namespace kraEngineSDK {
   //TODO fix this bullshit with a factory.
   void
   DeviceDX::PresentSwapChain() {
-    m_pSwapChain.m_pd3dSwapChain->Present(DXGI_SWAP_EFFECT_FLIP_DISCARD, DXGI_PRESENT_DO_NOT_WAIT);
+    m_pSwapChain.m_pd3dSwapChain->Present(0, 0);
   }
 
   RenderTargetView*

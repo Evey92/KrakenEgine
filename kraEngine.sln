@@ -8,10 +8,22 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kraUtilities_UnitTest", "kraUtilities_UnitTest\kraUtilities_UnitTest.vcxproj", "{9510C65C-C645-40D3-B865-95C5E769C0F4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kraCore", "kraCore\kraCore.vcxproj", "{23A4A9B5-0213-4543-872A-578B1B18C3DA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{71CBCC79-1BA9-4302-9924-3FBEF4FCD544} = {71CBCC79-1BA9-4302-9924-3FBEF4FCD544}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kraGraphicsDX", "kraGraphicsDX\GraphicsDX.vcxproj", "{3609F63F-895A-4825-962E-F750894FAE2D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{71CBCC79-1BA9-4302-9924-3FBEF4FCD544} = {71CBCC79-1BA9-4302-9924-3FBEF4FCD544}
+		{23A4A9B5-0213-4543-872A-578B1B18C3DA} = {23A4A9B5-0213-4543-872A-578B1B18C3DA}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kraGraphicsDX_UnitTest", "kraGraphicsDX_UnitTest\kraGraphicsDX_UnitTest.vcxproj", "{2444B832-FE79-41D3-8429-8ADF30B4C6C9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3609F63F-895A-4825-962E-F750894FAE2D} = {3609F63F-895A-4825-962E-F750894FAE2D}
+		{71CBCC79-1BA9-4302-9924-3FBEF4FCD544} = {71CBCC79-1BA9-4302-9924-3FBEF4FCD544}
+		{23A4A9B5-0213-4543-872A-578B1B18C3DA} = {23A4A9B5-0213-4543-872A-578B1B18C3DA}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kraInputManager", "kraInputManager\kraInputManager.vcxproj", "{7D4E223A-75A3-46BE-9FC9-32B643E63A58}"
 EndProject

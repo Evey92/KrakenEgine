@@ -79,7 +79,7 @@ namespace kraEngineSDK {
     {
       MessageBox(NULL, "Couldnt find texture, loading default texture", "Error", MB_OK);
 
-      throw std::exception("Texture couldn't be loaded." );
+      //throw std::exception("Texture couldn't be loaded." );
       stbi_image_free(image);
       image = stbi_load(m_missingTexture.c_str(), &m_width, &m_height, &channels, 4);
     }
@@ -104,14 +104,14 @@ namespace kraEngineSDK {
     initBuffer.pSysMem = image;
     initBuffer.SysMemPitch = m_width * 4;
 
-    m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
+    hr = m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
     if (FAILED(hr)) {
-      return hr;
+      return false;
     }
 
     stbi_image_free(image);
 
-    return hr;
+    return true;
   }
 
   void

@@ -28,7 +28,7 @@ namespace kraEngineSDK {
 
     int m_height;
     int m_width; 
-    std::string m_missingTexture = "missingChecker.png";
+    std::string m_missingTexture = "resources/Textures/missingChecker.jpg";
 
     //ID3D11Texture1D* m_pd3dTexture1D = nullptr;
     ID3D11Texture2D* m_pd3dTexture2D = nullptr;

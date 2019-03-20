@@ -405,7 +405,7 @@ App::run() {
 
     m_renderTargetView->setRenderTarget(*m_device, *m_depthStencilView);
 
-    m_viewport->createViewport(m_device->getHeight(), m_device->getWidth(), 0.0f, 0.0f);
+    m_viewport->createViewport(m_device->getWidth(), m_device->getHeight(), 1.0f, 1.0f);
 
     m_viewport->setViewport(m_device);
 
@@ -436,7 +436,7 @@ App::run() {
 
     Model newModel;
 
-    if (!newModel.loadModelFromFile("resources/Models/ninjaHead.obj", *m_device))
+    if (!newModel.loadModelFromFile("resources/Models/vela.fbx", *m_device))
     {
       MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
 
@@ -445,11 +445,51 @@ App::run() {
 
     m_modelsVec.push_back(newModel);
 
+/*
+    if (!newModel.loadModelFromFile("resources/Models/vela_mat_2.x", *m_device))
+    {
+      MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
+
+      return;
+    }
+
+    m_modelsVec.push_back(newModel);
+
+    if (!newModel.loadModelFromFile("resources/Models/vela_mat_3.x", *m_device))
+    {
+      MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
+
+      return;
+    }
+
+    m_modelsVec.push_back(newModel);
+*/
+
+    /*if (!newModel.loadModelFromFile("resources/Models/vela_mat_4.x", *m_device))
+    {
+      MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
+
+      return;
+    }
+
+
+    m_modelsVec.push_back(newModel);
+
+    if (!newModel.loadModelFromFile("resources/Models/vela_mat_5.x", *m_device))
+    {
+      MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
+
+      return;
+    }*/
+
+    //m_modelsVec.push_back(newModel);
+
+
     m_device->setPrimitiveTopology();
 
 
     textureManager->createTexture2DFromFile(*m_device,
-                                            "resources/Textures/crate_1.jpg");
+                                            "resources/Textures/Vela_Char_BaseColor.tga");
 
     m_SRV->createShaderResourceView(*m_device, textureManager);
 
@@ -460,7 +500,7 @@ App::run() {
     m_mainCB->add(m_world);
     
 
-    mainCam.SetPosition(Vector3(0.0f, 0.0f, -100.0f));
+    mainCam.SetPosition(Vector3(0.0f, 200.0f, -200.0f));
     mainCam.SetObjecive(Vector3(0.0f, 0.0f, 0.0f));
     mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
     
@@ -525,8 +565,8 @@ App::run() {
     
     m_samplerState->setSamplerState(*m_device);
 
-    //m_mainCB->getConstData()[0] = m_world;
-    //m_mainCB->updateSubResources(*m_device);
+    m_mainCB->setConstData(0, m_world);
+    m_mainCB->updateSubResources(*m_device);
 
     m_SRV->setShaderResourceView(*m_device);
     

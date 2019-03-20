@@ -23,6 +23,8 @@ namespace kraEngineSDK {
   void
   Mesh::DrawMesh(Device* pDevice) {
 
+    m_vertexBurffer->setVertexBuffer(*pDevice);
+    m_indexBuffer->setIndexBuffer(*pDevice);
     pDevice->DrawIndexed(m_indexBuffer->getBufferSize(), 0, 0);
   }
 

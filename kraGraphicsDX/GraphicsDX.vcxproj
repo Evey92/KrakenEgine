@@ -148,7 +148,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(SolutionDir)kraCore/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(SolutionDir)kraCore/include;$(DEVLIBS)FreeImage/Dist/$(PlatformTarget)/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_UTILGFX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -156,7 +156,7 @@
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/;$(DEVLIBS)FreeImage/Dist/$(PlatformTarget)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>EASTL.lib;d3d11.lib;d3dcompiler.lib;dxguid.lib;kraUtilitiesd.lib;kraCored.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
@@ -167,7 +167,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(SolutionDir)kraCore/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(SolutionDir)kraCore/include;$(DEVLIBS)FreeImage/Dist/$(PlatformTarget)/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_UTILGFX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -175,7 +175,7 @@
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(Configuration)/;$(DEVLIBS)FreeImage/Dist/$(PlatformTarget)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>EASTL.lib;d3d11.lib;d3dcompiler.lib;dxguid.lib;kraUtilitiesd.lib;kraCored.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)lib/$(PlatformTarget)/$(TargetName).lib</ImportLibrary>
     </Link>
@@ -188,7 +188,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(SolutionDir)kraCore/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(SolutionDir)kraCore/include;$(DEVLIBS)FreeImage/Dist/$(PlatformTarget)/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_UTILGFX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -212,7 +212,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(SolutionDir)kraCore/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(SolutionDir)kraCore/include;$(DEVLIBS)FreeImage/Dist/$(PlatformTarget)/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_UTILGFX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>

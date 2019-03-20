@@ -285,19 +285,11 @@ namespace kraEngineSDK {
     float fCosAngle = kraMath::cos(angle);
 
     m[0][0] = (fCosAngle * m[0][0]) + (fSinAngle * m[0][2]);
-    m[0][1] = 0.0f;
-    m[0][2] = (fCosAngle * m[0][2]) - (fSinAngle * m[0][0]);
-    m[0][3] = 0.0f;
-
     m[1][0] = (fCosAngle * m[1][0]) + (fSinAngle * m[1][2]);
-    m[1][1] = 0.0f;
-    m[1][2] = (fCosAngle * m[1][2]) - (fSinAngle * m[1][0]);
-    m[1][3] = 0.0f;
-
     m[2][0] = (fCosAngle * m[2][0]) + (fSinAngle * m[2][2]);
-    m[2][1] = 0.0f;
+    m[0][2] = (fCosAngle * m[0][2]) - (fSinAngle * m[0][0]);
+    m[1][2] = (fCosAngle * m[1][2]) - (fSinAngle * m[1][0]);
     m[2][2] = (fCosAngle * m[2][2]) - (fSinAngle * m[2][0]);
-    m[2][3] = 0.0f;
   }
 
   void

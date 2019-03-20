@@ -8,8 +8,8 @@ namespace kraEngineSDK {
   void
     ViewportDX::createViewport(uint32 width, uint32 height,
       float TopLeftX, float TopLeftY) {
-    m_pd3dviewport.Height = (float)height;
-    m_pd3dviewport.Width = (float)width;
+    m_pd3dviewport.Height = static_cast<float>(height);
+    m_pd3dviewport.Width = static_cast<float>(width);
     m_pd3dviewport.TopLeftX = TopLeftX;
     m_pd3dviewport.TopLeftY = TopLeftY;
     /*m_minDepth = m_minDepth;

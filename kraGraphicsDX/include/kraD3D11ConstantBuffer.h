@@ -126,6 +126,11 @@ namespace kraEngineSDK {
 
     }
 
+    void
+    setConstData(uint32 index, CONSVERTEX obj) {
+      m_constData[index] = obj;
+    }
+
     std::vector<CONSVERTEX>
     getConstData() {
       return m_constData;
