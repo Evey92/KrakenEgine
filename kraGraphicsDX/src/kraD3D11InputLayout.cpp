@@ -19,7 +19,7 @@ namespace kraEngineSDK {
     */
     m_layoutDescVector.emplace_back();
     auto& vertexDesc = m_layoutDescVector.back();
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
+    memset(&vertexDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
     vertexDesc.SemanticName = "POSITION";
     vertexDesc.SemanticIndex = 0;
     vertexDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
@@ -29,42 +29,12 @@ namespace kraEngineSDK {
     vertexDesc.InstanceDataStepRate = 0;
     //m_layoutDescVector.push_back(inputDesc);
 
-    ///*
-    //* @brief Index layout
-    //*/
-    //m_layoutDescVector.emplace_back();
-    //auto& indexDesc = m_layoutDescVector.back();
-    //memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    //indexDesc.SemanticName = "COLOR";
-    //indexDesc.SemanticIndex = 0;
-    //indexDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    //indexDesc.InputSlot = 0;
-    //indexDesc.AlignedByteOffset = 16;
-    //indexDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    //indexDesc.InstanceDataStepRate = 0;
-    ////m_layoutDescVector.push_back(inputDesc);
-
-    ///*
-    //* @brief Normal layout
-    //*/
-    //m_layoutDescVector.emplace_back();
-    //auto& normalDesc = m_layoutDescVector.back();
-    //memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    //normalDesc.SemanticName = "NORMAL";
-    //normalDesc.SemanticIndex = 0;
-    //normalDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    //normalDesc.InputSlot = 0;
-    //normalDesc.AlignedByteOffset = 32;
-    //normalDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    //normalDesc.InstanceDataStepRate = 0;
-    ////m_layoutDescVector.push_back(inputDesc);
-
     /*
     * @brief TEXCOORD layout
     */
     m_layoutDescVector.emplace_back();
     auto& texDesc = m_layoutDescVector.back();
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
+    memset(&texDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
     texDesc.SemanticName = "TEXCOORD";
     texDesc.SemanticIndex = 0;
     texDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
@@ -72,8 +42,63 @@ namespace kraEngineSDK {
     texDesc.AlignedByteOffset = 16;
     texDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     texDesc.InstanceDataStepRate = 0;
-    //m_layoutDescVector.push_back(inputDesc);
 
+    ///*
+  //* @brief Normal layout
+  //*/
+    m_layoutDescVector.emplace_back();
+    auto& normalDesc = m_layoutDescVector.back();
+    memset(&normalDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
+    normalDesc.SemanticName = "NORMAL";
+    normalDesc.SemanticIndex = 0;
+    normalDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+    normalDesc.InputSlot = 0;
+    normalDesc.AlignedByteOffset = 24;
+    normalDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+    normalDesc.InstanceDataStepRate = 0;
+
+    ///*
+  //* @brief Tangent layout
+  //*/
+    m_layoutDescVector.emplace_back();
+    auto& tagentDesc = m_layoutDescVector.back();
+    memset(&tagentDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
+    tagentDesc.SemanticName = "TANGENT";
+    tagentDesc.SemanticIndex = 0;
+    tagentDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+    tagentDesc.InputSlot = 0;
+    tagentDesc.AlignedByteOffset = 40;
+    tagentDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+    tagentDesc.InstanceDataStepRate = 0;
+
+    ///*
+  //* @brief Binormal layout
+  //*/
+    m_layoutDescVector.emplace_back();
+    auto& binormalDesc = m_layoutDescVector.back();
+    memset(&binormalDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
+    binormalDesc.SemanticName = "BINORMAL";
+    binormalDesc.SemanticIndex = 0;
+    binormalDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+    binormalDesc.InputSlot = 0;
+    binormalDesc.AlignedByteOffset = 56;
+    binormalDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+    binormalDesc.InstanceDataStepRate = 0;
+
+    ///*
+    //* @brief Index layout
+    //*/
+    m_layoutDescVector.emplace_back();
+    auto& indexDesc = m_layoutDescVector.back();
+    memset(&indexDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
+    indexDesc.SemanticName = "COLOR";
+    indexDesc.SemanticIndex = 0;
+    indexDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+    indexDesc.InputSlot = 0;
+    indexDesc.AlignedByteOffset = 72;
+    indexDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+    indexDesc.InstanceDataStepRate = 0;
+   
   }
 
   /*

@@ -464,7 +464,7 @@ App::run() {
     m_mainCB->add(m_world);
     
 
-    mainCam.SetPosition(Vector3(0.0f, 350.0f, 200.0f));
+    mainCam.SetPosition(Vector3(0.0f, 10.0f, 200.0f));
     mainCam.SetObjecive(Vector3(0.0f, 0.0f, -1.0f));
     mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
     
@@ -515,7 +515,6 @@ App::run() {
     m_vertexShader->setVertexShader(*m_device);
     m_pixelShader->setPixelShader(*m_device);
     
-    m_mainCB->updateSubResources(*m_device);
     m_mainCB->setVertexConstantBuffer(*m_device, 0, 1);
     m_mainCB->setPixelConstantBuffer(*m_device, 0, 1);
 
@@ -549,6 +548,7 @@ App::run() {
     static float t = 0.0f;
 
     m_world.identity();
+    
     m_world.MatrixRotY(t);
     
     m_world.transpose();

@@ -87,6 +87,11 @@ namespace kraEngineSDK {
     newMesh.m_vertexBurffer->createHardwareBuffer(pDevice);
     newMesh.m_indexBuffer->createIndexBuffer(pDevice);
 
+    if (scene->HasTextures())
+    {
+      scene->mNumTextures;
+      scene->mTextures;
+    }
       
     return newMesh;
   }

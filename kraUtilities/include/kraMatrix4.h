@@ -89,6 +89,7 @@ namespace kraEngineSDK {
     static Matrix4
     transposed(const Matrix4& mat);
 
+   
     void 
     tranlsate();
     

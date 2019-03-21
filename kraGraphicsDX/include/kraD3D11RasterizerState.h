@@ -1,6 +1,5 @@
 #pragma once
 #include <kraRasterizerState.h>
-
 #include "kraPrerequisitesGFX.h"
 
 namespace kraEngineSDK {
@@ -9,5 +8,11 @@ namespace kraEngineSDK {
   public:
     RasterizerStateDX() = default;
     ~RasterizerStateDX() {}
+
+    void
+    createRasterizerState();
+
+    ID3D11RasterizerState* m_rasterizerState;
+
   };
 }
