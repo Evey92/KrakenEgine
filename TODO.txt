@@ -1,3 +1,5 @@
--Create object factory
--Integrate Assimp ASAP
--Set The Cameras ASAP
+-Set gaInput and start working on the Input framework.
+	-Create the update function
+	-Create Library of actions
+
+-Set textures by mesh
