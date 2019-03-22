@@ -1,5 +1,5 @@
 #pragma once
-
+#include <gainput/gainput.h>
 #include "kraPrerequisitesUtil.h"
 
 #   define PLUGIN_EXPORT __declspec(dllexport);

@@ -1,6 +1,6 @@
 #pragma once
-
 #include "kraPrerequisitesGFX.h"
+#include <kraCommonTypes.h>
 
 namespace kraEngineSDK {
 

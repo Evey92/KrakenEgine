@@ -89,6 +89,9 @@
     <ClInclude Include="include\kraD3D11GraphicsBuffer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraD3D11Mappings.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraD3D11ConstantBuffer.cpp">
@@ -155,6 +158,9 @@
       <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="src\kraD3D11Blob.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11Mappings.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -436,7 +436,7 @@ App::run() {
 
     Model newModel;
 
-    if (!newModel.loadModelFromFile("resources/Models/sponza.obj", *m_device))
+    if (!newModel.loadModelFromFile("resources/Models/crate1.obj", *m_device))
     {
       MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
 
@@ -464,7 +464,7 @@ App::run() {
     m_mainCB->add(m_world);
     
 
-    mainCam.SetPosition(Vector3(0.0f, 200.0f, -200.0f));
+    mainCam.SetPosition(Vector3(0.0f, 0.0f, -20.0f));
     mainCam.SetObjecive(Vector3(0.0f, 1.0f, 0.0f));
     mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
     
@@ -510,7 +510,7 @@ App::run() {
 
     t += kraMath::PI * .00125f;
 
-    //m_world.MatrixRotY(t);
+    m_world.MatrixRotY(t);
 
     m_vertexShader->setVertexShader(*m_device);
     m_pixelShader->setPixelShader(*m_device);

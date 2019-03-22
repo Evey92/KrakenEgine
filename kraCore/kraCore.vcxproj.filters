@@ -109,6 +109,9 @@
     <ClInclude Include="include\kraCamera.h">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraCommonTypes.h">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraConstantBuffer.cpp">

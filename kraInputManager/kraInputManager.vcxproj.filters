@@ -11,45 +11,42 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="include\kraControl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="kraControl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="kraKeyboard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="kraMouse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraPrerequisitesInput.h">
+    <ClInclude Include="include\kraInputManagerGI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\kraInputMapGI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="kraInputManagerGI.h">
+    <ClInclude Include="include\kraKeyboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraMouse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraPrerequisitesInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraInputMappings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="src\kraControl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="kraControl.cpp">
+    <ClCompile Include="src\kraKeyboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="kraKeyboard.cpp">
+    <ClCompile Include="src\kraMouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="kraMouse.cpp">
+    <ClCompile Include="src\kraInputManagerGI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraInputMappings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
