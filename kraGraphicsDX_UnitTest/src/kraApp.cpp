@@ -393,7 +393,7 @@ App::run() {
 
   void
   App::LoadModel() {
-     float m_fov = kraMath::DEG2RAD(90.0f);
+     float m_fov = kraMath::DEG2RAD(45.0f);
     float m_nearZ = 0.01f;
     float m_farZ = 1000.0f;
 
@@ -409,7 +409,7 @@ App::run() {
 
     m_viewport->setViewport(m_device);
 
-    if (!m_vertexShader->compileVertexShader("VS.hlsl", "VS"))
+    if (!m_vertexShader->compileVertexShader("simpleVS.hlsl", "VS"))
     {
       DWORD err = GetLastError();
       MessageBox(NULL, "Failed to create Vertex shader", "Error", MB_OK);
@@ -425,7 +425,7 @@ App::run() {
     m_inputLayout->createInputLayout(*m_device, *m_vertexShader);
 
 
-    if (!m_pixelShader->compilePixelShader("PS.hlsl", "PS"))
+    if (!m_pixelShader->compilePixelShader("simplePS.hlsl", "PS"))
     {
       MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
        
@@ -436,7 +436,7 @@ App::run() {
 
     Model newModel;
 
-    if (!newModel.loadModelFromFile("resources/Models/vela.fbx", *m_device))
+    if (!newModel.loadModelFromFile("resources/Models/sponza.obj", *m_device))
     {
       MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
 
@@ -450,7 +450,7 @@ App::run() {
 
 
     textureManager->createTexture2DFromFile(*m_device,
-                                            "resources/Textures/Vela_Char_BaseColor.tga");
+                                            "resources/Textures/crate_1.jpg");
 
     m_SRV->createShaderResourceView(*m_device, textureManager);
 
@@ -464,8 +464,8 @@ App::run() {
     m_mainCB->add(m_world);
     
 
-    mainCam.SetPosition(Vector3(0.0f, 10.0f, 200.0f));
-    mainCam.SetObjecive(Vector3(0.0f, 0.0f, -1.0f));
+    mainCam.SetPosition(Vector3(0.0f, 200.0f, -200.0f));
+    mainCam.SetObjecive(Vector3(0.0f, 1.0f, 0.0f));
     mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
     
     mainCam.createViewMat();
@@ -508,7 +508,7 @@ App::run() {
 
     static float t = 0.0f;
 
-    t += kraMath::PI * .0125f;
+    t += kraMath::PI * .00125f;
 
     //m_world.MatrixRotY(t);
 

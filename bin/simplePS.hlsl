@@ -4,7 +4,6 @@ Texture2D texture3 : register( t2 );
 Texture2D texture4 : register( t3 );
 Texture2D texture5 : register( t4 );
 
-
 SamplerState samLinear : register( s0 );
 
 struct PS_INPUT
@@ -14,11 +13,15 @@ struct PS_INPUT
 
 };
 
+struct PS_OUTPUT
+{
+
+};
 
 float4 PS(PS_INPUT input) : SV_TARGET
 {
   float4 color;
-  color = texture1.Sample( samLinear, input.Tex ) * texture2.Sample(samLinear, input.Tex);
+  color = texture1.Sample( samLinear, input.Tex );
   
   return color;
 
