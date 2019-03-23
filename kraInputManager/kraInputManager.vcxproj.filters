@@ -43,10 +43,10 @@
     <ClCompile Include="src\kraMouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\kraInputManagerGI.cpp">
+    <ClCompile Include="src\kraInputMappings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\kraInputMappings.cpp">
+    <ClCompile Include="src\kraInputManagerGI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
