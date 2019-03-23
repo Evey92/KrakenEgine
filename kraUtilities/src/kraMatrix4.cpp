@@ -230,8 +230,6 @@ namespace kraEngineSDK {
 
   Matrix4
   Matrix4::MatrixLookAtLH(const Vector3& Eye, const Vector3& At, const Vector3& Up) {
-    Vector3 newVec;
-
     Vector3 zAxis = At - Eye;
     zAxis.normalize();
     Vector3 xAxis = Up ^ zAxis;

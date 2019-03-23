@@ -36,8 +36,7 @@ namespace kraEngineSDK {
     bool
     compileShaderFromFile(std::string filename,
         std::string entryPoint,
-        std::string shaderModel,
-      ID3DBlob** ppBlobOut);
+        std::string shaderModel);
 
     ID3DBlob* m_pBlob;
     //Blob* m_blob;

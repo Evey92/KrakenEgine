@@ -347,4 +347,6 @@ namespace kraEngineSDK {
 
   const Vector3 FRONT = ONEZ;
 
+  const Vector3 RIGHT = ONEX;
+
 }

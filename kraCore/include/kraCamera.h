@@ -27,11 +27,35 @@ namespace kraEngineSDK {
     void
     SetPosition(float X, float Y, float Z);
 
+    Vector3
+    getPosition();
+    
     void
     SetObjecive(Vector3 Objective);
 
     void
     SetObjecive(float X, float Y, float Z);
+
+    Vector3
+    getObjective();
+
+    void
+    setFOV(float FOV);
+
+    float
+    getFOV();
+
+    void
+    setNearPlane(float nearZ);
+    
+    float
+    getNearPlane();
+
+    void
+    setFarPlane(float farZ);
+
+    float
+    getFarPlane();
 
     void
     setUp(Vector3 UP);
@@ -77,7 +101,9 @@ namespace kraEngineSDK {
     Vector3 m_front;
     Vector3 m_right;
     Vector3 m_up;
-
+    float m_fov;
+    float m_nearZ;
+    float m_farZ;
   };
 
 }

@@ -37,7 +37,7 @@ class App : public BaseApplication
   run();
   HINSTANCE
   loadDLL();
-  int
+  bool
   startUp(void* m_hWnd);
   void
   LoadTriangle();
@@ -47,8 +47,6 @@ class App : public BaseApplication
   LoadModel();
   void
   render();
-  void
-  RenderCube();
   void 
   CleanupDevice();
   void
@@ -117,8 +115,4 @@ class App : public BaseApplication
   Vector<Model> m_modelsVec;
   Texture* textureManager;
   Camera mainCam;
-
-  float m_fov;
-  float m_nearZ;
-  float m_farZ;
 };

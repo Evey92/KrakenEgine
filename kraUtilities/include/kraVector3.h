@@ -332,6 +332,8 @@ namespace kraEngineSDK {
 
     static const Vector3 FRONT;
 
+    static const Vector3 RIGHT;
+
     /**
     * @brief Componente X.
     */

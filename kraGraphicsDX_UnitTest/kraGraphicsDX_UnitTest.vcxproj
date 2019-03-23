@@ -109,7 +109,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)googletest/lib/$(PlatformTarget)/;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/;$(DEVLIBS)OIS/build/$(PlatformTarget)/code/$(Configuration)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)googletest/lib/$(PlatformTarget)/;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/;$(DEVLIBS)OIS/build/$(PlatformTarget)/code/$(Configuration)/;$(DEVLIBS)gainput/build/$(PlatformTarget)/lib/$(Configuration)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>kraUtilitiesd.lib;gtestd.lib;gtest_maind.lib;kraCored.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -130,7 +130,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)googletest/lib/$(PlatformTarget)/;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/;$(DEVLIBS)OIS/build/$(PlatformTarget)/code/$(Configuration)/</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)googletest/lib/$(PlatformTarget)/;$(DEVLIBS)assimp/build/$(PlatformTarget)/code/$(Configuration)/;$(DEVLIBS)OIS/build/$(PlatformTarget)/code/$(Configuration)/;$(DEVLIBS)gainput/build/$(PlatformTarget)/lib/$(Configuration)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>kraUtilitiesd.lib;gtestd.lib;gtest_maind.lib;kraCored.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

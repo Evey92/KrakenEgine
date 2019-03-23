@@ -11,7 +11,7 @@ namespace kraEngineSDK {
       const char* entryPoint) {
     HRESULT hr = S_OK;
 
-    hr = compileShaderFromFile(fileName, entryPoint, "vs_5_0", &m_pBlob);
+    hr = compileShaderFromFile(fileName, entryPoint, "vs_5_0");
 
     if (!m_pBlob)
     {
@@ -56,8 +56,7 @@ namespace kraEngineSDK {
   bool
   VertexShaderDX::compileShaderFromFile(std::string filename,
       std::string entryPoint,
-      std::string shaderModel,
-      ID3DBlob** ppBlobOut)
+      std::string shaderModel)
   {
 
     HRESULT hr = S_OK;

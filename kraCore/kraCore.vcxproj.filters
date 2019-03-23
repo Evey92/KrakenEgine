@@ -52,9 +52,6 @@
     <ClInclude Include="include\kraPixelShader.h">
       <Filter>Source Files\kraGraphics\include</Filter>
     </ClInclude>
-    <ClInclude Include="include\kraPrerequisitesCore.h">
-      <Filter>Source Files\kraGraphics\include</Filter>
-    </ClInclude>
     <ClInclude Include="include\kraRasterizerState.h">
       <Filter>Source Files\kraGraphics\include</Filter>
     </ClInclude>
@@ -110,6 +107,9 @@
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
     <ClInclude Include="include\kraCommonTypes.h">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraPrerequisitesCore.h">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
   </ItemGroup>

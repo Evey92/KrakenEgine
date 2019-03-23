@@ -30,7 +30,7 @@ namespace kraEngineSDK {
     if (!m_pd3dDepthStencil)
     {
       DWORD err = GetLastError();
-      MessageBox(NULL, "Failed to set the Depth Stencil", "Error", MB_OK);
+      MessageBox(NULL, "Failed to set the Depth Stencil. Error: " + err, "Error", MB_OK);
       //std::cout << "No se pudo crear depth sctencil";
       return false;
     }

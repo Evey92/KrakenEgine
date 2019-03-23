@@ -385,19 +385,19 @@ namespace kraEngineSDK {
       return w;
     }
 
-    static const Vector4 ZERO = Vector3(0.0f, 0.0f, 0.0f);
+    const Vector4 ZERO = Vector3(0.0f, 0.0f, 0.0f);
 
-    static const Vector4 ONE = Vector3(1.0f, 1.0f, 1.0f);
+    const Vector4 ONE = Vector3(1.0f, 1.0f, 1.0f);
 
-    static const Vector4 ONEX = Vector3(1.0f, 0.0f, 0.0f);
+    const Vector4 ONEX = Vector3(1.0f, 0.0f, 0.0f);
 
-    static const Vector4 ONEY = Vector3(0.0f, 1.0f, 0.0f);
+    const Vector4 ONEY = Vector3(0.0f, 1.0f, 0.0f);
 
-    static const Vector4 ONEZ = Vector3(0.0f, 0.0f, 1.0f);
+    const Vector4 ONEZ = Vector3(0.0f, 0.0f, 1.0f);
 
-    static const Vector4 UP = ONEY;
+    const Vector4 UP = ONEY;
 
-    static const Vector4 FRONT = ONEZ;
+    const Vector4 FRONT = ONEZ;
 
   }
 

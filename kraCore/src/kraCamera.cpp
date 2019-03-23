@@ -29,7 +29,18 @@ namespace kraEngineSDK {
 
   void Camera::Rotate(Vector3 Axis, float angle)
   {
-
+    if (Axis == Vector3(1.0f, 0.0f, 0.0f))
+    {
+      //Do something
+    }
+    if (Axis == Vector3(0.0f, 1.0f, 0.0f))
+    {
+      //Do something
+    }
+    if (Axis == Vector3(0.0f, 0.0f, 1.0f))
+    {
+      //Do something
+    }
     dirty = true;
 
   }
@@ -53,6 +64,12 @@ namespace kraEngineSDK {
     dirty = true;
   }
 
+  Vector3
+  Camera::getPosition() {
+    return m_pos;
+  }
+
+
   void
   Camera::SetObjecive(Vector3 Objective) {
 
@@ -72,6 +89,41 @@ namespace kraEngineSDK {
 
     dirty = true;
 
+  }
+
+  Vector3
+  Camera::getObjective() {
+    return m_objective;
+  }
+
+  void
+  Camera::setFOV(float FOV) {
+    m_fov = FOV;
+  }
+
+  float
+  Camera::getFOV() {
+    return m_fov;
+  }
+
+  void
+  Camera::setNearPlane(float nearZ) {
+    m_nearZ = nearZ;
+  }
+
+  float
+  Camera::getNearPlane() {
+    return m_nearZ;
+  }
+
+  void
+  Camera::setFarPlane(float farZ) {
+    m_farZ = farZ;
+  }
+
+  float
+  Camera::getFarPlane() {
+    return m_farZ;
   }
 
   void
