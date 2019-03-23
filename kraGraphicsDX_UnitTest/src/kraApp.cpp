@@ -10,28 +10,45 @@ App::run() {
   bool
   App::startUp(void* m_hWnd) {
     typedef GraphicsAPI*(*initFunc)();
+    typedef InputAPI*(*initInptFunc)();
     HINSTANCE GFXDLL;
-   
-    std::string path = "kraGraphicsDXd.dll";
+    HINSTANCE INPUTDLL;
 
-    GFXDLL = LoadLibraryExA(path.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
+    std::string GFXpath = "kraGraphicsDXd.dll";
+    std::string Inputpath = "kraInputManager.dll";
+
+
+    GFXDLL = LoadLibraryExA(GFXpath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
     if (!GFXDLL) {
       DWORD err = GetLastError();
-      std::cout << "could not find specified DLL, error: " << err << std::endl;
-
-      std::cout << "Press any key to continue...";
-
+      MessageBox(NULL, "Could not find specified graphics DLL. Error: " + err, "Error", MB_OK);
+      
       FreeLibrary(GFXDLL);
+      return false;
+    }
+
+    INPUTDLL = LoadLibraryExA(Inputpath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
+    if (!INPUTDLL) {
+      DWORD err = GetLastError();
+      MessageBox(NULL, "Could not find specified input DLL. Error: " + err, "Error", MB_OK);
+      
+      FreeLibrary(INPUTDLL);
       return false;
     }
 
     initFunc initAPIFunc = (initFunc)GetProcAddress(GFXDLL, "createGraphicsAPI");
     if (!initAPIFunc) {
-      std::cout << "could not find specified function" << std::endl;
-
-      std::cout << "Press any key to continue...";
+      MessageBox(NULL, "Could not find specified graphics function. Error: ", "Error", MB_OK);
 
       FreeLibrary(GFXDLL);
+      return false;
+    }
+
+    initInptFunc initInputAPIFunc = (initInptFunc)GetProcAddress(INPUTDLL, "createInputAPI");
+    if (!initAPIFunc) {
+      MessageBox(NULL, "Could not find specified input function. Error: ", "Error", MB_OK);
+
+      FreeLibrary(INPUTDLL);
       return false;
     }
 
@@ -42,10 +59,24 @@ App::run() {
       return false;
     }
 
+    inputAPIInstance = initInputAPIFunc();
+    if (!inputAPIInstance) {
+      MessageBox(NULL, "Failed to create Input API", "Error", MB_OK);
+
+      return false;
+    }
+
     m_device = gfxAPIInstance->initializeAPI(reinterpret_cast<void*>(m_hWnd));
     if (!m_device)
     {
       MessageBox(NULL, "Failed to create Initialize API Device", "Error", MB_OK);
+      return false;
+    }
+
+    m_inputManager = inputAPIInstance->initializeAPI(m_device->getWidth(), m_device->getHeight());
+    if (!m_device)
+    {
+      MessageBox(NULL, "Failed to create Initialize Input Manager", "Error", MB_OK);
       return false;
     }
 

@@ -3,11 +3,12 @@
 
 
 namespace kraEngineSDK {
-  class InputMappings
+  class InputMappingsGI
   {
    public:
-    /*static gainput::DeviceId
-    getInputDevice(INPUT_DEVICE::E device);*/
+    
+     static gainput::InputDevice::DeviceType
+    getInputDevice(INPUT_DEVICE::E device);
 
   };
 }

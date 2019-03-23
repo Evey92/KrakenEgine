@@ -206,6 +206,9 @@
     <ClInclude Include="include\kraVertexShader.h" />
     <ClInclude Include="include\kraViewport.h" />
     <ClInclude Include="include\kraRenderAPIManager.h" />
+    <ClInclude Include="kraInput\include\kraInputAPI.h" />
+    <ClInclude Include="kraInput\include\kraInputManager.h" />
+    <ClInclude Include="kraInput\include\kraInputMappings.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraCamera.cpp" />

@@ -1,8 +1,11 @@
 #pragma once
+// Base headers
 #include <kraBaseApplication.h>
+#include <kraCamera.h>
+
+//GFX Headers
 #include <kraRenderAPIManager.h>
 #include <kraGraphicsAPI.h>
-#include <kraPrerequisitesCore.h>
 #include <kraDevice.h>
 #include <kraRenderTargetView.h>
 #include <kraTexture.h>
@@ -22,7 +25,9 @@
 #include <kraVector4.h>
 #include <kraMatrix4.h>
 #include <kraModel.h>
-#include <kraCamera.h>
+
+//Input Headers
+#include <kraInput/include/kraInputAPI.h>
 
 using namespace kraEngineSDK;
 
@@ -41,8 +46,6 @@ class App : public BaseApplication
   startUp(void* m_hWnd);
   void
   LoadTriangle();
-  void
-  LoadCube();
   void
   LoadModel();
   void
@@ -109,10 +112,13 @@ class App : public BaseApplication
   SamplerState* m_samplerState;
   RenderAPIManager* apiManager;
   GraphicsAPI* gfxAPIInstance;
+  InputAPI* inputAPIInstance;
   Matrix4 m_world;
   Matrix4 m_projection;
   Vector4 color;
   Vector<Model> m_modelsVec;
   Texture* textureManager;
   Camera mainCam;
+  InputManager* m_inputManager;
+
 };

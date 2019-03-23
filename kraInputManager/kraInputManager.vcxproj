@@ -100,7 +100,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);KRA_UTILINPUT_EXPORTS;KRA_UTILINPUT_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(DEVLIBS)gainput/lib/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include/;$(DEVLIBS)gainput/lib/include/;;$(SolutionDir)kraCore/</AdditionalIncludeDirectories>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -110,7 +110,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(PlatformTarget)/$(Configuration)/;$(DEVLIBS)gainput/build/$(PlatformTarget)/lib/$(Configuration)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EASTL.lib;kraUtilitiesd.lib;gainput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>EASTL.lib;kraUtilitiesd.lib;gainput-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -121,7 +121,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);KRA_UTILINPUT_EXPORTS;KRA_UTILINPUT_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(DEVLIBS)gainput/lib/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include/;$(DEVLIBS)gainput/lib/include/;;$(SolutionDir)kraCore/</AdditionalIncludeDirectories>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -131,7 +131,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(PlatformTarget)/$(Configuration)/;$(DEVLIBS)gainput/build/$(PlatformTarget)/lib/$(Configuration)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EASTL.lib;kraUtilitiesd.lib;gainput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>EASTL.lib;kraUtilitiesd.lib;gainput-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,7 +144,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);KRA_UTILINPUT_EXPORTS;KRA_UTILINPUT_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(DEVLIBS)gainput/lib/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include/;$(DEVLIBS)gainput/lib/include/;$(SolutionDir)kraCore/;$(SolutionDir)kraCore/</AdditionalIncludeDirectories>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -156,7 +156,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(PlatformTarget)/$(Configuration)/;$(DEVLIBS)gainput/build/$(PlatformTarget)/lib/$(Configuration)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kraUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kraUtilities.lib;gainput.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -169,7 +169,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions);KRA_UTILINPUT_EXPORTS;KRA_UTILINPUT_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(DEVLIBS)gainput/lib/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include/;$(DEVLIBS)gainput/lib/include/;$(SolutionDir)kraCore/;$(SolutionDir)kraCore/</AdditionalIncludeDirectories>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -181,11 +181,12 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib/$(PlatformTarget)/;$(DEVLIBS)EASTL/build/$(PlatformTarget)/$(Configuration)/;$(DEVLIBS)gainput/build/lib/x64/$(Configuration)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kraUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kraUtilities.lib;gainput.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\kraControl.h" />
+    <ClInclude Include="include\kraInputAPIGI.h" />
     <ClInclude Include="include\kraInputManagerGI.h" />
     <ClInclude Include="include\kraInputMapGI.h" />
     <ClInclude Include="include\kraInputMappings.h" />
@@ -195,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraControl.cpp" />
+    <ClCompile Include="src\kraInputAPIGI.cpp" />
     <ClCompile Include="src\kraInputManagerGI.cpp" />
     <ClCompile Include="src\kraInputMappings.cpp" />
     <ClCompile Include="src\kraKeyboard.cpp" />

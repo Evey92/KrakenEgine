@@ -20,6 +20,9 @@
     <Filter Include="Source Files\kraCoreBase">
       <UniqueIdentifier>{0bfc4d4e-cc0f-49f5-9820-12f5f3041347}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\kraInput\include">
+      <UniqueIdentifier>{b56600e5-6326-4375-b94a-9e50fc14a516}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\kraConstantBuffer.h">
@@ -111,6 +114,15 @@
     </ClInclude>
     <ClInclude Include="include\kraPrerequisitesCore.h">
       <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
+    <ClInclude Include="kraInput\include\kraInputManager.h">
+      <Filter>Source Files\kraInput\include</Filter>
+    </ClInclude>
+    <ClInclude Include="kraInput\include\kraInputMappings.h">
+      <Filter>Source Files\kraInput\include</Filter>
+    </ClInclude>
+    <ClInclude Include="kraInput\include\kraInputAPI.h">
+      <Filter>Source Files\kraInput\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
