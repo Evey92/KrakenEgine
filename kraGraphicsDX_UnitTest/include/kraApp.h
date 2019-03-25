@@ -56,8 +56,12 @@ class App : public BaseApplication
   Initialize();
   void
   update(float deltaTime);
-  
-  
+  InputManager*
+  getInputManager();
+  void
+  createAndMapBoolDevice(uint32 userBtn, uint32 type, uint32 key);
+  Camera*
+  getActiveCamera();
   void
   destroy();
   

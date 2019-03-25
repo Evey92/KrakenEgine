@@ -1,6 +1,12 @@
 #include "kraInputManagerGI.h"
 #include "kraInputMappings.h"
 
+enum buttons
+{
+  Dkey,
+  Akey,
+};
+
 namespace kraEngineSDK {
   void
    InputManagerGI::managerUpdate() {
@@ -8,9 +14,18 @@ namespace kraEngineSDK {
   }
   void
   InputManagerGI::setUpInputManagerGI(uint32 width, uint32 height) {
+    m_inputManager.SetDisplaySize(width, height);  
+    /*gainput::DeviceId mouseID = m_inputManager.CreateDevice<gainput::InputDeviceKeyboard>();
+    gainput::DeviceId keyboardId = m_inputManager.CreateDevice<gainput::InputDeviceKeyboard>();
+
+    gainput::InputMap map(m_inputManager);
+    map.MapBool(Dkey, keyboardId, gainput::KeyD);*/
+  }
+
+  void
+  InputManagerGI::setInputMap(){
     
-    m_inputManager.SetDisplaySize(width, height);
-    
+    m_map = new gainput::InputMap(m_inputManager);
   }
 
   uint32
@@ -30,16 +45,23 @@ namespace kraEngineSDK {
 
   void
   InputManagerGI::mapBoolDevice(uint32 userButton, uint32 devID, uint32 key) {
-    //gainput::InputMap map(m_inputManager);
+    gainput::DeviceId m_devID = static_cast<gainput::DeviceId>(devID);
+    gainput::DeviceButtonId m_key = static_cast<gainput::DeviceButtonId>(key);
+    
 
-    m_map.MapBool(userButton, devID, key);
+    m_map->MapBool(userButton, m_devID, key);
 
   }
 
-  void
+  bool
   InputManagerGI::mapFloatDevice(uint32 userButton, uint32 devID, uint32 key) {
-    //gainput::InputMap map(m_inputManager);
-    m_map.MapFloat(userButton, devID, key);
+
+    gainput::UserButtonId m_Btn = static_cast<gainput::UserButtonId>(userButton);
+    gainput::DeviceId m_devID = static_cast<gainput::DeviceId>(devID);
+    gainput::DeviceButtonId m_key = static_cast<gainput::DeviceButtonId>(key);
+  
+    m_map->MapFloat(m_Btn, m_devID, m_key);
+    return true;
   }
 
   void
@@ -52,7 +74,7 @@ namespace kraEngineSDK {
   bool
   InputManagerGI::boolWasDown(uint32 userDevice) {
     
-    if(!m_map.GetBoolWasDown(userDevice)) {
+    if(!m_map->GetBoolWasDown(userDevice)) {
       return false;
     }
 
@@ -60,7 +82,7 @@ namespace kraEngineSDK {
   }
   bool
   InputManagerGI::floatDelta(uint32 userDevice) {
-    if (!m_map.GetFloatDelta(userDevice)) {
+    if (!m_map->GetFloatDelta(userDevice)) {
       return false;
     }
     return true;

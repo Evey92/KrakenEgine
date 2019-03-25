@@ -15,7 +15,7 @@ App::run() {
     HINSTANCE INPUTDLL;
 
     std::string GFXpath = "kraGraphicsDXd.dll";
-    std::string Inputpath = "kraInputManager.dll";
+    std::string Inputpath = "kraInputManagerd.dll";
 
 
     GFXDLL = LoadLibraryExA(GFXpath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
@@ -247,7 +247,7 @@ App::run() {
 
     m_device->setPrimitiveTopology();
   }
-
+  
   void
   App::LoadModel() {
     mainCam.setFOV(kraMath::DEG2RAD(90.0f));
@@ -360,6 +360,39 @@ App::run() {
 
     deltaTime += 0.0125f;
 
+  }
+
+  InputManager*
+  App::getInputManager() {
+    
+    return m_inputManager;
+  }
+
+  void
+  App::createAndMapBoolDevice(uint32 userBtn,uint32 type, uint32 key) {
+    m_inputManager->setInputMap();
+
+    uint32 deviceID;
+    switch (type)
+    {
+    case 0:
+      deviceID = m_inputManager->createMouseDevice();
+      break;
+    case 1:
+      deviceID = m_inputManager->createKeyboardDevice();
+      break;
+    case 3:
+      deviceID = m_inputManager->createGamepadDevice();
+      break;
+    }
+
+    m_inputManager->mapBoolDevice(userBtn, deviceID, key);
+
+  }
+
+  Camera*
+  App::getActiveCamera() {
+    return &mainCam;
   }
 
   void
