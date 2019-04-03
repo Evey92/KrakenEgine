@@ -58,10 +58,15 @@ class App : public BaseApplication
   update(float deltaTime);
   InputManager*
   getInputManager();
+  uint32
+  createBoolDevice(uint32 type);
   void
-  createAndMapBoolDevice(uint32 userBtn, uint32 type, uint32 key);
+  MapBoolDevice(uint32 userBtn, uint32 type, uint32 key);
   Camera*
   getActiveCamera();
+
+  void
+  strafeCamera(int dir);
   void
   destroy();
   

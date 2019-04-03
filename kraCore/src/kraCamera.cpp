@@ -177,6 +177,7 @@ namespace kraEngineSDK {
   Matrix4 
   Camera::GetViewMatrix() 
   {
+    
     if (dirty) {
       createViewMat();
     }

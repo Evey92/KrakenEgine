@@ -31,7 +31,7 @@ namespace kraEngineSDK {
     Model::processNode(aiNode* rootNode, const aiScene* pScene,  Device& pDevice);
     Mesh
     processMesh(aiMesh* pMesh, const aiScene* scene,  Device& pDevice);
-    uint32
+    SIZE_T
     getMeshVecSize();
     std::vector<Mesh>
     getMeshVec();

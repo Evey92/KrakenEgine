@@ -18,13 +18,11 @@ namespace kraEngineSDK {
 
     if (!scene)
     {
-      
-
       return false;
     }
 
     processNode(scene->mRootNode, scene, pDevice);
-
+    return true;
   }
 
   void
@@ -43,6 +41,7 @@ namespace kraEngineSDK {
   Model::processMesh(aiMesh* pMesh, const aiScene* scene, Device& pDevice) {
     
     Mesh newMesh(pDevice);
+    aiString path;
 
     for (uint32 i = 0; i < pMesh->mNumVertices; i++) {
       Vertex vert;
@@ -51,6 +50,11 @@ namespace kraEngineSDK {
       vert.Pos.y = pMesh->mVertices[i].y;
       vert.Pos.z = pMesh->mVertices[i].z;
 
+      if (scene->HasMaterials())
+      {
+        //aiReturn texFound = scene->mMaterials[i]->GetTexture(aiTextureType_DIFFUSE, 0, &path);
+
+      }
       if (pMesh->HasTextureCoords(0))
       {
         vert.Tex.x = static_cast<float>(pMesh->mTextureCoords[0][i].x);
@@ -72,6 +76,7 @@ namespace kraEngineSDK {
         vert.m_binormal.y = pMesh->mBitangents->y;
         vert.m_binormal.z = pMesh->mBitangents->z;
       }
+      
       newMesh.m_vertexBurffer->add(vert);
     }
     
@@ -96,7 +101,7 @@ namespace kraEngineSDK {
     return newMesh;
   }
 
-  uint32
+  SIZE_T
   Model::getMeshVecSize() {
     return meshVec.size();
   }

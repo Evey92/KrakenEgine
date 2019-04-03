@@ -293,7 +293,7 @@ App::run() {
 
     Model newModel;
 
-    if (!newModel.loadModelFromFile("resources/Models/crate1.obj", *m_device))
+    if (!newModel.loadModelFromFile("resources/Models/hoplite.obj", *m_device))
     {
       MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
 
@@ -324,7 +324,8 @@ App::run() {
     mainCam.SetPosition(Vector3(0.0f, 0.0f, -20.0f));
     mainCam.SetObjecive(Vector3(0.0f, 1.0f, 0.0f));
     mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
-    
+    mainCam.setFront(Vector3(0.0f, 0.0f, 1.0f));
+    mainCam.setRight(Vector3(1.0f, 0.0f, 0.0f));
     mainCam.createViewMat();
     m_mainCB->add(mainCam.GetViewMatrix());
 
@@ -368,24 +369,28 @@ App::run() {
     return m_inputManager;
   }
 
-  void
-  App::createAndMapBoolDevice(uint32 userBtn,uint32 type, uint32 key) {
-    m_inputManager->setInputMap();
-
-    uint32 deviceID;
+  uint32
+  App::createBoolDevice(uint32 type) {
+   
     switch (type)
     {
     case 0:
-      deviceID = m_inputManager->createMouseDevice();
+      return m_inputManager->createMouseDevice();
       break;
     case 1:
-      deviceID = m_inputManager->createKeyboardDevice();
+      return m_inputManager->createKeyboardDevice();
       break;
-    case 3:
-      deviceID = m_inputManager->createGamepadDevice();
+    case 2:
+      return m_inputManager->createGamepadDevice();
       break;
     }
 
+
+  }
+
+  void
+  App::MapBoolDevice(uint32 userBtn, uint32 deviceID, uint32 key) {
+    
     m_inputManager->mapBoolDevice(userBtn, deviceID, key);
 
   }
@@ -396,13 +401,20 @@ App::run() {
   }
 
   void
+  App::strafeCamera(int dir) {
+
+    mainCam.MoveRight(5.0f * dir);
+
+  }
+
+  void
   App::render() {
 
     static float t = 0.0f;
 
     t += kraMath::PI * .00125f;
 
-    m_world.MatrixRotY(t);
+    //m_world.MatrixRotY(t);
 
     m_vertexShader->setVertexShader(*m_device);
     m_pixelShader->setPixelShader(*m_device);
@@ -421,6 +433,7 @@ App::run() {
     m_samplerState->setSamplerState(*m_device);
 
     m_mainCB->setConstData(0, m_world);
+    m_mainCB->setConstData(1, mainCam.GetViewMatrix());
     m_mainCB->updateSubResources(*m_device);
 
     m_SRV->setShaderResourceView(m_device, 0, 1);

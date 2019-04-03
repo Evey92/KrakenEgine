@@ -180,6 +180,7 @@
     <ClInclude Include="include\kraCamera.h" />
     <ClInclude Include="include\kraCameraManager.h" />
     <ClInclude Include="include\kraBaseApplication.h" />
+    <ClInclude Include="include\kraClock.h" />
     <ClInclude Include="include\kraCommonTypes.h" />
     <ClInclude Include="include\kraConstantBuffer.h" />
     <ClInclude Include="include\kraConstantBufferMatrices.h" />
@@ -211,6 +212,7 @@
     <ClInclude Include="kraInput\include\kraInputMappings.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="kraClock.cpp" />
     <ClCompile Include="src\kraCamera.cpp" />
     <ClCompile Include="src\kraCameraManager.cpp" />
     <ClCompile Include="src\kraBaseApplication.cpp" />

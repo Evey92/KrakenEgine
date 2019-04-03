@@ -124,6 +124,9 @@
     <ClInclude Include="kraInput\include\kraInputAPI.h">
       <Filter>Source Files\kraInput\include</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraClock.h">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraConstantBuffer.cpp">
@@ -196,6 +199,9 @@
       <Filter>Source Files\kraCoreBase</Filter>
     </ClCompile>
     <ClCompile Include="src\kraModel.cpp">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClCompile>
+    <ClCompile Include="kraClock.cpp">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClCompile>
   </ItemGroup>

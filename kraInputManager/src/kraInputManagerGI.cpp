@@ -14,17 +14,11 @@ namespace kraEngineSDK {
   }
   void
   InputManagerGI::setUpInputManagerGI(uint32 width, uint32 height) {
-    m_inputManager.SetDisplaySize(width, height);  
-    /*gainput::DeviceId mouseID = m_inputManager.CreateDevice<gainput::InputDeviceKeyboard>();
-    gainput::DeviceId keyboardId = m_inputManager.CreateDevice<gainput::InputDeviceKeyboard>();
-
-    gainput::InputMap map(m_inputManager);
-    map.MapBool(Dkey, keyboardId, gainput::KeyD);*/
+    m_inputManager.SetDisplaySize(width, height);
   }
 
   void
   InputManagerGI::setInputMap(){
-    
     m_map = new gainput::InputMap(m_inputManager);
   }
 

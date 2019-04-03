@@ -90,7 +90,7 @@ namespace kraEngineSDK{
      }
 
    protected:
-     Module = default;
+     Module() = default;
 
      virtual
      ~Module() = default;
