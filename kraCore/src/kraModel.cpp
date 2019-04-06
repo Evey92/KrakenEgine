@@ -38,7 +38,7 @@ namespace kraEngineSDK {
     }
   }
 
-  Mesh
+  Mesh*
   Model::processMesh(aiMesh* pMesh, const aiScene* scene, Device& pDevice) {
     
     Mesh newMesh(pDevice);
@@ -71,7 +71,6 @@ namespace kraEngineSDK {
         vert.m_binormal.y = pMesh->mBitangents->y;
         vert.m_binormal.z = pMesh->mBitangents->z;
       }
-      
       newMesh.m_vertexBurffer->add(vert);
     }
     
@@ -92,15 +91,14 @@ namespace kraEngineSDK {
       scene->mNumTextures;
       scene->mTextures;
     }
-      
-    return newMesh;
+    return &newMesh;
   }
 
   SIZE_T
   Model::getMeshVecSize() {
     return m_meshVec.size();
   }
-  std::vector<Mesh>
+  std::vector<Mesh*>
   Model::getMeshVec() {
     return m_meshVec;
   }
@@ -110,7 +108,7 @@ namespace kraEngineSDK {
 
     for (uint32 i = 0; i < m_meshVec.size(); i++)
     {
-      m_meshVec[i].DrawMesh(pDevice);
+      m_meshVec[i]->DrawMesh(pDevice);
     }
   }
 

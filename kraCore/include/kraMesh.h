@@ -23,7 +23,7 @@ namespace kraEngineSDK {
 
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
-    Material* m_material;
+    Material* m_material = nullptr;
     
   };
 }

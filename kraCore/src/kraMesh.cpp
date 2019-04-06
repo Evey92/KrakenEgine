@@ -6,6 +6,7 @@ namespace kraEngineSDK {
 
     m_vertexBurffer = pDevice.createVertexBufferInstance();
     m_indexBuffer = pDevice.createIndexBufferInstance();
+    m_material = pDevice.createMaterialInstance();
 
   }
 

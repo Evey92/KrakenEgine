@@ -21,6 +21,7 @@ namespace kraEngineSDK {
   class SamplerState;
   class Texture;
   class ShaderResourceView;
+  class Material;
 
   template<typename CONSVERTEX> class ConstantBuffer;
 
@@ -87,7 +88,8 @@ namespace kraEngineSDK {
     createTextureInstance();
     ShaderResourceView*
     createShaderRVInstance();
-
+    Material*
+    createMaterialInstance();
     SwapChainDX m_pSwapChain;
     uint32 m_height;
     uint32 m_width;

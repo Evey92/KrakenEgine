@@ -5,7 +5,7 @@
 namespace kraEngineSDK {
   using namespace std::chrono;
 
-  class Clock : public Module<Clock>
+  class KRA_CORE_EXPORT Clock : public Module<Clock>
   {
    public:
 

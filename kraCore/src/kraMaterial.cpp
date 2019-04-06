@@ -1,7 +1,18 @@
 #include "kraMaterial.h"
 #include "kraTexture.h"
+#include "kraDevice.h"
 
 namespace kraEngineSDK {
+
+  Material::Material(Device& pDevice) {
+    m_baseColor = pDevice.createTextureInstance();
+    m_metalness = pDevice.createTextureInstance();
+    m_specular = pDevice.createTextureInstance();
+    m_roughness = pDevice.createTextureInstance();
+    m_emissive = pDevice.createTextureInstance();
+    m_Normal = pDevice.createTextureInstance();
+    m_ambientO = pDevice.createTextureInstance();
+  }
 
   Texture*
   Material::getTextureOfType(kraTextureType::E texType)
@@ -34,30 +45,31 @@ namespace kraEngineSDK {
   }
 
   void
-  Material::setTextureOfType(kraTextureType::E texType, Texture* tex)
+  Material::setTextureOfType(Device& pDevice, kraTextureType::E texType, Texture* tex, std::string fileName)
   {
     switch (texType)
     {
     case kraTextureType::BASECOLOR:
-      m_baseColor = tex;
+      *this->m_baseColor = *tex;
+      //m_baseColor->createTexture2DFromFile(pDevice, fileName);
       break;
     case kraTextureType::METALNESS:
-      m_metalness = tex;
+      m_metalness->createTexture2DFromFile(pDevice, fileName);
       break;
     case kraTextureType::SPECULAR:
-      m_specular = tex;
+      m_specular->createTexture2DFromFile(pDevice, fileName);
       break;
     case kraTextureType::ROUGHNESS:
-      m_roughness = tex;
+      m_roughness->createTexture2DFromFile(pDevice, fileName);
       break;
     case kraTextureType::EMISSIVE:
-      m_emissive = tex;
+      m_emissive->createTexture2DFromFile(pDevice, fileName);
       break;
     case kraTextureType::NORMAL:
-      m_Normal = tex;
+      m_Normal->createTexture2DFromFile(pDevice, fileName);
       break;
     case kraTextureType::AMBIENT:
-      m_ambientO = tex;
+      m_ambientO->createTexture2DFromFile(pDevice, fileName);
       break;
     }
   }

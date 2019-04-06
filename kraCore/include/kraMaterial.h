@@ -18,17 +18,18 @@ namespace kraEngineSDK {
   }
 
   class Texture;
+  class Device;
 
-  class Material {
+  class KRA_CORE_EXPORT Material {
   public:
-    Material() = default;
+    Material(Device& pDevice);
     ~Material() = default;
 
     Texture*
       getTextureOfType(kraTextureType::E texType);
 
     void
-      setTextureOfType(kraTextureType::E texType, Texture* tex);
+    setTextureOfType(Device& pDevice, kraTextureType::E texType, Texture* tex, std::string fileName);
 
   private:
 

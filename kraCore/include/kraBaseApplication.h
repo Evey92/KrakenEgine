@@ -10,7 +10,7 @@
 #include "kraPrerequisitesCore.h"
 
 namespace kraEngineSDK {
-  class BaseApplication
+  class KRA_CORE_EXPORT BaseApplication
   {
   public:
     BaseApplication() = default;

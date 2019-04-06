@@ -10,6 +10,7 @@
 #include <kraSampler.h>
 #include <kraTexture.h>
 #include <kraShaderResourceView.h>
+#include <kraMaterial.h>
 
 #include "kraD3D11Device.h"
 #include "kraD3D11RenderTargetView.h"
@@ -234,6 +235,11 @@ namespace kraEngineSDK {
   ShaderResourceView*
   DeviceDX::createShaderRVInstance() {
     return new ShaderResourceViewDX();
+  }
+
+  Material*
+  DeviceDX::createMaterialInstance() {
+    return new Material(*this);
   }
 
 }

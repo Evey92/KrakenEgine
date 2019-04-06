@@ -8,6 +8,11 @@
 
 namespace kraEngineSDK {
 
+  TextureDX::TextureDX(const TextureDX& newTex) {
+    m_pd3dTexture2D = newTex.m_pd3dTexture2D;
+
+  }
+
   void
   TextureDX::createTexture2D(const Device& pDevice, int height, int width) {
 

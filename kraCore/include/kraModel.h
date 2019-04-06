@@ -30,17 +30,17 @@ namespace kraEngineSDK {
     loadModelFromFile(const std::string& fileName,  Device& pDevice, Texture* pTexture);
     void
     Model::processNode(aiNode* rootNode, const aiScene* pScene,  Device& pDevice);
-    Mesh
+    Mesh*
     processMesh(aiMesh* pMesh, const aiScene* scene,  Device& pDevice);
     SIZE_T
     getMeshVecSize();
-    std::vector<Mesh>
+    std::vector<Mesh*>
     getMeshVec();
     void
     Draw(Device* pDevice);
 
    private:
-    std::vector<Mesh> m_meshVec;
+    std::vector<Mesh*> m_meshVec;
     Vector<aiMaterial*> m_materialsVec;
   };
 

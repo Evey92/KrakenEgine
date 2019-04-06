@@ -13,6 +13,7 @@ namespace kraEngineSDK {
 
    public:
      TextureDX() = default;
+     TextureDX(const TextureDX& newTex);
      ~TextureDX() {}
 
     void

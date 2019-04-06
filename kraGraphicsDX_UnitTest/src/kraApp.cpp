@@ -258,39 +258,32 @@ App::run() {
       switch (i)
       {
       case 0:
+        //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, "resources/Textures/Vela_Gun_BaseColor.tga");
         textureManager->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Gun_BaseColor.tga");
         break;
 
       case 1:
-        textureManager->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Legs_BaseColor.tga");
-
+        //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_Legs_BaseColor.tga");
         break;
 
       case 2:
-        textureManager->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Mechanical_BaseColor.tga");
-
+        //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_Mechanical_BaseColor.tga");
         break;
       
       case 3:
-        textureManager->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Char_BaseColor.tga");
-
+        //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_Char_BaseColor.tga");
         break;
 
       case 4:
-        textureManager->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Plate_BaseColor.tga");
-
+        //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_Plate_BaseColor.tga");
         break;
 
       case 5:
-        textureManager->createTexture2DFromFile(*m_device, "resources/Textures/Vela_EyeCornea_BaseColor.tga");
-
+        //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_EyeCornea_BaseColor.tga");
         break;
       }
 
-      textureManager->createTexture2DFromFile(*m_device,
-        "resources/Textures/default.jpg");
-
-      newModel.getMeshVec()[i].m_material->setTextureOfType(kraTextureType::BASECOLOR, textureManager);
+      newModel.getMeshVec()[i]->m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, textureManager, "resources/Textures/Vela_Gun_BaseColor.tga");
 
       m_modelsVec.push_back(newModel);
     }
@@ -435,7 +428,7 @@ App::run() {
     
     for (uint32 i = 0; i < m_modelsVec.size(); i++) {
 
-      m_SRV->createShaderResourceView(*m_device, m_modelsVec[i].getMeshVec()[i].m_material->getTextureOfType(kraTextureType::BASECOLOR));
+      m_SRV->createShaderResourceView(*m_device, m_modelsVec[i].getMeshVec()[i]->m_material->getTextureOfType(kraTextureType::BASECOLOR));
       m_SRV->setShaderResourceView(m_device, 0, 1);
       m_modelsVec[i].Draw(m_device);
 
