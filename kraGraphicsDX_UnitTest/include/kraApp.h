@@ -2,6 +2,9 @@
 // Base headers
 #include <kraBaseApplication.h>
 #include <kraCamera.h>
+#include <kraModel.h>
+#include <kraMesh.h>
+#include <kraMaterial.h>
 
 //GFX Headers
 #include <kraRenderAPIManager.h>
@@ -24,7 +27,7 @@
 #include <kraSampler.h>
 #include <kraVector4.h>
 #include <kraMatrix4.h>
-#include <kraModel.h>
+
 
 //Input Headers
 #include <kraInput/include/kraInputAPI.h>
@@ -44,8 +47,6 @@ class App : public BaseApplication
   loadDLL();
   bool
   startUp(void* m_hWnd);
-  void
-  LoadTriangle();
   void
   LoadModel();
   void
@@ -129,5 +130,5 @@ class App : public BaseApplication
   Texture* textureManager;
   Camera mainCam;
   InputManager* m_inputManager;
-
+  
 };

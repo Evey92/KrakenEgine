@@ -1,8 +1,10 @@
 #pragma once
+#include <kraVertex.h>
+
 #include "kraPrerequisitesCore.h"
 #include "kraIndexBuffer.h"
 #include "kraVertexBuffer.h"
-#include <kraVertex.h>
+#include "kraMaterial.h"
 
 namespace kraEngineSDK {
 
@@ -13,13 +15,15 @@ namespace kraEngineSDK {
      Mesh(Device& pDevice);
      Mesh(std::vector<Vertex> vertices, std::vector<uint32> indices);
      Mesh(const Mesh& copyMesh);
-    ~Mesh() {}
+     ~Mesh() {}
 
     void
     DrawMesh(Device* pDevice);
 
+
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
+    Material* m_material;
     
   };
 }

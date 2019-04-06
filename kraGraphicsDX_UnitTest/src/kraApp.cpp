@@ -196,57 +196,6 @@ App::run() {
     return true;
   }
 
-  void
-  App::LoadTriangle() {
-
-    
-    m_renderTargetView->createRenderTargetView(*m_device);
-
-    m_renderTargetView->setRenderTarget(*m_device);
-
-    m_viewport->createViewport(m_device->getHeight(), m_device->getWidth(), 1.0f, 1.0f);
-
-    m_viewport->setViewport(m_device);
- 
-   
-    if (!m_vertexShader->compileVertexShader("VS.hlsl", "VS"))
-    {
-      DWORD err = GetLastError();
-      MessageBox(NULL, "Failed to compile Vertex shader. Error:" + err, "Error", MB_OK);
-
-      std::cout <<"Failed to compile shader\n";
-      return;
-    }
-
-    m_vertexShader->createVertexShader(*m_device);
-
-    m_inputLayout->defineVertexLayout();
-
-    m_inputLayout->createInputLayout(*m_device, *m_vertexShader);
-    
-    m_inputLayout->setInputLayout(*m_device);
-
-    if (!m_pixelShader->compilePixelShader("PS.hlsl", "PS"))
-    {
-      MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
-
-      std::cout << "Failed to compile shader\n";
-      return;
-    }
-    m_pixelShader->createPixelShader(*m_device);
-    
-    Vertex vert1(Vector3(0.0f, 0.5f, 0.5f));
-    m_vertBuffer->add(vert1);
-    Vertex vert2(Vector3(0.5f, -0.5f, 0.5f));
-    m_vertBuffer->add(vert2);
-    Vertex vert3(Vector3(-0.5f, -0.5f, 0.5f));
-    m_vertBuffer->add(vert3);
-
-    m_vertBuffer->createHardwareBuffer(*m_device);
-    m_vertBuffer->setVertexBuffer(*m_device);
-
-    m_device->setPrimitiveTopology();
-  }
   
   void
   App::LoadModel() {
@@ -291,28 +240,74 @@ App::run() {
     }
     m_pixelShader->createPixelShader(*m_device);
 
-    Model newModel;
-
-    if (!newModel.loadModelFromFile("resources/Models/hoplite.obj", *m_device))
+    for (uint32 i = 0 ; i <  6; i++)
     {
-      MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
+      
+      std::string modelPath = "resources/Models/";
+      std::string modelName = "Vela_Mat_" + std::to_string(i+1) + ".X";
+      modelPath += modelName;
 
-      return;
+      Model newModel;
+      if (!newModel.loadModelFromFile(modelPath, *m_device, textureManager))
+      {
+        MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
+
+        return;
+      }
+
+      switch (i)
+      {
+      case 0:
+        textureManager->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Gun_BaseColor.tga");
+        break;
+
+      case 1:
+        textureManager->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Legs_BaseColor.tga");
+
+        break;
+
+      case 2:
+        textureManager->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Mechanical_BaseColor.tga");
+
+        break;
+      
+      case 3:
+        textureManager->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Char_BaseColor.tga");
+
+        break;
+
+      case 4:
+        textureManager->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Plate_BaseColor.tga");
+
+        break;
+
+      case 5:
+        textureManager->createTexture2DFromFile(*m_device, "resources/Textures/Vela_EyeCornea_BaseColor.tga");
+
+        break;
+      }
+
+      textureManager->createTexture2DFromFile(*m_device,
+        "resources/Textures/default.jpg");
+
+      newModel.getMeshVec()[i].m_material->setTextureOfType(kraTextureType::BASECOLOR, textureManager);
+
+      m_modelsVec.push_back(newModel);
     }
 
-    m_modelsVec.push_back(newModel);
-
-
+    
     m_device->setPrimitiveTopology();
 
 
-    textureManager->createTexture2DFromFile(*m_device,
-                                            "resources/Textures/crate_1.jpg");
+    /*textureManager->createTexture2DFromFile(*m_device,
+                                            "resources/Textures/default.jpg");*/
 
-    m_SRV->createShaderResourceView(*m_device, textureManager);
+      
+    /*m_SRV->createShaderResourceView(*m_device, textureManager);*/
+    
 
     textureManager->releaseTexture();
-
+    
 
 
     m_samplerState->createSamplerState(*m_device);
@@ -436,10 +431,12 @@ App::run() {
     m_mainCB->setConstData(1, mainCam.GetViewMatrix());
     m_mainCB->updateSubResources(*m_device);
 
-    m_SRV->setShaderResourceView(m_device, 0, 1);
+    //m_SRV->setShaderResourceView(m_device, 0, 1);
     
     for (uint32 i = 0; i < m_modelsVec.size(); i++) {
 
+      m_SRV->createShaderResourceView(*m_device, m_modelsVec[i].getMeshVec()[i].m_material->getTextureOfType(kraTextureType::BASECOLOR));
+      m_SRV->setShaderResourceView(m_device, 0, 1);
       m_modelsVec[i].Draw(m_device);
 
     }

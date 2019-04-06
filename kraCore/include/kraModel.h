@@ -14,6 +14,7 @@
 namespace kraEngineSDK {
   
   class Device;
+  class Texture;
   class Vector2;
   class Vector3;
   class KRA_CORE_EXPORT Model
@@ -26,7 +27,7 @@ namespace kraEngineSDK {
 
 
     bool 
-    loadModelFromFile(const std::string& fileName,  Device& pDevice);
+    loadModelFromFile(const std::string& fileName,  Device& pDevice, Texture* pTexture);
     void
     Model::processNode(aiNode* rootNode, const aiScene* pScene,  Device& pDevice);
     Mesh
@@ -39,7 +40,8 @@ namespace kraEngineSDK {
     Draw(Device* pDevice);
 
    private:
-    std::vector<Mesh> meshVec;
+    std::vector<Mesh> m_meshVec;
+    Vector<aiMaterial*> m_materialsVec;
   };
 
  

@@ -3,11 +3,12 @@
 
 #include "kraModel.h"
 #include "kraDevice.h"
+#include "kraTexture.h"
 
 namespace kraEngineSDK {
-  
+
   bool
-  Model::loadModelFromFile(const std::string& fileName, Device& pDevice) {
+    Model::loadModelFromFile(const std::string& fileName, Device& pDevice, Texture* pTexture) {
     std::vector<Vertex> tmpVerts;
     std::vector<unsigned short> tmpIndex;
     
@@ -29,7 +30,7 @@ namespace kraEngineSDK {
   Model::processNode(aiNode* rootNode, const aiScene* pScene,  Device& pDevice) {
     for (uint32 i = 0; i < rootNode->mNumMeshes; i++) {
       aiMesh* mesh = pScene->mMeshes[rootNode->mMeshes[i]];
-      meshVec.push_back(processMesh(mesh, pScene, pDevice));
+      m_meshVec.push_back(processMesh(mesh, pScene, pDevice));
     }
 
     for (uint32 i = 0; i < rootNode->mNumChildren; i++) {
@@ -41,7 +42,6 @@ namespace kraEngineSDK {
   Model::processMesh(aiMesh* pMesh, const aiScene* scene, Device& pDevice) {
     
     Mesh newMesh(pDevice);
-    aiString path;
 
     for (uint32 i = 0; i < pMesh->mNumVertices; i++) {
       Vertex vert;
@@ -50,11 +50,6 @@ namespace kraEngineSDK {
       vert.Pos.y = pMesh->mVertices[i].y;
       vert.Pos.z = pMesh->mVertices[i].z;
 
-      if (scene->HasMaterials())
-      {
-        //aiReturn texFound = scene->mMaterials[i]->GetTexture(aiTextureType_DIFFUSE, 0, &path);
-
-      }
       if (pMesh->HasTextureCoords(0))
       {
         vert.Tex.x = static_cast<float>(pMesh->mTextureCoords[0][i].x);
@@ -103,19 +98,19 @@ namespace kraEngineSDK {
 
   SIZE_T
   Model::getMeshVecSize() {
-    return meshVec.size();
+    return m_meshVec.size();
   }
   std::vector<Mesh>
   Model::getMeshVec() {
-    return meshVec;
+    return m_meshVec;
   }
   
   void
   Model::Draw(Device* pDevice) {
 
-    for (uint32 i = 0; i < meshVec.size(); i++)
+    for (uint32 i = 0; i < m_meshVec.size(); i++)
     {
-      meshVec[i].DrawMesh(pDevice);
+      m_meshVec[i].DrawMesh(pDevice);
     }
   }
 

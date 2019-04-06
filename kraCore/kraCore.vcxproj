@@ -93,7 +93,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(DEVLIBS)assimp/include/;$(DEVLIBS)assimp/build/$(PlatformTarget)/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(DEVLIBS)assimp/include/;$(DEVLIBS)assimp/build/$(PlatformTarget)/include/;$(DEVLIBS)imgui/include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -113,7 +113,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(DEVLIBS)assimp/include/;$(DEVLIBS)assimp/build/$(PlatformTarget)/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(DEVLIBS)assimp/include/;$(DEVLIBS)assimp/build/$(PlatformTarget)/include/;$(DEVLIBS)imgui/include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -192,6 +192,7 @@
     <ClInclude Include="include\kraGraphicsBuffer.h" />
     <ClInclude Include="include\kraIndexBuffer.h" />
     <ClInclude Include="include\kraInputLayout.h" />
+    <ClInclude Include="include\kraMaterial.h" />
     <ClInclude Include="include\kraMesh.h" />
     <ClInclude Include="include\kraModel.h" />
     <ClInclude Include="include\kraPixelShader.h" />
@@ -212,7 +213,6 @@
     <ClInclude Include="kraInput\include\kraInputMappings.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="kraClock.cpp" />
     <ClCompile Include="src\kraCamera.cpp" />
     <ClCompile Include="src\kraCameraManager.cpp" />
     <ClCompile Include="src\kraBaseApplication.cpp" />
@@ -225,6 +225,7 @@
     <ClCompile Include="src\kraGraphicsBuffer.cpp" />
     <ClCompile Include="src\kraIndexBuffer.cpp" />
     <ClCompile Include="src\kraInputLayout.cpp" />
+    <ClCompile Include="src\kraMaterial.cpp" />
     <ClCompile Include="src\kraModel.cpp" />
     <ClCompile Include="src\kraPixelShader.cpp" />
     <ClCompile Include="src\kraRasterizerState.cpp" />
