@@ -16,9 +16,9 @@ namespace kraEngineSDK {
   class Texture;
   class ShaderResourceView;
   class Material;
+  class RasterizerState;
 
   template<typename CONSVERTEX> class ConstantBuffer;
-
 
   class Device
   {
@@ -86,6 +86,8 @@ namespace kraEngineSDK {
     createConstantBufferEveryFrame() = 0;
     virtual ConstantBuffer<Matrix4>*
     createConstantBufferInstance() = 0;
+    virtual ConstantBuffer<Vector4>*
+    createConstantBufferInstanceVec3() = 0;
     virtual SamplerState*
     createSamplerStateInstance() = 0;
     virtual Texture*
@@ -94,6 +96,8 @@ namespace kraEngineSDK {
     createShaderRVInstance() = 0;
     virtual Material*
     createMaterialInstance() = 0;
+    virtual RasterizerState*
+    creatreRasterizerStateInstance() = 0;
 
   };
 }

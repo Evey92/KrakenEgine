@@ -17,7 +17,7 @@ namespace kraEngineSDK {
   void Camera::MoveForward(float defaz) 
   {
     m_pos += m_front * defaz;
-    m_objective += m_front * defaz;
+    //m_objective += m_front * defaz;
 
     dirty = true;
   }

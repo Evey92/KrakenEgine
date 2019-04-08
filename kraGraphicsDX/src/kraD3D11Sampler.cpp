@@ -14,13 +14,13 @@ namespace kraEngineSDK {
 
     D3D11_SAMPLER_DESC sampDesc;
     memset(&sampDesc, 0, sizeof(sampDesc));
-    sampDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+    sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
     sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
     sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
     sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
     sampDesc.MipLODBias = 0.0f;
     sampDesc.MaxAnisotropy = 1;
-    sampDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+    sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
     sampDesc.BorderColor[0] = 0;
     sampDesc.BorderColor[1] = 0;
     sampDesc.BorderColor[2] = 0;

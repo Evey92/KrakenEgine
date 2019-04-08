@@ -11,6 +11,7 @@
 #include <kraTexture.h>
 #include <kraShaderResourceView.h>
 #include <kraMaterial.h>
+#include <kraRasterizerState.h>
 
 #include "kraD3D11Device.h"
 #include "kraD3D11RenderTargetView.h"
@@ -26,6 +27,7 @@
 #include "kraD3D11Sampler.h"
 #include "kraD3D11Texture.h"
 #include "kraD3D11ShaderResourceView.h"
+#include "kraD3D11RasterizerState.h"
 
 namespace kraEngineSDK {
 
@@ -223,6 +225,10 @@ namespace kraEngineSDK {
   DeviceDX::createConstantBufferInstance() {
     return new ConstantBufferDX<Matrix4>();
   }
+  ConstantBuffer<Vector4>*
+    DeviceDX::createConstantBufferInstanceVec3() {
+    return new ConstantBufferDX<Vector4>();
+  }
   SamplerState*
   DeviceDX::createSamplerStateInstance() {
     return new SamplerStateDX();
@@ -241,5 +247,9 @@ namespace kraEngineSDK {
   DeviceDX::createMaterialInstance() {
     return new Material(*this);
   }
-
+  
+  RasterizerState*
+  DeviceDX::creatreRasterizerStateInstance() {
+    return new RasterizerStateDX();
+  }
 }

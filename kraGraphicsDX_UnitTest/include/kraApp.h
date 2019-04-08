@@ -23,6 +23,7 @@
 #include <kraIndexBuffer.h>
 #include <kraConstantBuffer.h>
 #include <kraConstantBufferMatrices.h>
+#include <kraRasterizerState.h>
 #include <kraShaderResourceView.h>
 #include <kraSampler.h>
 #include <kraVector4.h>
@@ -116,9 +117,11 @@ class App : public BaseApplication
   ConstantBuffer<CBChangeOnResize>* m_CBChangesOnResize;
   ConstantBuffer<CBChangesEveryFrame>* m_CBChangesEveryframe;
   ConstantBuffer<Matrix4>* m_mainCB;
+  ConstantBuffer<Vector4>* m_lightCB;
   Texture* m_pBackBuffer;
   Texture* m_texture;
   ShaderResourceView* m_SRV;
+  RasterizerState* m_rasState;
   SamplerState* m_samplerState;
   RenderAPIManager* apiManager;
   GraphicsAPI* gfxAPIInstance;
@@ -126,7 +129,7 @@ class App : public BaseApplication
   Matrix4 m_world;
   Matrix4 m_projection;
   Vector4 color;
-  Vector<Model> m_modelsVec;
+  Vector<Model*> m_modelsVec;
   Texture* textureManager;
   Camera mainCam;
   InputManager* m_inputManager;

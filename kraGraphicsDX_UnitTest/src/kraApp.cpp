@@ -179,6 +179,8 @@ App::run() {
       return false;
     }
 
+    m_rasState = m_device->creatreRasterizerStateInstance();
+
     m_SRV = m_device->createShaderRVInstance();
     if (!m_indexBuffer)
     {
@@ -188,6 +190,13 @@ App::run() {
 
     m_mainCB = m_device->createConstantBufferInstance();
     if (!m_mainCB)
+    {
+      MessageBox(NULL, "Failed to create const Buffer", "Error", MB_OK);
+      return false;
+    }
+
+    m_lightCB = m_device->createConstantBufferInstanceVec3();
+    if (!m_lightCB)
     {
       MessageBox(NULL, "Failed to create const Buffer", "Error", MB_OK);
       return false;
@@ -231,7 +240,7 @@ App::run() {
     m_inputLayout->createInputLayout(*m_device, *m_vertexShader);
 
 
-    if (!m_pixelShader->compilePixelShader("simplePS.hlsl", "PS"))
+    if (!m_pixelShader->compilePixelShader("PS.hlsl", "PS"))
     {
       MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
        
@@ -240,15 +249,17 @@ App::run() {
     }
     m_pixelShader->createPixelShader(*m_device);
 
-    for (uint32 i = 0 ; i <  6; i++)
+    for (uint32 i = 0 ; i <  6; ++i)
     {
       
       std::string modelPath = "resources/Models/";
       std::string modelName = "Vela_Mat_" + std::to_string(i+1) + ".X";
       modelPath += modelName;
 
-      Model newModel;
-      if (!newModel.loadModelFromFile(modelPath, *m_device, textureManager))
+      Model* newModel = new Model();
+      Texture* newTex = m_device->createTextureInstance();
+      Texture* normalTex = m_device->createTextureInstance();
+      if (!newModel->loadModelFromFile(modelPath, *m_device, textureManager))
       {
         MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
 
@@ -259,38 +270,68 @@ App::run() {
       {
       case 0:
         //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, "resources/Textures/Vela_Gun_BaseColor.tga");
-        textureManager->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Gun_BaseColor.tga");
+        newTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Gun_BaseColor.tga");
+        normalTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Gun_Normal.tga");
+        //newModel->getMeshVec()[i]->m_material->m_baseColor->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Gun_BaseColor.tga");
+
         break;
 
       case 1:
         //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_Legs_BaseColor.tga");
+        newTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Legs_BaseColor.tga");
+        normalTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Legs_Normal.tga");
+        //newModel->getMeshVec()[i]->m_material->m_baseColor->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Legs_BaseColor.tga");
+
         break;
 
       case 2:
         //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_Mechanical_BaseColor.tga");
+        newTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Mechanical_BaseColor.tga");
+        normalTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Mechanical_Normal.tga");
+        //newModel->getMeshVec()[i]->m_material->m_baseColor->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Mechanical_BaseColor.tga");
         break;
       
       case 3:
         //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_Char_BaseColor.tga");
+        newTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Char_BaseColor.tga");
+        normalTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Char_Normal.tga");
+        //newModel->getMeshVec()[i]->m_material->m_baseColor->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Char_BaseColor.tga");
+
         break;
 
       case 4:
         //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_Plate_BaseColor.tga");
+        newTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Plate_BaseColor.tga");
+        normalTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Plate_Normal.tga");
+
+        //newModel->getMeshVec()[i]->m_material->m_baseColor->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Plate_BaseColor.tga");
+
         break;
 
       case 5:
         //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_EyeCornea_BaseColor.tga");
+        newTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_EyeCornea_BaseColor.tga");
+        normalTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_EyeCornea_Normal.tga");
+
+        //newModel->getMeshVec()[i]->m_material->m_baseColor->createTexture2DFromFile(*m_device, "resources/Textures/Vela_EyeCornea_BaseColor.tga");
+
         break;
       }
 
-      newModel.getMeshVec()[i]->m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, textureManager, "resources/Textures/Vela_Gun_BaseColor.tga");
+      for (int j = 0; j < newModel->getMeshVecSize(); ++j) {
+        //newModel->getMeshVec()[j]->m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, newTex, "resources/Textures/Vela_Gun_BaseColor.tga");
+        newModel->getMeshVec()[j]->m_material->m_baseColor = newTex;
+        newModel->getMeshVec()[j]->m_material->m_Normal = normalTex;
 
+      }
+      newTex->releaseTexture();
+      normalTex->releaseTexture();
       m_modelsVec.push_back(newModel);
     }
 
     
     m_device->setPrimitiveTopology();
-
+    m_rasState->createRasterizerState(*m_device);
 
     /*textureManager->createTexture2DFromFile(*m_device,
                                             "resources/Textures/default.jpg");*/
@@ -299,11 +340,12 @@ App::run() {
     /*m_SRV->createShaderResourceView(*m_device, textureManager);*/
     
 
-    textureManager->releaseTexture();
     
 
 
     m_samplerState->createSamplerState(*m_device);
+    
+    m_rasState->setRasterizerState(*m_device);
 
     m_world.identity();
     m_mainCB->add(m_world);
@@ -320,9 +362,13 @@ App::run() {
     m_projection.MatrixPerspectiveFOV(mainCam.getFOV(), static_cast<float>(m_device->getWidth()), static_cast<float>(m_device->getHeight()), mainCam.getNearPlane(), mainCam.getFarPlane());
     m_mainCB->add(m_projection);
 
-    m_mainCB->createConstantBuffer(*m_device);
+    m_lightCB->add(Vector4(mainCam.getPosition(), 1.0f));
 
-    m_mainCB->updateSubResources(*m_device);
+    m_mainCB->createConstantBuffer(*m_device);
+    m_lightCB->createConstantBuffer(*m_device);
+
+    m_mainCB->createConstantBuffer(*m_device);
+    m_lightCB->updateSubResources(*m_device);
   }
 
   HINSTANCE
@@ -420,17 +466,29 @@ App::run() {
     
     m_samplerState->setSamplerState(*m_device);
 
+
     m_mainCB->setConstData(0, m_world);
     m_mainCB->setConstData(1, mainCam.GetViewMatrix());
     m_mainCB->updateSubResources(*m_device);
 
-    //m_SRV->setShaderResourceView(m_device, 0, 1);
-    
-    for (uint32 i = 0; i < m_modelsVec.size(); i++) {
+    m_lightCB->setConstData(0, mainCam.getPosition());
+    m_lightCB->updateSubResources(*m_device);
 
-      m_SRV->createShaderResourceView(*m_device, m_modelsVec[i].getMeshVec()[i]->m_material->getTextureOfType(kraTextureType::BASECOLOR));
-      m_SRV->setShaderResourceView(m_device, 0, 1);
-      m_modelsVec[i].Draw(m_device);
+    //m_SRV->setShaderResourceView(m_device, 0, 1);
+    ShaderResourceView* srv = m_device->createShaderRVInstance();
+    uint32 numViews = 0;
+    for (uint32 i = 0; i < m_modelsVec.size(); ++i) {
+      for (uint32 j = 0; j < m_modelsVec[i]->getMeshVecSize(); ++j) {
+
+        
+        m_modelsVec[i]->getMeshVec()[j]->m_material->getTextureOfType(kraTextureType::BASECOLOR)->setTextureShaderResource(m_device, 0, 1);
+        //m_modelsVec[i]->getMeshVec()[j]->m_material->getTextureOfType(kraTextureType::NORMAL)->setTextureShaderResource(m_device, 0, 1);
+        
+      }
+
+      /*srv->setShaderResourceView(m_device, 0, numViews);
+      srv->releaseShaderResourceView();*/
+      m_modelsVec[i]->Draw(m_device);
 
     }
 

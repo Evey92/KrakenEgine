@@ -116,7 +116,21 @@ namespace kraEngineSDK {
 
     stbi_image_free(image);
 
+    m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, nullptr, &m_pTextureRV);
+
     return true;
+  }
+
+  void
+  TextureDX::setTextureShaderResource(const Device* pDevice,
+                                      uint32 startSlot,
+                                      uint32 numViews) {
+
+    const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
+
+    m_pDevice->m_pImmediateContext->PSSetShaderResources(startSlot,
+      numViews,
+      &m_pTextureRV);
   }
 
   void

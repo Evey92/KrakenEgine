@@ -31,7 +31,7 @@ namespace kraEngineSDK {
     void
     setTextureOfType(Device& pDevice, kraTextureType::E texType, Texture* tex, std::string fileName);
 
-  private:
+  public:
 
     Texture* m_baseColor;
     Texture* m_metalness;

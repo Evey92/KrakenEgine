@@ -9,13 +9,11 @@ namespace kraEngineSDK {
 
   bool
     Model::loadModelFromFile(const std::string& fileName, Device& pDevice, Texture* pTexture) {
-    std::vector<Vertex> tmpVerts;
-    std::vector<unsigned short> tmpIndex;
-    
+
     Assimp::Importer aImporter;
 
     const aiScene* scene = aImporter.ReadFile(fileName,
-      aiProcessPreset_TargetRealtime_MaxQuality);
+      aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_JoinIdenticalVertices | aiProcess_ConvertToLeftHanded);
 
     if (!scene)
     {
@@ -41,7 +39,7 @@ namespace kraEngineSDK {
   Mesh*
   Model::processMesh(aiMesh* pMesh, const aiScene* scene, Device& pDevice) {
     
-    Mesh newMesh(pDevice);
+    Mesh* newMesh = new Mesh(pDevice);
 
     for (uint32 i = 0; i < pMesh->mNumVertices; i++) {
       Vertex vert;
@@ -71,7 +69,7 @@ namespace kraEngineSDK {
         vert.m_binormal.y = pMesh->mBitangents->y;
         vert.m_binormal.z = pMesh->mBitangents->z;
       }
-      newMesh.m_vertexBurffer->add(vert);
+      newMesh->m_vertexBurffer->add(vert);
     }
     
 
@@ -79,27 +77,24 @@ namespace kraEngineSDK {
       const aiFace& face = pMesh->mFaces[i];
 
       for (uint32 j = 0; j < face.mNumIndices; ++j) {
-        newMesh.m_indexBuffer->add(face.mIndices[j]);
+        newMesh->m_indexBuffer->add(face.mIndices[j]);
       }
     }
     
-    newMesh.m_vertexBurffer->createHardwareBuffer(pDevice);
-    newMesh.m_indexBuffer->createIndexBuffer(pDevice);
+    newMesh->m_vertexBurffer->createHardwareBuffer(pDevice);
+    newMesh->m_indexBuffer->createIndexBuffer(pDevice);
 
-    if (scene->HasTextures())
-    {
-      scene->mNumTextures;
-      scene->mTextures;
-    }
-    return &newMesh;
+
+    return newMesh;
   }
 
   SIZE_T
   Model::getMeshVecSize() {
     return m_meshVec.size();
   }
-  std::vector<Mesh*>
-  Model::getMeshVec() {
+  
+  const std::vector<Mesh*>&
+    Model::getMeshVec() const{
     return m_meshVec;
   }
   

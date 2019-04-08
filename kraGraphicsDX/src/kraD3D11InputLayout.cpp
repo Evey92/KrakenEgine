@@ -39,7 +39,7 @@ namespace kraEngineSDK {
     texDesc.SemanticIndex = 0;
     texDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
     texDesc.InputSlot = 0;
-    texDesc.AlignedByteOffset = 16;
+    texDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
     texDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     texDesc.InstanceDataStepRate = 0;
 
@@ -53,7 +53,7 @@ namespace kraEngineSDK {
     normalDesc.SemanticIndex = 0;
     normalDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
     normalDesc.InputSlot = 0;
-    normalDesc.AlignedByteOffset = 24;
+    normalDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
     normalDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     normalDesc.InstanceDataStepRate = 0;
 
@@ -67,7 +67,7 @@ namespace kraEngineSDK {
     tagentDesc.SemanticIndex = 0;
     tagentDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
     tagentDesc.InputSlot = 0;
-    tagentDesc.AlignedByteOffset = 40;
+    tagentDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
     tagentDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     tagentDesc.InstanceDataStepRate = 0;
 
@@ -81,7 +81,7 @@ namespace kraEngineSDK {
     binormalDesc.SemanticIndex = 0;
     binormalDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
     binormalDesc.InputSlot = 0;
-    binormalDesc.AlignedByteOffset = 56;
+    binormalDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
     binormalDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     binormalDesc.InstanceDataStepRate = 0;
 
@@ -95,7 +95,7 @@ namespace kraEngineSDK {
     indexDesc.SemanticIndex = 0;
     indexDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
     indexDesc.InputSlot = 0;
-    indexDesc.AlignedByteOffset = 72;
+    indexDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
     indexDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     indexDesc.InstanceDataStepRate = 0;
    

@@ -2,6 +2,7 @@
 #include <kraTexture.h>
 
 #include "kraPrerequisitesGFX.h"
+#include "kraD3D11ShaderResourceView.h"
 
 namespace kraEngineSDK {
   
@@ -22,8 +23,11 @@ namespace kraEngineSDK {
     createTexture2D(void* pDevice, int height, int width,
                     void* format, void* bindFlag, void* desc);
     bool
-    createTexture2DFromFile(const Device&, std::string filename);
-
+    createTexture2DFromFile(const Device& pDevice, std::string filename);
+    void
+    setTextureShaderResource(const Device* pDevice,
+                             uint32 startSlot,
+                             uint32 numViews);
     void
     releaseTexture();
 
@@ -33,7 +37,8 @@ namespace kraEngineSDK {
 
     //ID3D11Texture1D* m_pd3dTexture1D = nullptr;
     ID3D11Texture2D* m_pd3dTexture2D = nullptr;
-    ShaderResourceView* m_texSRV;
+    ID3D11ShaderResourceView* m_pTextureRV = nullptr;
+    //ShaderResourceViewDX* m_texSRV;
     //ID3D11Texture3D* m_pd3dTexture3D = nullptr;
   };
 }

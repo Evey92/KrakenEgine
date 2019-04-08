@@ -8,6 +8,7 @@ enum buttons
 };
 
 namespace kraEngineSDK {
+  
   void
    InputManagerGI::managerUpdate() {
     m_inputManager.Update();

@@ -5,6 +5,7 @@
 namespace kraEngineSDK {
 
   Material::Material(Device& pDevice) {
+    
     m_baseColor = pDevice.createTextureInstance();
     m_metalness = pDevice.createTextureInstance();
     m_specular = pDevice.createTextureInstance();
@@ -50,7 +51,7 @@ namespace kraEngineSDK {
     switch (texType)
     {
     case kraTextureType::BASECOLOR:
-      *this->m_baseColor = *tex;
+      m_baseColor = tex;
       //m_baseColor->createTexture2DFromFile(pDevice, fileName);
       break;
     case kraTextureType::METALNESS:
@@ -66,7 +67,7 @@ namespace kraEngineSDK {
       m_emissive->createTexture2DFromFile(pDevice, fileName);
       break;
     case kraTextureType::NORMAL:
-      m_Normal->createTexture2DFromFile(pDevice, fileName);
+      m_Normal = tex;
       break;
     case kraTextureType::AMBIENT:
       m_ambientO->createTexture2DFromFile(pDevice, fileName);

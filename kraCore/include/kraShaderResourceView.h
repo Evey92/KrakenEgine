@@ -18,5 +18,7 @@ namespace kraEngineSDK {
     setShaderResourceView(const Device* pDevice,
                           uint32 startSlot,
                           uint32 numViews) = 0;
+    virtual void
+    releaseShaderResourceView() = 0;
   };
 }

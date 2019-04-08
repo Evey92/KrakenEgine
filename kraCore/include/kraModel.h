@@ -34,8 +34,10 @@ namespace kraEngineSDK {
     processMesh(aiMesh* pMesh, const aiScene* scene,  Device& pDevice);
     SIZE_T
     getMeshVecSize();
-    std::vector<Mesh*>
-    getMeshVec();
+    
+    const std::vector<Mesh*>&
+    getMeshVec() const;
+
     void
     Draw(Device* pDevice);
 

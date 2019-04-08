@@ -13,8 +13,7 @@ namespace kraEngineSDK {
 
     HRESULT hr;
 
-    hr = m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_texture->m_pd3dTexture2D,
-                                                           nullptr, &m_pTextureRV);
+    hr = m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_texture->m_pd3dTexture2D, NULL, &m_pTextureRV);
     
     if (!m_pTextureRV) {
       MessageBox(NULL, "Failed to load Shader Resource View", "Error", MB_OK);
@@ -35,6 +34,11 @@ namespace kraEngineSDK {
     m_pDevice->m_pImmediateContext->PSSetShaderResources(startSlot,
                                                          numViews,
                                                          &m_pTextureRV);
+  }
+
+  void
+  ShaderResourceViewDX::releaseShaderResourceView() {
+    m_pTextureRV->Release();
   }
 
 }
