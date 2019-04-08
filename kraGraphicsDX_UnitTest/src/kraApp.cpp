@@ -249,10 +249,9 @@ App::run() {
     }
     m_pixelShader->createPixelShader(*m_device);
 
-    for (uint32 i = 0 ; i <  6; ++i)
+    /*for (uint32 i = 0 ; i <  6; ++i)
     {
       
-      std::string modelPath = "resources/Models/";
       std::string modelName = "Vela_Mat_" + std::to_string(i+1) + ".X";
       modelPath += modelName;
 
@@ -327,21 +326,23 @@ App::run() {
       newTex->releaseTexture();
       normalTex->releaseTexture();
       m_modelsVec.push_back(newModel);
-    }
+    }*/
 
     
+      modelPath += "Vela.FBX";
+      Model* newModel = new Model();
+      Texture* newTex = m_device->createTextureInstance();
+      Texture* normalTex = m_device->createTextureInstance();
+      if (!newModel->loadModelFromFile(modelPath, *m_device, textureManager))
+      {
+        MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
+
+        return;
+      }
+      m_modelsVec.push_back(newModel);
+
     m_device->setPrimitiveTopology();
     m_rasState->createRasterizerState(*m_device);
-
-    /*textureManager->createTexture2DFromFile(*m_device,
-                                            "resources/Textures/default.jpg");*/
-
-      
-    /*m_SRV->createShaderResourceView(*m_device, textureManager);*/
-    
-
-    
-
 
     m_samplerState->createSamplerState(*m_device);
     

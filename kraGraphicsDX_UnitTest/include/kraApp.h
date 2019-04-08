@@ -133,5 +133,6 @@ class App : public BaseApplication
   Texture* textureManager;
   Camera mainCam;
   InputManager* m_inputManager;
-  
+  std::string modelPath = "resources/Models/";
+
 };

@@ -26,7 +26,7 @@ namespace kraEngineSDK {
     ~Material() = default;
 
     Texture*
-      getTextureOfType(kraTextureType::E texType);
+    getTextureOfType(kraTextureType::E texType);
 
     void
     setTextureOfType(Device& pDevice, kraTextureType::E texType, Texture* tex, std::string fileName);

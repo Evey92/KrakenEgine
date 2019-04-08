@@ -19,7 +19,8 @@ namespace kraEngineSDK {
 
     void
     DrawMesh(Device* pDevice);
-
+    Material const&
+    getMaterial() const;
 
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;

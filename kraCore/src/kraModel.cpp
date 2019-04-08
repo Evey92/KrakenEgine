@@ -81,6 +81,18 @@ namespace kraEngineSDK {
       }
     }
     
+    if (scene->HasMaterials())
+    {
+      for (uint32 i = 0; i < scene->mNumMaterials; ++i) {
+        aiMaterial* mat = scene->mMaterials[i];
+        aiString matName = mat->GetName();
+
+        //TODO: Make a function on mesh that loads textures onto that mesh'materials
+
+      }
+      
+    }
+
     newMesh->m_vertexBurffer->createHardwareBuffer(pDevice);
     newMesh->m_indexBuffer->createIndexBuffer(pDevice);
 
