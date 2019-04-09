@@ -38,12 +38,17 @@ namespace kraEngineSDK {
     const std::vector<Mesh*>&
     getMeshVec() const;
 
+    Mesh&
+    getMeshVecObjbyIndex(uint32 index) const;
+
     void
     Draw(Device* pDevice);
 
    private:
     std::vector<Mesh*> m_meshVec;
     Vector<aiMaterial*> m_materialsVec;
+    uint32 m_currentMesh = 0;
+    uint32 m_currentMat = 0;
   };
 
  

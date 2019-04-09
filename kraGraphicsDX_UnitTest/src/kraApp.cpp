@@ -240,7 +240,7 @@ App::run() {
     m_inputLayout->createInputLayout(*m_device, *m_vertexShader);
 
 
-    if (!m_pixelShader->compilePixelShader("PS.hlsl", "PS"))
+    if (!m_pixelShader->compilePixelShader("simplePS.hlsl", "PS"))
     {
       MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
        
@@ -352,8 +352,8 @@ App::run() {
     m_mainCB->add(m_world);
     
 
-    mainCam.SetPosition(Vector3(0.0f, 0.0f, -20.0f));
-    mainCam.SetObjecive(Vector3(0.0f, 1.0f, 0.0f));
+    mainCam.SetPosition(Vector3(0.0f, 50.0f, -20.0f));
+    mainCam.SetObjecive(Vector3(0.0f, 50.0f, 0.0f));
     mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
     mainCam.setFront(Vector3(0.0f, 0.0f, 1.0f));
     mainCam.setRight(Vector3(1.0f, 0.0f, 0.0f));
@@ -395,6 +395,7 @@ App::run() {
   App::update(float deltaTime) {
 
     deltaTime += 0.0125f;
+
 
   }
 
@@ -476,20 +477,17 @@ App::run() {
     m_lightCB->updateSubResources(*m_device);
 
     //m_SRV->setShaderResourceView(m_device, 0, 1);
-    ShaderResourceView* srv = m_device->createShaderRVInstance();
+    //ShaderResourceView* srv = m_device->createShaderRVInstance();
     uint32 numViews = 0;
     for (uint32 i = 0; i < m_modelsVec.size(); ++i) {
       for (uint32 j = 0; j < m_modelsVec[i]->getMeshVecSize(); ++j) {
 
-        
-        m_modelsVec[i]->getMeshVec()[j]->m_material->getTextureOfType(kraTextureType::BASECOLOR)->setTextureShaderResource(m_device, 0, 1);
-        //m_modelsVec[i]->getMeshVec()[j]->m_material->getTextureOfType(kraTextureType::NORMAL)->setTextureShaderResource(m_device, 0, 1);
-        
+          m_modelsVec[i]->getMeshVecObjbyIndex(j).m_material->getTextureOfType(kraTextureType::BASECOLOR)->setTextureShaderResource(m_device, 0, 1);
+          m_modelsVec[i]->getMeshVec()[j]->m_material->getTextureOfType(kraTextureType::NORMAL)->setTextureShaderResource(m_device, 1, 1); 
+          m_modelsVec[i]->getMeshVecObjbyIndex(j).DrawMesh(m_device);
+          //m_modelsVec[i]->Draw(m_device);
       }
-
-      /*srv->setShaderResourceView(m_device, 0, numViews);
-      srv->releaseShaderResourceView();*/
-      m_modelsVec[i]->Draw(m_device);
+      
 
     }
 

@@ -51,7 +51,7 @@ namespace kraEngineSDK {
     memset(&normalDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
     normalDesc.SemanticName = "NORMAL";
     normalDesc.SemanticIndex = 0;
-    normalDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+    normalDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
     normalDesc.InputSlot = 0;
     normalDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
     normalDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
@@ -65,7 +65,7 @@ namespace kraEngineSDK {
     memset(&tagentDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
     tagentDesc.SemanticName = "TANGENT";
     tagentDesc.SemanticIndex = 0;
-    tagentDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+    tagentDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
     tagentDesc.InputSlot = 0;
     tagentDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
     tagentDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
@@ -79,7 +79,7 @@ namespace kraEngineSDK {
     memset(&binormalDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
     binormalDesc.SemanticName = "BINORMAL";
     binormalDesc.SemanticIndex = 0;
-    binormalDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+    binormalDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
     binormalDesc.InputSlot = 0;
     binormalDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
     binormalDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;

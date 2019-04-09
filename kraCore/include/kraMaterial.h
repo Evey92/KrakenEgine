@@ -29,7 +29,7 @@ namespace kraEngineSDK {
     getTextureOfType(kraTextureType::E texType);
 
     void
-    setTextureOfType(Device& pDevice, kraTextureType::E texType, Texture* tex, std::string fileName);
+    setTextureOfType(Device& pDevice, kraTextureType::E texType, std::string fileName);
 
   public:
 

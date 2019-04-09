@@ -1,5 +1,6 @@
 Texture2D albedoTex: register( t0 );
 Texture2D normalTex: register( t1 );
+
 SamplerState samLinear : register( s0 );
 
 cbuffer ConstantBuffer : register(b1)
@@ -16,15 +17,16 @@ struct PS_INPUT
 
 struct PS_OUTPUT
 {
-  float4 Position : COLOR0;
-  float4 Normal   : COLOR1;
-  float4 Color    : COLOR2;
+  float4 Position : SV_TARGET;
+  float4 Normal   : SV_TARGET;
+  float4 Color    : SV_TARGET;
 };
 
-PS_OUTPUT PS(PS_INPUT input) : SV_TARGET
+float4 PS(PS_INPUT input) : SV_TARGET
 {
   PS_OUTPUT Output = (PS_OUTPUT)0;
   float3 lightPos = float3(100.0f, 0.0f, 100.0f);
+  float4 finalColor;
 
   float3 normal = (2.0f * normalTex.Sample(samLinear, input.Tex)) - 1.0f;
   normal = normalize(mul(normal, input.TBN));
@@ -50,10 +52,11 @@ PS_OUTPUT PS(PS_INPUT input) : SV_TARGET
 
   float RefV = normalize(reflect(-dirView, normal));
   
-  Output.Position = input.Pos;
+  //Output.Position = input.Pos;
   Output.Color = Diffusecolor;
   Output.Normal = float4(normal, 1.0f);
 
-  return Output;
+  finalColor = (Diffusecolor);
+  return finalColor;
 
 }

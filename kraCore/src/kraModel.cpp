@@ -8,7 +8,7 @@
 namespace kraEngineSDK {
 
   bool
-    Model::loadModelFromFile(const std::string& fileName, Device& pDevice, Texture* pTexture) {
+  Model::loadModelFromFile(const std::string& fileName, Device& pDevice, Texture* pTexture) {
 
     Assimp::Importer aImporter;
 
@@ -21,6 +21,8 @@ namespace kraEngineSDK {
     }
 
     processNode(scene->mRootNode, scene, pDevice);
+    m_currentMesh = 0;
+    m_currentMat = 0;
     return true;
   }
 
@@ -83,14 +85,42 @@ namespace kraEngineSDK {
     
     if (scene->HasMaterials())
     {
-      for (uint32 i = 0; i < scene->mNumMaterials; ++i) {
-        aiMaterial* mat = scene->mMaterials[i];
-        aiString matName = mat->GetName();
+      aiString matName;
+      if (m_currentMesh < scene->mNumMeshes && m_currentMesh != 1)
+      {
+        aiMaterial* mat = scene->mMaterials[m_currentMat];
+        matName = mat->GetName();
 
         //TODO: Make a function on mesh that loads textures onto that mesh'materials
-
+        switch (matName.data[0])
+        {
+        case 'G':
+          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_Gun_BaseColor.tga");
+          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::NORMAL, "resources/Textures/Vela_Gun_Normal.tga");
+          break;
+        case 'L':
+          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_Legs_BaseColor.tga");
+          break;
+        case 'M':
+          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_Mechanical_BaseColor.tga");
+          break;
+        case 'C':
+          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_Char_BaseColor.tga");
+          break;
+        case 'P':
+          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_Plate_BaseColor.tga");
+          break;
+        case 'E':
+          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_EyeCornea_BaseColor.tga");
+          break;
+        }
+        ++m_currentMesh;
+        ++m_currentMat;
       }
-      
+      else {
+        newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/default.jpg");
+        ++m_currentMesh;
+      }
     }
 
     newMesh->m_vertexBurffer->createHardwareBuffer(pDevice);
@@ -110,6 +140,11 @@ namespace kraEngineSDK {
     return m_meshVec;
   }
   
+  Mesh&
+  Model::getMeshVecObjbyIndex(uint32 index) const {
+    return *m_meshVec[index];
+  }
+
   void
   Model::Draw(Device* pDevice) {
 

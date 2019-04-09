@@ -116,7 +116,7 @@ namespace kraEngineSDK {
 
     stbi_image_free(image);
 
-    m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, nullptr, &m_pTextureRV);
+    m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, NULL, &m_pTextureRV);
 
     return true;
   }

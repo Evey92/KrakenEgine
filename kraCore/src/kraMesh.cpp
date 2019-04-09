@@ -29,8 +29,8 @@ namespace kraEngineSDK {
     pDevice->DrawIndexed(m_indexBuffer->getBufferSize(), 0, 0);
   }
 
-  Material const&
-  Mesh::getMaterial() const {
+  Material&
+  Mesh::getMaterial() {
     return *m_material;
   }
 }

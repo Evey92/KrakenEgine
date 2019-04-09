@@ -46,13 +46,12 @@ namespace kraEngineSDK {
   }
 
   void
-  Material::setTextureOfType(Device& pDevice, kraTextureType::E texType, Texture* tex, std::string fileName)
+  Material::setTextureOfType(Device& pDevice, kraTextureType::E texType, std::string fileName)
   {
     switch (texType)
     {
     case kraTextureType::BASECOLOR:
-      m_baseColor = tex;
-      //m_baseColor->createTexture2DFromFile(pDevice, fileName);
+      m_baseColor->createTexture2DFromFile(pDevice, fileName);
       break;
     case kraTextureType::METALNESS:
       m_metalness->createTexture2DFromFile(pDevice, fileName);
@@ -67,7 +66,7 @@ namespace kraEngineSDK {
       m_emissive->createTexture2DFromFile(pDevice, fileName);
       break;
     case kraTextureType::NORMAL:
-      m_Normal = tex;
+      m_Normal->createTexture2DFromFile(pDevice, fileName);
       break;
     case kraTextureType::AMBIENT:
       m_ambientO->createTexture2DFromFile(pDevice, fileName);

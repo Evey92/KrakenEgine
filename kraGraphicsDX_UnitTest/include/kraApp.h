@@ -103,7 +103,7 @@ class App : public BaseApplication
   void
   preDestroy();
 
-  Device* m_device;
+  kraEngineSDK::Device* m_device;
   RenderTargetView* m_renderTargetView;
   DepthStencil* m_depthStencil;
   DepthStencylView* m_depthStencilView;
