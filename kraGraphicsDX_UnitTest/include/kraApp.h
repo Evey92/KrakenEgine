@@ -66,6 +66,8 @@ class App : public BaseApplication
   MapBoolDevice(uint32 userBtn, uint32 type, uint32 key);
   Camera*
   getActiveCamera();
+  void
+  RotateWorldMat(int dir);
 
   void
   strafeCamera(int dir);
@@ -105,6 +107,7 @@ class App : public BaseApplication
 
   kraEngineSDK::Device* m_device;
   RenderTargetView* m_renderTargetView;
+  RenderTargetView* m_normalTargetView;
   DepthStencil* m_depthStencil;
   DepthStencylView* m_depthStencilView;
   Viewport* m_viewport;

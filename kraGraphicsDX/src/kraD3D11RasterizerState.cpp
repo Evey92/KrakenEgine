@@ -15,9 +15,16 @@ namespace kraEngineSDK {
     memset(&rasDesc, 0, sizeof(D3D11_RASTERIZER_DESC));
  
     rasDesc.FillMode = D3D11_FILL_SOLID;
-    rasDesc.CullMode = D3D11_CULL_FRONT;
-    rasDesc.FrontCounterClockwise = true;
-    rasDesc.AntialiasedLineEnable = true;
+    rasDesc.CullMode = D3D11_CULL_BACK;
+    rasDesc.FrontCounterClockwise = false;
+    rasDesc.DepthBias = 0;
+    rasDesc.DepthBiasClamp = 0;
+    rasDesc.SlopeScaledDepthBias = 0;
+    rasDesc.DepthClipEnable = true;
+    rasDesc.ScissorEnable = false;
+    rasDesc.MultisampleEnable = false;
+    rasDesc.AntialiasedLineEnable = false;
+    rasDesc.AntialiasedLineEnable = false;
 
     m_pDevice.m_pd3dDevice->CreateRasterizerState(&rasDesc, &m_rasterizerState);
   }

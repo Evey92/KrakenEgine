@@ -17,12 +17,12 @@ struct PS_INPUT
 
 struct PS_OUTPUT
 {
-  float4 Position : SV_TARGET;
-  float4 Normal   : SV_TARGET;
-  float4 Color    : SV_TARGET;
+  //float4 Position : SV_TARGET0;
+  float4 Color    : SV_TARGET0;
+  float4 Normal   : SV_TARGET1;
 };
 
-float4 PS(PS_INPUT input) : SV_TARGET
+PS_OUTPUT PS(PS_INPUT input) : SV_TARGET
 {
   PS_OUTPUT Output = (PS_OUTPUT)0;
   float3 lightPos = float3(100.0f, 0.0f, 100.0f);
@@ -57,6 +57,6 @@ float4 PS(PS_INPUT input) : SV_TARGET
   Output.Normal = float4(normal, 1.0f);
 
   finalColor = (Diffusecolor);
-  return finalColor;
+  return Output;
 
 }

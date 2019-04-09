@@ -30,6 +30,15 @@ namespace kraEngineSDK {
 
   }
 
+  void Camera::MoveUP(float defaz)
+  {
+    m_pos += m_up * defaz;
+    m_objective += m_up* defaz;
+    dirty = true;
+
+  }
+
+
   void Camera::Rotate(Vector3 Axis, float angle)
   {
     if (Axis == Vector3(1.0f, 0.0f, 0.0f))

@@ -87,6 +87,13 @@ App::run() {
       return false;
     }
 
+    m_normalTargetView = m_device->createRenderTargetInsttance();
+    if (!m_renderTargetView)
+    {
+      MessageBox(NULL, "Failed to create Render Target", "Error", MB_OK);
+      return false;
+    }
+
     m_depthStencil = m_device->createDepthStencilInstance();
     if (!m_depthStencil)
     {
@@ -178,6 +185,12 @@ App::run() {
       MessageBox(NULL, "Failed to create Index Buffer", "Error", MB_OK);
       return false;
     }
+    m_texture = m_device->createTextureInstance();
+    if (!m_indexBuffer)
+    {
+      MessageBox(NULL, "Failed to create Index Buffer", "Error", MB_OK);
+      return false;
+    }
 
     m_rasState = m_device->creatreRasterizerStateInstance();
 
@@ -211,16 +224,26 @@ App::run() {
     mainCam.setFOV(kraMath::DEG2RAD(90.0f));
     mainCam.setNearPlane(0.01f);
     mainCam.setFarPlane(1000.0f);
-
+    
+    //m_texture->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Gun_BaseColor.tga");
     m_renderTargetView->createRenderTargetView(*m_device);
+    //m_texture->releaseTexture();
+
+    //m_texture->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Gun_Normal.tga");
+    //m_renderTargetView->createRenderTargetView(*m_device, m_texture);
+    //m_texture->releaseTexture();
 
     m_depthStencil->setDepthStencil(*m_device, m_device->getHeight(), m_device->getWidth());
 
+    m_depthStencil->createDepthStencilState(*m_device);
+
+    m_depthStencil->setDepthStencilState(*m_device);
+
     m_depthStencilView->createDepthStencilView(*m_device, *m_depthStencil);
 
-    m_renderTargetView->setRenderTarget(*m_device, *m_depthStencilView);
+    m_renderTargetView->setRenderTarget(*m_device, 1);
 
-    m_viewport->createViewport(m_device->getWidth(), m_device->getHeight(), 1.0f, 1.0f);
+    m_viewport->createViewport(m_device->getWidth(), m_device->getHeight(), 0.0f, 0.0f);
 
     m_viewport->setViewport(m_device);
 
@@ -343,10 +366,11 @@ App::run() {
 
     m_device->setPrimitiveTopology();
     m_rasState->createRasterizerState(*m_device);
+    m_rasState->setRasterizerState(*m_device);
 
     m_samplerState->createSamplerState(*m_device);
-    
-    m_rasState->setRasterizerState(*m_device);
+    m_samplerState->setSamplerState(*m_device);
+
 
     m_world.identity();
     m_mainCB->add(m_world);
@@ -394,7 +418,7 @@ App::run() {
   void
   App::update(float deltaTime) {
 
-    deltaTime += 0.0125f;
+    deltaTime += 5.0125f;
 
 
   }
@@ -437,6 +461,15 @@ App::run() {
   }
 
   void
+  App::RotateWorldMat(int dir) {
+    
+    float t = 0.0f;
+    
+    t += kraMath::PI * 900000.00125f;
+    m_world.MatrixRotY(t * dir);
+  }
+
+  void
   App::strafeCamera(int dir) {
 
     mainCam.MoveRight(5.0f * dir);
@@ -463,11 +496,10 @@ App::run() {
     Vector4 ClearColor = { 0.5f, 0.0f, 0.8f, 1.0f };
 
     m_renderTargetView->clearRenderTargetView(m_device, ClearColor);
+    //m_normalTargetView->clearRenderTargetView(m_device, ClearColor);
 
     m_depthStencilView->clearDSV(*m_device);
     
-    m_samplerState->setSamplerState(*m_device);
-
 
     m_mainCB->setConstData(0, m_world);
     m_mainCB->setConstData(1, mainCam.GetViewMatrix());
@@ -476,9 +508,6 @@ App::run() {
     m_lightCB->setConstData(0, mainCam.getPosition());
     m_lightCB->updateSubResources(*m_device);
 
-    //m_SRV->setShaderResourceView(m_device, 0, 1);
-    //ShaderResourceView* srv = m_device->createShaderRVInstance();
-    uint32 numViews = 0;
     for (uint32 i = 0; i < m_modelsVec.size(); ++i) {
       for (uint32 j = 0; j < m_modelsVec[i]->getMeshVecSize(); ++j) {
 
@@ -487,8 +516,6 @@ App::run() {
           m_modelsVec[i]->getMeshVecObjbyIndex(j).DrawMesh(m_device);
           //m_modelsVec[i]->Draw(m_device);
       }
-      
-
     }
 
     m_device->PresentSwapChain();

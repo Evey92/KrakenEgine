@@ -16,12 +16,14 @@ namespace kraEngineSDK {
     
     virtual bool
     createRenderTargetView(const Device& pDevice) = 0;
+    virtual bool
+    createRenderTargetView(const Device& pDevice, Texture* pTexture) = 0;
+    
+    virtual void
+    setRenderTarget(const Device& pDevice, uint32 numViews) = 0;
 
     virtual void
-    setRenderTarget(const Device& pDevice) = 0;
-
-    virtual void
-    setRenderTarget(const Device& pDevice, const DepthStencylView& pDSV) = 0;
+    setRenderTarget(const Device& pDevice, const DepthStencylView& pDSV, uint32 numViews) = 0;
 
     virtual void
     cleanRTV() = 0;

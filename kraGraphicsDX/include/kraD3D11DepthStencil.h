@@ -16,10 +16,15 @@ namespace kraEngineSDK {
 
      bool
      setDepthStencil(const Device& pDevice, uint32 height, uint32 width);
+     bool
+     createDepthStencilState(const Device& pDevice);
+     void
+     setDepthStencilState(const Device& pDevice);
      void
      cleanDepthStencil();
      
 
-     ID3D11Texture2D* m_pd3dDepthStencil;
+     ID3D11Texture2D* m_pd3dDepthStencil = nullptr;
+     ID3D11DepthStencilState* m_pd3dDepthStencilState = nullptr;
   };
 }

@@ -112,7 +112,7 @@ namespace kraEngineSDK {
     RenderTargetViewDX* m_pRTV = static_cast<RenderTargetViewDX*>(pRTV);
     ID3D11DepthStencilView* m_pDSV = static_cast<ID3D11DepthStencilView*>(pDSV);
 
-    m_pImmediateContext->OMSetRenderTargets(1, &m_pRTV->m_pRenderTargetView, m_pDSV);
+    m_pImmediateContext->OMSetRenderTargets(1, &m_pRTV->m_viewsVec[0], m_pDSV);
   }
 
   void

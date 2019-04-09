@@ -18,6 +18,9 @@ namespace kraEngineSDK {
     void 
     MoveRight(float defaz);
     
+    void
+    MoveUP(float defaz);
+    
     void 
     Rotate(Vector3 Axis, float angle);
     
