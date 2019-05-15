@@ -53,15 +53,10 @@ namespace kraEngineSDK {
     stencilStateDesc.StencilWriteMask;
     
     
-    stencilStateDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-    stencilStateDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
-    stencilStateDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
-    stencilStateDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
-
-    stencilStateDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-    stencilStateDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
-    stencilStateDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
-    stencilStateDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+    const D3D11_DEPTH_STENCILOP_DESC defaultDesc =
+    { D3D11_STENCIL_OP_KEEP, D3D11_STENCIL_OP_KEEP, D3D11_STENCIL_OP_KEEP,D3D11_COMPARISON_ALWAYS };
+    stencilStateDesc.FrontFace = defaultDesc;
+    stencilStateDesc.BackFace = defaultDesc;
 
     hr = m_device.m_pd3dDevice->CreateDepthStencilState(&stencilStateDesc, &m_pd3dDepthStencilState);
     if (FAILED(hr)) {

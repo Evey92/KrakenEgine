@@ -241,7 +241,7 @@ App::run() {
 
     m_depthStencilView->createDepthStencilView(*m_device, *m_depthStencil);
 
-    m_renderTargetView->setRenderTarget(*m_device, 1);
+    m_renderTargetView->setRenderTarget(*m_device, *m_depthStencilView, 1);
 
     m_viewport->createViewport(m_device->getWidth(), m_device->getHeight(), 0.0f, 0.0f);
 
@@ -482,7 +482,7 @@ App::run() {
     static float t = 0.0f;
 
     t += kraMath::PI * .00125f;
-
+     
     //m_world.MatrixRotY(t);
 
     m_vertexShader->setVertexShader(*m_device);
@@ -496,8 +496,6 @@ App::run() {
     Vector4 ClearColor = { 0.5f, 0.0f, 0.8f, 1.0f };
 
     m_renderTargetView->clearRenderTargetView(m_device, ClearColor);
-    //m_normalTargetView->clearRenderTargetView(m_device, ClearColor);
-
     m_depthStencilView->clearDSV(*m_device);
     
 

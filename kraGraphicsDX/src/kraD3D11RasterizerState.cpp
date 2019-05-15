@@ -24,7 +24,6 @@ namespace kraEngineSDK {
     rasDesc.ScissorEnable = false;
     rasDesc.MultisampleEnable = false;
     rasDesc.AntialiasedLineEnable = false;
-    rasDesc.AntialiasedLineEnable = false;
 
     m_pDevice.m_pd3dDevice->CreateRasterizerState(&rasDesc, &m_rasterizerState);
   }
