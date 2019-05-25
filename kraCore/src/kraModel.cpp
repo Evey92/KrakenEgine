@@ -100,18 +100,27 @@ namespace kraEngineSDK {
           break;
         case 'L':
           newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_Legs_BaseColor.tga");
+          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::NORMAL, "resources/Textures/Vela_Legs_Normal.tga");
+
           break;
         case 'M':
           newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_Mechanical_BaseColor.tga");
+          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::NORMAL, "resources/Textures/Vela_Mechanical_Normal.tga");
+
           break;
         case 'C':
           newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_Char_BaseColor.tga");
+          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::NORMAL, "resources/Textures/Vela_Char_Normal.tga");
+
           break;
         case 'P':
           newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_Plate_BaseColor.tga");
+          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::NORMAL, "resources/Textures/Vela_Plate_Normal.tga");
+
           break;
         case 'E':
           newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_EyeCornea_BaseColor.tga");
+          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::NORMAL, "resources/Textures/Vela_EyeCornea_Normal.tga");
           break;
         }
         ++m_currentMesh;

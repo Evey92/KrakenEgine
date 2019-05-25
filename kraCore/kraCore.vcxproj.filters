@@ -130,6 +130,9 @@
     <ClInclude Include="include\kraMaterial.h">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
+    <ClInclude Include="src\kraSceneGraph.h">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraConstantBuffer.cpp">
@@ -205,6 +208,9 @@
       <Filter>Source Files\kraCoreBase</Filter>
     </ClCompile>
     <ClCompile Include="src\kraMaterial.cpp">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraSceneGraph.cpp">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClCompile>
   </ItemGroup>

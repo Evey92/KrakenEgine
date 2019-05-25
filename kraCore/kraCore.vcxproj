@@ -211,6 +211,7 @@
     <ClInclude Include="kraInput\include\kraInputAPI.h" />
     <ClInclude Include="kraInput\include\kraInputManager.h" />
     <ClInclude Include="kraInput\include\kraInputMappings.h" />
+    <ClInclude Include="src\kraSceneGraph.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraCamera.cpp" />
@@ -230,6 +231,7 @@
     <ClCompile Include="src\kraPixelShader.cpp" />
     <ClCompile Include="src\kraRasterizerState.cpp" />
     <ClCompile Include="src\kraSampler.cpp" />
+    <ClCompile Include="src\kraSceneGraph.cpp" />
     <ClCompile Include="src\kraShader.cpp" />
     <ClCompile Include="src\kraShaderResourceView.cpp" />
     <ClCompile Include="src\kraSwapChain.cpp" />

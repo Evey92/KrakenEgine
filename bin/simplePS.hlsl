@@ -27,36 +27,25 @@ PS_OUTPUT PS(PS_INPUT input) : SV_TARGET
   PS_OUTPUT Output = (PS_OUTPUT)0;
   float3 lightPos = float3(100.0f, 0.0f, 100.0f);
   float4 finalColor;
+  float4 lightColor = float4(1.0f, 1.0f, 1.0f, 1.0f);
+
+  float4 Diffusecolor = albedoTex.Sample( samLinear, input.Tex );
 
   float3 normal = (2.0f * normalTex.Sample(samLinear, input.Tex)) - 1.0f;
   normal = normalize(mul(normal, input.TBN));
   
   //Difuse
   float3 dirLight = normalize(lightPos - input.Pos);
+  dirLight = -dirLight;
+  
   float diffIncidence = saturate(dot(dirLight, normal));
 
-  //Specular
-  float3 dirView = normalize(viewPos.xyz - input.Pos);
-  float3 Ref = normalize(reflect(dirLight, normal));
-
-  float SpecIncidence = max(0.0f, dot(dirView, Ref));
-  SpecIncidence = pow(SpecIncidence, 5.5f);
-
-  //Blinn Spec Incidence
-  float3 H = normalize(dirLight + dirView);
-  float BlinnIncidence = max(0.0f, dot(dirView, H));
-  BlinnIncidence = pow(BlinnIncidence, 5.5f);
-
+ finalColor = saturate(lightColor * diffIncidence);
   
-  float4 Diffusecolor = albedoTex.Sample( samLinear, input.Tex );
-
-  float RefV = normalize(reflect(-dirView, normal));
+  finalColor = finalColor * Diffusecolor;
   
   //Output.Position = input.Pos;
-  Output.Color = Diffusecolor;
-  Output.Normal = float4(normal, 1.0f);
-
-  finalColor = (Diffusecolor);
+  Output.Color = finalColor;
   return Output;
 
 }
