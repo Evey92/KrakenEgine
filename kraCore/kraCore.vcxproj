@@ -182,12 +182,14 @@
     <ClInclude Include="include\kraBaseApplication.h" />
     <ClInclude Include="include\kraClock.h" />
     <ClInclude Include="include\kraCommonTypes.h" />
+    <ClInclude Include="include\kraComponent.h" />
     <ClInclude Include="include\kraConstantBuffer.h" />
     <ClInclude Include="include\kraConstantBufferMatrices.h" />
     <ClInclude Include="include\kraDepthStencil.h" />
     <ClInclude Include="include\kraDepthStencilView.h" />
     <ClInclude Include="include\kraDevice.h" />
     <ClInclude Include="include\kraDeviceContext.h" />
+    <ClInclude Include="include\kraGameObject.h" />
     <ClInclude Include="include\kraGraphicsAPI.h" />
     <ClInclude Include="include\kraGraphicsBuffer.h" />
     <ClInclude Include="include\kraIndexBuffer.h" />
@@ -200,6 +202,7 @@
     <ClInclude Include="include\kraRasterizerState.h" />
     <ClInclude Include="include\kraRenderTargetView.h" />
     <ClInclude Include="include\kraSampler.h" />
+    <ClInclude Include="include\kraSceneGraph.h" />
     <ClInclude Include="include\kraShader.h" />
     <ClInclude Include="include\kraShaderResourceView.h" />
     <ClInclude Include="include\kraSwapChain.h" />
@@ -211,17 +214,20 @@
     <ClInclude Include="kraInput\include\kraInputAPI.h" />
     <ClInclude Include="kraInput\include\kraInputManager.h" />
     <ClInclude Include="kraInput\include\kraInputMappings.h" />
-    <ClInclude Include="src\kraSceneGraph.h" />
+    <ClInclude Include="kraSceneNode.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="kraSceneNode.cpp" />
     <ClCompile Include="src\kraCamera.cpp" />
     <ClCompile Include="src\kraCameraManager.cpp" />
     <ClCompile Include="src\kraBaseApplication.cpp" />
+    <ClCompile Include="src\kraComponent.cpp" />
     <ClCompile Include="src\kraConstantBuffer.cpp" />
     <ClCompile Include="src\kraDepthStencil.cpp" />
     <ClCompile Include="src\kraDepthStencilView.cpp" />
     <ClCompile Include="src\kraDevice.cpp" />
     <ClCompile Include="src\kraDeviceContext.cpp" />
+    <ClCompile Include="src\kraGameObject.cpp" />
     <ClCompile Include="src\kraGraphicsAPI.cpp" />
     <ClCompile Include="src\kraGraphicsBuffer.cpp" />
     <ClCompile Include="src\kraIndexBuffer.cpp" />

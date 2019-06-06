@@ -28,6 +28,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kraGraphicsDX_UnitTest", "k
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kraInputManager", "kraInputManager\kraInputManager.vcxproj", "{7D4E223A-75A3-46BE-9FC9-32B643E63A58}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Histogram", "Histogram\Histogram.vcxproj", "{35672835-A7E4-4629-97DD-16CC8B13BE95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -84,6 +86,14 @@ Global
 		{7D4E223A-75A3-46BE-9FC9-32B643E63A58}.Release|x64.Build.0 = Release|x64
 		{7D4E223A-75A3-46BE-9FC9-32B643E63A58}.Release|x86.ActiveCfg = Release|Win32
 		{7D4E223A-75A3-46BE-9FC9-32B643E63A58}.Release|x86.Build.0 = Release|Win32
+		{35672835-A7E4-4629-97DD-16CC8B13BE95}.Debug|x64.ActiveCfg = Debug|x64
+		{35672835-A7E4-4629-97DD-16CC8B13BE95}.Debug|x64.Build.0 = Debug|x64
+		{35672835-A7E4-4629-97DD-16CC8B13BE95}.Debug|x86.ActiveCfg = Debug|Win32
+		{35672835-A7E4-4629-97DD-16CC8B13BE95}.Debug|x86.Build.0 = Debug|Win32
+		{35672835-A7E4-4629-97DD-16CC8B13BE95}.Release|x64.ActiveCfg = Release|x64
+		{35672835-A7E4-4629-97DD-16CC8B13BE95}.Release|x64.Build.0 = Release|x64
+		{35672835-A7E4-4629-97DD-16CC8B13BE95}.Release|x86.ActiveCfg = Release|Win32
+		{35672835-A7E4-4629-97DD-16CC8B13BE95}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
