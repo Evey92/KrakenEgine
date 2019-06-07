@@ -130,16 +130,16 @@
     <ClInclude Include="include\kraMaterial.h">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
-    <ClInclude Include="kraSceneNode.h">
-      <Filter>Source Files\kraCoreBase</Filter>
-    </ClInclude>
     <ClInclude Include="include\kraComponent.h">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
-    <ClInclude Include="include\kraGameObject.h">
+    <ClInclude Include="include\kraSceneGraph.h">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
-    <ClInclude Include="include\kraSceneGraph.h">
+    <ClInclude Include="include\kraSceneNode.h">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraGameObject.h">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
   </ItemGroup>
@@ -222,10 +222,10 @@
     <ClCompile Include="src\kraSceneGraph.cpp">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClCompile>
-    <ClCompile Include="kraSceneNode.cpp">
+    <ClCompile Include="src\kraComponent.cpp">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClCompile>
-    <ClCompile Include="src\kraComponent.cpp">
+    <ClCompile Include="src\kraSceneNode.cpp">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClCompile>
     <ClCompile Include="src\kraGameObject.cpp">

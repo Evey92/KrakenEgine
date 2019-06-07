@@ -8,5 +8,6 @@ namespace kraEngineSDK {
    public:
     Component() = default;
     ~Component() = default;
+    
   };
 }

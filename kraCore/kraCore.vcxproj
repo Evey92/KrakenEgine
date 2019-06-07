@@ -203,6 +203,7 @@
     <ClInclude Include="include\kraRenderTargetView.h" />
     <ClInclude Include="include\kraSampler.h" />
     <ClInclude Include="include\kraSceneGraph.h" />
+    <ClInclude Include="include\kraSceneNode.h" />
     <ClInclude Include="include\kraShader.h" />
     <ClInclude Include="include\kraShaderResourceView.h" />
     <ClInclude Include="include\kraSwapChain.h" />
@@ -214,10 +215,8 @@
     <ClInclude Include="kraInput\include\kraInputAPI.h" />
     <ClInclude Include="kraInput\include\kraInputManager.h" />
     <ClInclude Include="kraInput\include\kraInputMappings.h" />
-    <ClInclude Include="kraSceneNode.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="kraSceneNode.cpp" />
     <ClCompile Include="src\kraCamera.cpp" />
     <ClCompile Include="src\kraCameraManager.cpp" />
     <ClCompile Include="src\kraBaseApplication.cpp" />
@@ -238,6 +237,7 @@
     <ClCompile Include="src\kraRasterizerState.cpp" />
     <ClCompile Include="src\kraSampler.cpp" />
     <ClCompile Include="src\kraSceneGraph.cpp" />
+    <ClCompile Include="src\kraSceneNode.cpp" />
     <ClCompile Include="src\kraShader.cpp" />
     <ClCompile Include="src\kraShaderResourceView.cpp" />
     <ClCompile Include="src\kraSwapChain.cpp" />

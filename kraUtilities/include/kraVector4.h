@@ -357,6 +357,8 @@ namespace kraEngineSDK {
 
     static const Vector4 ONEZ;
 
+    static const Vector4 ONEW;
+
     static const Vector4 UP;
 
     static const Vector4 FRONT;
