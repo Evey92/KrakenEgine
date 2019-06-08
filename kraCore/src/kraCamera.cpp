@@ -9,6 +9,7 @@ namespace kraEngineSDK {
                  Vector3 objective = Vector3::FRONT, 
                  Vector3  UP = Vector3::UP)
   {
+    //m_transform.Position = Pos;
     m_pos = Pos;
     m_objective = objective;
     m_up = UP;

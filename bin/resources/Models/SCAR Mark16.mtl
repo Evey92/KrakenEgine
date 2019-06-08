@@ -1,0 +1,462 @@
+newmtl BlackInodizedA0
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA0.jpg
+newmtl Pewter
+Ka 0 0 0
+Ns 20.0855
+Ks 0.835294 0.921569 1
+Kd 0.603922 0.603922 0.603922
+map_Kd Pewter_1.jpg
+newmtl BlackInodizedA1
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA1_2.jpg
+newmtl main0
+Ka 0 0 0
+Ns 3.32012
+Ks 0.898039 0.898039 0.898039
+Kd 0.773962 0.599477 0.367842
+map_Kd main0_3.jpg
+newmtl Pottery_clay0
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay0_4.jpg
+newmtl metal0
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal0_5.jpg
+newmtl BlackInodizedA2
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA2_6.jpg
+newmtl BlackInodizedA3
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA3_7.jpg
+newmtl main1
+Ka 0 0 0
+Ns 3.32012
+Ks 0.898039 0.898039 0.898039
+Kd 0.773962 0.599477 0.367842
+map_Kd main1_8.jpg
+newmtl metal1
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal1_9.jpg
+newmtl metal2
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal2_10.jpg
+newmtl ruber0
+Ka 0 0 0
+Ns 3.74342
+Ks 0.898039 0.898039 0.898039
+Kd 0.215686 0.215686 0.215686
+map_Kd ruber0_11.jpg
+newmtl metal3
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal3_12.jpg
+newmtl ruber1
+Ka 0 0 0
+Ns 3.74342
+Ks 0.898039 0.898039 0.898039
+Kd 0.215686 0.215686 0.215686
+map_Kd ruber1_13.jpg
+newmtl metal4
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal4_14.jpg
+newmtl metal5
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal5_15.jpg
+newmtl metal6
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal6_16.jpg
+newmtl metal7
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal7_17.jpg
+newmtl metal8
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal8_18.jpg
+newmtl metal9
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal9_19.jpg
+newmtl metal10
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal10_20.jpg
+newmtl metal11
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal11_21.jpg
+newmtl main2
+Ka 0 0 0
+Ns 3.32012
+Ks 0.898039 0.898039 0.898039
+Kd 0.773962 0.599477 0.367842
+map_Kd main2_22.jpg
+newmtl screw0
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw0_23.jpg
+newmtl screw1
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw1_24.jpg
+newmtl screw2
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw2_25.jpg
+newmtl screw3
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw3_26.jpg
+newmtl screw4
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw4_27.jpg
+newmtl screw5
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw5_28.jpg
+newmtl screw6
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw6_29.jpg
+newmtl screw7
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw7_30.jpg
+newmtl screw8
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw8_31.jpg
+newmtl screw9
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw9_32.jpg
+newmtl screw10
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw10_33.jpg
+newmtl screw11
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw11_34.jpg
+newmtl main3
+Ka 0 0 0
+Ns 3.32012
+Ks 0.898039 0.898039 0.898039
+Kd 0.773962 0.599477 0.367842
+map_Kd main3_35.jpg
+newmtl screw12
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw12_36.jpg
+newmtl screw13
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw13_37.jpg
+newmtl screw14
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw14_38.jpg
+newmtl ruber2
+Ka 0 0 0
+Ns 3.74342
+Ks 0.898039 0.898039 0.898039
+Kd 0.215686 0.215686 0.215686
+map_Kd ruber2_39.jpg
+newmtl screw15
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw15_40.jpg
+newmtl screw16
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw16_41.jpg
+newmtl screw17
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw17_42.jpg
+newmtl ruber3
+Ka 0 0 0
+Ns 3.74342
+Ks 0.898039 0.898039 0.898039
+Kd 0.215686 0.215686 0.215686
+map_Kd ruber3_43.jpg
+newmtl screw18
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw18_44.jpg
+newmtl screw19
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw19_45.jpg
+newmtl Pottery_clay1
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay1_46.jpg
+newmtl screw20
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw20_47.jpg
+newmtl screw21
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw21_48.jpg
+newmtl main4
+Ka 0 0 0
+Ns 3.32012
+Ks 0.898039 0.898039 0.898039
+Kd 0.94902 0.764706 0.498039
+map_Kd main4_49.jpg
+newmtl metal12
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal12_50.jpg
+newmtl 07___Default0
+Ka 0 0 0
+Ns 34.4669
+Ks 0.898039 0.898039 0.898039
+Kd 0.74902 0.729412 0.729412
+map_Kd 07___Default0_51.jpg
+newmtl metal13
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal13_52.jpg
+newmtl metal_020
+Ka 0 0 0
+Ns 62.8028
+Ks 0.898039 0.898039 0.898039
+Kd 0.607843 0.572549 0.572549
+map_Kd metal_020_53.jpg
+newmtl metal_021
+Ka 0 0 0
+Ns 62.8028
+Ks 0.898039 0.898039 0.898039
+Kd 0.607843 0.572549 0.572549
+map_Kd metal_021_54.jpg
+newmtl BlackInodizedA4
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA4_55.jpg
+newmtl BlackInodizedA5
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA5_56.jpg
+newmtl BlackInodizedA6
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA6_57.jpg
+newmtl BlackInodizedA7
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA7_58.jpg
+newmtl BlackInodizedA8
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA8_59.jpg
+newmtl BlackInodizedA9
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA9_60.jpg
+newmtl BlackInodizedA10
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA10_61.jpg
+newmtl BlackInodizedA11
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA11_62.jpg
+newmtl BlackInodizedA12
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA12_63.jpg
+newmtl BlackInodizedA13
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA13_64.jpg
+newmtl Pottery_clay2
+Ka 0 0 0
+Ns 2.31637
+Ks 0.129412 0.129412 0.129412
+Kd 0.027451 0.027451 0.027451
+map_Kd Pottery_clay2_65.jpg
+newmtl screw22
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw22_66.jpg
+newmtl screw23
+Ka 0 0 0
+Ns 95.5835
+Ks 0.898039 0.898039 0.898039
+Kd 0 0 0
+map_Kd screw23_67.jpg
+newmtl Brushed_silver
+Ka 0 0 0
+Ns 3.32012
+Ks 1 0.788235 0.635294
+Kd 0.749005 0.749005 0.749005
+map_Kd Brushed_silver_68.jpg
+newmtl metal14
+Ka 0 0 0
+Ns 90.0171
+Ks 0.898039 0.898039 0.898039
+Kd 0.368628 0.360784 0.360784
+map_Kd metal14_69.jpg
+newmtl 07___Default1
+Ka 0 0 0
+Ns 34.4669
+Ks 0.898039 0.898039 0.898039
+Kd 0.74902 0.729412 0.729412
+map_Kd 07___Default1_70.jpg
+newmtl bullet0
+Ka 0 0 0
+Ns 6.04965
+Ks 0.898039 0.898039 0.898039
+Kd 1 0.74902 0.34902
+map_Kd bullet0_71.jpg
+newmtl bullet1
+Ka 0 0 0
+Ns 6.04965
+Ks 0.898039 0.898039 0.898039
+Kd 1 0.74902 0.34902
+map_Kd bullet1_72.jpg
+newmtl bullet2
+Ka 0 0 0
+Ns 6.04965
+Ks 0.898039 0.898039 0.898039
+Kd 1 0.74902 0.34902
+map_Kd bullet2_73.jpg
+newmtl bullet3
+Ka 0 0 0
+Ns 6.04965
+Ks 0.898039 0.898039 0.898039
+Kd 1 0.74902 0.34902
+map_Kd bullet3_74.jpg
+newmtl bullet4
+Ka 0 0 0
+Ns 6.04965
+Ks 0.898039 0.898039 0.898039
+Kd 1 0.74902 0.34902
+map_Kd bullet4_75.jpg
+newmtl BlackInodizedA14
+Ka 0 0 0
+Ns 3.47873
+Ks 1 1 1
+Kd 0.198039 0.198039 0.198039
+map_Kd BlackInodizedA14_76.jpg

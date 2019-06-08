@@ -25,9 +25,25 @@ namespace kraEngineSDK {
     /*
     ** @brief Function to add a new SceneNode as a child of a specífic node
     ** @param the node to add
+    ** @param the name of the parent node
     **/
     void
-    setNodeAtChildren(SceneNode* newNode, String childNodeName);
+    setNodeAtChildren(SceneNode* newNode, String parentName);
+
+    /*
+    ** @brief Function to add a new SceneNode as a child of a specífic node
+    ** @param the node to add
+    ** @param the id of the parent node
+    **/
+    void
+    setNodeAtChildren(SceneNode* newNode, int parentID);
+
+    /*
+    ** @brief Function to add a new SceneNode at the root node
+    ** @param the node to add
+    **/
+    SceneNode*
+    getNode(String nodeName);
 
     /*
     ** @brief Function to add a new SceneNode at the root node

@@ -20,8 +20,6 @@ namespace kraEngineSDK {
     void
     addComponet(Component* newComponent);
     
-   private:
-    
     bool m_isActive;
     Transform m_transform;
     Vector<Component*> m_componentsVec;

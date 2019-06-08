@@ -352,7 +352,7 @@ App::run() {
     }*/
 
     
-      modelPath += "Vela.FBX";
+      modelPath += "SCAR Mark16.obj";
       Model* newModel = new Model();
       Texture* newTex = m_device->createTextureInstance();
       Texture* normalTex = m_device->createTextureInstance();
@@ -507,13 +507,13 @@ App::run() {
     m_lightCB->updateSubResources(*m_device);
 
     for (uint32 i = 0; i < m_modelsVec.size(); ++i) {
-      for (uint32 j = 0; j < m_modelsVec[i]->getMeshVecSize(); ++j) {
+      //for (uint32 j = 0; j < m_modelsVec[i]->getMeshVecSize(); ++j) {
 
-          m_modelsVec[i]->getMeshVecObjbyIndex(j).m_material->getTextureOfType(kraTextureType::BASECOLOR)->setTextureShaderResource(m_device, 0, 1);
-          m_modelsVec[i]->getMeshVec()[j]->m_material->getTextureOfType(kraTextureType::NORMAL)->setTextureShaderResource(m_device, 1, 1); 
-          m_modelsVec[i]->getMeshVecObjbyIndex(j).DrawMesh(m_device);
-          //m_modelsVec[i]->Draw(m_device);
-      }
+      //    m_modelsVec[i]->getMeshVecObjbyIndex(j).m_material->getTextureOfType(kraTextureType::BASECOLOR)->setTextureShaderResource(m_device, 0, 1);
+      //    m_modelsVec[i]->getMeshVec()[j]->m_material->getTextureOfType(kraTextureType::NORMAL)->setTextureShaderResource(m_device, 1, 1); 
+      //}
+      //
+      m_modelsVec[i]->Draw(m_device);
     }
 
     m_device->PresentSwapChain();

@@ -33,13 +33,13 @@ namespace kraEngineSDK {
 
   public:
 
-    Texture* m_baseColor;
-    Texture* m_metalness;
-    Texture* m_specular;
-    Texture* m_roughness;
-    Texture* m_emissive;
-    Texture* m_Normal;
-    Texture* m_ambientO;
+    Texture* m_baseColor = nullptr;
+    Texture* m_metalness = nullptr;
+    Texture* m_specular = nullptr;
+    Texture* m_roughness = nullptr;
+    Texture* m_emissive = nullptr;
+    Texture* m_Normal = nullptr;
+    Texture* m_ambientO = nullptr;
 
   };
 }

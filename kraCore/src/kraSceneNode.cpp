@@ -19,14 +19,36 @@ namespace kraEngineSDK {
     return m_gameObject;
   }
 
+  void
+  SceneNode::setParent(SceneNode* parent) {
+    m_parent = parent;
+  }
+
   SceneNode*
-  SceneNode::getPatrent(SceneNode* newNode) {
+  SceneNode::getParent() {
     return m_parent;
   }
 
   Vector<SceneNode*>
   SceneNode::getChildren() {
     return m_children;
+  }
+
+  SceneNode*
+  SceneNode::getChild(String name) {
+
+    Vector<SceneNode*>::iterator it = m_children.begin();
+    while (it != m_children.end())
+    {
+      if ((*it)->m_name == name)
+      {
+        return *it;
+      }
+    }
+
+    std::cout << "No child with name: " << name << " could be found. \n";
+    return nullptr;
+
   }
 
   SceneNode*
@@ -46,9 +68,24 @@ namespace kraEngineSDK {
 
   }
 
+  void
+  SceneNode::setID(int id) {
+    m_id = id;
+  }
+
   int
   SceneNode::getID() {
     return m_id;
+  }
+
+  void
+  SceneNode::setName(String name) {
+    m_name = name;
+  }
+
+  String
+  SceneNode::getName() {
+    return m_name;
   }
 
 }

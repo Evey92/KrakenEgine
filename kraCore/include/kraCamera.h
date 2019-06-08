@@ -3,10 +3,12 @@
 #include <kraVector3.h>
 
 #include "kraPrerequisitesCore.h"
+#include "kraGameObject.h"
 
 namespace kraEngineSDK {
-  class KRA_CORE_EXPORT Camera
-  {
+  class KRA_CORE_EXPORT Camera : 
+  public Component  {
+  
   public:
     Camera();
     Camera(Vector3 Pos, Vector3 objective, Vector3  UP);
@@ -97,6 +99,7 @@ namespace kraEngineSDK {
 
   private:
     uint32 m_id;
+
     bool dirty;
     Matrix4 m_viewMat;
     Vector3 m_pos;
@@ -104,6 +107,7 @@ namespace kraEngineSDK {
     Vector3 m_front;
     Vector3 m_right;
     Vector3 m_up;
+    
     float m_fov;
     float m_nearZ;
     float m_farZ;

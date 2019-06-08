@@ -8,12 +8,15 @@
 namespace kraEngineSDK {
 
   bool
-  Model::loadModelFromFile(const std::string& fileName, Device& pDevice, Texture* pTexture) {
+    Model::loadModelFromFile(const std::string& fileName, Device& pDevice, Texture* pTexture) {
 
     Assimp::Importer aImporter;
 
     const aiScene* scene = aImporter.ReadFile(fileName,
-      aiProcessPreset_TargetRealtime_MaxQuality | aiProcess_JoinIdenticalVertices | aiProcess_ConvertToLeftHanded);
+      aiProcess_Triangulate |
+      aiProcessPreset_TargetRealtime_MaxQuality |
+      aiProcess_JoinIdenticalVertices |
+      aiProcess_ConvertToLeftHanded);
 
     if (!scene)
     {
@@ -26,9 +29,39 @@ namespace kraEngineSDK {
     return true;
   }
 
+  Vector<Texture*>
+  Model::loadMaterialTextures(Device& pDevice,  aiMaterial* mat, aiTextureType type, String typeName, const aiScene* scene) {
+
+    Vector<Texture*> textVec;
+
+    for (uint32 i = 0; i < mat->GetTextureCount(type); ++i)
+    {
+      aiString path;
+      mat->GetTexture(type, i, &path);
+      String texType;
+
+      Texture* newTex = pDevice.createTextureInstance();
+
+      if (textureType == "embedded compressed texture")
+      {
+        // Do some stuff to extract embedded textures
+      }
+      else
+      {
+        String filename = String(path.C_Str());
+        filename = texturesPath + filename;
+        newTex->createTexture2DFromFile(pDevice, filename);
+        textVec.push_back(newTex);
+      }
+    }
+
+    return textVec;
+  }
+
   void
-  Model::processNode(aiNode* rootNode, const aiScene* pScene,  Device& pDevice) {
-    for (uint32 i = 0; i < rootNode->mNumMeshes; i++) {
+    Model::processNode(aiNode* rootNode, const aiScene* pScene, Device& pDevice) {
+
+    for (uint32 i = 0; i < rootNode->mNumMeshes; ++i) {
       aiMesh* mesh = pScene->mMeshes[rootNode->mMeshes[i]];
       m_meshVec.push_back(processMesh(mesh, pScene, pDevice));
     }
@@ -36,14 +69,25 @@ namespace kraEngineSDK {
     for (uint32 i = 0; i < rootNode->mNumChildren; i++) {
       processNode(rootNode->mChildren[i], pScene, pDevice);
     }
+
   }
 
   Mesh*
-  Model::processMesh(aiMesh* pMesh, const aiScene* scene, Device& pDevice) {
-    
+    Model::processMesh(aiMesh* pMesh, const aiScene* scene, Device& pDevice) {
+
     Mesh* newMesh = new Mesh(pDevice);
 
-    for (uint32 i = 0; i < pMesh->mNumVertices; i++) {
+    if (pMesh->mMaterialIndex >= 0)
+    {
+      aiMaterial* mat = scene->mMaterials[pMesh->mMaterialIndex];
+
+      if (textureType.empty())
+      {
+        textureType = getTextureType(scene, mat);
+      }
+    }
+
+    for (uint32 i = 0; i < pMesh->mNumVertices; ++i) {
       Vertex vert;
 
       vert.Pos.x = pMesh->mVertices[i].x;
@@ -71,96 +115,104 @@ namespace kraEngineSDK {
         vert.m_binormal.y = pMesh->mBitangents->y;
         vert.m_binormal.z = pMesh->mBitangents->z;
       }
-      newMesh->m_vertexBurffer->add(vert);
+      newMesh->getVertexBuffer()->add(vert);
     }
-    
 
-    for (uint32 i = 0; i < pMesh->mNumFaces; ++i) {
-      const aiFace& face = pMesh->mFaces[i];
+
+    for (uint32 i = 0; i < pMesh->mNumFaces; ++i)
+    {
+      aiFace face = pMesh->mFaces[i];
 
       for (uint32 j = 0; j < face.mNumIndices; ++j) {
-        newMesh->m_indexBuffer->add(face.mIndices[j]);
+        newMesh->getIndexBuffer()->add(face.mIndices[j]);
       }
     }
-    
-    if (scene->HasMaterials())
+
+    if (pMesh->mMaterialIndex >= 0)
     {
-      aiString matName;
-      if (m_currentMesh < scene->mNumMeshes && m_currentMesh != 1)
-      {
-        aiMaterial* mat = scene->mMaterials[m_currentMat];
-        matName = mat->GetName();
+      aiMaterial* material = scene->mMaterials[pMesh->mMaterialIndex];
+       Vector<Texture*> diffuseMaps = loadMaterialTextures(pDevice, 
+                                                       material,
+                                                       aiTextureType_DIFFUSE,
+                                                       "texture_diffuse",
+                                                       scene);
+       newMesh->getTextureVector().insert(newMesh->getTextureVector().begin(),
+                                          diffuseMaps.begin(),
+                                          diffuseMaps.end());
 
-        //TODO: Make a function on mesh that loads textures onto that mesh'materials
-        switch (matName.data[0])
-        {
-        case 'G':
-          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_Gun_BaseColor.tga");
-          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::NORMAL, "resources/Textures/Vela_Gun_Normal.tga");
-          break;
-        case 'L':
-          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_Legs_BaseColor.tga");
-          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::NORMAL, "resources/Textures/Vela_Legs_Normal.tga");
+       /*Vector<Texture*> normalMaps = loadMaterialTextures(pDevice,
+         material,
+         aiTextureType_HEIGHT,
+         "texture_normal",
+         scene);
+       newMesh->getTextureVector().insert(newMesh->getTextureVector().begin(),
+                                          normalMaps.begin(),
+                                          normalMaps.end());*/
 
-          break;
-        case 'M':
-          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_Mechanical_BaseColor.tga");
-          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::NORMAL, "resources/Textures/Vela_Mechanical_Normal.tga");
-
-          break;
-        case 'C':
-          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_Char_BaseColor.tga");
-          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::NORMAL, "resources/Textures/Vela_Char_Normal.tga");
-
-          break;
-        case 'P':
-          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_Plate_BaseColor.tga");
-          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::NORMAL, "resources/Textures/Vela_Plate_Normal.tga");
-
-          break;
-        case 'E':
-          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/Vela_EyeCornea_BaseColor.tga");
-          newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::NORMAL, "resources/Textures/Vela_EyeCornea_Normal.tga");
-          break;
-        }
-        ++m_currentMesh;
-        ++m_currentMat;
-      }
-      else {
-        newMesh->getMaterial().setTextureOfType(pDevice, kraTextureType::BASECOLOR, "resources/Textures/default.jpg");
-        ++m_currentMesh;
-      }
     }
 
-    newMesh->m_vertexBurffer->createHardwareBuffer(pDevice);
-    newMesh->m_indexBuffer->createIndexBuffer(pDevice);
+    newMesh->getVertexBuffer()->createHardwareBuffer(pDevice);
+    newMesh->getIndexBuffer()->createIndexBuffer(pDevice);
 
 
     return newMesh;
   }
 
   SIZE_T
-  Model::getMeshVecSize() {
+    Model::getMeshVecSize() {
     return m_meshVec.size();
   }
-  
+
   const std::vector<Mesh*>&
-    Model::getMeshVec() const{
+    Model::getMeshVec() const {
     return m_meshVec;
   }
-  
+
   Mesh&
-  Model::getMeshVecObjbyIndex(uint32 index) const {
+    Model::getMeshVecObjbyIndex(uint32 index) const {
     return *m_meshVec[index];
   }
 
   void
-  Model::Draw(Device* pDevice) {
+    Model::Draw(Device* pDevice) {
 
     for (uint32 i = 0; i < m_meshVec.size(); i++)
     {
       m_meshVec[i]->DrawMesh(pDevice);
     }
+  }
+
+  String
+    Model::getTextureType(const aiScene* scene, aiMaterial* mat) {
+
+    aiString textypeStr;
+    mat->GetTexture(aiTextureType_DIFFUSE, 0, &textypeStr);
+
+    String textypeteststr = textypeStr.C_Str();
+
+    if (textypeteststr == "*0" ||
+      textypeteststr == "*1" ||
+      textypeteststr == "*2" ||
+      textypeteststr == "*3" ||
+      textypeteststr == "*4" ||
+      textypeteststr == "*5")
+    {
+      if (scene->mTextures[0]->mHeight = 0)
+      {
+        return "embedded compressed texture";
+      }
+      else
+      {
+        return "embedded non-compressed texture";
+      }
+    }
+    if (textypeteststr.find('.') != String::npos)
+    {
+      return "textures are on disk";
+    }
+
+    return "No textures on model";
+
   }
 
 }
