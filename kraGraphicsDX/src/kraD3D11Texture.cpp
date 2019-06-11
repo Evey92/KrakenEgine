@@ -82,8 +82,9 @@ namespace kraEngineSDK {
 
     if (!image)
     {
-      MessageBox(NULL, "Couldnt find texture, loading default texture", "Error", MB_OK);
-
+      //MessageBox(NULL, "Couldnt find texture, loading default texture", "Error", MB_OK);
+      
+      std::cout << "Couldnt find texture, loading default texture\n";
       //throw std::exception("Texture couldn't be loaded." );
       stbi_image_free(image);
       image = stbi_load(m_missingTexture.c_str(), &m_width, &m_height, &channels, 4);

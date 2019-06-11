@@ -14,7 +14,6 @@ namespace kraEngineSDK {
 
     const aiScene* scene = aImporter.ReadFile(fileName,
       aiProcess_Triangulate |
-      aiProcessPreset_TargetRealtime_MaxQuality |
       aiProcess_JoinIdenticalVertices |
       aiProcess_ConvertToLeftHanded);
 
@@ -87,7 +86,8 @@ namespace kraEngineSDK {
       }
     }
 
-    for (uint32 i = 0; i < pMesh->mNumVertices; ++i) {
+    for (uint32 i = 0; i < pMesh->mNumVertices; ++i)
+    {
       Vertex vert;
 
       vert.Pos.x = pMesh->mVertices[i].x;
@@ -131,23 +131,16 @@ namespace kraEngineSDK {
     if (pMesh->mMaterialIndex >= 0)
     {
       aiMaterial* material = scene->mMaterials[pMesh->mMaterialIndex];
+
        Vector<Texture*> diffuseMaps = loadMaterialTextures(pDevice, 
                                                        material,
                                                        aiTextureType_DIFFUSE,
                                                        "texture_diffuse",
                                                        scene);
-       newMesh->getTextureVector().insert(newMesh->getTextureVector().begin(),
-                                          diffuseMaps.begin(),
-                                          diffuseMaps.end());
-
-       /*Vector<Texture*> normalMaps = loadMaterialTextures(pDevice,
-         material,
-         aiTextureType_HEIGHT,
-         "texture_normal",
-         scene);
-       newMesh->getTextureVector().insert(newMesh->getTextureVector().begin(),
-                                          normalMaps.begin(),
-                                          normalMaps.end());*/
+       for (uint32 i = 0; i < diffuseMaps.size(); ++i)
+       {
+         newMesh->getTextureVector().push_back(diffuseMaps[i]);
+       }
 
     }
 
