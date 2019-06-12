@@ -48,7 +48,7 @@ class App : public BaseApplication
   loadDLL();
   bool
   startUp(void* m_hWnd);
-  void
+  bool
   LoadModel();
   void
   render();

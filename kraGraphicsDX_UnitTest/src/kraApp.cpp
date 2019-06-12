@@ -219,19 +219,14 @@ App::run() {
   }
 
   
-  void
+  bool
   App::LoadModel() {
     mainCam.setFOV(kraMath::DEG2RAD(90.0f));
     mainCam.setNearPlane(0.01f);
-    mainCam.setFarPlane(1000.0f);
-    
-    //m_texture->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Gun_BaseColor.tga");
-    m_renderTargetView->createRenderTargetView(*m_device);
-    //m_texture->releaseTexture();
+    mainCam.setFarPlane(10000.0f);
 
-    //m_texture->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Gun_Normal.tga");
-    //m_renderTargetView->createRenderTargetView(*m_device, m_texture);
-    //m_texture->releaseTexture();
+    m_renderTargetView->createRenderTargetView(*m_device);
+
 
     m_depthStencil->setDepthStencil(*m_device, m_device->getHeight(), m_device->getWidth());
 
@@ -247,13 +242,13 @@ App::run() {
 
     m_viewport->setViewport(m_device);
 
-    if (!m_vertexShader->compileVertexShader("simpleVS.hlsl", "VS"))
+    if (!m_vertexShader->compileVertexShader("VS.hlsl", "VS"))
     {
       DWORD err = GetLastError();
       MessageBox(NULL, "Failed to create Vertex shader. Error: " + err, "Error", MB_OK);
 
       std::cout << "Failed to compile shader\n";
-      return;
+      return false;
     }
 
     m_vertexShader->createVertexShader(*m_device);
@@ -263,96 +258,17 @@ App::run() {
     m_inputLayout->createInputLayout(*m_device, *m_vertexShader);
 
 
-    if (!m_pixelShader->compilePixelShader("simplePS.hlsl", "PS"))
+    if (!m_pixelShader->compilePixelShader("PS.hlsl", "PS"))
     {
       MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
        
       std::cout << "Failed to compile shader\n";
-      return;
+      return false;
     }
     m_pixelShader->createPixelShader(*m_device);
 
-    /*for (uint32 i = 0 ; i <  6; ++i)
-    {
-      
-      std::string modelName = "Vela_Mat_" + std::to_string(i+1) + ".X";
-      modelPath += modelName;
-
-      Model* newModel = new Model();
-      Texture* newTex = m_device->createTextureInstance();
-      Texture* normalTex = m_device->createTextureInstance();
-      if (!newModel->loadModelFromFile(modelPath, *m_device, textureManager))
-      {
-        MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
-
-        return;
-      }
-
-      switch (i)
-      {
-      case 0:
-        //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, "resources/Textures/Vela_Gun_BaseColor.tga");
-        newTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Gun_BaseColor.tga");
-        normalTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Gun_Normal.tga");
-        //newModel->getMeshVec()[i]->m_material->m_baseColor->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Gun_BaseColor.tga");
-
-        break;
-
-      case 1:
-        //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_Legs_BaseColor.tga");
-        newTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Legs_BaseColor.tga");
-        normalTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Legs_Normal.tga");
-        //newModel->getMeshVec()[i]->m_material->m_baseColor->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Legs_BaseColor.tga");
-
-        break;
-
-      case 2:
-        //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_Mechanical_BaseColor.tga");
-        newTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Mechanical_BaseColor.tga");
-        normalTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Mechanical_Normal.tga");
-        //newModel->getMeshVec()[i]->m_material->m_baseColor->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Mechanical_BaseColor.tga");
-        break;
-      
-      case 3:
-        //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_Char_BaseColor.tga");
-        newTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Char_BaseColor.tga");
-        normalTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Char_Normal.tga");
-        //newModel->getMeshVec()[i]->m_material->m_baseColor->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Char_BaseColor.tga");
-
-        break;
-
-      case 4:
-        //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_Plate_BaseColor.tga");
-        newTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Plate_BaseColor.tga");
-        normalTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Plate_Normal.tga");
-
-        //newModel->getMeshVec()[i]->m_material->m_baseColor->createTexture2DFromFile(*m_device, "resources/Textures/Vela_Plate_BaseColor.tga");
-
-        break;
-
-      case 5:
-        //newModel.getMeshVec()[i].m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, *textureManager, "resources/Textures/Vela_EyeCornea_BaseColor.tga");
-        newTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_EyeCornea_BaseColor.tga");
-        normalTex->createTexture2DFromFile(*m_device, "resources/Textures/Vela_EyeCornea_Normal.tga");
-
-        //newModel->getMeshVec()[i]->m_material->m_baseColor->createTexture2DFromFile(*m_device, "resources/Textures/Vela_EyeCornea_BaseColor.tga");
-
-        break;
-      }
-
-      for (int j = 0; j < newModel->getMeshVecSize(); ++j) {
-        //newModel->getMeshVec()[j]->m_material->setTextureOfType(*m_device, kraTextureType::BASECOLOR, newTex, "resources/Textures/Vela_Gun_BaseColor.tga");
-        newModel->getMeshVec()[j]->m_material->m_baseColor = newTex;
-        newModel->getMeshVec()[j]->m_material->m_Normal = normalTex;
-
-      }
-      newTex->releaseTexture();
-      normalTex->releaseTexture();
-      m_modelsVec.push_back(newModel);
-    }*/
-
     
-      modelPath += "SCAR Mark16.obj";
+      modelPath += "sponza.obj";
       Model* newModel = new Model();
       Texture* newTex = m_device->createTextureInstance();
       Texture* normalTex = m_device->createTextureInstance();
@@ -360,7 +276,7 @@ App::run() {
       {
         MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
 
-        return;
+        return false;
       }
       m_modelsVec.push_back(newModel);
 
@@ -394,6 +310,7 @@ App::run() {
 
     m_mainCB->createConstantBuffer(*m_device);
     m_lightCB->updateSubResources(*m_device);
+
   }
 
   HINSTANCE

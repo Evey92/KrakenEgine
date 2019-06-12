@@ -31,7 +31,7 @@ namespace kraEngineSDK {
     VertexBuffer*
     getVertexBuffer();
 
-    Vector<Texture*>
+    Vector<Texture*>& const
     getTextureVector();
     
   private:

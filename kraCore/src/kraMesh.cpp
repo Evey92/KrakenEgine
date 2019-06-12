@@ -52,7 +52,7 @@ namespace kraEngineSDK {
     return m_vertexBurffer;
   }
 
-  Vector<Texture*>
+  Vector<Texture*>& const
   Mesh::getTextureVector() {
     return m_meshTextures;
   }

@@ -8,7 +8,7 @@
 namespace kraEngineSDK {
 
   bool
-    Model::loadModelFromFile(const std::string& fileName, Device& pDevice, Texture* pTexture) {
+  Model::loadModelFromFile(const std::string& fileName, Device& pDevice, Texture* pTexture) {
 
     Assimp::Importer aImporter;
 
@@ -23,8 +23,7 @@ namespace kraEngineSDK {
     }
 
     processNode(scene->mRootNode, scene, pDevice);
-    m_currentMesh = 0;
-    m_currentMat = 0;
+ 
     return true;
   }
 
@@ -47,7 +46,7 @@ namespace kraEngineSDK {
       }
       else
       {
-        String filename = String(path.C_Str());
+         String filename = String(path.C_Str());
         filename = texturesPath + filename;
         newTex->createTexture2DFromFile(pDevice, filename);
         textVec.push_back(newTex);
@@ -142,6 +141,16 @@ namespace kraEngineSDK {
          newMesh->getTextureVector().push_back(diffuseMaps[i]);
        }
 
+       Vector<Texture*> normalMaps = loadMaterialTextures(pDevice,
+                                                          material,
+                                                          aiTextureType_HEIGHT,
+                                                          "texture_normal",
+                                                          scene);
+
+       for (uint32 i = 0; i < normalMaps.size(); ++i)
+       {
+         newMesh->getTextureVector().push_back(normalMaps[i]);
+       }
     }
 
     newMesh->getVertexBuffer()->createHardwareBuffer(pDevice);

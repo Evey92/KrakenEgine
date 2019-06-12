@@ -10,29 +10,23 @@ cbuffer ConstantBuffer : register(b1)
 
 struct PS_INPUT
 {
-    float4 Pos : SV_POSITION;
-    float2 Tex : TEXCOORD0;
-    float3x3 TBN: TEXCOORD1;
+    float4 Pos      : SV_POSITION;
+    float2 texCoord : TEXCOORD0;
 
 };
 
 struct PS_OUTPUT
 {
-  float4 Position : SV_TARGET0;
-  float4 Normal   : SV_TARGET0;
-  float4 Color    : SV_TARGET0;
+  float4 Color : SV_TARGET0;
+  float4 Normal    : SV_TARGET1;
 };
 
 PS_OUTPUT PS(PS_INPUT input) : SV_TARGET
 {
-  PS_OUTPUT Output = (PS_OUTPUT)0;
-
-  float4 Diffusecolor = txDiffuse.Sample(samLinear, input.Tex);
-  float4 normal = txNormal.Sample(samLinear, input.Tex);
-
-  Output.Position = input.Pos;
+  PS_OUTPUT Output;
+  float4 Diffusecolor = txDiffuse.Sample( samLinear, input.texCoord);
   Output.Color = Diffusecolor;
-  Output.Normal = normal;
 
   return Output;
-}
+
+ }

@@ -89,6 +89,10 @@ namespace kraEngineSDK {
       stbi_image_free(image);
       image = stbi_load(m_missingTexture.c_str(), &m_width, &m_height, &channels, 4);
     }
+    else
+    {
+      std::cout << "Texture loaded succesfully\n";
+    }
 
     D3D11_TEXTURE2D_DESC descTexture;
 
