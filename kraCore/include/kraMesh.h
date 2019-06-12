@@ -22,9 +22,6 @@ namespace kraEngineSDK {
     void
     DrawMesh(Device* pDevice);
     
-    Material&
-    getMaterial();
-
     IndexBuffer*
     getIndexBuffer();
 
@@ -33,12 +30,39 @@ namespace kraEngineSDK {
 
     Vector<Texture*>& const
     getTextureVector();
+
+    Texture& const
+    getDiffuseTextur();
+
+    Texture& const
+    getNormalTexture();
+
+    Texture& const
+    getSpecularTexture();
+
+    Vector<Texture*>& const
+    getMetalnessTexture();
+
+    Texture& const
+    getRoughnessTexture();
+
+    Texture& const
+    getEmissiveTexture();
+
+    Texture& const
+    getAmbientTexture();
     
   private:
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
     Vector<Texture*> m_meshTextures;
-    Material* m_material = nullptr;
+    Texture* m_diffuse = nullptr;
+    Texture* m_normal = nullptr;
+    Texture* m_specular = nullptr;
+    Texture* m_metalness = nullptr;
+    Texture* m_roughness = nullptr;
+    Material* m_emissive = nullptr;
+    Material* m_ambientOcclusion = nullptr;
 
   };
 }

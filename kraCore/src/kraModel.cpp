@@ -141,7 +141,7 @@ namespace kraEngineSDK {
          newMesh->getTextureVector().push_back(diffuseMaps[i]);
        }
 
-       Vector<Texture*> normalMaps = loadMaterialTextures(pDevice,
+       /*Vector<Texture*> normalMaps = loadMaterialTextures(pDevice,
                                                           material,
                                                           aiTextureType_HEIGHT,
                                                           "texture_normal",
@@ -150,7 +150,7 @@ namespace kraEngineSDK {
        for (uint32 i = 0; i < normalMaps.size(); ++i)
        {
          newMesh->getTextureVector().push_back(normalMaps[i]);
-       }
+       }*/
     }
 
     newMesh->getVertexBuffer()->createHardwareBuffer(pDevice);
