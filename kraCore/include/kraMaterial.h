@@ -3,19 +3,7 @@
 
 
 namespace kraEngineSDK {
-  namespace kraTextureType {
-    enum E
-    {
-      BASECOLOR,
-      METALNESS,
-      SPECULAR,
-      ROUGHNESS,
-      EMISSIVE,
-      NORMAL,
-      AMBIENT,
-
-    };
-  }
+  
 
   class Texture;
   class Device;

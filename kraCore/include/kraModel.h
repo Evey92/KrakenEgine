@@ -32,7 +32,7 @@ namespace kraEngineSDK {
     bool 
     loadModelFromFile(const std::string& fileName,  Device& pDevice, Texture* pTexture);
     
-    Vector<Texture*>
+    Texture*
     loadMaterialTextures(Device& pDevice, aiMaterial * mat, aiTextureType type, String typeName, const aiScene * scene);
 
     void

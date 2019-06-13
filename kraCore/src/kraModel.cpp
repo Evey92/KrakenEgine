@@ -1,6 +1,7 @@
 #include <kraVector2.h>
 #include <kraVector3.h>
 
+#include "kraPrerequisitesCore.h"
 #include "kraModel.h"
 #include "kraDevice.h"
 #include "kraTexture.h"
@@ -27,10 +28,10 @@ namespace kraEngineSDK {
     return true;
   }
 
-  Vector<Texture*>
+  Texture*
   Model::loadMaterialTextures(Device& pDevice,  aiMaterial* mat, aiTextureType type, String typeName, const aiScene* scene) {
 
-    Vector<Texture*> textVec;
+    Texture* textVec;
 
     for (uint32 i = 0; i < mat->GetTextureCount(type); ++i)
     {
@@ -49,11 +50,12 @@ namespace kraEngineSDK {
          String filename = String(path.C_Str());
         filename = texturesPath + filename;
         newTex->createTexture2DFromFile(pDevice, filename);
-        textVec.push_back(newTex);
+        return newTex;
       }
     }
 
-    return textVec;
+    std::cout << "Texture couldn't be loaded";
+    return nullptr;
   }
 
   void
@@ -117,7 +119,6 @@ namespace kraEngineSDK {
       newMesh->getVertexBuffer()->add(vert);
     }
 
-
     for (uint32 i = 0; i < pMesh->mNumFaces; ++i)
     {
       aiFace face = pMesh->mFaces[i];
@@ -131,26 +132,22 @@ namespace kraEngineSDK {
     {
       aiMaterial* material = scene->mMaterials[pMesh->mMaterialIndex];
 
-       Vector<Texture*> diffuseMaps = loadMaterialTextures(pDevice, 
+       Texture* diffuseTex = loadMaterialTextures(pDevice, 
                                                        material,
                                                        aiTextureType_DIFFUSE,
                                                        "texture_diffuse",
                                                        scene);
-       for (uint32 i = 0; i < diffuseMaps.size(); ++i)
-       {
-         newMesh->getTextureVector().push_back(diffuseMaps[i]);
-       }
 
-       /*Vector<Texture*> normalMaps = loadMaterialTextures(pDevice,
-                                                          material,
-                                                          aiTextureType_HEIGHT,
-                                                          "texture_normal",
-                                                          scene);
+       newMesh->setTexture(kraTextureType::BASECOLOR, diffuseTex);
 
-       for (uint32 i = 0; i < normalMaps.size(); ++i)
-       {
-         newMesh->getTextureVector().push_back(normalMaps[i]);
-       }*/
+       Texture* normalTex = loadMaterialTextures(pDevice,
+                                                 material,
+                                                 aiTextureType_HEIGHT,
+                                                 "texture_diffuse",
+                                                 scene);
+
+       newMesh->setTexture(kraTextureType::NORMAL, diffuseTex);
+
     }
 
     newMesh->getVertexBuffer()->createHardwareBuffer(pDevice);

@@ -310,7 +310,7 @@ App::run() {
 
     m_mainCB->createConstantBuffer(*m_device);
     m_lightCB->updateSubResources(*m_device);
-
+    return true;
   }
 
   HINSTANCE
@@ -424,12 +424,6 @@ App::run() {
     m_lightCB->updateSubResources(*m_device);
 
     for (uint32 i = 0; i < m_modelsVec.size(); ++i) {
-      //for (uint32 j = 0; j < m_modelsVec[i]->getMeshVecSize(); ++j) {
-
-      //    m_modelsVec[i]->getMeshVecObjbyIndex(j).m_material->getTextureOfType(kraTextureType::BASECOLOR)->setTextureShaderResource(m_device, 0, 1);
-      //    m_modelsVec[i]->getMeshVec()[j]->m_material->getTextureOfType(kraTextureType::NORMAL)->setTextureShaderResource(m_device, 1, 1); 
-      //}
-      //
       m_modelsVec[i]->Draw(m_device);
     }
 

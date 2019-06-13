@@ -45,7 +45,7 @@ namespace kraEngineSDK {
       void*  descTexture) {
 
     ID3D11Device* m_pDevice = static_cast<ID3D11Device*>(pDevice);
-    DXGI_FORMAT* m_format = static_cast<DXGI_FORMAT*>(format);
+    //DXGI_FORMAT* m_format = static_cast<DXGI_FORMAT*>(format);
     D3D11_BIND_FLAG* m_bindFlag = static_cast<D3D11_BIND_FLAG*>(bindFlag);
     D3D11_TEXTURE2D_DESC* m_desc = static_cast<D3D11_TEXTURE2D_DESC*>(descTexture);
 
@@ -55,7 +55,7 @@ namespace kraEngineSDK {
     m_desc->Width = width;
     m_desc->MipLevels = 1;
     m_desc->ArraySize = 1;
-    m_desc->Format = *m_format;
+    m_desc->Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     m_desc->SampleDesc.Count = 1;
     m_desc->SampleDesc.Quality = 0;
     m_desc->Usage = D3D11_USAGE_DEFAULT;
