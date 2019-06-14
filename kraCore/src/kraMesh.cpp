@@ -35,11 +35,11 @@ namespace kraEngineSDK {
     }
     if (m_normal)
     {
-      m_normal->setTextureShaderResource(pDevice, 0, 1);
+      m_normal->setTextureShaderResource(pDevice, 1, 1);
     }
     if (m_specular)
     {
-      m_specular->setTextureShaderResource(pDevice, 0, 1);
+      m_specular->setTextureShaderResource(pDevice, 2, 1);
     }
 
     pDevice->DrawIndexed(m_indexBuffer->getBufferSize(), 0, 0);

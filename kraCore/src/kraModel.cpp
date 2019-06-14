@@ -146,7 +146,7 @@ namespace kraEngineSDK {
                                                  "texture_diffuse",
                                                  scene);
 
-       newMesh->setTexture(kraTextureType::NORMAL, diffuseTex);
+       newMesh->setTexture(kraTextureType::NORMAL, normalTex);
 
     }
 
