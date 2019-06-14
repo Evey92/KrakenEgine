@@ -423,7 +423,7 @@ App::run() {
     m_lightCB->setConstData(0, mainCam.getPosition());
     m_lightCB->updateSubResources(*m_device);
 
-    for (uint32 i = 0; i < m_modelsVec.size(); ++i) {
+      for (uint32 i = 0; i < m_modelsVec.size(); ++i) {
       m_modelsVec[i]->Draw(m_device);
     }
 

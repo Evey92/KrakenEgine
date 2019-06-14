@@ -28,34 +28,43 @@ namespace kraEngineSDK {
     return true;
   }
 
-  Texture*
-  Model::loadMaterialTextures(Device& pDevice,  aiMaterial* mat, aiTextureType type, String typeName, const aiScene* scene) {
+  bool
+  Model::loadMaterialTextures(Device& pDevice,  Texture& texture, aiMaterial* mat, aiTextureType type, String typeName, const aiScene* scene) {
 
-    Texture* textVec;
-
-    for (uint32 i = 0; i < mat->GetTextureCount(type); ++i)
+    
+    uint32 totalTextures = mat->GetTextureCount(type);
+    
+    if (totalTextures > 0)
     {
-      aiString path;
-      mat->GetTexture(type, i, &path);
-      String texType;
-
-      Texture* newTex = pDevice.createTextureInstance();
-
-      if (textureType == "embedded compressed texture")
+      for (uint32 i = 0; i < totalTextures; ++i)
       {
-        // Do some stuff to extract embedded textures
-      }
-      else
-      {
-         String filename = String(path.C_Str());
-        filename = texturesPath + filename;
-        newTex->createTexture2DFromFile(pDevice, filename);
-        return newTex;
+        aiString path;
+        mat->GetTexture(type, i, &path);
+        String texType;
+        
+        if (textureType == "embedded compressed texture")
+        {
+          // Do some stuff to extract embedded textures
+        }
+        else
+        {
+          String filename = String(path.C_Str());
+          filename = texturesPath + filename;
+          texture.createTexture2DFromFile(pDevice, filename);
+          return true;
+        }
       }
     }
+    else
+    {
+      std::cout << "No textures found\n";
+      return false;
 
-    std::cout << "Texture couldn't be loaded";
-    return nullptr;
+    }
+
+    std::cout << "Texture couldn't be loaded\n";
+    
+    return false;
   }
 
   void
@@ -132,21 +141,41 @@ namespace kraEngineSDK {
     {
       aiMaterial* material = scene->mMaterials[pMesh->mMaterialIndex];
 
-       Texture* diffuseTex = loadMaterialTextures(pDevice, 
-                                                       material,
-                                                       aiTextureType_DIFFUSE,
-                                                       "texture_diffuse",
-                                                       scene);
+      Texture* diffuseTex = pDevice.createTextureInstance();
+      if (loadMaterialTextures(pDevice,
+                               *diffuseTex,
+                               material,
+                               aiTextureType_DIFFUSE,
+                               "texture_diffuse",
+                               scene))
+      {
+        newMesh->setTexture(kraTextureType::BASECOLOR, diffuseTex);
+      }
+      else
+      {
+        delete diffuseTex;
+      }
 
-       newMesh->setTexture(kraTextureType::BASECOLOR, diffuseTex);
+      Texture* normalTex = pDevice.createTextureInstance();
+      
+      if (loadMaterialTextures(pDevice,
+                               *normalTex,
+                               material,
+                               aiTextureType_HEIGHT,
+                               "texture_diffuse",
+                               scene))
+      {
+        newMesh->setTexture(kraTextureType::NORMAL, normalTex);
+      }
+      else
+      {
+        delete normalTex;
+      }
 
-       Texture* normalTex = loadMaterialTextures(pDevice,
-                                                 material,
-                                                 aiTextureType_HEIGHT,
-                                                 "texture_diffuse",
-                                                 scene);
-
+<<<<<<< HEAD
        newMesh->setTexture(kraTextureType::NORMAL, normalTex);
+=======
+>>>>>>> cf41a9ce33bcce4fd8450a52b1043fd27b27e17b
 
     }
 
