@@ -18,7 +18,7 @@ namespace kraEngineSDK {
   void Camera::MoveForward(float defaz) 
   {
     m_pos += m_front * defaz;
-    //m_objective += m_front * defaz;
+    m_objective += m_front * defaz;
 
     dirty = true;
   }
@@ -40,21 +40,17 @@ namespace kraEngineSDK {
   }
 
 
-  void Camera::Rotate(Vector3 Axis, float angle)
+  void 
+  Camera::Rotate(Vector3& Axis, float angle)
   {
-    if (Axis == Vector3(1.0f, 0.0f, 0.0f))
-    {
-      //Do something
-    }
-    if (Axis == Vector3(0.0f, 1.0f, 0.0f))
-    {
-      //Do something
-    }
-    if (Axis == Vector3(0.0f, 0.0f, 1.0f))
-    {
-      //Do something
-    }
+    
     dirty = true;
+
+  }
+
+  void
+  Camera::RotateYAxis(float angle)
+  {
 
   }
 
@@ -134,7 +130,7 @@ namespace kraEngineSDK {
     m_farZ = farZ;
   }
 
-  float
+  float& const
   Camera::getFarPlane() {
     return m_farZ;
   }
@@ -169,6 +165,11 @@ namespace kraEngineSDK {
     m_front.z = Z;
     dirty = true;
 
+  }
+
+  Vector3& const
+  Camera::getFront() {
+    return m_front;
   }
 
   void
@@ -207,14 +208,19 @@ namespace kraEngineSDK {
 
   }
 
-  void Camera::Yaw(float angle)
+  void 
+  Camera::Yaw(float angle)
   {
-    Rotate(m_up, angle);
+    m_objective = m_objective * kraMath::cos(angle * (kraMath::PI/180)) - (m_right * kraMath::sin(angle * kraMath::PI/180.0f));
+    m_objective.normalize();
+    m_right = m_objective ^ m_up;
+    
     dirty = true;
 
   }
 
-  void Camera::Pitch(float angle)
+  void 
+  Camera::Pitch(float angle)
   {
     Rotate(m_right, angle);
     dirty = true;

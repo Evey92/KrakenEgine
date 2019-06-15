@@ -281,7 +281,7 @@ namespace kraEngineSDK {
     m[3][2] = 1.0f;
   }
 
-  void
+  void 
   Matrix4::MatrixRotY(float angle) {
     float fSinAngle = kraMath::sin(angle);
     float fCosAngle = kraMath::cos(angle);

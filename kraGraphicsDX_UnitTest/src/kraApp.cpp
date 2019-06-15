@@ -242,7 +242,7 @@ App::run() {
 
     m_viewport->setViewport(m_device);
 
-    if (!m_vertexShader->compileVertexShader("VS.hlsl", "VS"))
+    if (!m_vertexShader->compileVertexShader("bumpVS.hlsl", "VS"))
     {
       DWORD err = GetLastError();
       MessageBox(NULL, "Failed to create Vertex shader. Error: " + err, "Error", MB_OK);
@@ -258,7 +258,7 @@ App::run() {
     m_inputLayout->createInputLayout(*m_device, *m_vertexShader);
 
 
-    if (!m_pixelShader->compilePixelShader("PS.hlsl", "PS"))
+    if (!m_pixelShader->compilePixelShader("bumpPS.hlsl", "PS"))
     {
       MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
        
@@ -292,13 +292,16 @@ App::run() {
     m_mainCB->add(m_world);
     
 
+    mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
+    mainCam.setFront(Vector3(0.0f, 0.0f, -1.0f));
+    mainCam.setRight(Vector3(1.0f, 0.0f, 0.0f));
     mainCam.SetPosition(Vector3(0.0f, 50.0f, -20.0f));
     mainCam.SetObjecive(Vector3(0.0f, 50.0f, 0.0f));
-    mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
-    mainCam.setFront(Vector3(0.0f, 0.0f, 1.0f));
-    mainCam.setRight(Vector3(1.0f, 0.0f, 0.0f));
+
     mainCam.createViewMat();
     m_mainCB->add(mainCam.GetViewMatrix());
+
+    Vector3 lightPosition = Vector3(100.0f, 0.0f, 100.0f);
 
     m_projection.MatrixPerspectiveFOV(mainCam.getFOV(), static_cast<float>(m_device->getWidth()), static_cast<float>(m_device->getHeight()), mainCam.getNearPlane(), mainCam.getFarPlane());
     m_mainCB->add(m_projection);
@@ -390,6 +393,13 @@ App::run() {
   App::strafeCamera(int dir) {
 
     mainCam.MoveRight(5.0f * dir);
+
+  }
+
+  void
+  App::rotateCamera(float angle) {
+
+    mainCam.Yaw(angle);
 
   }
 

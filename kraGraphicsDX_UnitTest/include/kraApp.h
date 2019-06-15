@@ -72,6 +72,8 @@ class App : public BaseApplication
   void
   strafeCamera(int dir);
   void
+  rotateCamera(float angle);
+  void
   destroy();
   
  protected:

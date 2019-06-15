@@ -18,6 +18,14 @@ namespace kraEngineSDK {
      ~BaseApplication() {}
 
     /**
+    * @brief Function to start up the app.
+    */
+    void
+    StartUp() {
+
+    }
+
+    /**
     * @brief Main funtion to execute a program.
     */
     void

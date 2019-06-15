@@ -8,7 +8,8 @@ namespace kraEngineSDK {
   struct CBNeverChanges {
 
     Matrix4 m_view;
-  
+    Vector3 m_lightPosition;
+
   };
 
   struct CBChangeOnResize {
@@ -19,5 +20,6 @@ namespace kraEngineSDK {
 
   struct CBChangesEveryFrame {
     Matrix4 m_world;
+    Vector3 m_camPosition;
   };
 }

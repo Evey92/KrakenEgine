@@ -24,8 +24,11 @@ namespace kraEngineSDK {
     MoveUP(float defaz);
     
     void 
-    Rotate(Vector3 Axis, float angle);
+    Rotate(Vector3& Axis, float angle);
     
+    void
+    RotateYAxis(float angle);
+
     void 
     SetPosition(Vector3 Pos);
 
@@ -59,7 +62,7 @@ namespace kraEngineSDK {
     void
     setFarPlane(float farZ);
 
-    float
+    float& const
     getFarPlane();
 
     void
@@ -73,6 +76,9 @@ namespace kraEngineSDK {
 
     void
     setFront(float X, float Y, float Z);
+
+    Vector3& const
+    getFront();
 
     void
     setRight(Vector3 Right);

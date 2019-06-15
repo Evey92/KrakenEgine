@@ -143,11 +143,11 @@ namespace kraEngineSDK {
 
       Texture* diffuseTex = pDevice.createTextureInstance();
       if (loadMaterialTextures(pDevice,
-                               *diffuseTex,
-                               material,
-                               aiTextureType_DIFFUSE,
-                               "texture_diffuse",
-                               scene))
+        *diffuseTex,
+        material,
+        aiTextureType_DIFFUSE,
+        "texture_diffuse",
+        scene))
       {
         newMesh->setTexture(kraTextureType::BASECOLOR, diffuseTex);
       }
@@ -157,13 +157,13 @@ namespace kraEngineSDK {
       }
 
       Texture* normalTex = pDevice.createTextureInstance();
-      
+
       if (loadMaterialTextures(pDevice,
-                               *normalTex,
-                               material,
-                               aiTextureType_HEIGHT,
-                               "texture_diffuse",
-                               scene))
+        *normalTex,
+        material,
+        aiTextureType_HEIGHT,
+        "texture_normal",
+        scene))
       {
         newMesh->setTexture(kraTextureType::NORMAL, normalTex);
       }
@@ -172,10 +172,21 @@ namespace kraEngineSDK {
         delete normalTex;
       }
 
-<<<<<<< HEAD
-       newMesh->setTexture(kraTextureType::NORMAL, normalTex);
-=======
->>>>>>> cf41a9ce33bcce4fd8450a52b1043fd27b27e17b
+      Texture* specularTex = pDevice.createTextureInstance();
+
+      if (loadMaterialTextures(pDevice,
+        *specularTex,
+        material,
+        aiTextureType_SPECULAR,
+        "texture_Specular",
+        scene))
+      {
+        newMesh->setTexture(kraTextureType::SPECULAR, specularTex);
+      }
+      else
+      {
+        delete specularTex;
+      }
 
     }
 

@@ -29,20 +29,17 @@ namespace kraEngineSDK {
     m_vertexBurffer->setVertexBuffer(*pDevice);
     m_indexBuffer->setIndexBuffer(*pDevice);
 
-    if (m_diffuse)
+    if (m_diffuse != nullptr)
     {
       m_diffuse->setTextureShaderResource(pDevice, 0, 1);
     }
-    if (m_normal)
+    if (m_normal != nullptr)
     {
       m_normal->setTextureShaderResource(pDevice, 1, 1);
-<<<<<<< HEAD
     }
-    if (m_specular)
+    if (m_specular != nullptr)
     {
-      m_specular->setTextureShaderResource(pDevice, 2, 1);
-=======
->>>>>>> cf41a9ce33bcce4fd8450a52b1043fd27b27e17b
+      m_normal->setTextureShaderResource(pDevice, 2, 1);
     }
 
     pDevice->DrawIndexed(m_indexBuffer->getBufferSize(), 0, 0);
