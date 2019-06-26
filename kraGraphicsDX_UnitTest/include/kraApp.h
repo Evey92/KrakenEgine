@@ -35,6 +35,26 @@
 
 using namespace kraEngineSDK;
 
+enum Button
+{
+  Dkey,
+  AKey,
+  WKey,
+  SKey,
+  SPACEKey,
+  CTRLKey,
+  QKey,
+  EKey,
+  MouseX,
+  MouseY
+};
+
+enum Device {
+  Mouse,
+  Keyboard,
+  Gamepad,
+};
+
 class App : public BaseApplication
 {
  public:
@@ -47,17 +67,19 @@ class App : public BaseApplication
   HINSTANCE
   loadDLL();
   bool
-  startUp(void* m_hWnd);
+  startUp(void* m_hWnd, int nCmdShow);
   bool
   LoadModel();
   void
   render();
+  void
+  Log(String outputString);
   void 
   CleanupDevice();
   void
-  Initialize();
+  Initialize(int nCmdShow);
   void
-  update(float deltaTime);
+  update();
   InputManager*
   getInputManager();
   uint32
@@ -68,7 +90,6 @@ class App : public BaseApplication
   getActiveCamera();
   void
   RotateWorldMat(int dir);
-
   void
   strafeCamera(int dir);
   void
@@ -106,7 +127,7 @@ class App : public BaseApplication
   */
   void
   preDestroy();
-
+  
   kraEngineSDK::Device* m_device;
   RenderTargetView* m_renderTargetView;
   RenderTargetView* m_normalTargetView;

@@ -1,5 +1,6 @@
 Texture2D txDiffuse : register(t0);
 Texture2D txNormal : register(t1);
+Texture2D specNormal : register(t2);
 
 SamplerState samLinear : register( s0 );
 
@@ -12,6 +13,8 @@ struct PS_INPUT
 {
    float4 Position : SV_POSITION;
    float2 texCoord : TEXCOORD0;
+   float3 mLightDir : TEXCOORD1;
+   float3 mviewDir  : TEXCOORD2;
    float3 normal   : NORMAL;
    float3 tangent  : TANGENT;
    float3 binormal : BINORMAL;

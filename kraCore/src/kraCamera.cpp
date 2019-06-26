@@ -211,9 +211,9 @@ namespace kraEngineSDK {
   void 
   Camera::Yaw(float angle)
   {
-    m_objective = m_objective * kraMath::cos(angle * (kraMath::PI/180)) - (m_right * kraMath::sin(angle * kraMath::PI/180.0f));
-    m_objective.normalize();
-    m_right = m_objective ^ m_up;
+    m_front = m_front * kraMath::cos(angle * (kraMath::PI/180)) - (m_right * kraMath::sin(angle * kraMath::PI/180.0f));
+    m_front.normalize();
+    m_right = m_front ^ m_up;
     
     dirty = true;
 

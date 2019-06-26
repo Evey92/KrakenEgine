@@ -142,6 +142,12 @@
     <ClInclude Include="include\kraGameObject.h">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraWindow.h">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraWin32Window.h">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraConstantBuffer.cpp">
@@ -229,6 +235,12 @@
       <Filter>Source Files\kraCoreBase</Filter>
     </ClCompile>
     <ClCompile Include="src\kraGameObject.cpp">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraWindow.cpp">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraWin32Window.cpp">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClCompile>
   </ItemGroup>

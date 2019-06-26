@@ -8,14 +8,14 @@
 
 #pragma once
 #include "kraPrerequisitesCore.h"
+#include "kraWin32Window.h"
 
 namespace kraEngineSDK {
   class KRA_CORE_EXPORT BaseApplication
   {
   public:
     BaseApplication() = default;
-    virtual
-     ~BaseApplication() {}
+    ~BaseApplication() = default;
 
     /**
     * @brief Function to start up the app.
@@ -28,17 +28,13 @@ namespace kraEngineSDK {
     /**
     * @brief Main funtion to execute a program.
     */
-    void
-    run() {
-
-    }
-
-   private:
+    virtual void
+    run() = 0;
     /**
     * @brief Main function to initialize all the main libraries like GFX, network, systems etc.
     */
      virtual void
-     Initialize() = 0;
+     Initialize(int nCmdShow) = 0;
     
     /**
     * @brief Main loop of the app.
@@ -62,6 +58,11 @@ namespace kraEngineSDK {
       */
     }
 
+    void
+    Log(String outputString) {
+
+    }
+
     /**
     * @brief Main function to destroy all the objects created in the app.
     */
@@ -69,6 +70,8 @@ namespace kraEngineSDK {
     destroy() {
 
     }
+
+    Win32Window* m_window;
 
    protected:
     /**
@@ -101,15 +104,6 @@ namespace kraEngineSDK {
     virtual void
     preDestroy() = 0;
 
-    /**
-    * @brief Example function to manage Mouse input.
-    */
-    /*virtual void
-    onMouseMove(float x, float y, buttons) = 0; */
-
-    /**
-    * @brief Function to create an specific type of Graphics API.
-    */
   };
 
 

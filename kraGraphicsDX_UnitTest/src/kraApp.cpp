@@ -4,11 +4,22 @@
 
 void
 App::run() {
+  MSG msg = { 0 };
 
+  while (m_window->m_isOpen)
+  {
+    m_window->handleMSG(static_cast<void*>(&msg));
+    m_inputManager->handleMessage(static_cast<void*>(&msg));
+    update();
+    render();
+  }
 }
 
   bool
-  App::startUp(void* m_hWnd) {
+  App::startUp(void* m_hWnd, int nCmdShow) {
+    
+    Initialize(nCmdShow);
+    
     typedef GraphicsAPI*(*initFunc)();
     typedef InputAPI*(*initInptFunc)();
     HINSTANCE GFXDLL;
@@ -66,7 +77,7 @@ App::run() {
       return false;
     }
 
-    m_device = gfxAPIInstance->initializeAPI(reinterpret_cast<void*>(m_hWnd));
+    m_device = gfxAPIInstance->initializeAPI(reinterpret_cast<void*>(m_window->m_hWnd));
     if (!m_device)
     {
       MessageBox(NULL, "Failed to create Initialize API Device", "Error", MB_OK);
@@ -215,6 +226,34 @@ App::run() {
       return false;
     }
 
+    uint32 KeyDValue = 68;
+    uint32 keyAValue = 65;
+    uint32 keyWValue = 87;
+    uint32 keySValue = 83;
+    uint32 keyQValue = 81;
+    uint32 keyEValue = 69;
+    uint32 keySPACEValue = 32;
+    uint32 keyCTRLValue = 130;
+    uint32 mouseXvalue = 21;
+    uint32 mouseyvalue = 22;
+    uint32 keyboardID;
+    uint32 mouseID;
+
+    keyboardID = createBoolDevice(Keyboard);
+    mouseID = createBoolDevice(Mouse);
+
+    m_inputManager->setInputMap();
+    MapBoolDevice(Dkey, keyboardID, KeyDValue);
+    MapBoolDevice(AKey, keyboardID, keyAValue);
+    MapBoolDevice(WKey, keyboardID, keyWValue);
+    MapBoolDevice(SKey, keyboardID, keySValue);
+    MapBoolDevice(QKey, keyboardID, keyQValue);
+    MapBoolDevice(EKey, keyboardID, keyEValue);
+    MapBoolDevice(SPACEKey, keyboardID, keySPACEValue);
+    MapBoolDevice(CTRLKey, keyboardID, keyCTRLValue);
+    m_inputManager->mapFloatDevice(MouseX, mouseID, mouseXvalue);
+    m_inputManager->mapFloatDevice(MouseY, mouseID, mouseyvalue);
+
     return true;
   }
 
@@ -331,14 +370,61 @@ App::run() {
   }
 
   void
-  App::Initialize() {
-
+  App::Initialize(int nCmdShow) {
+    m_window = new Win32Window(1600, 1000, "Kraken Engine Tesat Application", Vector2(0, 0));
+    if (!m_window->initWindow(nCmdShow))
+    {
+      std::cout << "Window couldn't be initialized.\n";
+    }
   }
 
   void
-  App::update(float deltaTime) {
+  App::update() {
+    
+    Log("Entered update state");
 
-    deltaTime += 5.0125f;
+    if (m_inputManager->boolWasDown(Dkey)) {
+      getActiveCamera()->MoveRight(10.0f);
+      Log("D Key was pressed");
+
+    }
+    if (m_inputManager->boolWasDown(AKey))
+    {
+      //MessageBox(NULL, "Presionaste la tecla A", "Event", MB_OK);
+      getActiveCamera()->MoveRight(-10.0f);
+    }
+    if (m_inputManager->boolWasDown(WKey))
+    {
+      
+      getActiveCamera()->MoveForward(10.0f);
+    }
+    if (m_inputManager->boolWasDown(SKey))
+    {
+      //MessageBox(NULL, "Presionaste la tecla S", "Event", MB_OK);
+      getActiveCamera()->MoveForward(-10.0f);
+    }
+    if (m_inputManager->boolWasDown(SPACEKey))
+    {
+      //MessageBox(NULL, "Presionaste la tecla W", "Event", MB_OK);
+      getActiveCamera()->MoveUP(10.0f);
+    }
+    if (m_inputManager->boolWasDown(CTRLKey))
+    {
+      //MessageBox(NULL, "Presionaste la tecla S", "Event", MB_OK);
+      getActiveCamera()->MoveUP(-10.0f);
+    }
+    if (m_inputManager->boolWasDown(QKey))
+    {
+      rotateCamera(10);
+    }
+    if (m_inputManager->boolWasDown(EKey))
+    {
+      rotateCamera(-10);
+
+    }
+    m_inputManager->managerUpdate();
+
+    //deltaTime += 5.0125f;
 
 
   }
@@ -440,7 +526,11 @@ App::run() {
     m_device->PresentSwapChain();
   }
 
-  
+  void 
+  App::Log(String outputString)
+  {
+    std::cout << outputString << std::endl;
+  }
 
   void
   App::CleanupDevice() {
