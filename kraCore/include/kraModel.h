@@ -55,7 +55,7 @@ namespace kraEngineSDK {
 
     String
     getTextureType(const aiScene* scene, aiMaterial* mat);
-
+    
 
    private:
     std::vector<Mesh*> m_meshVec;

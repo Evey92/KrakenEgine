@@ -29,31 +29,14 @@
 #include <kraVector4.h>
 #include <kraMatrix4.h>
 
+#include "kraInputAPI.h"
+#include "kraInputManager.h"
 
 //Input Headers
-#include <kraInput/include/kraInputAPI.h>
+//#include <kraInput/include/kraInputAPI.h>
 
 using namespace kraEngineSDK;
 
-enum Button
-{
-  Dkey,
-  AKey,
-  WKey,
-  SKey,
-  SPACEKey,
-  CTRLKey,
-  QKey,
-  EKey,
-  MouseX,
-  MouseY
-};
-
-enum Device {
-  Mouse,
-  Keyboard,
-  Gamepad,
-};
 
 class App : public BaseApplication
 {
@@ -80,7 +63,7 @@ class App : public BaseApplication
   Initialize(int nCmdShow);
   void
   update();
-  InputManager*
+  kraInputManager*
   getInputManager();
   uint32
   createBoolDevice(uint32 type);
@@ -158,7 +141,7 @@ class App : public BaseApplication
   Vector<Model*> m_modelsVec;
   Texture* textureManager;
   Camera mainCam;
-  InputManager* m_inputManager;
+  kraInputManager* m_inputManager;
   std::string modelPath = "resources/Models/";
 
 };

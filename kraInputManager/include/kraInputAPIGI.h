@@ -1,8 +1,7 @@
 #pragma once
-#include <kraInput/include/kraInputAPI.h>
-
+#include <kraInputAPI.h>
+#include <kraInputManagerGI.h>
 #include "kraPrerequisitesInput.h"
-#include "kraInputManagerGI.h"
 
 namespace kraEngineSDK {
 
@@ -13,8 +12,8 @@ namespace kraEngineSDK {
     InputAPIGI() = default;
     ~InputAPIGI() {}
 
-    InputManager*
-    initializeAPI(uint32 width, uint32 height);
+    kraInputManager*
+    initializeAPI(uint32 width, uint32 height) override;
 
     InputManagerGI m_inputManager;
 

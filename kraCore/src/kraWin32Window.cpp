@@ -58,13 +58,15 @@ namespace kraEngineSDK {
   }
 
   void
-  Win32Window::handleMSG(void* msg) {
+  Win32Window::handleMSG(void* msg, kraInputManager& inputManager) {
     //MSG msg;
     MSG* m_msg = static_cast<MSG*>(msg);
 
-    while (PeekMessage(m_msg, nullptr, 0U, 0U, PM_REMOVE)) {
+    while (PeekMessage(m_msg, m_hWnd, 0, 0, PM_REMOVE)) {
       TranslateMessage(m_msg);
       DispatchMessage(m_msg);
+      
+      inputManager.handleMessage(static_cast<void*>(&m_msg));
 
       if (m_msg->message == WM_QUIT) {
         m_isOpen = false;

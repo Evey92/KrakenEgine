@@ -44,24 +44,6 @@ namespace kraEngineSDK {
 
     DeviceDX m_device;
     
-    /*RenderTargetViewDX m_renderTargetView;
-    DepthStencilDX* m_depthStencil;
-    DepthStencil m_depthS;
-    DepthStencylViewDX m_depthStencilView;
-    ViewportDX m_viewport;
-    VertexShaderDX m_vertexShader;
-    InputLayoutDX m_inputLayout;
-    PixelShaderDX m_pixelShader;
-    VertexBufferDX<Vertex> m_vertexBuffer;
-    IndexBufferDX<unsigned short> m_indexbuffer;
-    ConstantBufferDX<CBNeverChangesDX> m_neverChanges;
-    ConstantBufferDX<CBChangeOnResizeDX> m_changesOnResize;
-    ConstantBufferDX<CBChangesEveryFrameDX> m_changesEveryFrame;
-    TextureDX m_pBackBuffer;
-    TextureDX m_texture;
-    ShaderResourceViewDX m_shaderRV;
-    SamplerStateDX m_samplerState;
-    */
     Matrix4 m_World;
     Matrix4 m_View;
     Matrix4 m_Projection;

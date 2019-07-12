@@ -2,7 +2,7 @@
 
 namespace kraEngineSDK {
 
- InputManager*
+  kraInputManager*
  InputAPIGI::initializeAPI(uint32 width, uint32 height) {
 
    m_inputManager.setUpInputManagerGI(width, height);

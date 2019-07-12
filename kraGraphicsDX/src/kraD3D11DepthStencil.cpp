@@ -65,9 +65,9 @@ namespace kraEngineSDK {
 
     return true;
   }
-  
+ 
   void
-  DepthStencilDX::setDepthStencilState(const Device& pDevice) {
+    DepthStencilDX::setDepthStencilState(const Device& pDevice) {
 
     const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
 

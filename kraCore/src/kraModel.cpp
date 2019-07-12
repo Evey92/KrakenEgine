@@ -57,7 +57,7 @@ namespace kraEngineSDK {
     }
     else
     {
-      std::cout << "No textures found\n";
+      std::cout << "Texture not included in mesh\n";
       return false;
 
     }

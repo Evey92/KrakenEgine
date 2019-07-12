@@ -193,7 +193,11 @@
     <ClInclude Include="include\kraGraphicsAPI.h" />
     <ClInclude Include="include\kraGraphicsBuffer.h" />
     <ClInclude Include="include\kraIndexBuffer.h" />
+    <ClInclude Include="include\kraInputAPI.h" />
     <ClInclude Include="include\kraInputLayout.h" />
+    <ClInclude Include="include\kraInputManager.h" />
+    <ClInclude Include="include\kraInputMap.h" />
+    <ClInclude Include="include\kraInputMappings.h" />
     <ClInclude Include="include\kraMaterial.h" />
     <ClInclude Include="include\kraMesh.h" />
     <ClInclude Include="include\kraModel.h" />
@@ -214,9 +218,6 @@
     <ClInclude Include="include\kraRenderAPIManager.h" />
     <ClInclude Include="include\kraWin32Window.h" />
     <ClInclude Include="include\kraWindow.h" />
-    <ClInclude Include="kraInput\include\kraInputAPI.h" />
-    <ClInclude Include="kraInput\include\kraInputManager.h" />
-    <ClInclude Include="kraInput\include\kraInputMappings.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraCamera.cpp" />
@@ -233,6 +234,8 @@
     <ClCompile Include="src\kraGraphicsBuffer.cpp" />
     <ClCompile Include="src\kraIndexBuffer.cpp" />
     <ClCompile Include="src\kraInputLayout.cpp" />
+    <ClCompile Include="src\kraInputManager.cpp" />
+    <ClCompile Include="src\kraInputMappings.cpp" />
     <ClCompile Include="src\kraMaterial.cpp" />
     <ClCompile Include="src\kraModel.cpp" />
     <ClCompile Include="src\kraPixelShader.cpp" />

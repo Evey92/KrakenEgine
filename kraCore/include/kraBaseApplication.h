@@ -11,6 +11,32 @@
 #include "kraWin32Window.h"
 
 namespace kraEngineSDK {
+  
+  namespace Button
+  {
+    enum E
+    {
+      Dkey = 0,
+      AKey,
+      WKey,
+      SKey,
+      SPACEKey,
+      CTRLKey,
+      QKey,
+      EKey,
+      MouseX,
+      MouseY,
+    };
+  }
+
+  namespace DeviceType
+  {
+    enum E {
+      Mouse = 0,
+      Keyboard,
+      Gamepad,
+    };
+  }
   class KRA_CORE_EXPORT BaseApplication
   {
   public:

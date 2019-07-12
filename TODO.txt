@@ -1,3 +1,4 @@
--Create the materials class. This will handle all the textures that each mesh needs. 
-
-This way, each time we render, we set the shader sub resource with the texures needed by the mesh that's being trendered
+-Fix problems with input manager
+-Create the resource Manager
+-Effing implement ImGUI already 
+-Work on Script as a component to start testing scripts on the engine

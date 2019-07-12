@@ -15,11 +15,11 @@ namespace kraEngineSDK {
      ~DepthStencilDX() = default;
 
      bool
-     setDepthStencil(const Device& pDevice, uint32 height, uint32 width);
+     setDepthStencil(const Device& pDevice, uint32 height, uint32 width) override;
      bool
-     createDepthStencilState(const Device& pDevice);
+     createDepthStencilState(const Device& pDevice) override;
      void
-     setDepthStencilState(const Device& pDevice);
+     setDepthStencilState(const Device& pDevice) override;
      void
      cleanDepthStencil();
      

@@ -13,17 +13,17 @@ namespace kraEngineSDK {
 
     ~Win32Window();
 
-    virtual bool
+    bool
     initWindow(int nCmdShow) override;
 
-    virtual void
-    handleMSG(void* msg) override;
+    void
+    handleMSG(void* msg, kraInputManager& inputManager) override;
 
-    virtual void
+    void
     release() override;
 
     HWND m_hWnd;
-
     HINSTANCE m_hInstance;
+    //InputManager* m_inputManager;
   };
 }

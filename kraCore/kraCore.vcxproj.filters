@@ -23,6 +23,9 @@
     <Filter Include="Source Files\kraInput\include">
       <UniqueIdentifier>{b56600e5-6326-4375-b94a-9e50fc14a516}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\kraInput\src">
+      <UniqueIdentifier>{f9efaa4a-108e-4a92-9099-2dfaec3bf342}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\kraConstantBuffer.h">
@@ -115,15 +118,6 @@
     <ClInclude Include="include\kraPrerequisitesCore.h">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
-    <ClInclude Include="kraInput\include\kraInputManager.h">
-      <Filter>Source Files\kraInput\include</Filter>
-    </ClInclude>
-    <ClInclude Include="kraInput\include\kraInputMappings.h">
-      <Filter>Source Files\kraInput\include</Filter>
-    </ClInclude>
-    <ClInclude Include="kraInput\include\kraInputAPI.h">
-      <Filter>Source Files\kraInput\include</Filter>
-    </ClInclude>
     <ClInclude Include="include\kraClock.h">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
@@ -147,6 +141,18 @@
     </ClInclude>
     <ClInclude Include="include\kraWin32Window.h">
       <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraInputAPI.h">
+      <Filter>Source Files\kraInput\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraInputManager.h">
+      <Filter>Source Files\kraInput\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraInputMap.h">
+      <Filter>Source Files\kraInput\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraInputMappings.h">
+      <Filter>Source Files\kraInput\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +248,12 @@
     </ClCompile>
     <ClCompile Include="src\kraWin32Window.cpp">
       <Filter>Source Files\kraCoreBase</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraInputManager.cpp">
+      <Filter>Source Files\kraInput\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraInputMappings.cpp">
+      <Filter>Source Files\kraInput\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,5 +1,8 @@
 #pragma once
+#include <windows.h>
+
 #include "kraPrerequisitesCore.h"
+#include "kraInputManager.h"
 
 namespace kraEngineSDK {
   class KRA_CORE_EXPORT Window
@@ -18,8 +21,8 @@ namespace kraEngineSDK {
      initWindow(int nCmdShow) = 0;
 
      virtual void
-     handleMSG(void* msg) = 0;
-
+     handleMSG(void* msg, kraInputManager& inputManager) = 0;
+      
      virtual void
      release() = 0;
 

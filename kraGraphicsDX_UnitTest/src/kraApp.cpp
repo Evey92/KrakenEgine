@@ -1,6 +1,7 @@
+#include "kraApp.h"
+
 #include <windows.h>
 #include <string>
-#include "kraApp.h"
 
 void
 App::run() {
@@ -8,7 +9,8 @@ App::run() {
 
   while (m_window->m_isOpen)
   {
-    m_window->handleMSG(static_cast<void*>(&msg));
+    m_inputManager->managerUpdate();
+    m_window->handleMSG(static_cast<void*>(&msg), *m_inputManager);
     m_inputManager->handleMessage(static_cast<void*>(&msg));
     update();
     render();
@@ -186,14 +188,14 @@ App::run() {
     
     if (!m_CBChangesEveryframe)
     {
-      MessageBox(NULL, "Failed to create Sampler State", "Error", MB_OK);
+      MessageBox(NULL, "Failed to create Sampler State", "Error", MB_OK);                     
       return false;
     }
 
     textureManager = m_device->createTextureInstance();
     if (!m_indexBuffer)
     {
-      MessageBox(NULL, "Failed to create Index Buffer", "Error", MB_OK);
+      MessageBox(NULL, "Failed to create Index Buffer", "Error", MB_OK);                      
       return false;
     }
     m_texture = m_device->createTextureInstance();
@@ -226,10 +228,10 @@ App::run() {
       return false;
     }
 
-    uint32 KeyDValue = 68;
-    uint32 keyAValue = 65;
-    uint32 keyWValue = 87;
-    uint32 keySValue = 83;
+    uint32 KeyDValue = 0x0044;
+    uint32 keyAValue = 0x0041;
+    uint32 keyWValue = 0x0057;
+    uint32 keySValue = 0x0053;
     uint32 keyQValue = 81;
     uint32 keyEValue = 69;
     uint32 keySPACEValue = 32;
@@ -239,20 +241,21 @@ App::run() {
     uint32 keyboardID;
     uint32 mouseID;
 
-    keyboardID = createBoolDevice(Keyboard);
-    mouseID = createBoolDevice(Mouse);
+    keyboardID = createBoolDevice(DeviceType::E::Keyboard);
+    mouseID = createBoolDevice(DeviceType::E::Mouse);
 
     m_inputManager->setInputMap();
-    MapBoolDevice(Dkey, keyboardID, KeyDValue);
-    MapBoolDevice(AKey, keyboardID, keyAValue);
-    MapBoolDevice(WKey, keyboardID, keyWValue);
-    MapBoolDevice(SKey, keyboardID, keySValue);
-    MapBoolDevice(QKey, keyboardID, keyQValue);
-    MapBoolDevice(EKey, keyboardID, keyEValue);
-    MapBoolDevice(SPACEKey, keyboardID, keySPACEValue);
-    MapBoolDevice(CTRLKey, keyboardID, keyCTRLValue);
-    m_inputManager->mapFloatDevice(MouseX, mouseID, mouseXvalue);
-    m_inputManager->mapFloatDevice(MouseY, mouseID, mouseyvalue);
+
+    MapBoolDevice(Button::E::Dkey, keyboardID, KeyDValue);
+    MapBoolDevice(Button::E::AKey, keyboardID, keyAValue);
+    MapBoolDevice(Button::E::WKey, keyboardID, keyWValue);
+    MapBoolDevice(Button::E::SKey, keyboardID, keySValue);
+    MapBoolDevice(Button::E::QKey, keyboardID, keyQValue);
+    MapBoolDevice(Button::E::EKey, keyboardID, keyEValue);
+    MapBoolDevice(Button::E::SPACEKey, keyboardID, keySPACEValue);
+    MapBoolDevice(Button::E::CTRLKey, keyboardID, keyCTRLValue);
+    m_inputManager->mapFloatDevice(Button::E::MouseX, mouseID, mouseXvalue);
+    m_inputManager->mapFloatDevice(Button::E::MouseY, mouseID, mouseyvalue);
 
     return true;
   }
@@ -307,13 +310,13 @@ App::run() {
     m_pixelShader->createPixelShader(*m_device);
 
     
-      modelPath += "sponza.obj";
+      modelPath += "Soi_Armour_A.fbx";
       Model* newModel = new Model();
       Texture* newTex = m_device->createTextureInstance();
       Texture* normalTex = m_device->createTextureInstance();
       if (!newModel->loadModelFromFile(modelPath, *m_device, textureManager))
       {
-        MessageBox(NULL, "Failed to Load a Model", "Error", MB_OK);
+        Log("Failed to Load a Model");
 
         return false;
       }
@@ -334,7 +337,7 @@ App::run() {
     mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
     mainCam.setFront(Vector3(0.0f, 0.0f, -1.0f));
     mainCam.setRight(Vector3(1.0f, 0.0f, 0.0f));
-    mainCam.SetPosition(Vector3(0.0f, 50.0f, -20.0f));
+    mainCam.SetPosition(Vector3(0.0f, 60.0f, 80.0f));
     mainCam.SetObjecive(Vector3(0.0f, 50.0f, 0.0f));
 
     mainCam.createViewMat();
@@ -381,55 +384,70 @@ App::run() {
   void
   App::update() {
     
-    Log("Entered update state");
+    //Log("Entered update state");
 
-    if (m_inputManager->boolWasDown(Dkey)) {
+    if (m_inputManager->boolWasDown(0)) {
       getActiveCamera()->MoveRight(10.0f);
       Log("D Key was pressed");
 
     }
-    if (m_inputManager->boolWasDown(AKey))
+    if (m_inputManager->boolWasDown(Button::E::AKey))
     {
       //MessageBox(NULL, "Presionaste la tecla A", "Event", MB_OK);
+      Log("A Key was pressed");
+
       getActiveCamera()->MoveRight(-10.0f);
     }
-    if (m_inputManager->boolWasDown(WKey))
+    if (m_inputManager->boolWasDown(Button::E::WKey))
     {
       
       getActiveCamera()->MoveForward(10.0f);
+      Log("W Key was pressed");
+
     }
-    if (m_inputManager->boolWasDown(SKey))
+    if (m_inputManager->boolWasDown(Button::E::SKey))
     {
       //MessageBox(NULL, "Presionaste la tecla S", "Event", MB_OK);
+      Log("S Key was pressed");
+
       getActiveCamera()->MoveForward(-10.0f);
     }
-    if (m_inputManager->boolWasDown(SPACEKey))
+    if (m_inputManager->boolWasDown(Button::E::SPACEKey))
     {
       //MessageBox(NULL, "Presionaste la tecla W", "Event", MB_OK);
+      Log("space Key was pressed");
+
       getActiveCamera()->MoveUP(10.0f);
     }
-    if (m_inputManager->boolWasDown(CTRLKey))
+
+    if (m_inputManager->boolWasDown(5))
     {
       //MessageBox(NULL, "Presionaste la tecla S", "Event", MB_OK);
+      Log("CTRL Key was pressed");
+
       getActiveCamera()->MoveUP(-10.0f);
     }
-    if (m_inputManager->boolWasDown(QKey))
+    if (m_inputManager->boolWasDown(Button::E::QKey))
     {
+      Log("Q Key was pressed");
+
       rotateCamera(10);
     }
-    if (m_inputManager->boolWasDown(EKey))
+    if (m_inputManager->boolWasDown(Button::E::EKey))
     {
+      Log("E Key was pressed");
+
       rotateCamera(-10);
 
     }
-    m_inputManager->managerUpdate();
+
 
     //deltaTime += 5.0125f;
 
 
   }
 
-  InputManager*
+  kraInputManager*
   App::getInputManager() {
     
     return m_inputManager;
