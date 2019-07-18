@@ -7,41 +7,15 @@
 #include <imgui_impl_win32.h>
 #include <imgui_impl_dx11.h>
 
-void
-App::run() {
-
-  ImGui::Text("Hello world %d", 123);
-  if (ImGui::Button("Save")) {
-
-    std::cout << "Yay, you did the thing";
-  }
-
-  MSG msg = { 0 };
-
-  while (m_window->m_isOpen)
-  {
-    m_inputManager->managerUpdate();
-    m_window->handleMSG(static_cast<void*>(&msg), *m_inputManager);
-    m_inputManager->handleMessage(static_cast<void*>(&msg));
-    update();
-    if (m_inputManager->boolWasDown(Button::E::CTRLKey))
-    {
-
-      Log("CTRL Key was pressed");
-
-      getActiveCamera()->MoveUP(-10.0f);
-    }
-    render();
-  }
-}
+#pragma region APP_LIFECYCLE
 
   bool
   App::startUp(void* m_hWnd, int nCmdShow) {
-    
+
     Initialize(nCmdShow);
-    
-    typedef GraphicsAPI*(*initFunc)();
-    typedef InputAPI*(*initInptFunc)();
+
+    typedef GraphicsAPI* (*initFunc)();
+    typedef InputAPI* (*initInptFunc)();
     HINSTANCE GFXDLL;
     HINSTANCE INPUTDLL;
 
@@ -53,7 +27,7 @@ App::run() {
     if (!GFXDLL) {
       DWORD err = GetLastError();
       MessageBox(NULL, "Could not find specified graphics DLL. Error: " + err, "Error", MB_OK);
-      
+
       FreeLibrary(GFXDLL);
       return false;
     }
@@ -62,7 +36,7 @@ App::run() {
     if (!INPUTDLL) {
       DWORD err = GetLastError();
       MessageBox(NULL, "Could not find specified input DLL. Error: " + err, "Error", MB_OK);
-      
+
       FreeLibrary(INPUTDLL);
       return false;
     }
@@ -167,7 +141,7 @@ App::run() {
       return false;
     }
 
-   
+
     m_vertBuffer = m_device->createVertexBufferInstance();
     if (!m_vertBuffer)
     {
@@ -176,7 +150,7 @@ App::run() {
     }
 
     m_indexBuffer = m_device->createIndexBufferInstance();
-    if(!m_indexBuffer)
+    if (!m_indexBuffer)
     {
       MessageBox(NULL, "Failed to create Index Buffer", "Error", MB_OK);
       return false;
@@ -203,17 +177,17 @@ App::run() {
       return false;
     }
     m_samplerState = m_device->createSamplerStateInstance();
-    
+
     if (!m_CBChangesEveryframe)
     {
-      MessageBox(NULL, "Failed to create Sampler State", "Error", MB_OK);                     
+      MessageBox(NULL, "Failed to create Sampler State", "Error", MB_OK);
       return false;
     }
 
     textureManager = m_device->createTextureInstance();
     if (!m_indexBuffer)
     {
-      MessageBox(NULL, "Failed to create Index Buffer", "Error", MB_OK);                      
+      MessageBox(NULL, "Failed to create Index Buffer", "Error", MB_OK);
       return false;
     }
     m_texture = m_device->createTextureInstance();
@@ -275,130 +249,23 @@ App::run() {
     m_inputManager->mapFloatDevice(Button::E::MouseX, mouseID, mouseXvalue);
     m_inputManager->mapFloatDevice(Button::E::MouseY, mouseID, mouseyvalue);
 
-    IMGUI_CHECKVERSION();
+    /*IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
 
     ImGui::StyleColorsDark();
-    
-    ImGui_ImplWin32_Init(m_hWnd);
+
+    ImGui_ImplWin32_Init(m_hWnd);*/
 
 
     return true;
   }
-
   
-  bool
-  App::LoadModel() {
-    mainCam.setFOV(kraMath::DEG2RAD(90.0f));
-    mainCam.setNearPlane(0.01f);
-    mainCam.setFarPlane(10000.0f);
+  void
+  App::preInitialice() {
 
-    m_renderTargetView->createRenderTargetView(*m_device);
-
-
-    m_depthStencil->setDepthStencil(*m_device, m_device->getHeight(), m_device->getWidth());
-
-    m_depthStencil->createDepthStencilState(*m_device);
-
-    m_depthStencil->setDepthStencilState(*m_device);
-
-    m_depthStencilView->createDepthStencilView(*m_device, *m_depthStencil);
-
-    m_renderTargetView->setRenderTarget(*m_device, *m_depthStencilView, 1);
-
-    m_viewport->createViewport(m_device->getWidth(), m_device->getHeight(), 0.0f, 0.0f);
-
-    m_viewport->setViewport(m_device);
-
-    if (!m_vertexShader->compileVertexShader("bumpVS.hlsl", "VS"))
-    {
-      DWORD err = GetLastError();
-      MessageBox(NULL, "Failed to create Vertex shader. Error: " + err, "Error", MB_OK);
-
-      std::cout << "Failed to compile shader\n";
-      return false;
-    }
-
-    m_vertexShader->createVertexShader(*m_device);
-
-    m_inputLayout->defineInputLayout();
-
-    m_inputLayout->createInputLayout(*m_device, *m_vertexShader);
-
-
-    if (!m_pixelShader->compilePixelShader("bumpPS.hlsl", "PS"))
-    {
-      MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
-       
-      std::cout << "Failed to compile shader\n";
-      return false;
-    }
-    m_pixelShader->createPixelShader(*m_device);
-
-    
-      modelPath += "Soi_Armour_A.fbx";
-      Model* newModel = new Model();
-      Texture* newTex = m_device->createTextureInstance();
-      Texture* normalTex = m_device->createTextureInstance();
-      if (!newModel->loadModelFromFile(modelPath, *m_device, textureManager))
-      {
-        Log("Failed to Load a Model");
-
-        return false;
-      }
-      m_modelsVec.push_back(newModel);
-
-    m_device->setPrimitiveTopology();
-    m_rasState->createRasterizerState(*m_device);
-    m_rasState->setRasterizerState(*m_device);
-
-    m_samplerState->createSamplerState(*m_device);
-    m_samplerState->setSamplerState(*m_device);
-
-
-    m_world.identity();
-    m_mainCB->add(m_world);
-    
-
-    mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
-    mainCam.setFront(Vector3(0.0f, 0.0f, -1.0f));
-    mainCam.setRight(Vector3(1.0f, 0.0f, 0.0f));
-    mainCam.SetPosition(Vector3(0.0f, 60.0f, 80.0f));
-    mainCam.SetObjecive(Vector3(0.0f, 50.0f, 0.0f));
-
-    mainCam.createViewMat();
-    m_mainCB->add(mainCam.GetViewMatrix());
-
-    Vector3 lightPosition = Vector3(100.0f, 0.0f, 100.0f);
-
-    m_projection.MatrixPerspectiveFOV(mainCam.getFOV(), static_cast<float>(m_device->getWidth()), static_cast<float>(m_device->getHeight()), mainCam.getNearPlane(), mainCam.getFarPlane());
-    m_mainCB->add(m_projection);
-
-    m_lightCB->add(Vector4(mainCam.getPosition(), 1.0f));
-
-    m_mainCB->createConstantBuffer(*m_device);
-    m_lightCB->createConstantBuffer(*m_device);
-
-    m_mainCB->createConstantBuffer(*m_device);
-    m_lightCB->updateSubResources(*m_device);
-    return true;
   }
-
-  HINSTANCE
-  App::loadDLL() {
-    HINSTANCE GFXDLL;
-    char currDirect[300];
-    GetWindowsDirectoryA(currDirect, 300);
-
-    std::string DLLPath(currDirect);
-    DLLPath = DLLPath.append("\\").append("kraGraphicsDXd.dll");
   
-    GFXDLL = LoadLibraryEx(DLLPath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
-  
-    return GFXDLL;
-  }
-
   void
   App::Initialize(int nCmdShow) {
     m_window = new Win32Window(1600, 1000, "Kraken Engine Tesat Application", Vector2(0, 0));
@@ -409,8 +276,46 @@ App::run() {
   }
 
   void
+  App::postInitialice() {
+
+  }
+
+  void
+  App::run() {
+
+    /*ImGui::Text("Hello world %d", 123);
+    if (ImGui::Button("Save")) {
+
+      std::cout << "Yay, you did the thing";
+    }*/
+
+    MSG msg = { 0 };
+
+    while (m_window->m_isOpen)
+    {
+      m_inputManager->managerUpdate();
+      m_window->handleMSG(static_cast<void*>(&msg), *m_inputManager);
+      m_inputManager->handleMessage(static_cast<void*>(&msg));
+      update();
+      if (m_inputManager->boolWasDown(Button::E::CTRLKey))
+      {
+
+        Log("CTRL Key was pressed");
+
+        getActiveCamera()->MoveUP(-10.0f);
+      }
+      render();
+    }
+  }
+
+  void
+  App::preUpdate() {
+
+  }
+
+  void
   App::update() {
-    
+
     //Log("Entered update state");
 
     if (m_inputManager->boolWasDown(0)) {
@@ -427,7 +332,7 @@ App::run() {
     }
     if (m_inputManager->boolWasDown(Button::E::WKey))
     {
-      
+
       getActiveCamera()->MoveForward(10.0f);
       Log("W Key was pressed");
 
@@ -449,10 +354,11 @@ App::run() {
 
     if (m_inputManager->boolWasDown(Button::E::CTRLKey))
     {
-      
+
       Log("CTRL Key was pressed");
 
       getActiveCamera()->MoveUP(-10.0f);
+
     }
     if (m_inputManager->boolWasDown(Button::E::Dkey))
     {
@@ -470,7 +376,12 @@ App::run() {
   }
 
   void
-    App::render() {
+  App::postUpdate() {
+
+  }
+
+  void
+  App::render() {
 
     static float t = 0.0f;
 
@@ -506,6 +417,21 @@ App::run() {
     m_device->PresentSwapChain();
   }
 
+  void
+  App::postRender() {
+
+  }
+
+  void
+  App::preDestroy() {
+
+  }
+
+  void
+  App::destroy() {
+
+  }
+#pragma endregion APP_LIFECYCLE
 
 #pragma region INPUT_FUNCTIONS
   kraInputManager*
@@ -573,12 +499,124 @@ App::run() {
 
 #pragma endregion CAMERA_FUNCTIONS
  
+#pragma region UTILITY_FUNCTIONS
+  bool
+    App::LoadModel() {
+    mainCam.setFOV(kraMath::DEG2RAD(90.0f));
+    mainCam.setNearPlane(0.01f);
+    mainCam.setFarPlane(10000.0f);
 
-  void 
-  App::Log(String outputString)
+    m_renderTargetView->createRenderTargetView(*m_device);
+
+
+    m_depthStencil->setDepthStencil(*m_device, m_device->getHeight(), m_device->getWidth());
+
+    m_depthStencil->createDepthStencilState(*m_device);
+
+    m_depthStencil->setDepthStencilState(*m_device);
+
+    m_depthStencilView->createDepthStencilView(*m_device, *m_depthStencil);
+
+    m_renderTargetView->setRenderTarget(*m_device, *m_depthStencilView, 1);
+
+    m_viewport->createViewport(m_device->getWidth(), m_device->getHeight(), 0.0f, 0.0f);
+
+    m_viewport->setViewport(m_device);
+
+    if (!m_vertexShader->compileVertexShader("bumpVS.hlsl", "VS"))
+    {
+      DWORD err = GetLastError();
+      MessageBox(NULL, "Failed to create Vertex shader. Error: " + err, "Error", MB_OK);
+
+      std::cout << "Failed to compile shader\n";
+      return false;
+    }
+
+    m_vertexShader->createVertexShader(*m_device);
+
+    m_inputLayout->defineInputLayout();
+
+    m_inputLayout->createInputLayout(*m_device, *m_vertexShader);
+
+
+    if (!m_pixelShader->compilePixelShader("bumpPS.hlsl", "PS"))
+    {
+      MessageBox(NULL, "Failed to compile Pixel shader", "Error", MB_OK);
+
+      std::cout << "Failed to compile shader\n";
+      return false;
+    }
+    m_pixelShader->createPixelShader(*m_device);
+
+
+    modelPath += "Crate1.obj";
+    Model* newModel = new Model();
+    Texture* newTex = m_device->createTextureInstance();
+    Texture* normalTex = m_device->createTextureInstance();
+    if (!newModel->loadModelFromFile(modelPath, *m_device, textureManager))
+    {
+      Log("Failed to Load a Model");
+
+      return false;
+    }
+    m_modelsVec.push_back(newModel);
+
+    m_device->setPrimitiveTopology();
+    m_rasState->createRasterizerState(*m_device);
+    m_rasState->setRasterizerState(*m_device);
+
+    m_samplerState->createSamplerState(*m_device);
+    m_samplerState->setSamplerState(*m_device);
+
+
+    m_world.identity();
+    m_mainCB->add(m_world);
+
+
+    mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
+    mainCam.setFront(Vector3(0.0f, 0.0f, -1.0f));
+    mainCam.setRight(Vector3(1.0f, 0.0f, 0.0f));
+    mainCam.SetPosition(Vector3(0.0f, 60.0f, 80.0f));
+    mainCam.SetObjecive(Vector3(0.0f, 50.0f, 0.0f));
+
+    mainCam.createViewMat();
+    m_mainCB->add(mainCam.GetViewMatrix());
+
+    Vector3 lightPosition = Vector3(100.0f, 0.0f, 100.0f);
+
+    m_projection.MatrixPerspectiveFOV(mainCam.getFOV(), static_cast<float>(m_device->getWidth()), static_cast<float>(m_device->getHeight()), mainCam.getNearPlane(), mainCam.getFarPlane());
+    m_mainCB->add(m_projection);
+
+    m_lightCB->add(Vector4(mainCam.getPosition(), 1.0f));
+
+    m_mainCB->createConstantBuffer(*m_device);
+    m_lightCB->createConstantBuffer(*m_device);
+
+    m_mainCB->createConstantBuffer(*m_device);
+    m_lightCB->updateSubResources(*m_device);
+    return true;
+  }
+
+  HINSTANCE
+    App::loadDLL() {
+    HINSTANCE GFXDLL;
+    char currDirect[300];
+    GetWindowsDirectoryA(currDirect, 300);
+
+    std::string DLLPath(currDirect);
+    DLLPath = DLLPath.append("\\").append("kraGraphicsDXd.dll");
+
+    GFXDLL = LoadLibraryEx(DLLPath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
+
+    return GFXDLL;
+  }
+
+  void
+    App::Log(String outputString)
   {
     std::cout << outputString << std::endl;
   }
+
 
   void
   App::CleanupDevice() {
@@ -606,33 +644,8 @@ App::run() {
       m_device->cleanDevice();
     }
   }
+#pragma endregion UTILITY_FUNCTIONS
+  
 
-  void
-  App::destroy() {
 
-  }
-
-  void
-  App::preInitialice() {
-
-  }
-
-  void
-  App::postInitialice() {
-
-  }
-
-  void
-    App::postUpdate() {
-
-  }
-
-  void
-  App::postRender() {
-
-  }
-
-  void
-  App::preDestroy() {
-
-  }
+  

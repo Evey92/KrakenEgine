@@ -20,6 +20,6 @@ namespace kraEngineSDK {
     void
     releaseShaderResourceView();
 
-    ID3D11ShaderResourceView* m_pTextureRV;
+    ID3D11ShaderResourceView* m_pTextureRV = nullptr;
   };
 }

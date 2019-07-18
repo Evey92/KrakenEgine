@@ -31,14 +31,11 @@ namespace kraEngineSDK {
     void
     releaseTexture();
 
-    int m_height;
-    int m_width; 
-    std::string m_missingTexture = "resources/Textures/missingChecker.png";
-
-    //ID3D11Texture1D* m_pd3dTexture1D = nullptr;
     ID3D11Texture2D* m_pd3dTexture2D = nullptr;
     ID3D11ShaderResourceView* m_pTextureRV = nullptr;
-    //ShaderResourceViewDX* m_texSRV;
-    //ID3D11Texture3D* m_pd3dTexture3D = nullptr;
+    int m_height = 0;
+    int m_width = 0;
+    std::string m_missingTexture = "resources/Textures/missingChecker.png";
+
   };
 }

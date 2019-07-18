@@ -17,7 +17,7 @@ namespace kraEngineSDK {
     void
     setRasterizerState(const Device& pDevice);
     
-    ID3D11RasterizerState* m_rasterizerState;
+    ID3D11RasterizerState* m_rasterizerState = nullptr;
 
   };
 }

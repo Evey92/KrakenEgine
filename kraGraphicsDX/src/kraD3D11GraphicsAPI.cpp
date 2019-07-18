@@ -9,15 +9,16 @@ namespace kraEngineSDK {
     
     //HWND m_hWnd = reinterpret_cast<HWND>(g_hWnd);
     
-    HRESULT hr = S_OK;
+    bool hr = true;
     
     //Init device and Swap Chain
         
     hr = m_device.initializeDevice(g_hWnd);
    
-    if (FAILED(hr))
+    if (!hr)
     {
-      return false;
+      return nullptr;
+      throw::std::exception("The Device could not be initialized.");
     }
     
     return &m_device;

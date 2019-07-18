@@ -31,7 +31,7 @@ namespace kraEngineSDK {
     void
     cleanInputLayout();
 
-    ID3D11InputLayout* m_pVertexLayout;
+    ID3D11InputLayout* m_pVertexLayout = nullptr;
     std::vector<D3D11_INPUT_ELEMENT_DESC> m_layoutDescVector;
     
   };

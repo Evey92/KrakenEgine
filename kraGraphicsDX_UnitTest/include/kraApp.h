@@ -63,6 +63,7 @@ class App : public BaseApplication
   Initialize(int nCmdShow);
   void
   update();
+
   kraInputManager*
   getInputManager();
   uint32
@@ -92,6 +93,12 @@ class App : public BaseApplication
   */
   void
   postInitialice();
+
+  /**
+  * @brief Vrtual function used by the actual app to .
+  */
+  void
+  preUpdate();
 
   /**
   * @brief Vrtual function used by the actual app to .

@@ -95,12 +95,12 @@ namespace kraEngineSDK {
     createMaterialInstance();
     RasterizerState*
     creatreRasterizerStateInstance();
-    SwapChainDX m_pSwapChain;
-    uint32 m_height;
-    uint32 m_width;
+    
     ID3D11Device* m_pd3dDevice = nullptr;
     ID3D11DeviceContext* m_pImmediateContext = nullptr;
-   
+    SwapChainDX m_pSwapChain;
+    uint32 m_height = 0;
+    uint32 m_width = 0;
   };
 }
 
