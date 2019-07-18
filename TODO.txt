@@ -1,3 +1,6 @@
+-URGENT:
+-> Create Device context interface so I can use the device context in the core.
+
 -Fix problems with input manager
 -Create the resource Manager
 -Effing implement ImGUI already 

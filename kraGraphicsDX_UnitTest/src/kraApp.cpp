@@ -3,8 +3,19 @@
 #include <windows.h>
 #include <string>
 
+#include <imgui.h>
+#include <imgui_impl_win32.h>
+#include <imgui_impl_dx11.h>
+
 void
 App::run() {
+
+  ImGui::Text("Hello world %d", 123);
+  if (ImGui::Button("Save")) {
+
+    std::cout << "Yay, you did the thing";
+  }
+
   MSG msg = { 0 };
 
   while (m_window->m_isOpen)
@@ -13,6 +24,13 @@ App::run() {
     m_window->handleMSG(static_cast<void*>(&msg), *m_inputManager);
     m_inputManager->handleMessage(static_cast<void*>(&msg));
     update();
+    if (m_inputManager->boolWasDown(Button::E::CTRLKey))
+    {
+
+      Log("CTRL Key was pressed");
+
+      getActiveCamera()->MoveUP(-10.0f);
+    }
     render();
   }
 }
@@ -228,13 +246,13 @@ App::run() {
       return false;
     }
 
-    uint32 KeyDValue = 0x0044;
-    uint32 keyAValue = 0x0041;
-    uint32 keyWValue = 0x0057;
+    uint32 KeyDValue = 129;
+    uint32 keyAValue = 0x41;
+    uint32 keyWValue = 0x57;
     uint32 keySValue = 0x0053;
     uint32 keyQValue = 81;
     uint32 keyEValue = 69;
-    uint32 keySPACEValue = 32;
+    uint32 keySPACEValue = 0x20;
     uint32 keyCTRLValue = 130;
     uint32 mouseXvalue = 21;
     uint32 mouseyvalue = 22;
@@ -256,6 +274,15 @@ App::run() {
     MapBoolDevice(Button::E::CTRLKey, keyboardID, keyCTRLValue);
     m_inputManager->mapFloatDevice(Button::E::MouseX, mouseID, mouseXvalue);
     m_inputManager->mapFloatDevice(Button::E::MouseY, mouseID, mouseyvalue);
+
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+    ImGui::StyleColorsDark();
+    
+    ImGui_ImplWin32_Init(m_hWnd);
+
 
     return true;
   }
@@ -420,16 +447,16 @@ App::run() {
       getActiveCamera()->MoveUP(10.0f);
     }
 
-    if (m_inputManager->boolWasDown(5))
+    if (m_inputManager->boolWasDown(Button::E::CTRLKey))
     {
-      //MessageBox(NULL, "Presionaste la tecla S", "Event", MB_OK);
+      
       Log("CTRL Key was pressed");
 
       getActiveCamera()->MoveUP(-10.0f);
     }
-    if (m_inputManager->boolWasDown(Button::E::QKey))
+    if (m_inputManager->boolWasDown(Button::E::Dkey))
     {
-      Log("Q Key was pressed");
+      Log("D Key was pressed");
 
       rotateCamera(10);
     }
@@ -440,22 +467,56 @@ App::run() {
       rotateCamera(-10);
 
     }
-
-
-    //deltaTime += 5.0125f;
-
-
   }
 
+  void
+    App::render() {
+
+    static float t = 0.0f;
+
+    t += kraMath::PI * .00125f;
+
+    //m_world.MatrixRotY(t);
+
+    m_vertexShader->setVertexShader(*m_device);
+    m_pixelShader->setPixelShader(*m_device);
+
+    m_mainCB->setVertexConstantBuffer(*m_device, 0, 1);
+    m_mainCB->setPixelConstantBuffer(*m_device, 0, 1);
+
+    m_inputLayout->setInputLayout(*m_device);
+
+    Vector4 ClearColor = { 0.5f, 0.0f, 0.8f, 1.0f };
+
+    m_renderTargetView->clearRenderTargetView(m_device, ClearColor);
+    m_depthStencilView->clearDSV(*m_device);
+
+
+    m_mainCB->setConstData(0, m_world);
+    m_mainCB->setConstData(1, mainCam.GetViewMatrix());
+    m_mainCB->updateSubResources(*m_device);
+
+    m_lightCB->setConstData(0, mainCam.getPosition());
+    m_lightCB->updateSubResources(*m_device);
+
+    for (uint32 i = 0; i < m_modelsVec.size(); ++i) {
+      m_modelsVec[i]->Draw(m_device);
+    }
+
+    m_device->PresentSwapChain();
+  }
+
+
+#pragma region INPUT_FUNCTIONS
   kraInputManager*
-  App::getInputManager() {
-    
+    App::getInputManager() {
+
     return m_inputManager;
   }
 
   uint32
-  App::createBoolDevice(uint32 type) {
-   
+    App::createBoolDevice(uint32 type) {
+
     switch (type)
     {
     case 0:
@@ -473,76 +534,45 @@ App::run() {
   }
 
   void
-  App::MapBoolDevice(uint32 userBtn, uint32 deviceID, uint32 key) {
-    
+    App::MapBoolDevice(uint32 userBtn, uint32 deviceID, uint32 key) {
+
     m_inputManager->mapBoolDevice(userBtn, deviceID, key);
 
   }
 
+#pragma endregion INPUT_FUNCTIONS
+
+#pragma region CAMERA_FUNCTIONS
   Camera*
-  App::getActiveCamera() {
+    App::getActiveCamera() {
     return &mainCam;
   }
 
   void
-  App::RotateWorldMat(int dir) {
-    
+    App::RotateWorldMat(int dir) {
+
     float t = 0.0f;
-    
+
     t += kraMath::PI * 900000.00125f;
     m_world.MatrixRotY(t * dir);
   }
 
   void
-  App::strafeCamera(int dir) {
+    App::strafeCamera(int dir) {
 
     mainCam.MoveRight(5.0f * dir);
 
   }
 
   void
-  App::rotateCamera(float angle) {
+    App::rotateCamera(float angle) {
 
     mainCam.Yaw(angle);
 
   }
 
-  void
-  App::render() {
-
-    static float t = 0.0f;
-
-    t += kraMath::PI * .00125f;
-     
-    //m_world.MatrixRotY(t);
-
-    m_vertexShader->setVertexShader(*m_device);
-    m_pixelShader->setPixelShader(*m_device);
-    
-    m_mainCB->setVertexConstantBuffer(*m_device, 0, 1);
-    m_mainCB->setPixelConstantBuffer(*m_device, 0, 1);
-
-    m_inputLayout->setInputLayout(*m_device);
-
-    Vector4 ClearColor = { 0.5f, 0.0f, 0.8f, 1.0f };
-
-    m_renderTargetView->clearRenderTargetView(m_device, ClearColor);
-    m_depthStencilView->clearDSV(*m_device);
-    
-
-    m_mainCB->setConstData(0, m_world);
-    m_mainCB->setConstData(1, mainCam.GetViewMatrix());
-    m_mainCB->updateSubResources(*m_device);
-
-    m_lightCB->setConstData(0, mainCam.getPosition());
-    m_lightCB->updateSubResources(*m_device);
-
-      for (uint32 i = 0; i < m_modelsVec.size(); ++i) {
-      m_modelsVec[i]->Draw(m_device);
-    }
-
-    m_device->PresentSwapChain();
-  }
+#pragma endregion CAMERA_FUNCTIONS
+ 
 
   void 
   App::Log(String outputString)

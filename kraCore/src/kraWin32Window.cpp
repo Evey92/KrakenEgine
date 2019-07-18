@@ -66,7 +66,7 @@ namespace kraEngineSDK {
       TranslateMessage(m_msg);
       DispatchMessage(m_msg);
       
-      inputManager.handleMessage(static_cast<void*>(&m_msg));
+      //inputManager.handleMessage(static_cast<void*>(&m_msg));
 
       if (m_msg->message == WM_QUIT) {
         m_isOpen = false;

@@ -100,7 +100,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(SolutionDir)kraGraphicsDX_UnitTest/include/;$(DEVLIBS)assimp/build/x64/include/;$(DEVLIBS)assimp/include/;$(DEVLIBS)OIS/includes/;$(SolutionDir)kraCore/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(SolutionDir)kraGraphicsDX_UnitTest/include/;$(DEVLIBS)assimp/build/x64/include/;$(DEVLIBS)assimp/include/;$(DEVLIBS)OIS/includes/;$(SolutionDir)kraCore/;$(SolutionDir)Externals/include/</AdditionalIncludeDirectories>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -121,7 +121,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(SolutionDir)kraGraphicsDX_UnitTest/include/;$(DEVLIBS)assimp/include;$(DEVLIBS)assimp/build/x64/include/;$(DEVLIBS)assimp/include/;$(DEVLIBS)OIS/includes/;$(SolutionDir)kraCore/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(SolutionDir)kraGraphicsDX_UnitTest/include/;$(DEVLIBS)assimp/include;$(DEVLIBS)assimp/build/x64/include/;$(DEVLIBS)assimp/include/;$(DEVLIBS)OIS/includes/;$(SolutionDir)kraCore/;$(SolutionDir)Externals/include/</AdditionalIncludeDirectories>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -144,7 +144,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(SolutionDir)kraGraphicsDX_UnitTest/include/;;$(DEVLIBS)assimp/build/x64/include/;$(DEVLIBS)assimp/include/;$(DEVLIBS)OIS/includes/;$(SolutionDir)kraCore/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(SolutionDir)kraGraphicsDX_UnitTest/include/;;$(DEVLIBS)assimp/build/x64/include/;$(DEVLIBS)assimp/include/;$(DEVLIBS)OIS/includes/;$(SolutionDir)kraCore/;$(SolutionDir)Externals/include/</AdditionalIncludeDirectories>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -169,7 +169,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(SolutionDir)kraGraphicsDX_UnitTest/include/;$(DEVLIBS)assimp/build/x64/include/;$(DEVLIBS)assimp/include/;$(DEVLIBS)OIS/includes/;$(SolutionDir)kraCore/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(SolutionDir)kraGraphicsDX_UnitTest/include/;$(DEVLIBS)assimp/build/x64/include/;$(DEVLIBS)assimp/include/;$(DEVLIBS)OIS/includes/;$(SolutionDir)kraCore/;$(SolutionDir)Externals/include/</AdditionalIncludeDirectories>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
