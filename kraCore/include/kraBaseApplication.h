@@ -7,9 +7,23 @@
 /******************************************************************************/
 
 #pragma once
+#include <kraVector4.h>
+#include <kraMatrix4.h>
+
 #include "kraPrerequisitesCore.h"
 #include "kraWin32Window.h"
+#include "kraScene.h"
 
+//GFX Headers
+#include "kraGraphicsAPI.h"
+#include "kraDevice.h"
+#include "kraRasterizerState.h"
+#include "kraShaderResourceView.h"
+#include "kraSampler.h"
+
+//Input headers
+#include "kraInputAPI.h"
+#include "kraInputManager.h"
 namespace kraEngineSDK {
   
   namespace Button
@@ -39,6 +53,8 @@ namespace kraEngineSDK {
   }
   class KRA_CORE_EXPORT BaseApplication
   {
+
+#pragma region PUBLIC_METHODS
   public:
     BaseApplication() = default;
     ~BaseApplication() = default;
@@ -46,74 +62,72 @@ namespace kraEngineSDK {
     /**
     * @brief Function to start up the app.
     */
-    void
-    StartUp() {
-
-    }
+    virtual bool
+    startUp(void* m_hWnd, int nCmdShow) = 0;
 
     /**
-    * @brief Main funtion to execute a program.
+    * @brief Main function to execute a program.
     */
     virtual void
     run() = 0;
     /**
     * @brief Main function to initialize all the main libraries like GFX, network, systems etc.
     */
-     virtual void
-     Initialize(int nCmdShow) = 0;
+    virtual bool
+    Initialize(void* m_hWnd) = 0;
     
     /**
     * @brief Main loop of the app.
     */
-    void
-    update(float deltaTime) {
-      float dt = deltaTime;
-      dt = dt * 4;
-    }
+    virtual void
+    update() = 0;
+
+    /**
+    * @brief Main loop of the app.
+    */
+    virtual void
+    update(float deltaTime) = 0;
     
     /**
     * @brief Main function to visualize the game logic.
     */
-    void
-    render() {
-      /*
-      begin();
-      postRender();
-      end();
-      swap();
-      */
-    }
+    virtual void
+    render() = 0;
 
     void
     Log(String outputString) {
-
+      std::cout << outputString << std::endl;
     }
 
     /**
     * @brief Main function to destroy all the objects created in the app.
     */
-    void
-    destroy() {
+    virtual void
+    destroy() = 0;
+#pragma endregion PUBLIC_METHODS
 
-    }
-
-    Win32Window* m_window;
-
+#pragma region PROTECTED_METHODS
    protected:
     /**
-    * @brief Vrtual function used by the actual app to initialize its own libraries.
+    * @brief Virtual function used by the actual app to initialize its own libraries.
     */
     virtual void
     preInitialice() = 0;
     
     /**
-    * @brief Vrtual function used by the actual app to do stuff ater initialization.
+    * @brief Virtual function used by the actual app to do stuff after initialization.
     */
     virtual void
     postInitialice() = 0;
+
+    /**
+   * @brief Virtual function used by the actual app to .
+   */
+    virtual void
+    preUpdate() = 0;
     
     /**
-    * @brief Vrtual function used by the actual app to .
+    * @brief Virtual function used by the actual app to .
     */
     virtual void
     postUpdate() = 0;
@@ -129,10 +143,31 @@ namespace kraEngineSDK {
     */
     virtual void
     preDestroy() = 0;
+#pragma endregion PROTECTED_METHODS
 
-  };
+#pragma region PUBLIC_MEMBERS
+  public:
+    Device* m_device;
+    kraInputManager* m_inputManager;
 
+#pragma endregion PUBLIC_MEMBERS
 
-  
+#pragma region PROTECTED_MEMBERS
+   
+   protected:    
+    Win32Window* m_window = nullptr;
+    Scene* m_defaultScene;
+    GraphicsAPI* m_gfxAPIInstance = nullptr;
+    InputAPI* m_inputAPIInstance = nullptr;
+    Texture* m_pBackBuffer = nullptr;
+    ShaderResourceView* m_SRV = nullptr;
+    RasterizerState* m_rasState = nullptr;
+    SamplerState* m_samplerState = nullptr;
+    Matrix4 m_world;
+    Matrix4 m_projection;
+
+#pragma endregion PROTECTED_MEMBERS
+
+  }; 
 
 }

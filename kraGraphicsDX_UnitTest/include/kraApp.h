@@ -29,10 +29,10 @@
 #include <kraVector4.h>
 #include <kraMatrix4.h>
 
+//Input Headers
 #include "kraInputAPI.h"
 #include "kraInputManager.h"
 
-//Input Headers
 //#include <kraInput/include/kraInputAPI.h>
 
 using namespace kraEngineSDK;

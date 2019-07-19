@@ -10,17 +10,8 @@ namespace kraEngineSDK {
   {
   public:
 
-    //Vertex() = default;
+    Vertex() = default;
 
-    Vertex() {
-      Pos = Vector3(0.0f, 0.0f, 0.0f);
-      Tex = Vector2(0.0f, 0.0f);
-      m_normal = Vector3(0.0f, 0.0f, 0.0f);
-      m_tangent = Vector3(0.0f, 0.0f, 0.0f);
-      m_binormal = Vector3(0.0f, 0.0f, 0.0f);
-      m_color = Vector3(0.0f, 0.0f, 0.0f);
-      
-    }
 
     Vertex(const Vertex& copyVert)
     {
@@ -69,11 +60,11 @@ namespace kraEngineSDK {
       Tex.y = texY;
     }
 
-    Vector4 Pos;
-    Vector2 Tex;
-    Vector3 m_normal;
-    Vector3 m_tangent;
-    Vector3 m_binormal;
-    Vector4 m_color;
+    Vector4 Pos = Vector3(0.0f, 0.0f, 0.0f);
+    Vector2 Tex = Vector2(0.0f, 0.0f);
+    Vector3 m_normal = Vector3(0.0f, 0.0f, 0.0f);
+    Vector3 m_tangent = Vector3(0.0f, 0.0f, 0.0f);
+    Vector3 m_binormal = Vector3(0.0f, 0.0f, 0.0f);
+    Vector4 m_color = Vector3(0.0f, 0.0f, 0.0f);
   };
 }

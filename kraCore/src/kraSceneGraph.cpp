@@ -2,6 +2,14 @@
 
 namespace kraEngineSDK {
 
+  void 
+  SceneGraph::initialize()
+  {
+    m_root = new SceneNode(0);
+    m_root->initialize(nullptr);
+    m_sceneNodes.push_back(m_root);
+  }
+
   void
   SceneGraph::setNode(SceneNode* newNode) {
 
@@ -9,7 +17,7 @@ namespace kraEngineSDK {
     m_sceneNodes.push_back(newNode);
   }
 
-  void
+  /*void
   SceneGraph::setNodeAtChildren(SceneNode* newNode, String childName) {
     
     SceneNode* parent = getNode(childName);
@@ -23,7 +31,7 @@ namespace kraEngineSDK {
     newNode->setID(m_sceneNodes.size());
     newNode->setParent(parent);
     parent->addChild(newNode);
-  }
+  }*/
 
   void
   SceneGraph::setNodeAtChildren(SceneNode* newNode, int childID) {
@@ -42,7 +50,7 @@ namespace kraEngineSDK {
   
   }
 
-  SceneNode*
+  /*SceneNode*
   SceneGraph::getNode(String nodeName) {
 
     Vector<SceneNode*>::iterator it = m_sceneNodes.begin();
@@ -63,7 +71,7 @@ namespace kraEngineSDK {
       }
     }
 
-  }
+  }*/
 
   SceneNode*
   SceneGraph::getNode(int nodeId) {
@@ -86,6 +94,17 @@ namespace kraEngineSDK {
       }
     }
 
+  }
+
+  SceneNode*
+  SceneGraph::getRootNode()
+  {
+    return m_root;
+  }
+
+  int SceneGraph::getNodesSize()
+  {
+    return m_sceneNodes.size();
   }
 
 }

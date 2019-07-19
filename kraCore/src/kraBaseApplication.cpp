@@ -1,6 +1,1 @@
-#include "kraBaseApplication.h"
-
-namespace kraEngineSDK {
-
-
-}
+#include "kraBaseApplication.h

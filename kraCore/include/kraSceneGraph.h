@@ -6,14 +6,14 @@ namespace kraEngineSDK {
   class SceneGraph {
 
    public:
-     SceneGraph() 
-     {
-
-       SceneNode* rootNode = new SceneNode();
-       m_sceneNodes.push_back(rootNode);
-
-     }
+     SceneGraph() = default;
     ~SceneGraph() = default;
+
+    /*
+    ** @brief Function to initialize the scenegraph
+    **/
+    void
+    initialize();
 
     /*
     ** @brief Function to add a new SceneNode at the root node
@@ -27,9 +27,9 @@ namespace kraEngineSDK {
     ** @param the node to add
     ** @param the name of the parent node
     **/
-    void
+    /*void
     setNodeAtChildren(SceneNode* newNode, String parentName);
-
+*/
     /*
     ** @brief Function to add a new SceneNode as a child of a specífic node
     ** @param the node to add
@@ -42,8 +42,8 @@ namespace kraEngineSDK {
     ** @brief Function to add a new SceneNode at the root node
     ** @param the node to add
     **/
-    SceneNode*
-    getNode(String nodeName);
+    /*SceneNode*
+    getNode(String nodeName);*/
 
     /*
     ** @brief Function to add a new SceneNode at the root node
@@ -52,8 +52,18 @@ namespace kraEngineSDK {
     SceneNode*
     getNode(int nodeId);
 
+    /*
+    ** @brief Function to get the root node of the scene graph
+    **/
+    SceneNode*
+    getRootNode();
+
+    int
+    getNodesSize();
+
    private:
      
      Vector<SceneNode*> m_sceneNodes;
+     SceneNode* m_root;
   };
 }

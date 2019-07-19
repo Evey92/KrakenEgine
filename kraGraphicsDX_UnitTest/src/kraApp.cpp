@@ -1,9 +1,6 @@
 #include "kraApp.h"
 
-#include <windows.h>
-#include <string>
 
-#include <imgui.h>
 #include <imgui_impl_win32.h>
 #include <imgui_impl_dx11.h>
 
@@ -14,8 +11,9 @@
 
     Initialize(nCmdShow);
 
-    typedef GraphicsAPI* (*initFunc)();
+    typedef GraphicsAPI* (*initGFXFunc)();
     typedef InputAPI* (*initInptFunc)();
+    
     HINSTANCE GFXDLL;
     HINSTANCE INPUTDLL;
 
@@ -41,7 +39,7 @@
       return false;
     }
 
-    initFunc initAPIFunc = (initFunc)GetProcAddress(GFXDLL, "createGraphicsAPI");
+    initGFXFunc initAPIFunc = (initGFXFunc)GetProcAddress(GFXDLL, "createGraphicsAPI");
     if (!initAPIFunc) {
       MessageBox(NULL, "Could not find specified graphics function. Error: ", "Error", MB_OK);
 
@@ -601,7 +599,13 @@
     App::loadDLL() {
     HINSTANCE GFXDLL;
     char currDirect[300];
-    GetWindowsDirectoryA(currDirect, 300);
+    
+    if (GetWindowsDirectoryA(currDirect, 300) < 0)
+    {
+      DWORD err = GetLastError();
+      std::cout << "Failed to get the  DLL directory. Error: " << err << "\n";
+    }
+    
 
     std::string DLLPath(currDirect);
     DLLPath = DLLPath.append("\\").append("kraGraphicsDXd.dll");

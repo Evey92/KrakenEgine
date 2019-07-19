@@ -26,6 +26,9 @@
     <Filter Include="Source Files\kraInput\src">
       <UniqueIdentifier>{f9efaa4a-108e-4a92-9099-2dfaec3bf342}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{62bc65d4-5d45-4e98-bb8b-1b4d4c4abb8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\kraConstantBuffer.h">
@@ -154,6 +157,18 @@
     <ClInclude Include="include\kraInputMappings.h">
       <Filter>Source Files\kraInput\include</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraScene.h">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraSceneManager.h">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraCollider.h">
+      <Filter>Source Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraBoxCollider.h">
+      <Filter>Source Files\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraConstantBuffer.cpp">
@@ -254,6 +269,18 @@
     </ClCompile>
     <ClCompile Include="src\kraInputMappings.cpp">
       <Filter>Source Files\kraInput\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraScene.cpp">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraSceneManager.cpp">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraCollider.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraBoxCollider.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

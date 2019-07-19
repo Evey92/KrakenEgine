@@ -6,9 +6,9 @@ namespace kraEngineSDK {
 
   struct Transform
   {
-    Vector3 Position;
-    Vector3 Rotation;
-    Vector3 Scale;
+    Vector3 Position = Vector3(0.0f, 0.0f, 0.0f);
+    Vector3 Rotation = Vector3(0.0f, 0.0f, 0.0f);
+    Vector3 Scale = Vector3(0.0f, 0.0f, 0.0f);
   };
 
   class KRA_CORE_EXPORT GameObject
@@ -20,9 +20,11 @@ namespace kraEngineSDK {
     void
     addComponet(Component* newComponent);
     
-    bool m_isActive;
-    Transform m_transform;
     Vector<Component*> m_componentsVec;
+    Transform m_transform;
+    Scene* m_scene;
+    String m_name = "GameObject";
+    bool m_isActive = true;
 
   };
 }

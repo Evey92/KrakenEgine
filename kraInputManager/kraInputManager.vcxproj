@@ -23,7 +23,7 @@
     <ProjectGuid>{7D4E223A-75A3-46BE-9FC9-32B643E63A58}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>kraInputManager</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

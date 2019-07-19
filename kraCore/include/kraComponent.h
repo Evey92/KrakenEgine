@@ -1,5 +1,6 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
+#include "kraGameObject.h"
 
 namespace kraEngineSDK {
 
@@ -7,7 +8,13 @@ namespace kraEngineSDK {
   {
    public:
     Component() = default;
-    ~Component() = default;
+    virtual ~Component() {}
     
+    Component*
+    getComponent();
+
+    GameObject m_gameObject;
+    Transform m_transform;
+
   };
 }
