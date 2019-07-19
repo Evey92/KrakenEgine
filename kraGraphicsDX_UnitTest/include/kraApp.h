@@ -81,7 +81,12 @@ class App : public BaseApplication
   void
   destroy();
   
- protected:
+  virtual bool Initialize(void* m_hWnd) override;
+
+
+  virtual void update(float deltaTime) override;
+
+protected:
   /**
   * @brief Vrtual function used by the actual app to initialize its own libraries.
   */

@@ -13,7 +13,10 @@ namespace kraEngineSDK {
 #pragma region PUBLIC_METHODS
     
     Scene*
-    createScene();
+    createScene(String name);
+
+    Scene*
+    createDefaultScene();
 
     Scene*
     getActiveScene();
@@ -37,7 +40,7 @@ namespace kraEngineSDK {
     loadScene(String sceneName);
 
     void
-    setActiveScene(Scene scene);
+    setActiveScene(Scene* scene);
 
 #pragma endregion PUBLIC_METHODS
 

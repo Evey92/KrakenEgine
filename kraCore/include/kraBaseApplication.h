@@ -12,7 +12,7 @@
 
 #include "kraPrerequisitesCore.h"
 #include "kraWin32Window.h"
-#include "kraScene.h"
+#include "kraSceneManager.h"
 
 //GFX Headers
 #include "kraGraphicsAPI.h"
@@ -156,7 +156,7 @@ namespace kraEngineSDK {
    
    protected:    
     Win32Window* m_window = nullptr;
-    Scene* m_defaultScene;
+    SceneManager* m_sceneManager;
     GraphicsAPI* m_gfxAPIInstance = nullptr;
     InputAPI* m_inputAPIInstance = nullptr;
     Texture* m_pBackBuffer = nullptr;

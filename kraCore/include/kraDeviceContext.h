@@ -10,5 +10,6 @@ namespace kraEngineSDK {
     virtual 
     ~DeviceContext() {}
 
+
   };
 }

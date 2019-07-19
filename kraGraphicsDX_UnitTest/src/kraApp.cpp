@@ -273,6 +273,11 @@
     }
   }
 
+  bool App::Initialize(void* m_hWnd)
+  {
+    throw std::logic_error("The method or operation is not implemented.");
+  }
+
   void
   App::postInitialice() {
 
@@ -371,6 +376,11 @@
       rotateCamera(-10);
 
     }
+  }
+
+  void App::update(float deltaTime)
+  {
+    throw std::logic_error("The method or operation is not implemented.");
   }
 
   void

@@ -102,10 +102,11 @@ WinAppTest::Initialize(void* m_hWnd)
     return false;
   }
 
-  m_defaultScene->initialize();
+  //defaultScene->initialize();
 
-  SceneNode* newNode = new SceneNode(m_defaultScene->m_sceneGraph->getNodesSize());
+  SceneNode* newNode = new SceneNode();
   GameObject* camera = new GameObject();
+  
   Camera* mainCam = new Camera();
   mainCam->setFOV(kraMath::DEG2RAD(90.0f));
   mainCam->setNearPlane(0.01f);
@@ -118,6 +119,8 @@ WinAppTest::Initialize(void* m_hWnd)
   newNode->initialize(camera);
 
   m_defaultScene->addNode(newNode);
+
+
   
 }
 

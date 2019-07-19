@@ -7,6 +7,7 @@
 #include <string>
 #include <imgui.h>
 #include <imgui_impl_win32.h>
+#include <imgui_impl_dx11.h>
 
 //GFX Headers
 #include <kraRenderAPIManager.h>
@@ -126,7 +127,6 @@ class WinAppTest :
 #pragma endregion UTILITY_FUNCTIONS
 
 #pragma region PUBLIC_MEMBERS
-   Device* m_device;
    Camera* m_activeCam;
    kraInputManager* m_inputManager;
 
@@ -137,7 +137,7 @@ class WinAppTest :
 
  private:
    std::string modelPath = "resources/Models/";
-
+   Vector<Scene*> m_scenesInBuild;
 #pragma endregion PRIVARE_MEMBERS
 };
 

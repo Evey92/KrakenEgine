@@ -6,7 +6,13 @@ namespace kraEngineSDK {
   class KRA_CORE_EXPORT Scene
   {
    public:
-    Scene(int buildIndex, String name);
+     
+     Scene(int buildIndex, String name)
+     : m_buildIndex(buildIndex), m_name(name) {}
+     
+     Scene(String name)
+     : m_name(name) {}
+
     ~Scene() = default;
 
     
@@ -15,7 +21,11 @@ namespace kraEngineSDK {
     initialize();
 
     void
-    addNode(SceneNode* node);
+    Scene::addNode(SceneNode* node);
+
+    void
+      addEmptyNode();
+
 #pragma endregion PUBLIC_METHODS
 
 #pragma region PRIVATE_MEMBERS
