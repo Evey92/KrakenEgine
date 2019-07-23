@@ -23,9 +23,6 @@
     <Filter Include="Source Files\kraInput\include">
       <UniqueIdentifier>{b56600e5-6326-4375-b94a-9e50fc14a516}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\kraInput\src">
-      <UniqueIdentifier>{f9efaa4a-108e-4a92-9099-2dfaec3bf342}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Physics">
       <UniqueIdentifier>{62bc65d4-5d45-4e98-bb8b-1b4d4c4abb8e}</UniqueIdentifier>
     </Filter>
@@ -266,12 +263,6 @@
     </ClCompile>
     <ClCompile Include="src\kraWin32Window.cpp">
       <Filter>Source Files\kraCoreBase</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraInputManager.cpp">
-      <Filter>Source Files\kraInput\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraInputMappings.cpp">
-      <Filter>Source Files\kraInput\src</Filter>
     </ClCompile>
     <ClCompile Include="src\kraScene.cpp">
       <Filter>Source Files\kraCoreBase</Filter>

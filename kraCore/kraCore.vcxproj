@@ -241,8 +241,6 @@
     <ClCompile Include="src\kraGraphicsBuffer.cpp" />
     <ClCompile Include="src\kraIndexBuffer.cpp" />
     <ClCompile Include="src\kraInputLayout.cpp" />
-    <ClCompile Include="src\kraInputManager.cpp" />
-    <ClCompile Include="src\kraInputMappings.cpp" />
     <ClCompile Include="src\kraMaterial.cpp" />
     <ClCompile Include="src\kraModel.cpp" />
     <ClCompile Include="src\kraPixelShader.cpp" />

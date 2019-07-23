@@ -1,8 +1,8 @@
 #pragma once
-#include "kraPrerequisitesInput.h"
+#include "kraPrerequisitesCore.h"
 
 namespace kraEngineSDK {
-  class InputMapGI : public gainput::InputMap
+  class InputMapGI
   {
     InputMapGI() = default;
     ~InputMapGI() {}
