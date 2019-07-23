@@ -6,7 +6,7 @@ namespace kraEngineSDK {
   class KRA_CORE_EXPORT SceneNode
   {
   public:
-    SceneNode(int id) : m_id(id) {}
+    SceneNode(uint32 id) : m_id(id) {}
      ~SceneNode() { /*Function to delete Node + all children*/ }
 
     /*
@@ -58,13 +58,13 @@ namespace kraEngineSDK {
     ** @param the ID of the node
     **/
      SceneNode*
-     getChild(int id);
+     getChild(uint32 id);
 
     /*
     ** @brief Function to set the ID of this node
     **/
     void
-    setID(int id);
+    setID(uint32 id);
 
     /*
     ** @brief Function to get the ID of this node
@@ -75,7 +75,7 @@ namespace kraEngineSDK {
 
    private:
 
-     int m_id;
+     uint32 m_id;
      GameObject* m_gameObject = nullptr;
      SceneNode* m_parent = nullptr;
      Vector<SceneNode*> m_children;

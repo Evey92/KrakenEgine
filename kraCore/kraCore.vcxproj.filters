@@ -169,6 +169,9 @@
     <ClInclude Include="include\kraBoxCollider.h">
       <Filter>Source Files\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraTransform.h">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraConstantBuffer.cpp">
@@ -281,6 +284,9 @@
     </ClCompile>
     <ClCompile Include="src\kraBoxCollider.cpp">
       <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraTransform.cpp">
+      <Filter>Source Files\kraCoreBase</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

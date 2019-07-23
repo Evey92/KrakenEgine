@@ -6,7 +6,7 @@ namespace kraEngineSDK {
     public Component
   {
     Collider() = default;
-    virtual ~Collider() {}
+    virtual ~Collider() = default;
 
   };
 }

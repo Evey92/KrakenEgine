@@ -74,7 +74,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{3609F63F-895A-4825-962E-F750894FAE2D}</ProjectGuid>
     <RootNamespace>GraphicsDX</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>kraGraphicsDX</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

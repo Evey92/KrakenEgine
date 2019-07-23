@@ -58,7 +58,7 @@ namespace kraEngineSDK {
     SceneNode*
     getRootNode();
 
-    int
+    uint32
     getNodesSize();
 
    private:

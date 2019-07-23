@@ -35,7 +35,7 @@ namespace kraEngineSDK {
     return m_children;
   }
 
-  SceneNode*
+  /*SceneNode*
   SceneNode::getChild(String name) {
 
     Vector<SceneNode*>::iterator it = m_children.begin();
@@ -50,10 +50,10 @@ namespace kraEngineSDK {
     std::cout << "No child with name: " << name << " could be found. \n";
     return nullptr;
 
-  }
+  }*/
 
   SceneNode*
-  SceneNode::getChild(int id) {
+  SceneNode::getChild(uint32 id) {
 
     Vector<SceneNode*>::iterator it = m_children.begin();
     while(it != m_children.end())
@@ -70,23 +70,13 @@ namespace kraEngineSDK {
   }
 
   void
-  SceneNode::setID(int id) {
+  SceneNode::setID(uint32 id) {
     m_id = id;
   }
 
   int
   SceneNode::getID() {
     return m_id;
-  }
-
-  void
-  SceneNode::setName(String name) {
-    m_name = name;
-  }
-
-  String
-  SceneNode::getName() {
-    return m_name;
   }
 
 }

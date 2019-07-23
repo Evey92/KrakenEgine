@@ -4,7 +4,7 @@ class kraQuaternion
 public:
   kraQuaternion(float x, float y, float z, float w)
     : m_x(x), m_y(y), m_z(z), m_w(w) {}
-  ~kraQuaternion();
+  ~kraQuaternion() = default;
 
 #pragma region PUBLIC_METHODS
   

@@ -102,7 +102,7 @@ namespace kraEngineSDK {
     return m_root;
   }
 
-  int SceneGraph::getNodesSize()
+  uint32 SceneGraph::getNodesSize()
   {
     return m_sceneNodes.size();
   }

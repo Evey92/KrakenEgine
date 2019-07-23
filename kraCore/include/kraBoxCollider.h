@@ -3,11 +3,11 @@
 
 namespace kraEngineSDK {
   
-  class kraBoxCollider :
+  class BoxCollider :
     public Collider
   {
-    kraBoxCollider() = default;
-
+    BoxCollider() = default;
+    ~BoxCollider() = default;
 
   };
 }

@@ -103,8 +103,8 @@ WinAppTest::Initialize(void* m_hWnd)
   }
 
   //defaultScene->initialize();
-
-  SceneNode* newNode = new SceneNode();
+  m_sceneManager;
+  SceneNode* root = new SceneNode(0);
   GameObject* camera = new GameObject();
   
   Camera* mainCam = new Camera();
@@ -116,9 +116,9 @@ WinAppTest::Initialize(void* m_hWnd)
 
   camera->addComponet(mainCam);
 
-  newNode->initialize(camera);
+  root->initialize(camera);
 
-  m_defaultScene->addNode(newNode);
+  //m_defaultScene->addNode(newNode);
 
 
   

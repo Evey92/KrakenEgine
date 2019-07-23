@@ -1,15 +1,11 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
+#include "kraTransform.h"
 #include "kraComponent.h"
 
 namespace kraEngineSDK {
 
-  struct Transform
-  {
-    Vector3 Position = Vector3(0.0f, 0.0f, 0.0f);
-    Vector3 Rotation = Vector3(0.0f, 0.0f, 0.0f);
-    Vector3 Scale = Vector3(0.0f, 0.0f, 0.0f);
-  };
+  class Scene;
 
   class KRA_CORE_EXPORT GameObject
   {
@@ -20,7 +16,7 @@ namespace kraEngineSDK {
     void
     addComponet(Component* newComponent);
     
-    Vector<Component*> m_componentsVec;
+    Vector<std::unique_ptr<Component>> m_componentsVec;
     Transform m_transform;
     Scene* m_scene;
     String m_name = "GameObject";
