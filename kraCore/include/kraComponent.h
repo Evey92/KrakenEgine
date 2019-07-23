@@ -1,13 +1,15 @@
 #pragma once
+
 #include "kraPrerequisitesCore.h"
 
 
 namespace kraEngineSDK {
 
-  namespace ComponentType {
+  namespace ComponentTypes {
     enum E
     {
-      TRANSFORM = 0,
+      DEFAULT = 0,
+      TRANSFORM,
       CAMERA,
       COLLIDER,
 
@@ -17,17 +19,22 @@ namespace kraEngineSDK {
   class GameObject;
   class Transform;
   
+#define CLASS_DECLARATION(classname) 
+#define CLASS_DEFINITION(parentclass, childclass) 
+
   class KRA_CORE_EXPORT Component
   {
+
    public:
     Component() = default;
-    virtual ~Component() = default;
-    
-    Component*
-    getComponent(ComponentType.E type);
+    virtual ~Component() = default; 
 
-    GameObject* m_gameObject;
-    Transform* m_transform;
+    bool
+    isOfType(const ComponentTypes::E type) const;
+
+   /* GameObject* m_gameObject = nullptr;
+    Transform* m_transform = nullptr;*/
+    ComponentTypes::E m_type = ComponentTypes::E::DEFAULT;
 
   };
 }

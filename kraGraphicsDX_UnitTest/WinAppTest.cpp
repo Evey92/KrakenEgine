@@ -67,6 +67,7 @@ WinAppTest::startUp(void* m_hWnd, int nCmdShow) {
     }
 
     Initialize(m_hWnd);
+    return true;
 }
 
 void 
@@ -80,11 +81,11 @@ WinAppTest::Initialize(void* m_hWnd)
 {
 
   //Initializing ImGui
-  IMGUI_CHECKVERSION();
+  /*IMGUI_CHECKVERSION();
   ImGui::CreateContext();
   ImGuiIO& io = ImGui::GetIO(); (void)io;
   ImGui::StyleColorsDark();
-  ImGui_ImplWin32_Init(m_hWnd);
+  ImGui_ImplWin32_Init(m_hWnd);*/
 
 
   //Initializing App systems
@@ -121,7 +122,7 @@ WinAppTest::Initialize(void* m_hWnd)
   //m_defaultScene->addNode(newNode);
 
 
-  
+  return true;
 }
 
 void 
@@ -190,7 +191,7 @@ WinAppTest::getActiveCamera()
   return m_activeCam;
 }
 
-Camera* 
+void
 WinAppTest::setActiveCamera(Camera* newCam)
 {
   m_activeCam = newCam;

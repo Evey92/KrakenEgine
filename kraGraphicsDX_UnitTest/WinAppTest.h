@@ -5,10 +5,10 @@
 #include <kraMesh.h>
 #include <windows.h>
 #include <string>
-#include <imgui.h>
-#include <imgui_impl_win32.h>
-#include <imgui_impl_dx11.h>
-
+//#include <imgui.h>
+//#include <imgui_impl_win32.h>
+//#include <imgui_impl_dx11.h>
+//
 //GFX Headers
 #include <kraRenderAPIManager.h>
 #include <kraRenderTargetView.h>
@@ -99,7 +99,7 @@ class WinAppTest :
    Camera*
    getActiveCamera();
 
-   Camera*
+   void
    setActiveCamera(Camera* newCam);
 
    void

@@ -32,6 +32,7 @@
 //STD Containers
 # include <array>
 # include <vector>
+# include <memory>
 # include <deque>
 # include <forward_list>
 # include <list>

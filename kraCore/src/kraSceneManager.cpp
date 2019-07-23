@@ -16,36 +16,45 @@ namespace kraEngineSDK {
   {
     Scene* defaultScene = createScene("defaultScene");
     setActiveScene(defaultScene);
+    return defaultScene;
   }
 
   Scene* 
   SceneManager::getActiveScene()
   {
-
+    return m_activeScene;
   }
 
   Scene* 
   SceneManager::getSceneByLoadedIndex(int index)
   {
+    Scene* loadedScene = new Scene("place holder");
 
+    return loadedScene;
   }
 
   Scene* 
   SceneManager::getSceneByBuildIndex(int index)
   {
+    Scene* loadedScene = new Scene("place holder");
 
+    return loadedScene;
   }
 
   Scene* 
   SceneManager::getSceneByName(String name)
   {
+    Scene* loadedScene = new Scene("place holder");
 
+    return loadedScene;
   }
 
   Scene* 
   SceneManager::getSceneByPath(String path)
   {
+    Scene* loadedScene = new Scene("place holder");
 
+    return loadedScene;
   }
 
   void 

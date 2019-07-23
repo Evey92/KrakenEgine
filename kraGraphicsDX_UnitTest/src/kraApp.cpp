@@ -1,13 +1,12 @@
 #include "kraApp.h"
-
-
-#include <imgui_impl_win32.h>
-#include <imgui_impl_dx11.h>
+//#include <imgui_impl_win32.h>
+//#include <imgui_impl_dx11.h>
 
 #pragma region APP_LIFECYCLE
 
   bool
   App::startUp(void* m_hWnd, int nCmdShow) {
+    std::ostringstream stream;
 
     Initialize(nCmdShow);
 
@@ -23,8 +22,9 @@
 
     GFXDLL = LoadLibraryExA(GFXpath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
     if (!GFXDLL) {
-      DWORD err = GetLastError();
-      MessageBox(NULL, "Could not find specified graphics DLL. Error: " + err, "Error", MB_OK);
+      stream << GetLastError();
+      String errorMessage = "Could not find specified graphics DLL. Error: " + stream.str();
+      Log(errorMessage);
 
       FreeLibrary(GFXDLL);
       return false;
@@ -32,8 +32,9 @@
 
     INPUTDLL = LoadLibraryExA(Inputpath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
     if (!INPUTDLL) {
-      DWORD err = GetLastError();
-      MessageBox(NULL, "Could not find specified input DLL. Error: " + err, "Error", MB_OK);
+      stream << GetLastError();
+      String errorMessage = "Could not find specified input DLL. Error: " + stream.str();
+      Log(errorMessage);
 
       FreeLibrary(INPUTDLL);
       return false;
@@ -449,7 +450,7 @@
   }
 
   uint32
-    App::createBoolDevice(uint32 type) {
+  App::createBoolDevice(uint32 type) {
 
     switch (type)
     {
@@ -509,7 +510,8 @@
  
 #pragma region UTILITY_FUNCTIONS
   bool
-    App::LoadModel() {
+  App::LoadModel() {
+    std::ostringstream stream;
     mainCam.setFOV(kraMath::DEG2RAD(90.0f));
     mainCam.setNearPlane(0.01f);
     mainCam.setFarPlane(10000.0f);

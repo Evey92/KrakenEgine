@@ -10,17 +10,26 @@ namespace kraEngineSDK {
   class KRA_CORE_EXPORT GameObject
   {
    public:
-    GameObject();
+    GameObject() = default;
     ~GameObject() = default;
+    GameObject(const GameObject&) = delete;
+    GameObject& operator =(const GameObject&) = delete;
 
     void
     addComponet(Component* newComponent);
     
-    Vector<std::unique_ptr<Component>> m_componentsVec;
+    template<class ComponentType>
+    ComponentType& 
+    getComponent();
+
     Transform m_transform;
-    Scene* m_scene;
+    Scene* m_scene = nullptr;
     String m_name = "GameObject";
+    Vector<std::unique_ptr<Component>> m_components;
     bool m_isActive = true;
 
   };
+
+  
+
 }

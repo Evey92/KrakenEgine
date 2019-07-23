@@ -82,7 +82,7 @@ namespace kraEngineSDK {
   }
 
   Mesh*
-    Model::processMesh(aiMesh* pMesh, const aiScene* scene, Device& pDevice) {
+  Model::processMesh(aiMesh* pMesh, const aiScene* scene, Device& pDevice) {
 
     Mesh* newMesh = new Mesh(pDevice);
 

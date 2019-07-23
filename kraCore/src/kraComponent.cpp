@@ -1,11 +1,13 @@
 #include "kraComponent.h"
+#include "kraGameObject.h"
+
+#define CLASS_DECLARATION( classname )  
 
 namespace kraEngineSDK {
 
-  Component* 
-  Component::getComponent(ComponentType.E type)
+  bool 
+  Component::isOfType(const ComponentTypes::E type) const
   {
-       
+    return m_type == type;
   }
-
 }

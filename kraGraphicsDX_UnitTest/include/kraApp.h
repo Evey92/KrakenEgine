@@ -5,6 +5,8 @@
 #include <kraModel.h>
 #include <kraMesh.h>
 #include <kraMaterial.h>
+#include <sstream>
+#include <string>
 
 //GFX Headers
 #include <kraRenderAPIManager.h>
