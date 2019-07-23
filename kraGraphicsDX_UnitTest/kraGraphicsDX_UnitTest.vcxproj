@@ -100,7 +100,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(SolutionDir)kraGraphicsDX_UnitTest/include/;$(DEVLIBS)assimp/build/x64/include/;$(DEVLIBS)assimp/include/;$(DEVLIBS)OIS/includes/;$(SolutionDir)kraCore/;$(SolutionDir)Externals/include/;$(SolutionDir)Externals/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)googletest/include/;$(SolutionDir)kraUtilities/include/;$(SolutionDir)kraCore/include/;$(SolutionDir)kraGraphicsDX_UnitTest/include/;$(DEVLIBS)assimp/build/x64/include/;$(DEVLIBS)assimp/include/;$(DEVLIBS)OIS/includes/;$(SolutionDir)kraCore/;$(SolutionDir)Externals/ImGui/include/</AdditionalIncludeDirectories>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OpenMPSupport>true</OpenMPSupport>
@@ -185,6 +185,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Externals\ImGui\include\imconfig.h" />
+    <ClInclude Include="..\Externals\ImGui\include\imgui.h" />
+    <ClInclude Include="..\Externals\ImGui\include\imgui_impl_dx11.h" />
+    <ClInclude Include="..\Externals\ImGui\include\imgui_impl_win32.h" />
+    <ClInclude Include="..\Externals\ImGui\include\imgui_internal.h" />
+    <ClInclude Include="..\Externals\ImGui\include\imstb_rectpack.h" />
+    <ClInclude Include="..\Externals\ImGui\include\imstb_textedit.h" />
+    <ClInclude Include="..\Externals\ImGui\include\imstb_truetype.h" />
     <ClInclude Include="include\kraGraphicsDX_UnitTest.h" />
     <ClInclude Include="include\kraApp.h" />
     <ClInclude Include="Resource.h" />
@@ -193,6 +201,12 @@
     <ClInclude Include="WinAppTest.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Externals\ImGui\src\imgui.cpp" />
+    <ClCompile Include="..\Externals\ImGui\src\imgui_demo.cpp" />
+    <ClCompile Include="..\Externals\ImGui\src\imgui_draw.cpp" />
+    <ClCompile Include="..\Externals\ImGui\src\imgui_impl_dx11.cpp" />
+    <ClCompile Include="..\Externals\ImGui\src\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\Externals\ImGui\src\imgui_widgets.cpp" />
     <ClCompile Include="src\kraApp.cpp" />
     <ClCompile Include="src\kraGraphicsDX_UnitTest.cpp" />
     <ClCompile Include="stdafx.cpp">

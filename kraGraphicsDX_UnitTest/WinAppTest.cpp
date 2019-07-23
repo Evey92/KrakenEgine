@@ -80,12 +80,12 @@ bool
 WinAppTest::Initialize(void* m_hWnd)
 {
 
-  //Initializing ImGui
-  /*IMGUI_CHECKVERSION();
+  IMGUI_CHECKVERSION();
   ImGui::CreateContext();
   ImGuiIO& io = ImGui::GetIO(); (void)io;
   ImGui::StyleColorsDark();
-  ImGui_ImplWin32_Init(m_hWnd);*/
+  ImGui_ImplWin32_Init(m_hWnd);
+  //ImGui_ImplDX11_Init(m_device, );
 
 
   //Initializing App systems

@@ -267,7 +267,7 @@
   
   void
   App::Initialize(int nCmdShow) {
-    m_window = new Win32Window(1600, 1000, "Kraken Engine Tesat Application", Vector2(0, 0));
+    m_window = new Win32Window(1600, 1000, "Kraken Engine Test Application", Vector2(0, 0));
     if (!m_window->initWindow(nCmdShow))
     {
       std::cout << "Window couldn't be initialized.\n";
