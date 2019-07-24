@@ -107,18 +107,13 @@ WinAppTest::Initialize(void* m_hWnd)
   //defaultScene->initialize();
   m_sceneManager;
   SceneNode* root = new SceneNode(0);
-  GameObject* camera = new GameObject();
+  GameObject camera;
   
-  Camera* mainCam = new Camera();
-  mainCam->setFOV(kraMath::DEG2RAD(90.0f));
-  mainCam->setNearPlane(0.01f);
-  mainCam->setFarPlane(10000.0f);
+  //Camera mainCam;
 
-  setActiveCamera(mainCam);
+  camera.addComponent<Camera*>(this, Vector3(0.0f, 50.0f, 0.0f));
 
-  camera->addComponet(mainCam);
-
-  root->initialize(camera);
+  root->initialize(&camera);
 
   //m_defaultScene->addNode(newNode);
 

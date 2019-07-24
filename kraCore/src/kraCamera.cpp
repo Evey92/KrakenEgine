@@ -2,17 +2,17 @@
 
 namespace kraEngineSDK {
 
-  Camera::Camera() {
-  
-  }
-  Camera::Camera(Vector3 Pos, 
-                 Vector3 objective = Vector3::FRONT, 
-                 Vector3  UP = Vector3::UP)
+  //CLASS_DEFINITION(Component, Camera)
+
+  Camera::Camera(GameObject* owner,
+                  Vector3 objective,
+                  Vector3 UP,
+                  Vector3 Pos = Vector3::ZERO)
   {
-    //m_transform.Position = Pos;
-    m_pos = Pos;
+    m_owner = owner;
     m_objective = objective;
     m_up = UP;
+    m_pos = Pos;
   }
 
   void 
@@ -21,7 +21,7 @@ namespace kraEngineSDK {
     m_pos += m_front * defaz;
     m_objective += m_front * defaz;
 
-    dirty = true;
+    m_dirty = true;
   }
 
   void
@@ -29,7 +29,7 @@ namespace kraEngineSDK {
   {
     m_pos += m_right * defaz;
     m_objective += m_right * defaz;
-    dirty = true;
+    m_dirty = true;
 
   }
 
@@ -38,7 +38,7 @@ namespace kraEngineSDK {
   {
     m_pos += m_up * defaz;
     m_objective += m_up* defaz;
-    dirty = true;
+    m_dirty = true;
 
   }
 
@@ -47,7 +47,7 @@ namespace kraEngineSDK {
   Camera::Rotate(Vector3& Axis, float angle)
   {
     
-    dirty = true;
+    m_dirty = true;
 
   }
 
@@ -63,7 +63,7 @@ namespace kraEngineSDK {
     m_pos.x = Pos.x;
     m_pos.y = Pos.y;
     m_pos.z = Pos.z;
-    dirty = true;
+    m_dirty = true;
   }
 
   void
@@ -73,7 +73,7 @@ namespace kraEngineSDK {
     m_pos.y = Y;
     m_pos.z = Z;
 
-    dirty = true;
+    m_dirty = true;
   }
 
   Vector3
@@ -89,7 +89,7 @@ namespace kraEngineSDK {
     m_objective.y = Objective.y;
     m_objective.z = Objective.z;
 
-    dirty = true;
+    m_dirty = true;
 
   }
 
@@ -99,7 +99,7 @@ namespace kraEngineSDK {
     m_objective.y = Y;
     m_objective.z = Z;
 
-    dirty = true;
+    m_dirty = true;
 
   }
 
@@ -141,7 +141,7 @@ namespace kraEngineSDK {
   void
   Camera::setUp(Vector3 UP) {
     m_up = UP;
-    dirty = true;
+    m_dirty = true;
 
   }
 
@@ -150,14 +150,14 @@ namespace kraEngineSDK {
     m_up.x = X;
     m_up.y = Y;
     m_up.z = Z;
-    dirty = true;
+    m_dirty = true;
 
   }
 
   void
   Camera::setFront(Vector3 Front) {
     m_front = Front;
-    dirty = true;
+    m_dirty = true;
 
   }
 
@@ -166,7 +166,7 @@ namespace kraEngineSDK {
     m_front.x = X;
     m_front.y = Y;
     m_front.z = Z;
-    dirty = true;
+    m_dirty = true;
 
   }
 
@@ -178,7 +178,7 @@ namespace kraEngineSDK {
   void
   Camera::setRight(Vector3 Right) {
     m_right = Right;
-    dirty = true;
+    m_dirty = true;
 
   }
 
@@ -187,7 +187,7 @@ namespace kraEngineSDK {
     m_right.x = X;
     m_right.y = Y;
     m_right.z = Z;
-    dirty = true;
+    m_dirty = true;
 
   }
 
@@ -195,7 +195,7 @@ namespace kraEngineSDK {
   Camera::GetViewMatrix() 
   {
     
-    if (dirty) {
+    if (m_dirty) {
       createViewMat();
     }
 
@@ -207,7 +207,7 @@ namespace kraEngineSDK {
     
     m_viewMat = Matrix4::MatrixLookAtLH(m_pos, m_objective, m_up);
 
-    dirty = false;
+    m_dirty = false;
 
   }
 
@@ -218,7 +218,7 @@ namespace kraEngineSDK {
     m_front.normalize();
     m_right = m_front ^ m_up;
     
-    dirty = true;
+    m_dirty = true;
 
   }
 
@@ -226,14 +226,14 @@ namespace kraEngineSDK {
   Camera::Pitch(float angle)
   {
     Rotate(m_right, angle);
-    dirty = true;
+    m_dirty = true;
 
   }
 
   void Camera::Roll(float angle)
   {
     Rotate(m_front, angle);
-    dirty = true;
+    m_dirty = true;
 
   }
    

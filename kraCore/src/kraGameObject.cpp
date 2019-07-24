@@ -2,10 +2,7 @@
 
 namespace kraEngineSDK {
 
-  void
-  GameObject::addComponet(Component* newComponent) {
-    //m_componentsVec.push_back(newComponent);
-  }
+  
 
   template<class ComponentType>
   ComponentType&

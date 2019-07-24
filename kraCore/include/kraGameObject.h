@@ -12,11 +12,14 @@ namespace kraEngineSDK {
    public:
     GameObject() = default;
     ~GameObject() = default;
+
     GameObject(const GameObject&) = delete;
     GameObject& operator =(const GameObject&) = delete;
 
-    void
-    addComponet(Component* newComponent);
+    template< class ComponentType, typename... Args >
+    void addComponent(Args&& ... params) {
+      m_components.emplace_back(std::make_unique<ComponentType>(std::forward<Args>(params)...));
+    }
     
     template<class ComponentType>
     ComponentType& 
@@ -30,6 +33,7 @@ namespace kraEngineSDK {
 
   };
 
+  
   
 
 }

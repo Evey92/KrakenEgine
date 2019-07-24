@@ -47,6 +47,9 @@ class App : public BaseApplication
   App() = default;
   ~App() {}
 
+  App(const App&) = delete;
+  App& operator=(const App&) = delete;
+
   void
   run();
   HINSTANCE

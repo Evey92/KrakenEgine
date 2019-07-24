@@ -252,7 +252,7 @@ namespace kraEngineSDK {
      * @return referencia al componente.
      */
     float&
-      component(uint32 Index);
+    component(uint32 Index);
 
     /**
      * @brief Obtiene uno de los componentes del vector basado en un índice.
@@ -260,7 +260,7 @@ namespace kraEngineSDK {
      * @return Copia del valor del componente.
      */
     float
-      component(uint32 Index) const;
+    component(uint32 Index) const;
 
 
 
@@ -269,28 +269,28 @@ namespace kraEngineSDK {
      * @return Regresa el tamaño del vector.
      */
     float
-      lenght() const;
+    lenght() const;
 
     /**
      * @brief Obtiene el cuadrado del tamaño o magnitud de un vector.
      * @return Regresa el tamaño del vector.
      */
     float
-      lenghtSquared() const;
+    lenghtSquared() const;
 
     /**
      * @brief Obtiene el cuadrado del tamaño o magnitud de un vector.
      * @return Regresa el tamaño del vector.
      */
     static float
-      dot(Vector3& V1, Vector3& V2);
+    dot(Vector3& V1, Vector3& V2);
 
     /**
      * @brief Obtiene el cuadrado del tamaño o magnitud de un vector.
      * @return Regresa el tamaño del vector.
      */
     static Vector3
-      cross(Vector3& V1, Vector3& V2);
+    cross(Vector3& V1, Vector3& V2);
 
     /**
      * @brief Obtiene la distancia enrtre 2 vectores.
@@ -298,7 +298,7 @@ namespace kraEngineSDK {
      * @return Regresa la distancia entre esos dos vectores.
      */
     float
-      distance(const Vector3& V1, const Vector3& V2);
+    distance(const Vector3& V1, const Vector3& V2);
 
     /**
      * @brief Normaliza el vector.

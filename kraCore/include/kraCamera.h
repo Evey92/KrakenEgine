@@ -6,12 +6,17 @@
 #include "kraGameObject.h"
 
 namespace kraEngineSDK {
-  class KRA_CORE_EXPORT Camera : 
-  public Component  {
+  class KRA_CORE_EXPORT Camera 
+  : public Component {
   
+    //CLASS_DECLARATION(Camera)
+
   public:
-    Camera();
-    Camera(Vector3 Pos, Vector3 objective, Vector3  UP);
+    Camera(GameObject* owner,
+           Vector3 objective,
+           Vector3 UP,
+           Vector3 Pos);
+
     ~Camera() = default;
 
     void 
@@ -104,15 +109,15 @@ namespace kraEngineSDK {
     
 
   private:
-    uint32 m_id;
+    uint32 m_id = 0;
 
-    bool dirty;
+    bool m_dirty = true;
     Matrix4 m_viewMat;
-    Vector3 m_pos;
-    Vector3 m_objective;
-    Vector3 m_front;
-    Vector3 m_right;
-    Vector3 m_up;
+    Vector3 m_pos = Vector3::ZERO;
+    Vector3 m_objective = Vector3::ZERO;
+    Vector3 m_front = Vector3::ZERO;
+    Vector3 m_right = Vector3::ZERO;
+    Vector3 m_up = Vector3::ZERO;
     
     float m_fov = 90;
     float m_nearZ = 0.01f;

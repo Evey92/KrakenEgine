@@ -2,8 +2,13 @@
 
 #include "kraPrerequisitesCore.h"
 
+#define CLASS_DECLARATION( classname )                                                      \
+public:                                                                                     \
+    static const ComponentTypes::E m_type;                                                  \
+    virtual bool isOfType(const ComponentTypes::E type) const override;                     \            
 
 namespace kraEngineSDK {
+
 
   namespace ComponentTypes {
     enum E
@@ -19,7 +24,6 @@ namespace kraEngineSDK {
   class GameObject;
   class Transform;
   
-#define CLASS_DECLARATION(classname) 
 #define CLASS_DEFINITION(parentclass, childclass) 
 
   class KRA_CORE_EXPORT Component
@@ -32,9 +36,9 @@ namespace kraEngineSDK {
     bool
     isOfType(const ComponentTypes::E type) const;
 
-   /* GameObject* m_gameObject = nullptr;
-    Transform* m_transform = nullptr;*/
+   protected:
     ComponentTypes::E m_type = ComponentTypes::E::DEFAULT;
+    GameObject* m_owner;
 
   };
 }
