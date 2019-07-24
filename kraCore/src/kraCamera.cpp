@@ -2,18 +2,8 @@
 
 namespace kraEngineSDK {
 
-  //CLASS_DEFINITION(Component, Camera)
+  CLASS_DEFINITION(Component, Camera)
 
-  Camera::Camera(GameObject* owner,
-                  Vector3 objective,
-                  Vector3 UP,
-                  Vector3 Pos = Vector3::ZERO)
-  {
-    m_owner = owner;
-    m_objective = objective;
-    m_up = UP;
-    m_pos = Pos;
-  }
 
   void 
   Camera::MoveForward(float defaz) 

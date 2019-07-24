@@ -2,13 +2,36 @@
 
 #include "kraPrerequisitesCore.h"
 
+namespace kraEngineSDK {                                                  
+
+#define TO_STRING( x ) #x
+
+  //****************
+  // CLASS_DECLARATION
+  //
+  // This macro must be included in the declaration of any subclass of Component.
+  // It declares variables used in type checking.
+  //****************
 #define CLASS_DECLARATION( classname )                                                      \
 public:                                                                                     \
-    static const ComponentTypes::E m_type;                                                  \
-    virtual bool isOfType(const ComponentTypes::E type) const override;                     \            
+    static const std::size_t Type;                                                          \
+    virtual bool isOfType( const std::size_t classType ) const override;                    \
 
-namespace kraEngineSDK {
-
+//****************
+// CLASS_DEFINITION
+// 
+// This macro must be included in the class definition to properly initialize 
+// variables used in type checking. Take special care to ensure that the 
+// proper parentclass is indicated or the run-time type information will be
+// incorrect. Only works on single-inheritance RTTI.
+//****************
+#define CLASS_DEFINITION( parentclass, childclass )                                         \
+const std::size_t childclass::Type = std::hash< std::string >()( TO_STRING( childclass ) ); \
+bool childclass::isOfType( const std::size_t classType ) const {                            \
+        if ( classType == childclass::Type )                                                \
+            return true;                                                                    \
+        return parentclass::isOfType( classType );                                          \
+}                      
 
   namespace ComponentTypes {
     enum E
@@ -23,22 +46,22 @@ namespace kraEngineSDK {
 
   class GameObject;
   class Transform;
-  
-#define CLASS_DEFINITION(parentclass, childclass) 
 
   class KRA_CORE_EXPORT Component
   {
 
    public:
-    Component() = default;
+     Component(GameObject* owner)
+     : m_owner(owner) {}
+
     virtual ~Component() = default; 
 
-    bool
-    isOfType(const ComponentTypes::E type) const;
+    virtual bool isOfType(const std::size_t classType) const;
 
    protected:
-    ComponentTypes::E m_type = ComponentTypes::E::DEFAULT;
-    GameObject* m_owner;
+
+     static const std::size_t Type;
+     GameObject* m_owner = nullptr;
 
   };
 }

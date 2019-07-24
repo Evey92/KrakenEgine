@@ -9,13 +9,12 @@ namespace kraEngineSDK {
   class KRA_CORE_EXPORT Camera 
   : public Component {
   
-    //CLASS_DECLARATION(Camera)
+    CLASS_DECLARATION(Camera)
 
   public:
-    Camera(GameObject* owner,
-           Vector3 objective,
-           Vector3 UP,
-           Vector3 Pos);
+
+    Camera(GameObject* owner)
+    : Component(owner) {}
 
     ~Camera() = default;
 

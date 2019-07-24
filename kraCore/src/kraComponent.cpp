@@ -6,8 +6,9 @@
 namespace kraEngineSDK {
 
   bool 
-  Component::isOfType(const ComponentTypes::E type) const
+  Component::isOfType(const std::size_t classType) const
   {
-    return m_type == type;
+    return classType == Type;
   }
+
 }

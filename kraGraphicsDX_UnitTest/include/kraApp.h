@@ -157,7 +157,7 @@ protected:
   Vector4 color;
   Vector<Model*> m_modelsVec;
   Texture* textureManager;
-  Camera mainCam;
+  Camera* mainCam;
   kraInputManager* m_inputManager;
   std::string modelPath = "resources/Models/";
 

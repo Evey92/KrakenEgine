@@ -8,7 +8,9 @@ namespace kraEngineSDK {
     CLASS_DECLARATION(Collider)
 
    public:
-    Collider() = default;
+     Collider(GameObject* owner)
+     : Component(owner) {}
+
 
   };
 }

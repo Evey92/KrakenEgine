@@ -272,6 +272,8 @@
     {
       std::cout << "Window couldn't be initialized.\n";
     }
+
+    
   }
 
   bool App::Initialize(void* m_hWnd)
@@ -406,17 +408,17 @@
 
     m_inputLayout->setInputLayout(*m_device);
 
-    Vector4 ClearColor = { 0.5f, 0.0f, 0.8f, 1.0f };
+    Vector4 ClearColor = { 0.329f, 0.050f, 0.431f, 1.0f };
 
     m_renderTargetView->clearRenderTargetView(m_device, ClearColor);
     m_depthStencilView->clearDSV(*m_device);
 
 
     m_mainCB->setConstData(0, m_world);
-    m_mainCB->setConstData(1, mainCam.GetViewMatrix());
+    m_mainCB->setConstData(1, mainCam->GetViewMatrix());
     m_mainCB->updateSubResources(*m_device);
 
-    m_lightCB->setConstData(0, mainCam.getPosition());
+    m_lightCB->setConstData(0, mainCam->getPosition());
     m_lightCB->updateSubResources(*m_device);
 
     for (uint32 i = 0; i < m_modelsVec.size(); ++i) {
@@ -480,7 +482,7 @@
 #pragma region CAMERA_FUNCTIONS
   Camera*
     App::getActiveCamera() {
-    return &mainCam;
+    return mainCam;
   }
 
   void
@@ -495,14 +497,14 @@
   void
     App::strafeCamera(int dir) {
 
-    mainCam.MoveRight(5.0f * dir);
+    mainCam->MoveRight(5.0f * dir);
 
   }
 
   void
     App::rotateCamera(float angle) {
 
-    mainCam.Yaw(angle);
+    mainCam->Yaw(angle);
 
   }
 
@@ -512,9 +514,11 @@
   bool
   App::LoadModel() {
     std::ostringstream stream;
+    
+    /*
     mainCam.setFOV(kraMath::DEG2RAD(90.0f));
     mainCam.setNearPlane(0.01f);
-    mainCam.setFarPlane(10000.0f);
+    mainCam.setFarPlane(10000.0f);*/
 
     m_renderTargetView->createRenderTargetView(*m_device);
 
@@ -582,22 +586,23 @@
     m_world.identity();
     m_mainCB->add(m_world);
 
+    GameObject cmeraObject;
+    mainCam = new Camera(&cmeraObject);
+    mainCam->setUp(Vector3(0.0f, 1.0f, 0.0f));
+    mainCam->setFront(Vector3(0.0f, 0.0f, -1.0f));
+    mainCam->setRight(Vector3(1.0f, 0.0f, 0.0f));
+    mainCam->SetPosition(Vector3(0.0f, 60.0f, 80.0f));
+    mainCam->SetObjecive(Vector3(0.0f, 50.0f, 0.0f));
 
-    mainCam.setUp(Vector3(0.0f, 1.0f, 0.0f));
-    mainCam.setFront(Vector3(0.0f, 0.0f, -1.0f));
-    mainCam.setRight(Vector3(1.0f, 0.0f, 0.0f));
-    mainCam.SetPosition(Vector3(0.0f, 60.0f, 80.0f));
-    mainCam.SetObjecive(Vector3(0.0f, 50.0f, 0.0f));
-
-    mainCam.createViewMat();
-    m_mainCB->add(mainCam.GetViewMatrix());
+    mainCam->createViewMat();
+    m_mainCB->add(mainCam->GetViewMatrix());
 
     Vector3 lightPosition = Vector3(100.0f, 0.0f, 100.0f);
 
-    m_projection.MatrixPerspectiveFOV(mainCam.getFOV(), static_cast<float>(m_device->getWidth()), static_cast<float>(m_device->getHeight()), mainCam.getNearPlane(), mainCam.getFarPlane());
+    m_projection.MatrixPerspectiveFOV(mainCam->getFOV(), static_cast<float>(m_device->getWidth()), static_cast<float>(m_device->getHeight()), mainCam->getNearPlane(), mainCam->getFarPlane());
     m_mainCB->add(m_projection);
 
-    m_lightCB->add(Vector4(mainCam.getPosition(), 1.0f));
+    m_lightCB->add(Vector4(mainCam->getPosition(), 1.0f));
 
     m_mainCB->createConstantBuffer(*m_device);
     m_lightCB->createConstantBuffer(*m_device);
