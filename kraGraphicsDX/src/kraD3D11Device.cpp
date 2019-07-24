@@ -150,6 +150,18 @@ namespace kraEngineSDK {
     return m_width;
   }
 
+  void* 
+  DeviceDX::getDevice()
+  {
+    return static_cast<void*>(m_pd3dDevice);
+  }
+
+  void* 
+  DeviceDX::getContext()
+  {
+    return static_cast<void*>(m_pImmediateContext);
+  }
+
   void
   DeviceDX::Draw(uint32 numVertex, uint32 startIndex) {
     m_pImmediateContext->Draw(numVertex, startIndex);

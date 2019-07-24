@@ -65,7 +65,7 @@ namespace kraEngineSDK {
     while (PeekMessage(m_msg, m_hWnd, 0, 0, PM_REMOVE)) {
       TranslateMessage(m_msg);
       DispatchMessage(m_msg);
-      
+      continue;
       //inputManager.handleMessage(static_cast<void*>(&m_msg));
 
       if (m_msg->message == WM_QUIT) {

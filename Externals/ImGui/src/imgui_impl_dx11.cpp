@@ -500,8 +500,10 @@ void    ImGui_ImplDX11_InvalidateDeviceObjects()
     if (g_pVertexShaderBlob) { g_pVertexShaderBlob->Release(); g_pVertexShaderBlob = NULL; }
 }
 
-bool    ImGui_ImplDX11_Init(ID3D11Device* device, ID3D11DeviceContext* device_context)
+bool    ImGui_ImplDX11_Init(void* vDevice, void* vDevice_context)
 {
+  ID3D11Device* device = static_cast<ID3D11Device*>(vDevice);
+  ID3D11DeviceContext* device_context = static_cast<ID3D11DeviceContext*>(vDevice_context);
     // Setup back-end capabilities flags
     ImGuiIO& io = ImGui::GetIO();
     io.BackendRendererName = "imgui_impl_dx11";

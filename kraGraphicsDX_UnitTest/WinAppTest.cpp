@@ -85,7 +85,8 @@ WinAppTest::Initialize(void* m_hWnd)
   ImGuiIO& io = ImGui::GetIO(); (void)io;
   ImGui::StyleColorsDark();
   ImGui_ImplWin32_Init(m_hWnd);
-  //ImGui_ImplDX11_Init(m_device, );
+  ImGui_ImplDX11_Init(m_device->getDevice(), m_device->getContext());
+
 
 
   //Initializing App systems
@@ -134,7 +135,15 @@ WinAppTest::postInitialice()
 void 
 WinAppTest::run()
 {
+  MSG msg = { 0 };
+  while (m_window->m_isOpen)
+  {
+    m_window->handleMSG(static_cast<void*>(&msg), *m_inputManager);
+    update();
+   
+  }
 
+  destroy();
 }
 
 void 
@@ -146,7 +155,9 @@ WinAppTest::preUpdate()
 void 
 WinAppTest::update()
 {
-
+  // Start the Dear ImGui frame
+  ImGui_ImplDX11_NewFrame();
+  ImGui_ImplWin32_NewFrame();
 }
 
 void 
@@ -182,7 +193,10 @@ WinAppTest::preDestroy()
 void 
 WinAppTest::destroy()
 {
-
+  ImGui_ImplDX11_Shutdown();
+  ImGui_ImplWin32_Shutdown();
+  ImGui::DestroyContext();
+  ::DestroyWindow(m_window->m_hWnd);
 }
 
 Camera* 

@@ -26,7 +26,8 @@ namespace kraEngineSDK {
 
   template<typename CONSVERTEX> class ConstantBuffer;
 
-  class KRA_UTILGFX_EXPORT DeviceDX : public Device
+  class KRA_UTILGFX_EXPORT DeviceDX 
+  : public Device
   {
 
   public:
@@ -35,64 +36,100 @@ namespace kraEngineSDK {
 
     bool
     initializeDevice(void* g_hWnd);
+   
     void
     setRenderTarget(RenderTargetView* pRTV, void* pDSV);
+    
     void
     cleanContext();
+    
     void
     cleanDevice();
+    
     void
     cleanSwapChain();
+    
     void
     cleanContextState();
+    
     void
     setPrimitiveTopology();
+    
     uint32
     getHeight();
+    
     uint32
     getWidth();
+
+    virtual void* 
+    getDevice() override;
+
+    virtual void* 
+    getContext() override;
+    
     void
     Draw(uint32 numVertex, uint32 startIndex);
+    
     void
     DrawIndexed(uint32 count, uint32 start, int32 baseLoc);
+    
     void
     PresentSwapChain();
+    
     RenderTargetView*
     createRenderTargetInsttance();
+    
     Viewport*
     createViewportInstance();
+    
     InputLayout*
     createInputLayoutInstance();
+    
     DepthStencil*
     createDepthStencilInstance();
+    
     DepthStencylView*
     createDepthStencilViewInstance();
+    
     VertexShader*
     createVertexShaderInstance();
+    
     PixelShader*
     createPixelShaderInstance();
+    
     VertexBuffer*
     createVertexBufferInstance();
+    
     IndexBuffer*
     createIndexBufferInstance();
+    
     ConstantBuffer<CBNeverChanges>*
     createConstantBufferNever();
+    
     ConstantBuffer<CBChangeOnResize>*
     createConstantBufferResize();
+    
     ConstantBuffer<CBChangesEveryFrame>*
     createConstantBufferEveryFrame();
+    
     ConstantBuffer<Matrix4>*
     createConstantBufferInstance();
+    
     ConstantBuffer<Vector4>*
     createConstantBufferInstanceVec3();
+    
     SamplerState*
     createSamplerStateInstance(); 
+    
     Texture*
     createTextureInstance();
+    
     ShaderResourceView*
     createShaderRVInstance();
+    
     Material*
     createMaterialInstance();
+    
     RasterizerState*
     creatreRasterizerStateInstance();
     
@@ -101,6 +138,7 @@ namespace kraEngineSDK {
     SwapChainDX m_pSwapChain;
     uint32 m_height = 0;
     uint32 m_width = 0;
+
   };
 }
 
