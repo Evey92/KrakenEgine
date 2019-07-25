@@ -1,7 +1,7 @@
 #include "WinAppTest.h"
 
 bool
-WinAppTest::startUp(void* m_hWnd, int nCmdShow) {
+WinApp::startUp(void* m_hWnd, int nCmdShow) {
 
   typedef GraphicsAPI* (*initGFXFunc)();
   typedef InputAPI* (*initInptFunc)();
@@ -71,13 +71,13 @@ WinAppTest::startUp(void* m_hWnd, int nCmdShow) {
 }
 
 void 
-WinAppTest::preInitialice()
+WinApp::preInitialice()
 {
 
 }
 
 bool
-WinAppTest::Initialize(void* m_hWnd)
+WinApp::Initialize(void* m_hWnd)
 {
 
   IMGUI_CHECKVERSION();
@@ -85,17 +85,20 @@ WinAppTest::Initialize(void* m_hWnd)
   ImGuiIO& io = ImGui::GetIO(); (void)io;
   ImGui::StyleColorsDark();
   ImGui_ImplWin32_Init(m_hWnd);
-  ImGui_ImplDX11_Init(m_device->getDevice(), m_device->getContext());
-
-
-
-  //Initializing App systems
+  
   m_device = m_gfxAPIInstance->initializeAPI(reinterpret_cast<void*>(m_window->m_hWnd));
   if (!m_device)
   {
     MessageBox(NULL, "Failed to create Initialize API Device", "Error", MB_OK);
     return false;
   }
+
+  ImGui_ImplDX11_Init(m_device->getDevice(), m_device->getContext());
+
+
+
+  //Initializing App systems
+  
 
   m_inputManager = m_inputAPIInstance->initializeAPI(m_device->getWidth(), m_device->getHeight());
   if (!m_device)
@@ -105,15 +108,14 @@ WinAppTest::Initialize(void* m_hWnd)
   }
 
   //defaultScene->initialize();
-  m_sceneManager;
-  SceneNode* root = new SceneNode(0);
+  //m_sceneManager;
+  //SceneNode* root = new SceneNode(0);
   GameObject camera;
-  
-  //Camera mainCam;
+  //
 
-  camera.addComponent<Camera*>(this, Vector3(0.0f, 50.0f, 0.0f));
+  camera.addComponent<Camera*>(camera, Vector3(0.0f, 50.0f, 0.0f));
 
-  root->initialize(&camera);
+  //root->initialize(&camera);
 
   //m_defaultScene->addNode(newNode);
 
@@ -122,13 +124,13 @@ WinAppTest::Initialize(void* m_hWnd)
 }
 
 void 
-WinAppTest::postInitialice()
+WinApp::postInitialice()
 {
 
 }
 
 void 
-WinAppTest::run()
+WinApp::run()
 {
   MSG msg = { 0 };
   while (m_window->m_isOpen)
@@ -142,13 +144,13 @@ WinAppTest::run()
 }
 
 void 
-WinAppTest::preUpdate()
+WinApp::preUpdate()
 {
 
 }
 
 void 
-WinAppTest::update()
+WinApp::update()
 {
   // Start the Dear ImGui frame
   ImGui_ImplDX11_NewFrame();
@@ -156,37 +158,37 @@ WinAppTest::update()
 }
 
 void 
-WinAppTest::update(float deltaTime)
+WinApp::update(float deltaTime)
 {
 
 }
 
 void 
-WinAppTest::postUpdate()
+WinApp::postUpdate()
 {
 
 }
 
 void 
-WinAppTest::render()
+WinApp::render()
 {
 
 }
 
 void 
-WinAppTest::postRender()
+WinApp::postRender()
 {
 
 }
 
 void 
-WinAppTest::preDestroy()
+WinApp::preDestroy()
 {
 
 }
 
 void 
-WinAppTest::destroy()
+WinApp::destroy()
 {
   ImGui_ImplDX11_Shutdown();
   ImGui_ImplWin32_Shutdown();
@@ -195,13 +197,13 @@ WinAppTest::destroy()
 }
 
 Camera* 
-WinAppTest::getActiveCamera()
+WinApp::getActiveCamera()
 {
   return m_activeCam;
 }
 
 void
-WinAppTest::setActiveCamera(Camera* newCam)
+WinApp::setActiveCamera(Camera* newCam)
 {
   m_activeCam = newCam;
 }

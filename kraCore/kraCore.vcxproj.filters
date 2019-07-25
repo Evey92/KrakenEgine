@@ -169,6 +169,9 @@
     <ClInclude Include="include\kraTransform.h">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
+    <ClInclude Include="include\componentStuff.h">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraConstantBuffer.cpp">

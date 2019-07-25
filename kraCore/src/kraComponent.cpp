@@ -1,8 +1,6 @@
 #include "kraComponent.h"
 #include "kraGameObject.h"
 
-#define CLASS_DECLARATION( classname )  
-
 namespace kraEngineSDK {
 
   bool 
@@ -10,5 +8,7 @@ namespace kraEngineSDK {
   {
     return classType == Type;
   }
+
+  const std::size_t Component::Type = std::hash<std::string>()(TO_STRING(Component));
 
 }

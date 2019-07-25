@@ -31,13 +31,13 @@
 
 using namespace kraEngineSDK;
 
-class WinAppTest :
+class WinApp :
   public BaseApplication
 {
  public:
 
-   WinAppTest() = default;
-   ~WinAppTest() = default;
+   WinApp() = default;
+   ~WinApp() = default;
 
 #pragma region APP_LIFECYCLE
    
@@ -127,8 +127,8 @@ class WinAppTest :
 #pragma endregion UTILITY_FUNCTIONS
 
 #pragma region PUBLIC_MEMBERS
-   Camera* m_activeCam;
-   kraInputManager* m_inputManager;
+   Camera* m_activeCam =nullptr;
+   kraInputManager* m_inputManager = nullptr;
 
 #pragma endregion PUBLIC_MEMBERS
 

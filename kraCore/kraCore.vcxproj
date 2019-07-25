@@ -176,6 +176,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\componentStuff.h" />
     <ClInclude Include="include\kraBlob.h" />
     <ClInclude Include="include\kraBoxCollider.h" />
     <ClInclude Include="include\kraCamera.h" />
