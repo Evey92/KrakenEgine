@@ -12,11 +12,14 @@ namespace kraEngineSDK {
     virtual
      ~GraphicsAPI() {}
 
-    virtual Device*
+    virtual bool
     initializeAPI(void* g_hWnd) = 0;
 
     virtual void
     Render() = 0;
+
+    virtual Device*
+    getDevice() = 0;
 
     virtual void
     Cleanup() = 0;

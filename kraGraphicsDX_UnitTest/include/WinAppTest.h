@@ -5,9 +5,7 @@
 #include <kraMesh.h>
 #include <windows.h>
 #include <string>
-#include <imgui.h>
-#include <imgui_impl_win32.h>
-#include <imgui_impl_dx11.h>
+#include "kraUIManager.h"
 
 //GFX Headers
 #include <kraRenderAPIManager.h>
@@ -42,13 +40,13 @@ class WinApp :
 #pragma region APP_LIFECYCLE
    
    bool
-   startUp(void* m_hWnd, int nCmdShow) override;
+   startUp(int nCmdShow) override;
 
    void
    preInitialice() override;
 
    bool
-   Initialize(void* m_hWnd) override;
+   Initialize() override;
 
    void
    postInitialice() override;
@@ -138,6 +136,12 @@ class WinApp :
  private:
    std::string modelPath = "resources/Models/";
    Vector<Scene*> m_scenesInBuild;
+   Viewport* m_viewport = nullptr;
+   RenderTargetView* m_mainRenderTarget;
+   DepthStencil* m_depthStencil;
+   DepthStencylView* m_depthStencilView;
+   Vector4 ClearColor;
+   UIManager m_UIManager;
 #pragma endregion PRIVARE_MEMBERS
 };
 

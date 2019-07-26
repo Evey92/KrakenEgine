@@ -82,10 +82,7 @@ static void ImGui_ImplDX11_SetupRenderState(ImDrawData* draw_data, ID3D11DeviceC
     ctx->VSSetConstantBuffers(0, 1, &g_pVertexConstantBuffer);
     ctx->PSSetShader(g_pPixelShader, NULL, 0);
     ctx->PSSetSamplers(0, 1, &g_pFontSampler);
-    ctx->GSSetShader(NULL, NULL, 0);
-    ctx->HSSetShader(NULL, NULL, 0); // In theory we should backup and restore this as well.. very infrequently used..
-    ctx->DSSetShader(NULL, NULL, 0); // In theory we should backup and restore this as well.. very infrequently used..
-    ctx->CSSetShader(NULL, NULL, 0); // In theory we should backup and restore this as well.. very infrequently used..
+
 
     // Setup blend state
     const float blend_factor[4] = { 0.f, 0.f, 0.f, 0.f };
@@ -212,8 +209,6 @@ void ImGui_ImplDX11_RenderDrawData(ImDrawData* draw_data)
     ctx->PSGetShader(&old.PS, old.PSInstances, &old.PSInstancesCount);
     ctx->VSGetShader(&old.VS, old.VSInstances, &old.VSInstancesCount);
     ctx->VSGetConstantBuffers(0, 1, &old.VSConstantBuffer);
-    ctx->GSGetShader(&old.GS, old.GSInstances, &old.GSInstancesCount);
-
     ctx->IAGetPrimitiveTopology(&old.PrimitiveTopology);
     ctx->IAGetIndexBuffer(&old.IndexBuffer, &old.IndexBufferFormat, &old.IndexBufferOffset);
     ctx->IAGetVertexBuffers(0, 1, &old.VertexBuffer, &old.VertexBufferStride, &old.VertexBufferOffset);
@@ -270,7 +265,6 @@ void ImGui_ImplDX11_RenderDrawData(ImDrawData* draw_data)
     for (UINT i = 0; i < old.PSInstancesCount; i++) if (old.PSInstances[i]) old.PSInstances[i]->Release();
     ctx->VSSetShader(old.VS, old.VSInstances, old.VSInstancesCount); if (old.VS) old.VS->Release();
     ctx->VSSetConstantBuffers(0, 1, &old.VSConstantBuffer); if (old.VSConstantBuffer) old.VSConstantBuffer->Release();
-    ctx->GSSetShader(old.GS, old.GSInstances, old.GSInstancesCount); if (old.GS) old.GS->Release();
     for (UINT i = 0; i < old.VSInstancesCount; i++) if (old.VSInstances[i]) old.VSInstances[i]->Release();
     ctx->IASetPrimitiveTopology(old.PrimitiveTopology);
     ctx->IASetIndexBuffer(old.IndexBuffer, old.IndexBufferFormat, old.IndexBufferOffset); if (old.IndexBuffer) old.IndexBuffer->Release();
@@ -500,10 +494,8 @@ void    ImGui_ImplDX11_InvalidateDeviceObjects()
     if (g_pVertexShaderBlob) { g_pVertexShaderBlob->Release(); g_pVertexShaderBlob = NULL; }
 }
 
-bool    ImGui_ImplDX11_Init(void* vDevice, void* vDevice_context)
+bool    ImGui_ImplDX11_Init(ID3D11Device* device, ID3D11DeviceContext* device_context)
 {
-  ID3D11Device* device = static_cast<ID3D11Device*>(vDevice);
-  ID3D11DeviceContext* device_context = static_cast<ID3D11DeviceContext*>(vDevice_context);
     // Setup back-end capabilities flags
     ImGuiIO& io = ImGui::GetIO();
     io.BackendRendererName = "imgui_impl_dx11";
@@ -524,8 +516,6 @@ bool    ImGui_ImplDX11_Init(void* vDevice, void* vDevice_context)
             }
     if (pDXGIDevice) pDXGIDevice->Release();
     if (pDXGIAdapter) pDXGIAdapter->Release();
-    g_pd3dDevice->AddRef();
-    g_pd3dDeviceContext->AddRef();
 
     return true;
 }

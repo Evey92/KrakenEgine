@@ -47,9 +47,10 @@ namespace kraEngineSDK {
       return false;
     }
 
-    ShowWindow(m_hWnd, SW_SHOW);
+    ShowWindow(m_hWnd, SW_SHOWDEFAULT);
     SetForegroundWindow(m_hWnd);
     SetFocus(m_hWnd);
+    UpdateWindow(m_hWnd);
 
     m_isOpen = true;
     

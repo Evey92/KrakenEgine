@@ -61,18 +61,19 @@ namespace kraEngineSDK {
     
     DXGI_SWAP_CHAIN_DESC sd;
     memset(&sd, 0, sizeof(sd));
-    sd.BufferCount = 1;
+    sd.BufferCount = 2;
     sd.BufferDesc.Width = m_width;
     sd.BufferDesc.Height = m_height;
     sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     sd.BufferDesc.RefreshRate.Numerator = 60;
     sd.BufferDesc.RefreshRate.Denominator = 1;
+    sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
     sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
     sd.OutputWindow = m_hWnd;
     sd.SampleDesc.Count = 1;
     sd.SampleDesc.Quality = 0;
     sd.Windowed = true;
-
+    sd.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 
     D3D_FEATURE_LEVEL selectedFL;
 
@@ -153,13 +154,13 @@ namespace kraEngineSDK {
   void* 
   DeviceDX::getDevice()
   {
-    return static_cast<void*>(m_pd3dDevice);
+    return reinterpret_cast<void*>(m_pd3dDevice);
   }
 
   void* 
   DeviceDX::getContext()
   {
-    return static_cast<void*>(m_pImmediateContext);
+    return reinterpret_cast<void*>(m_pImmediateContext);
   }
 
   void
@@ -175,7 +176,7 @@ namespace kraEngineSDK {
   //TODO fix this bullshit with a factory.
   void
   DeviceDX::PresentSwapChain() {
-    m_pSwapChain.m_pd3dSwapChain->Present(0, 0);
+    m_pSwapChain.m_pd3dSwapChain->Present(1, 0);
   }
 
   RenderTargetView*

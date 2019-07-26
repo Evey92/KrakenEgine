@@ -36,12 +36,12 @@ namespace kraEngineSDK {
 
 #pragma region PUBLIC_MEMBERS
 
-    int m_buildIndex;
+    int m_buildIndex = 0;
     int m_nodes = 0;
     String m_name;
     String m_path;
     bool m_isDirty = true;
-    bool m_isLoaded;
+    bool m_isLoaded = false;
 #pragma endregion PUBLIC_MEMBERS
   };
 }

@@ -4,38 +4,49 @@
 
 namespace kraEngineSDK {
   
-  Device*
+  bool
   GraphicsAPIDX::initializeAPI(void* g_hWnd) {
         
+    m_device = new DeviceDX();
+
     bool hr = true;
     
     //Init device and Swap Chain        
-    hr = m_device.initializeDevice(g_hWnd);
+    hr = m_device->initializeDevice(g_hWnd);
    
     if (!hr)
     {
-      return nullptr;
       throw::std::exception("The Device could not be initialized.");
+      return false;
     }
     
-    return &m_device;
+    return true;
   }
 
   void
   GraphicsAPIDX::Render() {
     
-    m_device.m_pImmediateContext->DrawIndexed(36, 0, 0);
+    DeviceDX* device = static_cast<DeviceDX*>(m_device);
 
-    m_device.m_pSwapChain.m_pd3dSwapChain->Present(0, 0);
+    device->m_pImmediateContext->DrawIndexed(36, 0, 0);
+
+    device->m_pSwapChain.m_pd3dSwapChain->Present(0, 0);
 
   }
 
   void
   GraphicsAPIDX::Cleanup() {
     
-    m_device.cleanContextState();
-    m_device.cleanSwapChain();
-    m_device.cleanContext();
-    m_device.cleanDevice();
+    m_device->cleanContextState();
+    m_device->cleanSwapChain();
+    m_device->cleanContext();
+    m_device->cleanDevice();
   }
+
+  Device* 
+  GraphicsAPIDX::getDevice()
+  {
+    return m_device;
+  }
+
 }

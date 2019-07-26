@@ -1,8 +1,9 @@
 #include "WinAppTest.h"
 
 bool
-WinApp::startUp(void* m_hWnd, int nCmdShow) {
+WinApp::startUp(int nCmdShow) {
 
+  std::ostringstream stream;
   typedef GraphicsAPI* (*initGFXFunc)();
   typedef InputAPI* (*initInptFunc)();
 
@@ -66,7 +67,48 @@ WinApp::startUp(void* m_hWnd, int nCmdShow) {
       std::cout << "Window couldn't be initialized.\n";
     }
 
-    Initialize(m_hWnd);
+    if (!m_gfxAPIInstance->initializeAPI(reinterpret_cast<void*>(m_window->m_hWnd)))
+    {
+      MessageBox(NULL, "Failed to Initialize Graphics API Device", "Error", MB_OK);
+      return false;
+    }
+    m_inputManager = m_inputAPIInstance->initializeAPI(m_gfxAPIInstance->getDevice()->getWidth(), m_gfxAPIInstance->getDevice()->getHeight());
+    if (!m_inputManager)
+    {
+      MessageBox(NULL, "Failed to create Initialize Input Manager", "Error", MB_OK);
+      return false;
+    }
+
+    m_mainRenderTarget = m_gfxAPIInstance->getDevice()->createRenderTargetInsttance();
+    if (!m_mainRenderTarget)
+    {
+      MessageBox(NULL, "Failed to create Render Target", "Error", MB_OK);
+      return false;
+    }
+
+    m_depthStencil = m_gfxAPIInstance->getDevice()->createDepthStencilInstance();
+    if (!m_depthStencil)
+    {
+      MessageBox(NULL, "Failed to create Depth Stencil", "Error", MB_OK);
+      return false;
+    }
+
+    m_depthStencilView = m_gfxAPIInstance->getDevice()->createDepthStencilViewInstance();
+    if (!m_depthStencilView)
+    {
+      MessageBox(NULL, "Failed to create Depth Stencil View", "Error", MB_OK);
+      return false;
+    }
+    
+
+    m_viewport = m_gfxAPIInstance->getDevice()->createViewportInstance();
+    if (!m_viewport)
+    {
+      MessageBox(NULL, "Failed to create Viewport", "Error", MB_OK);
+      return false;
+    }
+
+    Initialize();
     return true;
 }
 
@@ -76,49 +118,48 @@ WinApp::preInitialice()
 
 }
 
+//Initializing App systems
 bool
-WinApp::Initialize(void* m_hWnd)
+WinApp::Initialize()
 {
 
-  IMGUI_CHECKVERSION();
-  ImGui::CreateContext();
-  ImGuiIO& io = ImGui::GetIO(); (void)io;
-  ImGui::StyleColorsDark();
-  ImGui_ImplWin32_Init(m_hWnd);
-  
-  m_device = m_gfxAPIInstance->initializeAPI(reinterpret_cast<void*>(m_window->m_hWnd));
-  if (!m_device)
-  {
-    MessageBox(NULL, "Failed to create Initialize API Device", "Error", MB_OK);
-    return false;
-  }
-
-  ImGui_ImplDX11_Init(m_device->getDevice(), m_device->getContext());
-
-
-
-  //Initializing App systems
   
 
-  m_inputManager = m_inputAPIInstance->initializeAPI(m_device->getWidth(), m_device->getHeight());
-  if (!m_device)
-  {
-    MessageBox(NULL, "Failed to create Initialize Input Manager", "Error", MB_OK);
-    return false;
-  }
+  m_mainRenderTarget->createRenderTargetView(*m_gfxAPIInstance->getDevice());
+
+  m_depthStencil->setDepthStencil(*m_gfxAPIInstance->getDevice(), m_gfxAPIInstance->getDevice()->getHeight(), m_gfxAPIInstance->getDevice()->getWidth());
+
+  m_depthStencil->createDepthStencilState(*m_gfxAPIInstance->getDevice());
+
+  m_depthStencil->setDepthStencilState(*m_gfxAPIInstance->getDevice());
+
+  m_depthStencilView->createDepthStencilView(*m_gfxAPIInstance->getDevice(), *m_depthStencil);
+
+  m_mainRenderTarget->setRenderTarget(*m_gfxAPIInstance->getDevice(), *m_depthStencilView, 1);
+
+  
+
+  m_viewport->createViewport(m_gfxAPIInstance->getDevice()->getWidth(), m_gfxAPIInstance->getDevice()->getHeight(), 0.0f, 0.0f);
+
+  m_viewport->setViewport(m_gfxAPIInstance->getDevice());
 
   //defaultScene->initialize();
   //m_sceneManager;
   //SceneNode* root = new SceneNode(0);
-  GameObject camera;
-  //
-
-  camera.addComponent<Camera*>(camera, Vector3(0.0f, 50.0f, 0.0f));
+  /*GameObject camera;
+  
+  camera.addComponent<Camera*>(camera, Vector3(0.0f, 50.0f, 0.0f));*/
 
   //root->initialize(&camera);
 
   //m_defaultScene->addNode(newNode);
 
+
+  if(!m_UIManager.initUI(reinterpret_cast<void*>(m_window->m_hWnd),
+                     m_gfxAPIInstance->getDevice()->getDevice(),
+                     m_gfxAPIInstance->getDevice()->getContext())) {
+    Log("Couldn't initiate UI");
+  }
 
   return true;
 }
@@ -137,7 +178,7 @@ WinApp::run()
   {
     m_window->handleMSG(static_cast<void*>(&msg), *m_inputManager);
     update();
-   
+    render();
   }
 
   destroy();
@@ -152,9 +193,7 @@ WinApp::preUpdate()
 void 
 WinApp::update()
 {
-  // Start the Dear ImGui frame
-  ImGui_ImplDX11_NewFrame();
-  ImGui_ImplWin32_NewFrame();
+  m_UIManager.updateUI();
 }
 
 void 
@@ -172,6 +211,14 @@ WinApp::postUpdate()
 void 
 WinApp::render()
 {
+  m_mainRenderTarget->setRenderTarget(*m_gfxAPIInstance->getDevice(), *m_depthStencilView, 1);
+
+  ClearColor = { 0.329f, 0.050f, 0.431f, 1.0f };
+  m_mainRenderTarget->clearRenderTargetView(m_gfxAPIInstance->getDevice(), ClearColor);
+
+  m_UIManager.renderUI();
+
+  m_gfxAPIInstance->getDevice()->PresentSwapChain();
 
 }
 
@@ -190,9 +237,6 @@ WinApp::preDestroy()
 void 
 WinApp::destroy()
 {
-  ImGui_ImplDX11_Shutdown();
-  ImGui_ImplWin32_Shutdown();
-  ImGui::DestroyContext();
   ::DestroyWindow(m_window->m_hWnd);
 }
 

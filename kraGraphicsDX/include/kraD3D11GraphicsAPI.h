@@ -35,18 +35,26 @@ namespace kraEngineSDK {
      GraphicsAPIDX() = default;
     ~GraphicsAPIDX() {}
     
-    Device*
-    initializeAPI(void* g_hWnd);
+    bool
+    initializeAPI(void* g_hWnd) override;
+    
     void 
     Render();
-    void
-    Cleanup();
+    
+    virtual Device*
+    getDevice() override;
 
-    DeviceDX m_device;
+
+    void
+    Cleanup() override;
+
+    Device* m_device;
     
     Matrix4 m_World;
     Matrix4 m_View;
     Matrix4 m_Projection;
     Vector4 m_meshColor = Vector4(.7f, .7f, .7f, 1.0f);
+
+
   };
 }

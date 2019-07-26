@@ -63,7 +63,7 @@ namespace kraEngineSDK {
     * @brief Function to start up the app.
     */
     virtual bool
-    startUp(void* m_hWnd, int nCmdShow) = 0;
+    startUp(int nCmdShow) = 0;
 
     /**
     * @brief Main function to execute a program.
@@ -74,7 +74,7 @@ namespace kraEngineSDK {
     * @brief Main function to initialize all the main libraries like GFX, network, systems etc.
     */
     virtual bool
-    Initialize(void* m_hWnd) = 0;
+    Initialize() = 0;
     
     /**
     * @brief Main loop of the app.
@@ -143,12 +143,12 @@ namespace kraEngineSDK {
     */
     virtual void
     preDestroy() = 0;
+
 #pragma endregion PROTECTED_METHODS
 
 #pragma region PUBLIC_MEMBERS
   public:
-    Device* m_device;
-    kraInputManager* m_inputManager;
+    kraInputManager* m_inputManager = nullptr;
 
 #pragma endregion PUBLIC_MEMBERS
 
@@ -156,7 +156,7 @@ namespace kraEngineSDK {
    
    protected:    
     Win32Window* m_window = nullptr;
-    SceneManager* m_sceneManager;
+    SceneManager* m_sceneManager = nullptr;
     GraphicsAPI* m_gfxAPIInstance = nullptr;
     InputAPI* m_inputAPIInstance = nullptr;
     Texture* m_pBackBuffer = nullptr;

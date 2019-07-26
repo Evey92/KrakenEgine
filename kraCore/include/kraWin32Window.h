@@ -24,6 +24,5 @@ namespace kraEngineSDK {
 
     HWND m_hWnd = nullptr;
     HINSTANCE m_hInstance = nullptr;
-    //InputManager* m_inputManager;
   };
 }
