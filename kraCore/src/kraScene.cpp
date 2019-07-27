@@ -7,7 +7,21 @@ namespace kraEngineSDK {
   Scene::initialize()
   {
     m_sceneGraph->initialize();
+    
+    GameObject* newGO = new GameObject(this, "MainCamera");
+    
+    //Camera* camGO = new Camera();
+    //newGO->addComponent<Camera>(camGO);
+    
+    SceneNode* newNode = new SceneNode();
+    newNode->initialize(newGO);
+    m_sceneGraph->setNode(newNode);
     m_nodes = m_sceneGraph->getNodesSize();
+  }
+
+  void
+  Scene::addNewNode() {
+    
   }
 
   void
@@ -20,7 +34,7 @@ namespace kraEngineSDK {
   void 
   Scene::addEmptyNode()
   {
-    SceneNode* newNode = new SceneNode(m_nodes);
+    SceneNode* newNode = new SceneNode();
     newNode->initialize(nullptr);
 
     m_sceneGraph->setNode(newNode);

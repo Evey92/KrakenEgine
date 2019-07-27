@@ -1,7 +1,4 @@
--URGENT:
--> Create Device context interface so I can use the device context in the core.
-
--Fix problems with input manager
--Create the resource Manager
--Effing implement ImGUI already 
+-Show the scenegraph in a imgui window
+-Add gameobjcts, and componets to the scene
+-Create the resource Manager 
 -Work on Script as a component to start testing scripts on the engine

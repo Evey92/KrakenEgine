@@ -23,6 +23,9 @@ class UIManager {
   shutDown();
 
   void
-  showHelloWindow();
+  showSceneGraph();
+
+  void
+  showInspector();
 
 };

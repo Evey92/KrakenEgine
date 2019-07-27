@@ -6,7 +6,7 @@ UIManager::initUI(void* hWnd, void* pDevice, void* pCtx)
   ID3D11Device* device = reinterpret_cast<ID3D11Device*>(pDevice);
   ID3D11DeviceContext* ctx = reinterpret_cast<ID3D11DeviceContext*>(pCtx);
 
-  //IMGUI_CHECKVERSION();
+  IMGUI_CHECKVERSION();
   ImGui::CreateContext();
   ImGuiIO& io = ImGui::GetIO(); (void)io;
   
@@ -26,16 +26,39 @@ UIManager::initUI(void* hWnd, void* pDevice, void* pCtx)
 void 
 UIManager::updateUI()
 {
-  
+  ImGui_ImplDX11_NewFrame();
+  ImGui_ImplWin32_NewFrame();
+  ImGui::NewFrame();
+ 
+  if (ImGui::BeginMainMenuBar())
+  {
+    if (ImGui::BeginMenu("File"))
+    {
+      ImGui::MenuItem("(dummy menu)", NULL, false, false);
+      if (ImGui::MenuItem("New")) {
+      
+      }
+      ImGui::EndMenu();
+    }
+    if (ImGui::BeginMenu("Edit"))
+    {
+      if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
+      if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
+      ImGui::Separator();
+      if (ImGui::MenuItem("Cut", "CTRL+X")) {}
+      if (ImGui::MenuItem("Copy", "CTRL+C")) {}
+      if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+      ImGui::EndMenu();
+    }
+    ImGui::EndMainMenuBar();
+  }
+  showSceneGraph();
+  showInspector();
 }
 
 void 
 UIManager::renderUI()
 {
-  ImGui_ImplDX11_NewFrame();
-  ImGui_ImplWin32_NewFrame();
-  ImGui::NewFrame();
-  showHelloWindow();
   ImGui::Render();
   ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
@@ -51,16 +74,17 @@ UIManager::shutDown()
 }
 
 void 
-UIManager::showHelloWindow()
+UIManager::showSceneGraph()
 {
   static float f = 0.0f;
   static int counter = 0;
+  
+  ImGui::SetNextWindowPos(ImVec2(5, 20));
+  ImGui::SetNextWindowSize(ImVec2(300, 700));
 
-  ImGui::SetNextWindowPos(ImVec2(0, 0));
-  ImGui::SetNextWindowSize(ImVec2(250, 500));
+  ImGui::Begin("Scenegraph ");                
+  ImGui::Text("Camera");
 
-  ImGui::Begin("Hello, world!");                
-  ImGui::Text("This is some useful text.");
 
   ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
   
@@ -73,5 +97,21 @@ UIManager::showHelloWindow()
 
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
   ImGui::End();
+}
+
+void 
+UIManager::showInspector()
+{
+  ImGui::SetNextWindowPos(ImVec2(1280, 20));
+  ImGui::SetNextWindowSize(ImVec2(300, 600));
+
+  ImGui::Begin("Gameobject details");
+  
+  ImGui::Text("Camera");
+
+
+
+  ImGui::End();
+
 }
 

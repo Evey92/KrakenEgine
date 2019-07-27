@@ -5,8 +5,9 @@ namespace kraEngineSDK {
   void 
   SceneGraph::initialize()
   {
-    m_root = new SceneNode(0);
-    m_root->initialize(nullptr);
+    m_root = new SceneNode();
+    m_root->setID(0);
+    m_root->initialize(nullptr); /// This is probably really fucking stupid
     m_sceneNodes.push_back(m_root);
   }
 
@@ -14,6 +15,9 @@ namespace kraEngineSDK {
   SceneGraph::setNode(SceneNode* newNode) {
 
     newNode->setID(m_sceneNodes.size());
+    newNode->setParent(m_root);
+    m_root->addChild(newNode);
+
     m_sceneNodes.push_back(newNode);
   }
 
@@ -84,15 +88,9 @@ namespace kraEngineSDK {
       {
         return *it;
       }
-      else
-      {
-        if ((*it)->getChild(nodeId) != nullptr)
-        {
-          return *it;
-
-        }
-      }
     }
+
+    return nullptr;
 
   }
 

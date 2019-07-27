@@ -6,7 +6,7 @@ namespace kraEngineSDK {
   class KRA_CORE_EXPORT SceneNode
   {
   public:
-    SceneNode(uint32 id) : m_id(id) {}
+    SceneNode() = default;
      ~SceneNode() { /*Function to delete Node + all children*/ }
 
     /*

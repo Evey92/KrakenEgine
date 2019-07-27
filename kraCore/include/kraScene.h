@@ -7,7 +7,7 @@ namespace kraEngineSDK {
   {
    public:
      
-     Scene(int buildIndex, String name)
+     Scene(int buildIndex, String name = "SampleScene")
      : m_buildIndex(buildIndex), m_name(name) {}
      
      Scene(String name)
@@ -22,15 +22,18 @@ namespace kraEngineSDK {
 
     void
     Scene::addNode(SceneNode* node);
+    
+    void
+    addNewNode();
 
     void
-      addEmptyNode();
+    addEmptyNode();
 
 #pragma endregion PUBLIC_METHODS
 
 #pragma region PRIVATE_MEMBERS
     
-    SceneGraph* m_sceneGraph;
+    SceneGraph* m_sceneGraph = nullptr;
 
 #pragma endregion PRIVATE_MEMBERS
 
