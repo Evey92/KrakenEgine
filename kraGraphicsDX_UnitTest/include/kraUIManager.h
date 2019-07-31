@@ -28,4 +28,6 @@ class UIManager {
   void
   showInspector();
 
+  void
+  showSceneWindow();
 };

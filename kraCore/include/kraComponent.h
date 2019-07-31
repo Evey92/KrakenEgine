@@ -30,6 +30,8 @@ namespace kraEngineSDK {
     virtual bool isOfType(const std::size_t classType) const;
 
     static const std::size_t Type;
+   
+   protected:
      GameObject* m_owner = nullptr;
 
   };

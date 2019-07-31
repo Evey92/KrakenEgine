@@ -11,12 +11,12 @@ namespace kraEngineSDK {
     return newScene;
   }
 
-  Scene* 
+  void 
   SceneManager::createDefaultScene()
   {
-    Scene* defaultScene = createScene("defaultScene");
+    Scene* defaultScene = createScene("SampleScene");
+    defaultScene->initialize();
     setActiveScene(defaultScene);
-    return defaultScene;
   }
 
   Scene* 

@@ -54,6 +54,7 @@ UIManager::updateUI()
   }
   showSceneGraph();
   showInspector();
+  showSceneWindow();
 }
 
 void 
@@ -95,7 +96,6 @@ UIManager::showSceneGraph()
   ImGui::SameLine();
   ImGui::Text("counter = %d", counter);
 
-  ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
   ImGui::End();
 }
 
@@ -109,9 +109,23 @@ UIManager::showInspector()
   
   ImGui::Text("Camera");
 
+  ImGui::End();
+
+}
+
+void
+UIManager::showSceneWindow() {
+
+  ImGui::SetNextWindowPos(ImVec2(310, 20));
+  ImGui::SetNextWindowSize(ImVec2(965, 800));
+
+  ImGui::Begin("Scene");
+
+  ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
+
 
 
   ImGui::End();
 
 }
-

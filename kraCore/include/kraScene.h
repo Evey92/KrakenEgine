@@ -3,6 +3,9 @@
 #include "kraSceneGraph.h"
 
 namespace kraEngineSDK {
+  
+  class GameObject;
+
   class KRA_CORE_EXPORT Scene
   {
    public:
@@ -21,13 +24,16 @@ namespace kraEngineSDK {
     initialize();
 
     void
-    Scene::addNode(SceneNode* node);
+    Scene::addNode(SceneNode* node, int id);
     
     void
     addNewNode();
 
-    void
-    addEmptyNode();
+    GameObject*
+    createGameObject();
+
+    GameObject*
+    createGameObject(String name);
 
 #pragma endregion PUBLIC_METHODS
 

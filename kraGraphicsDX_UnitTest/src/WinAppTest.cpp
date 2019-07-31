@@ -123,8 +123,6 @@ bool
 WinApp::Initialize()
 {
 
-  
-
   m_mainRenderTarget->createRenderTargetView(*m_gfxAPIInstance->getDevice());
 
   m_depthStencil->setDepthStencil(*m_gfxAPIInstance->getDevice(), m_gfxAPIInstance->getDevice()->getHeight(), m_gfxAPIInstance->getDevice()->getWidth());
@@ -135,7 +133,7 @@ WinApp::Initialize()
 
   m_depthStencilView->createDepthStencilView(*m_gfxAPIInstance->getDevice(), *m_depthStencil);
 
-  m_mainRenderTarget->setRenderTarget(*m_gfxAPIInstance->getDevice(), *m_depthStencilView, 1);
+  m_mainRenderTarget->setRenderTarget(*m_gfxAPIInstance->getDevice(), *m_depthStencilView);
 
   
 
@@ -143,17 +141,9 @@ WinApp::Initialize()
 
   m_viewport->setViewport(m_gfxAPIInstance->getDevice());
 
-  //defaultScene->initialize();
-  //m_sceneManager;
-  //SceneNode* root = new SceneNode(0);
-  /*GameObject camera;
-  
-  camera.addComponent<Camera*>(camera, Vector3(0.0f, 50.0f, 0.0f));*/
+  m_sceneManager = new SceneManager();
 
-  //root->initialize(&camera);
-
-  //m_defaultScene->addNode(newNode);
-
+  m_sceneManager->createDefaultScene();
 
   if(!m_UIManager.initUI(reinterpret_cast<void*>(m_window->m_hWnd),
                      m_gfxAPIInstance->getDevice()->getDevice(),
@@ -211,7 +201,7 @@ WinApp::postUpdate()
 void 
 WinApp::render()
 {
-  m_mainRenderTarget->setRenderTarget(*m_gfxAPIInstance->getDevice(), *m_depthStencilView, 1);
+  m_mainRenderTarget->setRenderTarget(*m_gfxAPIInstance->getDevice(), *m_depthStencilView);
 
   ClearColor = { 0.329f, 0.050f, 0.431f, 1.0f };
   m_mainRenderTarget->clearRenderTargetView(m_gfxAPIInstance->getDevice(), ClearColor);

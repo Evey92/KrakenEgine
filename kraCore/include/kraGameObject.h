@@ -18,6 +18,9 @@ namespace kraEngineSDK {
     GameObject(const GameObject&) = delete;
     GameObject& operator =(const GameObject&) = delete;
 
+    void
+    initialize();
+
     template<class ComponentType, typename... Args>
     void addComponent(Args&& ... params) {
       m_components.emplace_back(std::make_unique<ComponentType>(std::forward<Args>(params)...));
@@ -34,7 +37,7 @@ namespace kraEngineSDK {
       return nullptr;
     }
 
-    Transform m_transform;
+    //Transform m_transform;
     Scene* m_scene;
     String m_name;
     Vector<std::unique_ptr<Component>> m_components;

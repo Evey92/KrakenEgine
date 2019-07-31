@@ -1,44 +1,56 @@
 #include "kraScene.h"
+#include "kraGameObject.h"
+#include "kraCamera.h"
 
 namespace kraEngineSDK {
 
 
   void
-  Scene::initialize()
+    Scene::initialize()
   {
+    m_sceneGraph = new SceneGraph();
     m_sceneGraph->initialize();
-    
-    GameObject* newGO = new GameObject(this, "MainCamera");
-    
-    //Camera* camGO = new Camera();
-    //newGO->addComponent<Camera>(camGO);
+
+    GameObject* newGO = createGameObject("MainCamera");
+    newGO->addComponent<Camera>(newGO);
     
     SceneNode* newNode = new SceneNode();
     newNode->initialize(newGO);
+
     m_sceneGraph->setNode(newNode);
     m_nodes = m_sceneGraph->getNodesSize();
   }
 
   void
-  Scene::addNewNode() {
-    
+    Scene::addNewNode() {
+
   }
 
+
+
   void
-  Scene::addNode(SceneNode* node)
+    Scene::addNode(SceneNode* node, int id)
   {
-    m_sceneGraph->setNode(node);
+    m_sceneGraph->setNodeAtChildren(node, id);
     m_nodes = m_sceneGraph->getNodesSize();
   }
 
-  void 
-  Scene::addEmptyNode()
+  GameObject*
+  Scene::createGameObject()
   {
     SceneNode* newNode = new SceneNode();
-    newNode->initialize(nullptr);
+    GameObject* newGO = new GameObject(this);
+    newGO->initialize();
+    return newGO;
+  }
 
-    m_sceneGraph->setNode(newNode);
-    m_nodes = m_sceneGraph->getNodesSize();
+  GameObject*
+  Scene::createGameObject(String name)
+  {
+    SceneNode* newNode = new SceneNode();
+    GameObject* newGO = new GameObject(this, name);
+    newGO->initialize();
+    return newGO;
   }
 
 }

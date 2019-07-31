@@ -3,10 +3,8 @@
 namespace kraEngineSDK {
   
   void
-  SceneNode::initialize(GameObject* gameObject) {
-      
+  SceneNode::initialize(GameObject* gameObject) {   
     m_gameObject = gameObject;
-
   }
 
 

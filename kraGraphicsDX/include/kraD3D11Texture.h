@@ -22,6 +22,10 @@ namespace kraEngineSDK {
     void
     createTexture2D(void* pDevice, int height, int width,
                     void* format, void* bindFlag, void* desc);
+
+    void
+    createRenderableTexture2D(const Device& pDevice, int height, int width);
+
     bool
     createTexture2DFromFile(const Device& pDevice, std::string filename);
     void

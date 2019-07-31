@@ -10,7 +10,7 @@ namespace kraEngineSDK {
   {
     m_pos += m_front * defaz;
     m_objective += m_front * defaz;
-
+    
     m_dirty = true;
   }
 

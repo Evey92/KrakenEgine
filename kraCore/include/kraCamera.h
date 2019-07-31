@@ -18,6 +18,7 @@ namespace kraEngineSDK {
 
     ~Camera() = default;
 
+
     void 
     MoveForward(float defaz);
 
@@ -114,11 +115,11 @@ namespace kraEngineSDK {
     Matrix4 m_viewMat;
     Vector3 m_pos = Vector3::ZERO;
     Vector3 m_objective = Vector3::ZERO;
-    Vector3 m_front = Vector3::ZERO;
-    Vector3 m_right = Vector3::ZERO;
-    Vector3 m_up = Vector3::ZERO;
+    Vector3 m_front = Vector3::ONEZ;
+    Vector3 m_right = Vector3::ONEX;
+    Vector3 m_up = Vector3::ONEY;
     
-    float m_fov = 90;
+    float m_fov = kraMath::DEG2RAD(90.0f);
     float m_nearZ = 0.01f;
     float m_farZ = 1000.0f;
   };

@@ -15,7 +15,7 @@ namespace kraEngineSDK {
     Scene*
     createScene(String name);
 
-    Scene*
+    void
     createDefaultScene();
 
     Scene*
@@ -47,6 +47,7 @@ namespace kraEngineSDK {
    private:
 #pragma region PRIVATE_MEMBERS
      
+     //Vector<Scene*> m_scenesInBuild;
      Scene* m_activeScene;
      int m_scenesLoadedCount = 0;
      int m_scenesInBuildCount = 0;

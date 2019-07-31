@@ -135,7 +135,6 @@ class WinApp :
 
  private:
    std::string modelPath = "resources/Models/";
-   Vector<Scene*> m_scenesInBuild;
    Viewport* m_viewport = nullptr;
    RenderTargetView* m_mainRenderTarget;
    DepthStencil* m_depthStencil;

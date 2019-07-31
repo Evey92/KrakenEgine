@@ -7,7 +7,8 @@ namespace kraEngineSDK {
   {
   public:
     SceneNode() = default;
-     ~SceneNode() { /*Function to delete Node + all children*/ }
+    ~SceneNode() = default;
+    //~SceneNode() { /*Function to delete Node + all children*/ }
 
     /*
     ** @brief Function to initialize the node
@@ -75,7 +76,7 @@ namespace kraEngineSDK {
 
    private:
 
-     uint32 m_id;
+     uint32 m_id = 0;
      GameObject* m_gameObject = nullptr;
      SceneNode* m_parent = nullptr;
      Vector<SceneNode*> m_children;
