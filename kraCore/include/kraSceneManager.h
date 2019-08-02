@@ -18,6 +18,12 @@ namespace kraEngineSDK {
     void
     createDefaultScene();
 
+    GameObject*
+    createGameobject();
+
+    Component*
+    createComponent();
+
     Scene*
     getActiveScene();
 

@@ -1,4 +1,5 @@
 #include "WinAppTest.h"
+#include "kraUIManager.h"
 
 bool
 WinApp::startUp(int nCmdShow) {
@@ -183,7 +184,7 @@ WinApp::preUpdate()
 void 
 WinApp::update()
 {
-  m_UIManager.updateUI();
+  m_UIManager.updateUI(m_sceneManager->getActiveScene());
 }
 
 void 

@@ -22,11 +22,9 @@ namespace kraEngineSDK {
   }
 
   void
-    Scene::addNewNode() {
+  Scene::addNewNode() {
 
   }
-
-
 
   void
     Scene::addNode(SceneNode* node, int id)

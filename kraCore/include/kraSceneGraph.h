@@ -3,7 +3,7 @@
 #include "kraSceneNode.h"
 
 namespace kraEngineSDK {
-  class SceneGraph {
+  class KRA_CORE_EXPORT SceneGraph {
 
    public:
      SceneGraph() = default;
@@ -61,8 +61,10 @@ namespace kraEngineSDK {
     uint32
     getNodesSize();
 
+    Vector<SceneNode*>
+    getSceneNodes();
+
    private:
-     
      Vector<SceneNode*> m_sceneNodes;
      SceneNode* m_root;
   };

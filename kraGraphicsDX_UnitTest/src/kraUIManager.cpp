@@ -1,4 +1,6 @@
 #include "kraUIManager.h"
+#include "WinAppTest.h"
+
 
 bool 
 UIManager::initUI(void* hWnd, void* pDevice, void* pCtx)
@@ -24,7 +26,7 @@ UIManager::initUI(void* hWnd, void* pDevice, void* pCtx)
 }
 
 void 
-UIManager::updateUI()
+UIManager::updateUI(kraEngineSDK::Scene* scene)
 {
   ImGui_ImplDX11_NewFrame();
   ImGui_ImplWin32_NewFrame();
@@ -52,7 +54,7 @@ UIManager::updateUI()
     }
     ImGui::EndMainMenuBar();
   }
-  showSceneGraph();
+  showSceneGraph(scene);
   showInspector();
   showSceneWindow();
 }
@@ -75,26 +77,29 @@ UIManager::shutDown()
 }
 
 void 
-UIManager::showSceneGraph()
+UIManager::showSceneGraph(kraEngineSDK::Scene* scene)
 {
-  static float f = 0.0f;
-  static int counter = 0;
+
+  ImGuiIO& io = ImGui::GetIO();
   
   ImGui::SetNextWindowPos(ImVec2(5, 20));
   ImGui::SetNextWindowSize(ImVec2(300, 700));
 
-  ImGui::Begin("Scenegraph ");                
-  ImGui::Text("Camera");
+  kraEngineSDK::SceneGraph* sc = scene->m_sceneGraph;
 
-
-  ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
-  
-  if (ImGui::Button("Button")) {                      
-    counter++;
+  ImGui::Begin("Scene Graph");                
+  if (ImGui::TreeNode(scene->m_name.c_str()))
+  {
+    for (auto* node : sc->getSceneNodes())
+    {
+      if (node->getGameObject() != nullptr)
+      {
+        ImGui::TreeNode(node->getGameObject()->m_name.c_str());
+      }
+    }
   }
 
-  ImGui::SameLine();
-  ImGui::Text("counter = %d", counter);
+
 
   ImGui::End();
 }
@@ -123,9 +128,12 @@ UIManager::showSceneWindow() {
 
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
-
-
-
   ImGui::End();
+
+}
+
+void 
+UIManager::drawTransform(kraEngineSDK::Transform transform)
+{
 
 }

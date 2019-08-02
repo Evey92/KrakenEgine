@@ -3,8 +3,7 @@
 #include <imgui.h>
 #include <imgui_impl_win32.h>
 #include <imgui_impl_dx11.h>
-
-//using namespace kraEngineSDK;
+#include <kraBaseApplication.h>
 
 class UIManager {
  
@@ -14,7 +13,7 @@ class UIManager {
   initUI(void* hWnd, void* device, void* ctx);
 
   void
-  updateUI();
+  updateUI(kraEngineSDK::Scene* scene);
 
   void
   renderUI();
@@ -23,11 +22,14 @@ class UIManager {
   shutDown();
 
   void
-  showSceneGraph();
+  showSceneGraph(kraEngineSDK::Scene* sg);
 
   void
   showInspector();
 
   void
   showSceneWindow();
+
+  void
+  drawTransform(kraEngineSDK::Transform transform);
 };

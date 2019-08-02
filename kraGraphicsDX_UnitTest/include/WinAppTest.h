@@ -5,7 +5,6 @@
 #include <kraMesh.h>
 #include <windows.h>
 #include <string>
-#include "kraUIManager.h"
 
 //GFX Headers
 #include <kraRenderAPIManager.h>
@@ -26,6 +25,8 @@
 //Input headers
 #include <kraInputAPI.h>
 #include <kraInputManager.h>
+
+#include "kraUIManager.h"
 
 using namespace kraEngineSDK;
 

@@ -19,7 +19,16 @@ namespace kraEngineSDK {
     setActiveScene(defaultScene);
   }
 
-  Scene* 
+  GameObject*
+  SceneManager::createGameobject()
+  {
+
+    GameObject* newGO = new GameObject(getActiveScene());
+
+    return newGO;
+  }
+
+  Scene*
   SceneManager::getActiveScene()
   {
     return m_activeScene;

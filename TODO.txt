@@ -1,4 +1,3 @@
--Show the scenegraph in a imgui window
--Add gameobjcts, and componets to the scene
+-Rework Scenegraph to use GameObjects as nodes
 -Create the resource Manager 
 -Work on Script as a component to start testing scripts on the engine

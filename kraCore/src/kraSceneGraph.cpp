@@ -105,4 +105,10 @@ namespace kraEngineSDK {
     return m_sceneNodes.size();
   }
 
+  Vector<SceneNode*> 
+  SceneGraph::getSceneNodes()
+  {
+    return m_sceneNodes;
+  }
+
 }
