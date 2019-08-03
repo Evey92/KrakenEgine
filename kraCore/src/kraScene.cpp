@@ -16,7 +16,7 @@ namespace kraEngineSDK {
     
     SceneNode* newNode = new SceneNode();
     newNode->initialize(newGO);
-
+     
     m_sceneGraph->setNode(newNode);
     m_nodes = m_sceneGraph->getNodesSize();
   }
@@ -50,5 +50,6 @@ namespace kraEngineSDK {
     newGO->initialize();
     return newGO;
   }
+
 
 }

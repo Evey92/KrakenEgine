@@ -5,6 +5,8 @@
 #include <imgui_impl_dx11.h>
 #include <kraBaseApplication.h>
 
+using namespace kraEngineSDK;
+
 class UIManager {
  
  public:
@@ -25,11 +27,19 @@ class UIManager {
   showSceneGraph(kraEngineSDK::Scene* sg);
 
   void
-  showInspector();
+  showInspector(GameObject* gameObj);
 
   void
   showSceneWindow();
 
   void
   drawTransform(kraEngineSDK::Transform transform);
+
+#pragma region COMPONENT_UI
+
+  void
+  drawCamera(kraEngineSDK::Camera* cam);
+
+#pragma endregion COMPONENT_UI
+
 };

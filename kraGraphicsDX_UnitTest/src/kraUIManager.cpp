@@ -55,7 +55,7 @@ UIManager::updateUI(kraEngineSDK::Scene* scene)
     ImGui::EndMainMenuBar();
   }
   showSceneGraph(scene);
-  showInspector();
+  showInspector(scene->m_sceneGraph->getNode(1)->getGameObject());
   showSceneWindow();
 }
 
@@ -105,15 +105,21 @@ UIManager::showSceneGraph(kraEngineSDK::Scene* scene)
 }
 
 void 
-UIManager::showInspector()
+UIManager::showInspector(GameObject* gameObj)
 {
   ImGui::SetNextWindowPos(ImVec2(1280, 20));
   ImGui::SetNextWindowSize(ImVec2(300, 600));
 
   ImGui::Begin("Gameobject details");
-  
-  ImGui::Text("Camera");
 
+  for (auto&& comp : gameObj->m_components)
+  {
+    if (comp->isOfType(Camera::Type)) {
+      Camera objCam = gameObj->getComponent<Camera>();
+
+      drawCamera(&objCam);
+    }
+  }
   ImGui::End();
 
 }
@@ -135,5 +141,14 @@ UIManager::showSceneWindow() {
 void 
 UIManager::drawTransform(kraEngineSDK::Transform transform)
 {
+
+}
+
+void 
+UIManager::drawCamera(kraEngineSDK::Camera* cam)
+{
+  ImGui::Separator();
+  ImGui::TextWrapped("Position: X:%.0", cam->getPosition().x);
+  ImGui::Separator();
 
 }
