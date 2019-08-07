@@ -5,7 +5,7 @@
 
 namespace kraEngineSDK {                                                  
 
-  namespace ComponentTypes {
+  namespace GOComponentTypes {
     enum E
     {
       DEFAULT = 0,

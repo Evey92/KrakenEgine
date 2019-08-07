@@ -1,5 +1,4 @@
 #include "WinAppTest.h"
-#include "kraUIManager.h"
 
 bool
 WinApp::startUp(int nCmdShow) {

@@ -88,6 +88,7 @@ namespace kraEngineSDK {
       {
         return *it;
       }
+      ++it;
     }
 
     return nullptr;

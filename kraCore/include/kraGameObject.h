@@ -34,7 +34,7 @@ namespace kraEngineSDK {
           return *static_cast<ComponentType*>(component.get());
       }
 
-      return nullptr;
+      return *std::unique_ptr<ComponentType>(nullptr);
     }
 
     //Transform m_transform;

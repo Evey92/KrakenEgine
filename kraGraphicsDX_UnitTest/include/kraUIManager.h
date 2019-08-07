@@ -3,43 +3,46 @@
 #include <imgui.h>
 #include <imgui_impl_win32.h>
 #include <imgui_impl_dx11.h>
-#include <kraBaseApplication.h>
+#include <kraCamera.h>
+#include <kraModel.h>
+#include <kraMesh.h>
 
 using namespace kraEngineSDK;
 
-class UIManager {
- 
- public:
+  class UIManager {
 
-  bool 
-  initUI(void* hWnd, void* device, void* ctx);
+  public:
 
-  void
-  updateUI(kraEngineSDK::Scene* scene);
+    bool
+    initUI(void* hWnd, void* device, void* ctx);
 
-  void
-  renderUI();
+    void
+    updateUI(Scene* scene);
 
-  void
-  shutDown();
+    void
+    renderUI();
 
-  void
-  showSceneGraph(kraEngineSDK::Scene* sg);
+    void
+    shutDown();
 
-  void
-  showInspector(GameObject* gameObj);
+    void
+    showSceneGraph(Scene* sg);
 
-  void
-  showSceneWindow();
+    void
+    showInspector(GameObject* gameObj);
 
-  void
-  drawTransform(kraEngineSDK::Transform transform);
+    void
+    showSceneWindow();
+
+    void
+    drawTransform(Transform transform);
 
 #pragma region COMPONENT_UI
 
-  void
-  drawCamera(kraEngineSDK::Camera* cam);
+    void
+    drawCamera(Camera* cam);
 
 #pragma endregion COMPONENT_UI
 
-};
+
+  };

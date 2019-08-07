@@ -1,8 +1,5 @@
 #pragma once
 #include <kraBaseApplication.h>
-#include <kraCamera.h>
-#include <kraModel.h>
-#include <kraMesh.h>
 #include <windows.h>
 #include <string>
 
