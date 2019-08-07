@@ -67,7 +67,7 @@ WinApp::startUp(int nCmdShow) {
       std::cout << "Window couldn't be initialized.\n";
     }
 
-    if (!m_gfxAPIInstance->initializeAPI(reinterpret_cast<void*>(m_window->m_hWnd)))
+    if (!m_gfxAPIInstance->initializeAPI(m_window->m_hWnd))
     {
       MessageBox(NULL, "Failed to Initialize Graphics API Device", "Error", MB_OK);
       return false;
@@ -227,7 +227,7 @@ WinApp::preDestroy()
 void 
 WinApp::destroy()
 {
-  ::DestroyWindow(m_window->m_hWnd);
+  ::DestroyWindow(reinterpret_cast<HWND>(m_window->m_hWnd));
 }
 
 Camera* 

@@ -1,10 +1,10 @@
 #pragma once
-#include "kraPrerequisitesCore.h"
-#include "kraWindow.h"
+#include <kraWindow.h>
 #include <windows.h>
 
-namespace kraEngineSDK {
-  class KRA_CORE_EXPORT Win32Window :
+using namespace kraEngineSDK;
+
+  class Win32Window :
   public Window {
 
    public:
@@ -25,4 +25,3 @@ namespace kraEngineSDK {
     HWND m_hWnd = nullptr;
     HINSTANCE m_hInstance = nullptr;
   };
-}

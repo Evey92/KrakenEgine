@@ -139,9 +139,6 @@
     <ClInclude Include="include\kraWindow.h">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
-    <ClInclude Include="include\kraWin32Window.h">
-      <Filter>Source Files\kraCoreBase</Filter>
-    </ClInclude>
     <ClInclude Include="include\kraInputAPI.h">
       <Filter>Source Files\kraInput\include</Filter>
     </ClInclude>
@@ -262,9 +259,6 @@
       <Filter>Source Files\kraCoreBase</Filter>
     </ClCompile>
     <ClCompile Include="src\kraWindow.cpp">
-      <Filter>Source Files\kraCoreBase</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraWin32Window.cpp">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClCompile>
     <ClCompile Include="src\kraScene.cpp">

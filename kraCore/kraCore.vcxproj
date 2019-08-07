@@ -222,7 +222,6 @@
     <ClInclude Include="include\kraVertexShader.h" />
     <ClInclude Include="include\kraViewport.h" />
     <ClInclude Include="include\kraRenderAPIManager.h" />
-    <ClInclude Include="include\kraWin32Window.h" />
     <ClInclude Include="include\kraWindow.h" />
   </ItemGroup>
   <ItemGroup>
@@ -260,7 +259,6 @@
     <ClCompile Include="src\kraViewport.cpp" />
     <ClCompile Include="src\kraRenderAPIManager.cpp" />
     <ClCompile Include="src\kraMesh.cpp" />
-    <ClCompile Include="src\kraWin32Window.cpp" />
     <ClCompile Include="src\kraWindow.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,6 +1,5 @@
 #include "kraWin32Window.h"
 
-namespace kraEngineSDK {
   LRESULT CALLBACK
   WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -75,7 +74,7 @@ namespace kraEngineSDK {
     }
   }
 
-  LRESULT CALLBACK
+  /*LRESULT CALLBACK
   WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     
     PAINTSTRUCT ps;
@@ -98,7 +97,7 @@ namespace kraEngineSDK {
     }
 
     return 0;
-  }
+  }*/
 
 
   void
@@ -107,4 +106,3 @@ namespace kraEngineSDK {
     //Dealloc Window
   }
 
-}

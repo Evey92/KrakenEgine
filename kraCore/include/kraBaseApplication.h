@@ -11,12 +11,11 @@
 #include <kraMatrix4.h>
 
 #include "kraPrerequisitesCore.h"
-#include "kraWin32Window.h"
+#include "kraWindow.h"
 #include "kraSceneManager.h"
 
 //GFX Headers
 #include "kraGraphicsAPI.h"
-#include "kraDevice.h"
 #include "kraRasterizerState.h"
 #include "kraShaderResourceView.h"
 #include "kraSampler.h"
@@ -24,6 +23,7 @@
 //Input headers
 #include "kraInputAPI.h"
 #include "kraInputManager.h"
+
 namespace kraEngineSDK {
   
   namespace Button
@@ -155,7 +155,6 @@ namespace kraEngineSDK {
 #pragma region PROTECTED_MEMBERS
    
    protected:    
-    Win32Window* m_window = nullptr;
     SceneManager* m_sceneManager = nullptr;
     GraphicsAPI* m_gfxAPIInstance = nullptr;
     InputAPI* m_inputAPIInstance = nullptr;

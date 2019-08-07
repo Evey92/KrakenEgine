@@ -31,10 +31,10 @@ namespace kraEngineSDK {
 
    protected:
 
-       uint32 m_width;
-       uint32 m_height;
-       String m_name;
-       Vector2 m_position;
+     uint32 m_width;
+     uint32 m_height;
+     String m_name;
+     Vector2 m_position;
 
   };
 }

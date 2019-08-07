@@ -16,7 +16,7 @@
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+    //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
     ImGui::StyleColorsDark();
 
@@ -119,15 +119,21 @@
       {
         if (node->getGameObject() != nullptr)
         {
-          //ImGui::TreeNode(node->getGameObject()->m_name.c_str());
+          
+          if (ImGui::TreeNode(node->getGameObject()->m_name.c_str()))
+          {
+            ImGui::TreePop();
+          }
         }
       }
+      ImGui::TreePop();
+
     }
     ImGui::End();
   }
 
   void
-    UIManager::showInspector(GameObject* gameObj)
+  UIManager::showInspector(GameObject* gameObj)
   {
     ImGui::SetNextWindowPos(ImVec2(1280, 20));
     ImGui::SetNextWindowSize(ImVec2(300, 600));
@@ -138,8 +144,8 @@
     {
       if (comp->isOfType(Camera::Type)) {
         Camera objCam = gameObj->getComponent<Camera>();
-
-        //drawCamera(&objCam);
+        drawTransform(gameObj->m_transform);
+        drawCamera(&objCam);
       }
     }
     ImGui::End();
@@ -147,7 +153,7 @@
   }
 
   void
-    UIManager::showSceneWindow() {
+  UIManager::showSceneWindow() {
 
     ImGui::SetNextWindowPos(ImVec2(310, 20));
     ImGui::SetNextWindowSize(ImVec2(965, 800));
@@ -163,14 +169,20 @@
   void
   UIManager::drawTransform(Transform transform)
   {
+    
+    ImGui::Separator();
+    
+    //ImGui::InputFloat3("input float2", (float*)transform.Position);
 
+    
+    ImGui::Separator();
   }
 
   void
     UIManager::drawCamera(Camera* cam)
   {
     ImGui::Separator();
-    ImGui::TextWrapped("Position: X:%.0", cam->getPosition().x);
+
     ImGui::Separator();
 
   }

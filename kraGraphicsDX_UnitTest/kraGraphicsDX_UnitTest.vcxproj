@@ -195,6 +195,7 @@
     <ClInclude Include="..\Externals\ImGui\include\imstb_truetype.h" />
     <ClInclude Include="include\kraGraphicsDX_UnitTest.h" />
     <ClInclude Include="include\kraUIManager.h" />
+    <ClInclude Include="include\kraWin32Window.h" />
     <ClInclude Include="include\WinAppTest.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="..\Externals\ImGui\src\imgui_widgets.cpp" />
     <ClCompile Include="src\kraGraphicsDX_UnitTest.cpp" />
     <ClCompile Include="src\kraUIManager.cpp" />
+    <ClCompile Include="src\kraWin32Window.cpp" />
     <ClCompile Include="src\WinAppTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

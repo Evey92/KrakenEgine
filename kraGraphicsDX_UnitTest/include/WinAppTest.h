@@ -23,6 +23,7 @@
 #include <kraInputAPI.h>
 #include <kraInputManager.h>
 
+#include "kraWin32Window.h"
 #include "kraUIManager.h"
 
 using namespace kraEngineSDK;
@@ -133,6 +134,7 @@ class WinApp :
 
  private:
    std::string modelPath = "resources/Models/";
+   Win32Window* m_window;
    Viewport* m_viewport = nullptr;
    RenderTargetView* m_mainRenderTarget;
    DepthStencil* m_depthStencil;
