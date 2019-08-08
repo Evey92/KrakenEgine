@@ -11,7 +11,7 @@ namespace kraEngineSDK {
   {
    public:
      GameObject(Scene* scene, String name = "GameObject")
-     : m_scene(scene), m_name(name) {}
+     : m_scene(scene), m_name(name), m_transform(this) {}
 
     ~GameObject() = default;
 

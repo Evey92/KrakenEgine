@@ -54,9 +54,15 @@ namespace kraEngineSDK {
 
     void
     setFOV(float FOV);
-
+    
+    void
+    setFOVfromDeg(float FOV);
+    
     float
     getFOV();
+
+    float
+    getFOVAsDeg();
 
     void
     setNearPlane(float nearZ);

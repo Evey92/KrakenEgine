@@ -103,9 +103,19 @@ namespace kraEngineSDK {
     m_fov = FOV;
   }
 
+  void Camera::setFOVfromDeg(float FOV)
+  {
+    m_fov = kraMath::DEG2RAD(FOV);
+  }
+
   float
   Camera::getFOV() {
     return m_fov;
+  }
+
+  float Camera::getFOVAsDeg()
+  {
+    return kraMath::RAD2DEG(m_fov);
   }
 
   void

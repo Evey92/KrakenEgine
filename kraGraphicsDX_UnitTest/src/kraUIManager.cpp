@@ -16,7 +16,6 @@
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-    //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
     ImGui::StyleColorsDark();
 
@@ -50,8 +49,7 @@
     {
       if (ImGui::BeginMenu("File"))
       {
-        ImGui::MenuItem("(dummy menu)", NULL, false, false);
-        if (ImGui::MenuItem("New")) {
+        if (ImGui::MenuItem("Load Model")) {
 
         }
         ImGui::EndMenu();
@@ -77,9 +75,12 @@
   }
 
   void
-    UIManager::renderUI()
+  UIManager::renderUI()
   {
     ImGuiIO& io = ImGui::GetIO();
+
+    ImGui::Render();
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
@@ -87,13 +88,10 @@
       ImGui::RenderPlatformWindowsDefault();
     }
 
-    ImGui::Render();
-    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
   }
 
   void
-    UIManager::shutDown()
+  UIManager::shutDown()
   {
     // Cleanup
     ImGui_ImplDX11_Shutdown();
@@ -102,7 +100,7 @@
   }
 
   void
-    UIManager::showSceneGraph(kraEngineSDK::Scene* scene)
+  UIManager::showSceneGraph(kraEngineSDK::Scene* scene)
   {
 
     ImGuiIO& io = ImGui::GetIO();
@@ -169,20 +167,29 @@
   void
   UIManager::drawTransform(Transform transform)
   {
+    float pos[3] = { transform.Position.x, transform.Position.y, transform.Position.z };
+    float rot[3] = { transform.Rotation.x, transform.Rotation.y, transform.Rotation.z };
+    float scale[3] = { transform.Scale.x, transform.Scale.y, transform.Scale.z };
     
-    ImGui::Separator();
-    
-    //ImGui::InputFloat3("input float2", (float*)transform.Position);
-
-    
+    ImGui::Text("Transform");
+    ImGui::InputFloat3("Position", pos);
+    ImGui::InputFloat3("Rotation", rot);
+    ImGui::InputFloat3("Scale", scale);
     ImGui::Separator();
   }
 
   void
-    UIManager::drawCamera(Camera* cam)
+  UIManager::drawCamera(Camera* cam)
   {
-    ImGui::Separator();
+    float camFov = cam->getFOVAsDeg();
+    float camNear = cam->getNearPlane();
+    float camFar = cam->getFarPlane();
 
+    ImGui::Text("Camera");
+    ImGui::SliderFloat("Field of View", &camFov, 0.0f, 179.0f);
+    cam->setFOVfromDeg(camFov);
+    ImGui::InputFloat("Near Plane", &camNear, .05f, 0, "%.3f");
+    ImGui::InputFloat("Far Plane", &camFar, .05f, 0, "%.3f");
     ImGui::Separator();
 
   }
