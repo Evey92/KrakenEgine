@@ -38,9 +38,12 @@ namespace kraEngineSDK {
     }
 
     Transform m_transform;
-    Scene* m_scene;
-    String m_name;
+    GameObject* m_parent = nullptr;
+    Vector<GameObject*> m_children;
     Vector<std::unique_ptr<Component>> m_components;
+    Scene* m_scene;
+    uint32 m_id = 0;
+    String m_name;
     bool m_isActive = true;
 
   };

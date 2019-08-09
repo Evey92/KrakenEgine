@@ -6,11 +6,13 @@
 
 
   bool
-    UIManager::initUI(void* hWnd, void* pDevice, void* pCtx)
+  UIManager::initUI(void* hWnd, void* pDevice, void* pCtx, WinApp* appInstance)
   {
     ID3D11Device* device = reinterpret_cast<ID3D11Device*>(pDevice);
     ID3D11DeviceContext* ctx = reinterpret_cast<ID3D11DeviceContext*>(pCtx);
 
+    m_appInstance = appInstance;
+    
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -50,7 +52,7 @@
       if (ImGui::BeginMenu("File"))
       {
         if (ImGui::MenuItem("Load Model")) {
-
+          m_appInstance->LoadModel();
         }
         ImGui::EndMenu();
       }

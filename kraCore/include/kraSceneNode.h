@@ -21,7 +21,7 @@ namespace kraEngineSDK {
     ** @param The node to add
     **/
      void
-     addChild(SceneNode* );
+     addChild(SceneNode* node);
 
     /*
     ** @brief Function to get the gameObject in this node

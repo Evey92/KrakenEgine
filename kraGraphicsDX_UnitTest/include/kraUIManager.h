@@ -9,12 +9,14 @@
 
 using namespace kraEngineSDK;
 
+class WinApp;
+
   class UIManager {
 
   public:
 
     bool
-    initUI(void* hWnd, void* device, void* ctx);
+    initUI(void* hWnd, void* device, void* ctx, WinApp* appInstance);
 
     void
     updateUI(Scene* scene);
@@ -44,5 +46,6 @@ using namespace kraEngineSDK;
 
 #pragma endregion COMPONENT_UI
 
+    WinApp* m_appInstance;
 
   };

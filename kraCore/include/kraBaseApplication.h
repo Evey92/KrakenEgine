@@ -11,6 +11,7 @@
 #include <kraMatrix4.h>
 
 #include "kraPrerequisitesCore.h"
+#include "kraModule.h"
 #include "kraWindow.h"
 #include "kraSceneManager.h"
 
@@ -51,7 +52,7 @@ namespace kraEngineSDK {
       Gamepad,
     };
   }
-  class KRA_CORE_EXPORT BaseApplication
+  class KRA_CORE_EXPORT BaseApplication : public Module<BaseApplication>
   {
 
 #pragma region PUBLIC_METHODS
