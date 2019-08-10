@@ -61,7 +61,7 @@ namespace kraEngineSDK {
   }
 
   void
-  Mesh::setTexture(kraTextureType::E texType, Texture* newTex) {
+  Mesh::setTexture(kraTextureType::E texType, ShrdPtr<Texture> newTex) {
 
     if (texType == kraTextureType::BASECOLOR)
     {
@@ -91,7 +91,7 @@ namespace kraEngineSDK {
   }
 
 
-  Texture* const
+  ShrdPtr<Texture> const
   Mesh::getTexture(kraTextureType::E texType) {
     
     if (texType == kraTextureType::BASECOLOR)

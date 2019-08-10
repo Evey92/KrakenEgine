@@ -169,9 +169,9 @@
   void
   UIManager::drawTransform(Transform transform)
   {
-    float pos[3] = { transform.Position.x, transform.Position.y, transform.Position.z };
-    float rot[3] = { transform.Rotation.x, transform.Rotation.y, transform.Rotation.z };
-    float scale[3] = { transform.Scale.x, transform.Scale.y, transform.Scale.z };
+    static float pos[3] = { transform.Position.x, transform.Position.y, transform.Position.z };
+    static float rot[3] = { transform.Rotation.x, transform.Rotation.y, transform.Rotation.z };
+    static float scale[3] = { transform.Scale.x, transform.Scale.y, transform.Scale.z };
     
     ImGui::Text("Transform");
     ImGui::InputFloat3("Position", pos);
@@ -183,9 +183,9 @@
   void
   UIManager::drawCamera(Camera* cam)
   {
-    float camFov = cam->getFOVAsDeg();
-    float camNear = cam->getNearPlane();
-    float camFar = cam->getFarPlane();
+    static float camFov = cam->getFOVAsDeg();
+    static float camNear = cam->getNearPlane();
+    static float camFar = cam->getFarPlane();
 
     ImGui::Text("Camera");
     ImGui::SliderFloat("Field of View", &camFov, 0.0f, 179.0f);

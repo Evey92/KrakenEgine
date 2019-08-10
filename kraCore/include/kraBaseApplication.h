@@ -52,19 +52,14 @@ namespace kraEngineSDK {
       Gamepad,
     };
   }
-  class KRA_CORE_EXPORT BaseApplication : public Module<BaseApplication>
+  class KRA_CORE_EXPORT BaseApplication
+    : public Module<BaseApplication>
   {
 
 #pragma region PUBLIC_METHODS
   public:
     BaseApplication() = default;
     ~BaseApplication() = default;
-
-    /**
-    * @brief Function to start up the app.
-    */
-    virtual bool
-    startUp(int nCmdShow) = 0;
 
     /**
     * @brief Main function to execute a program.
@@ -147,6 +142,17 @@ namespace kraEngineSDK {
 
 #pragma endregion PROTECTED_METHODS
 
+
+#pragma region PRIVATE_MEMBERS
+   private:
+   /**
+   * @brief On start up, it executes itself just after being created
+   */
+     void
+     onStartUp() override;
+
+#pragma endregion PRIVATE_MEMBERS
+
 #pragma region PUBLIC_MEMBERS
   public:
     kraInputManager* m_inputManager = nullptr;
@@ -163,8 +169,8 @@ namespace kraEngineSDK {
     ShaderResourceView* m_SRV = nullptr;
     RasterizerState* m_rasState = nullptr;
     SamplerState* m_samplerState = nullptr;
-    Matrix4 m_world;
-    Matrix4 m_projection;
+    Matrix4 m_world = Matrix4::IDENTITY;
+    Matrix4 m_projection = Matrix4::ZERO;
 
 #pragma endregion PROTECTED_MEMBERS
 

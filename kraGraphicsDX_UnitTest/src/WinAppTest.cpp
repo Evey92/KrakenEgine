@@ -1,8 +1,15 @@
 #include "WinAppTest.h"
 
-bool
-WinApp::startUp(int nCmdShow) {
+void 
+WinApp::preInitialice()
+{
 
+}
+
+//Initializing App systems
+bool
+WinApp::Initialize()
+{
   std::ostringstream stream;
   typedef GraphicsAPI* (*initGFXFunc)();
   typedef InputAPI* (*initInptFunc)();
@@ -32,96 +39,81 @@ WinApp::startUp(int nCmdShow) {
   }
 
   initGFXFunc initAPIFunc = (initGFXFunc)GetProcAddress(GFXDLL, "createGraphicsAPI");
-    if (!initAPIFunc) {
-      MessageBox(NULL, "Could not find specified graphics function. Error: ", "Error", MB_OK);
+  if (!initAPIFunc) {
+    MessageBox(NULL, "Could not find specified graphics function. Error: ", "Error", MB_OK);
 
-      FreeLibrary(GFXDLL);
-      return false;
-    }
+    FreeLibrary(GFXDLL);
+    return false;
+  }
 
-    initInptFunc initInputAPIFunc = (initInptFunc)GetProcAddress(INPUTDLL, "createInputAPI");
-    if (!initAPIFunc) {
-      MessageBox(NULL, "Could not find specified input function. Error: ", "Error", MB_OK);
+  initInptFunc initInputAPIFunc = (initInptFunc)GetProcAddress(INPUTDLL, "createInputAPI");
+  if (!initAPIFunc) {
+    MessageBox(NULL, "Could not find specified input function. Error: ", "Error", MB_OK);
 
-      FreeLibrary(INPUTDLL);
-      return false;
-    }
+    FreeLibrary(INPUTDLL);
+    return false;
+  }
 
-    m_gfxAPIInstance = initAPIFunc();
-    if (!m_gfxAPIInstance) {
-      MessageBox(NULL, "Failed to create Graphics API", "Error", MB_OK);
+  m_gfxAPIInstance = initAPIFunc();
+  if (!m_gfxAPIInstance) {
+    MessageBox(NULL, "Failed to create Graphics API", "Error", MB_OK);
 
-      return false;
-    }
+    return false;
+  }
 
-    m_inputAPIInstance = initInputAPIFunc();
-    if (!m_inputAPIInstance) {
-      MessageBox(NULL, "Failed to create Input API", "Error", MB_OK);
+  m_inputAPIInstance = initInputAPIFunc();
+  if (!m_inputAPIInstance) {
+    MessageBox(NULL, "Failed to create Input API", "Error", MB_OK);
 
-      return false;
-    }
+    return false;
+  }
 
-    m_window = new Win32Window(1600, 1000, "Kraken Engine Test Application", Vector2(0, 0));
-    if (!m_window->initWindow(nCmdShow))
-    {
-      std::cout << "Window couldn't be initialized.\n";
-    }
+  m_window = new Win32Window(1600, 1000, "Kraken Engine Test Application", Vector2(0, 0));
+  if (!m_window->initWindow(m_nCmdShow))
+  {
+    std::cout << "Window couldn't be initialized.\n";
+  }
 
-    if (!m_gfxAPIInstance->initializeAPI(m_window->m_hWnd))
-    {
-      MessageBox(NULL, "Failed to Initialize Graphics API Device", "Error", MB_OK);
-      return false;
-    }
-    m_inputManager = m_inputAPIInstance->initializeAPI(m_gfxAPIInstance->getDevice()->getWidth(), m_gfxAPIInstance->getDevice()->getHeight());
-    if (!m_inputManager)
-    {
-      MessageBox(NULL, "Failed to create Initialize Input Manager", "Error", MB_OK);
-      return false;
-    }
+  if (!m_gfxAPIInstance->initializeAPI(m_window->m_hWnd))
+  {
+    MessageBox(NULL, "Failed to Initialize Graphics API Device", "Error", MB_OK);
+    return false;
+  }
+  m_inputManager = m_inputAPIInstance->initializeAPI(m_gfxAPIInstance->getDevice()->getWidth(), m_gfxAPIInstance->getDevice()->getHeight());
+  if (!m_inputManager)
+  {
+    MessageBox(NULL, "Failed to create Initialize Input Manager", "Error", MB_OK);
+    return false;
+  }
 
-    m_mainRenderTarget = m_gfxAPIInstance->getDevice()->createRenderTargetInsttance();
-    if (!m_mainRenderTarget)
-    {
-      MessageBox(NULL, "Failed to create Render Target", "Error", MB_OK);
-      return false;
-    }
+  m_mainRenderTarget = m_gfxAPIInstance->getDevice()->createRenderTargetInsttance();
+  if (!m_mainRenderTarget)
+  {
+    MessageBox(NULL, "Failed to create Render Target", "Error", MB_OK);
+    return false;
+  }
 
-    m_depthStencil = m_gfxAPIInstance->getDevice()->createDepthStencilInstance();
-    if (!m_depthStencil)
-    {
-      MessageBox(NULL, "Failed to create Depth Stencil", "Error", MB_OK);
-      return false;
-    }
+  m_depthStencil = m_gfxAPIInstance->getDevice()->createDepthStencilInstance();
+  if (!m_depthStencil)
+  {
+    MessageBox(NULL, "Failed to create Depth Stencil", "Error", MB_OK);
+    return false;
+  }
 
-    m_depthStencilView = m_gfxAPIInstance->getDevice()->createDepthStencilViewInstance();
-    if (!m_depthStencilView)
-    {
-      MessageBox(NULL, "Failed to create Depth Stencil View", "Error", MB_OK);
-      return false;
-    }
-    
+  m_depthStencilView = m_gfxAPIInstance->getDevice()->createDepthStencilViewInstance();
+  if (!m_depthStencilView)
+  {
+    MessageBox(NULL, "Failed to create Depth Stencil View", "Error", MB_OK);
+    return false;
+  }
 
-    m_viewport = m_gfxAPIInstance->getDevice()->createViewportInstance();
-    if (!m_viewport)
-    {
-      MessageBox(NULL, "Failed to create Viewport", "Error", MB_OK);
-      return false;
-    }
 
-    Initialize();
-    return true;
-}
-
-void 
-WinApp::preInitialice()
-{
-
-}
-
-//Initializing App systems
-bool
-WinApp::Initialize()
-{
+  m_viewport = m_gfxAPIInstance->getDevice()->createViewportInstance();
+  if (!m_viewport)
+  {
+    MessageBox(NULL, "Failed to create Viewport", "Error", MB_OK);
+    return false;
+  }
 
   m_mainRenderTarget->createRenderTargetView(*m_gfxAPIInstance->getDevice());
 
@@ -147,7 +139,7 @@ WinApp::Initialize()
 
   if(!m_UIManager.initUI(reinterpret_cast<void*>(m_window->m_hWnd),
                      m_gfxAPIInstance->getDevice()->getDevice(),
-                     m_gfxAPIInstance->getDevice()->getContext())) {
+                     m_gfxAPIInstance->getDevice()->getContext(), this)) {
     Log("Couldn't initiate UI");
   }
 
@@ -164,7 +156,7 @@ void
 WinApp::run()
 {
   MSG msg = { 0 };
-  while (m_window->m_isOpen)
+  while (m_window->isOpen())
   {
     m_window->handleMSG(static_cast<void*>(&msg), *m_inputManager);
     update();
@@ -203,7 +195,6 @@ WinApp::render()
 {
   m_mainRenderTarget->setRenderTarget(*m_gfxAPIInstance->getDevice(), *m_depthStencilView);
 
-  ClearColor = { 0.329f, 0.050f, 0.431f, 1.0f };
   m_mainRenderTarget->clearRenderTargetView(m_gfxAPIInstance->getDevice(), ClearColor);
 
   m_UIManager.renderUI();
@@ -230,6 +221,18 @@ WinApp::destroy()
   ::DestroyWindow(reinterpret_cast<HWND>(m_window->m_hWnd));
 }
 
+kraInputManager* 
+WinApp::getInputManager()
+{
+  return m_inputManager;
+}
+
+
+void WinApp::MapBoolDevice(uint32 userBtn, uint32 deviceID, uint32 key)
+{
+
+}
+
 Camera* 
 WinApp::getActiveCamera()
 {
@@ -240,4 +243,10 @@ void
 WinApp::setActiveCamera(Camera* newCam)
 {
   m_activeCam = newCam;
+}
+
+bool WinApp::LoadModel()
+{
+  std::cout << "Load Model\n";
+  return true;
 }

@@ -1,12 +1,14 @@
 #pragma once
-#include "kraModule.h"
+
 #include <chrono>
+#include "kraPrerequisitesCore.h"
+#include "kraModule.h"
 
 namespace kraEngineSDK {
   using namespace std::chrono;
 
-  class KRA_CORE_EXPORT Clock : public Module<Clock>
-  {
+  class KRA_CORE_EXPORT Clock :
+  public Module<Clock> {
    public:
 
      Clock() = default;

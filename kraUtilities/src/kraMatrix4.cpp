@@ -319,11 +319,21 @@ namespace kraEngineSDK {
 
     return transpMat;
   }
-
-
   
   void
   Matrix4::tranlsate() {
 
   }
+
+  Matrix4 
+  Matrix4::ZERO = Matrix4(0.0f, 0.0f, 0.0f, 0.0f,
+                          0.0f, 0.0f, 0.0f, 0.0f,
+                          0.0f, 0.0f, 0.0f, 0.0f,
+                          0.0f, 0.0f, 0.0f, 0.0f);
+
+  Matrix4 
+  Matrix4::IDENTITY = Matrix4(1.0f, 0.0f, 0.0f, 0.0f,
+                              0.0f, 1.0f, 0.0f, 0.0f,
+                              0.0f, 0.0f, 1.0f, 0.0f,
+                              0.0f, 0.0f, 0.0f, 1.0f);
 }

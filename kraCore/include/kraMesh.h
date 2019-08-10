@@ -32,10 +32,10 @@ namespace kraEngineSDK {
     getTextureVector();
 
     void
-    setTexture(kraTextureType::E texType, Texture* newTex);
+    setTexture(kraTextureType::E texType, ShrdPtr<Texture> newTex);
 
 
-    Texture* const
+    ShrdPtr<Texture> const
     getTexture(kraTextureType::E texType);
 
     
@@ -43,13 +43,13 @@ namespace kraEngineSDK {
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
     Vector<Texture*> m_meshTextures;
-    Texture* m_diffuse = nullptr;
-    Texture* m_normal = nullptr;
-    Texture* m_specular = nullptr;
-    Texture* m_metalness = nullptr;
-    Texture* m_roughness = nullptr;
-    Texture* m_emissive = nullptr;
-    Texture* m_ambientOcclusion = nullptr;
+    ShrdPtr<Texture> m_diffuse = nullptr;
+    ShrdPtr<Texture> m_normal = nullptr;
+    ShrdPtr<Texture> m_specular = nullptr;
+    ShrdPtr<Texture> m_metalness = nullptr;
+    ShrdPtr<Texture> m_roughness = nullptr;
+    ShrdPtr<Texture> m_emissive = nullptr;
+    ShrdPtr<Texture> m_ambientOcclusion = nullptr;
 
   };
 }

@@ -13,11 +13,11 @@ namespace kraEngineSDK{
      static T&
      instance() {
        if (!isStartedUp()) {
-         cout<<"Trying to acces module but it hasn't started" // TODO: Should acces module
+         std::cout << "Trying to acces module but it hasn't started"; // TODO: Should acces module
        }
 
        if (!isDestroyed()) {
-         cout << "Trying to acces a destroyed Module" // TODO: Should acces module
+         std::cout << "Trying to acces a destroyed Module"; // TODO: Should acces module
        }
 
        return *_instance();
@@ -27,11 +27,11 @@ namespace kraEngineSDK{
      static T*
      instancePtr() {
        if (!isStartedUp()) {
-         cout << "Trying to acces module but it hasn't started\n"; // TODO: Should acces module
+         std::cout << "Trying to acces module but it hasn't started\n"; // TODO: Should acces module
        }
 
        if (!isDestroyed()) {
-         cout << "Trying to acces a destroyed Module\n"; // TODO: Should acces module
+         std::cout << "Trying to acces a destroyed Module\n"; // TODO: Should acces module
        }
 
        return _instance();
@@ -40,7 +40,7 @@ namespace kraEngineSDK{
 
      template<class... Args>
      static void
-     startUp(Args&& ...args) {
+     StartUp(Args&& ...args) {
        if (isStartedUp()) {
          cout << "Trying to start an already started module\n";
        }
@@ -54,7 +54,7 @@ namespace kraEngineSDK{
 
      template<class SubType, class... Args>
      static void
-     startUp(Args&& ...args) {
+     StartUp(Args&& ...args) {
        static_assert(std::is_base_of<T, SubType>::value, "Provided type isn't derived from the type the Module is initialized\n");
        
        if (isStartedUp()) {
@@ -69,7 +69,7 @@ namespace kraEngineSDK{
      }
 
      static void
-     shutDown() {
+     ShutDown() {
        if (isDestroyed()) {
          cout << "Trying to shut down an already shut down module\n";
        }
@@ -109,7 +109,7 @@ namespace kraEngineSDK{
      onStartUp() {}
 
      virtual void
-       onShutdown() {}
+     onShutdown() {}
 
      static T*&
        _instance() {

@@ -247,10 +247,13 @@ namespace kraEngineSDK {
     return new SamplerStateDX();
   }
 
-  Texture*
+  ShrdPtr<Texture>
   DeviceDX::createTextureInstance() {
-    return new TextureDX();
+  
+    ShrdPtr<TextureDX> newTex = make_shared<TextureDX>();
+    return reinterpret_cast<ShrdPtr<Texture>&>(newTex);
   }
+
   ShaderResourceView*
   DeviceDX::createShaderRVInstance() {
     return new ShaderResourceViewDX();

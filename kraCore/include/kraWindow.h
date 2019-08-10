@@ -27,14 +27,26 @@ namespace kraEngineSDK {
      virtual void
      release() = 0;
 
-     bool m_isOpen;
+     uint32
+     getWidth();
+
+     uint32
+     getHeight();
+
+     bool
+     isOpen();
+
+     bool
+     isWindowed();
 
    protected:
-
-     uint32 m_width;
-     uint32 m_height;
-     String m_name;
-     Vector2 m_position;
+     
+     Vector2 m_position = Vector2::ZERO;
+     String m_name = "";
+     uint32 m_width = 0;
+     uint32 m_height = 0;
+     bool m_isOpen = false;
+     bool m_isWindowed = true;
 
   };
 }

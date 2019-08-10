@@ -33,14 +33,12 @@ class WinApp :
 {
  public:
 
-   WinApp() = default;
+   WinApp(int nCmdShow) 
+     : m_nCmdShow(nCmdShow) {}
    ~WinApp() = default;
 
 #pragma region APP_LIFECYCLE
    
-   bool
-   startUp(int nCmdShow) override;
-
    void
    preInitialice() override;
 
@@ -134,13 +132,15 @@ class WinApp :
 
  private:
    std::string modelPath = "resources/Models/";
-   Win32Window* m_window;
+   Win32Window* m_window = nullptr;
    Viewport* m_viewport = nullptr;
-   RenderTargetView* m_mainRenderTarget;
-   DepthStencil* m_depthStencil;
-   DepthStencylView* m_depthStencilView;
-   Vector4 ClearColor;
+   RenderTargetView* m_mainRenderTarget = nullptr;
+   DepthStencil* m_depthStencil = nullptr;
+   DepthStencylView* m_depthStencilView = nullptr;
+   Vector4 ClearColor = { 0.329f, 0.050f, 0.431f, 1.0f };
    UIManager m_UIManager;
+   int m_nCmdShow;
+
 #pragma endregion PRIVARE_MEMBERS
 };
 

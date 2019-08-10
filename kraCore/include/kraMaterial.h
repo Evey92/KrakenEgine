@@ -13,7 +13,7 @@ namespace kraEngineSDK {
     Material(Device& pDevice);
     ~Material() = default;
 
-    Texture*
+    ShrdPtr<Texture>
     getTextureOfType(kraTextureType::E texType);
 
     void
@@ -21,13 +21,13 @@ namespace kraEngineSDK {
 
   public:
 
-    Texture* m_baseColor = nullptr;
-    Texture* m_metalness = nullptr;
-    Texture* m_specular = nullptr;
-    Texture* m_roughness = nullptr;
-    Texture* m_emissive = nullptr;
-    Texture* m_Normal = nullptr;
-    Texture* m_ambientO = nullptr;
+    ShrdPtr<Texture> m_baseColor = nullptr;
+    ShrdPtr<Texture> m_metalness = nullptr;
+    ShrdPtr<Texture> m_specular = nullptr;
+    ShrdPtr<Texture> m_roughness = nullptr;
+    ShrdPtr<Texture> m_emissive = nullptr;
+    ShrdPtr<Texture> m_Normal = nullptr;
+    ShrdPtr<Texture> m_ambientO = nullptr;
 
   };
 }

@@ -44,6 +44,11 @@
 
   namespace kraEngineSDK {
 
+    /************************************************************************/
+    /*
+    /* Electronic Arts Standard Containers                                                                     */
+    /*
+    /************************************************************************/
 #ifdef  USING_EASTL
     template<typename T, size_t N = 1>
     using Array = eastl::array<T, N>;
@@ -57,6 +62,13 @@
     using Deque = eastl::deque<T, alloc>;
 
 #else
+
+    /************************************************************************/
+    /*
+    /* Standard Containers                                                                     */
+    /*
+    /************************************************************************/
+
     template<typename T, size_t N>
     using Array = std::array<T, N>;
 
@@ -97,7 +109,31 @@
     template<class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<std::pair<const Key, T>>>
     using Multimap = std::multimap<Key, T, Compare, Alloc>;
 
+    /************************************************************************/
+    /*
+    /* Standard String and char 
+    /*
+    /************************************************************************/
+
     using String = std::string;
+    using WString = std::wstring;
+
+    /************************************************************************/
+    /*
+    /* Smart pointers
+    /*
+    /************************************************************************/
+
+    template <typename T>
+    using ShrdPtr = std::shared_ptr<T>;
+    
+    using std::make_shared;
+
+    template <typename T,
+      typename Deleter = std::default_delete<T>>
+      using UnqPtr = std::unique_ptr<T, Deleter>;
+
+    using std::make_unique;
 
 
 #endif

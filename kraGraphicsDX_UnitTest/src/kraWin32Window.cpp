@@ -14,13 +14,14 @@
 
   bool
   Win32Window::initWindow(int nCmdShow) {
+    
     WNDCLASSEX wcex;
     
     m_hInstance = GetModuleHandle(nullptr);
 
     wcex.cbSize = sizeof(WNDCLASSEX);
     wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-    wcex.lpfnWndProc = WndProc;
+    wcex.lpfnWndProc = Win32Window::WndProcc;
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = m_hInstance;
@@ -37,9 +38,18 @@
     }
 
     int style = WS_OVERLAPPEDWINDOW;
-    m_hWnd = CreateWindowEx(WS_EX_APPWINDOW, m_name.c_str(), m_name.c_str(),
-                            style, m_position.x, m_position.y, m_width, m_height, nullptr,
-                            nullptr, m_hInstance, nullptr);
+    m_hWnd = CreateWindowEx(WS_EX_APPWINDOW,
+                            m_name.c_str(),
+                            m_name.c_str(),
+                            style, 
+                            m_position.x,
+                            m_position.y,
+                            m_width,
+                            m_height,
+                            nullptr,
+                            nullptr,
+                            m_hInstance,
+                            nullptr);
 
     if (m_hWnd == nullptr)
     {
@@ -66,7 +76,6 @@
       TranslateMessage(m_msg);
       DispatchMessage(m_msg);
       continue;
-      //inputManager.handleMessage(static_cast<void*>(&m_msg));
 
       if (m_msg->message == WM_QUIT) {
         m_isOpen = false;
@@ -104,5 +113,73 @@
   Win32Window::release()
   {
     //Dealloc Window
+  }
+
+  HWND& 
+  Win32Window::gethWnd()
+  {
+    return m_hWnd;
+  }
+
+  extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+  LRESULT CALLBACK 
+  Win32Window::WndProcc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+  {
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+    {
+      return true;
+    }
+    PAINTSTRUCT ps;
+    HDC hdc;
+
+    switch (message)
+    {
+    case WM_COMMAND:
+    {
+      int wmId = LOWORD(wParam);
+      // Parse the menu selections:
+      switch (wmId)
+      {
+      case IDM_EXIT:
+        DestroyWindow(hWnd);
+        break;
+      default:
+        return DefWindowProc(hWnd, message, wParam, lParam);
+      }
+    }
+    break;
+    case WM_PAINT:
+      hdc = BeginPaint(hWnd, &ps);
+      EndPaint(hWnd, &ps);
+    break;
+
+    case WM_DESTROY:
+      PostQuitMessage(0);
+      break;
+    default:
+      return DefWindowProcW(hWnd, message, wParam, lParam);
+    }
+    return 0;
+  }
+
+  // Message handler for about box.
+  INT_PTR CALLBACK
+  Win32Window::About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+  {
+    UNREFERENCED_PARAMETER(lParam);
+    switch (message)
+    {
+    case WM_INITDIALOG:
+      return (INT_PTR)TRUE;
+
+    case WM_COMMAND:
+      if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
+      {
+        EndDialog(hDlg, LOWORD(wParam));
+        return (INT_PTR)TRUE;
+      }
+      break;
+    }
+    return (INT_PTR)FALSE;
   }
 

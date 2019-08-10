@@ -23,7 +23,7 @@ namespace kraEngineSDK {
 
     template<class ComponentType, typename... Args>
     void addComponent(Args&& ... params) {
-      m_components.emplace_back(std::make_unique<ComponentType>(std::forward<Args>(params)...));
+      m_components.emplace_back(make_unique<ComponentType>(std::forward<Args>(params)...));
     }
     
     template<class ComponentType>
@@ -40,7 +40,7 @@ namespace kraEngineSDK {
     Transform m_transform;
     GameObject* m_parent = nullptr;
     Vector<GameObject*> m_children;
-    Vector<std::unique_ptr<Component>> m_components;
+    Vector<UnqPtr<Component>> m_components;
     Scene* m_scene;
     uint32 m_id = 0;
     String m_name;

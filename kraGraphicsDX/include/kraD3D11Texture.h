@@ -35,6 +35,7 @@ namespace kraEngineSDK {
     void
     releaseTexture();
 
+    ID3D11Resource* m_pd3dresoruce = nullptr;
     ID3D11Texture2D* m_pd3dTexture2D = nullptr;
     ID3D11ShaderResourceView* m_pTextureRV = nullptr;
     int m_height = 0;

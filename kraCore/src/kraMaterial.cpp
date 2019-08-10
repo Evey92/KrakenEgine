@@ -6,16 +6,16 @@ namespace kraEngineSDK {
 
   Material::Material(Device& pDevice) {
     
-    m_baseColor = pDevice.createTextureInstance();
-    m_metalness = pDevice.createTextureInstance();
-    m_specular = pDevice.createTextureInstance();
-    m_roughness = pDevice.createTextureInstance();
-    m_emissive = pDevice.createTextureInstance();
-    m_Normal = pDevice.createTextureInstance();
-    m_ambientO = pDevice.createTextureInstance();
+    //m_baseColor = pDevice.createTextureInstance();
+    //m_metalness = pDevice.createTextureInstance();
+    //m_specular = pDevice.createTextureInstance();
+    //m_roughness = pDevice.createTextureInstance();
+    //m_emissive = pDevice.createTextureInstance();
+    //m_Normal = pDevice.createTextureInstance();
+    //m_ambientO = pDevice.createTextureInstance();
   }
 
-  Texture*
+  ShrdPtr<Texture>
   Material::getTextureOfType(kraTextureType::E texType)
   {
 
