@@ -111,5 +111,11 @@
     <Image Include="kraGraphicsDX_UnitTest.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="kraken_icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="KrakenIcon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
