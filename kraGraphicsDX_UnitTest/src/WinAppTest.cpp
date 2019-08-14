@@ -137,6 +137,8 @@ WinApp::Initialize()
 
   m_sceneManager->createDefaultScene();
 
+  
+
   if(!m_UIManager.initUI(reinterpret_cast<void*>(m_window->m_hWnd),
                      m_gfxAPIInstance->getDevice()->getDevice(),
                      m_gfxAPIInstance->getDevice()->getContext(), this)) {

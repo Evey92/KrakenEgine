@@ -1,20 +1,26 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
+#include "kraModule"
 #include "kraCamera.h"
 
 namespace kraEngineSDK {
-  class KRA_CORE_EXPORT CameraManager {
+  class KRA_CORE_EXPORT CameraManager : public Module<CameraManager> {
 
   public:
 
     CameraManager() = default;
     
     void 
+    registerCamera(Camera* cam);
+    
+    void 
     Transition(Camera* A, Camera* B, float time);
 
-    std::vector<Camera> m_camList;
+    void
+    setActiveCamera(Camera* cam);
+
+    std::vector<Camera*> m_camList;
     Camera* m_activeCamera = nullptr;
-    Camera* m_initialCamera = nullptr;
     Camera* m_objectiveCamera = nullptr;
 
   };

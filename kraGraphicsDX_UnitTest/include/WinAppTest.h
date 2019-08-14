@@ -3,21 +3,16 @@
 #include <windows.h>
 #include <string>
 
-//GFX Headers
-#include <kraRenderAPIManager.h>
-#include <kraRenderTargetView.h>
-#include <kraDepthStencil.h>
-#include <kraDepthStencilView.h>
-#include <kraViewport.h>
-#include <kraShader.h>
-#include <kraVertexShader.h>
-#include <kraInputLayout.h>
-#include <kraPixelShader.h>
-#include <kraConstantBuffer.h>
-#include <kraConstantBufferMatrices.h>
-
+//Utility Headers
 #include <kraVector4.h>
 #include <kraMatrix4.h>
+
+//Core Headers
+#include <kraCameraManager.h>
+
+//GFX Headers
+#include <kraRenderAPIManager.h>
+
 
 //Input headers
 #include <kraInputAPI.h>
@@ -133,11 +128,8 @@ class WinApp :
  private:
    std::string modelPath = "resources/Models/";
    Win32Window* m_window = nullptr;
-   Viewport* m_viewport = nullptr;
-   RenderTargetView* m_mainRenderTarget = nullptr;
-   DepthStencil* m_depthStencil = nullptr;
-   DepthStencylView* m_depthStencilView = nullptr;
    Vector4 ClearColor = { 0.329f, 0.050f, 0.431f, 1.0f };
+   CameraManager m_camManager;
    UIManager m_UIManager;
    int m_nCmdShow;
 

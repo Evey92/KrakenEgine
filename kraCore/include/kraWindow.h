@@ -11,7 +11,7 @@ namespace kraEngineSDK {
 
      Window(uint32 width, uint32 height, String name, Vector2 position) : m_width(width), 
                                                         m_height(height),
-                                                        m_name(name),
+                                                        m_name(std::move(name)),
                                                         m_position(position),
                                                         m_isOpen(true)
      {}

@@ -56,6 +56,9 @@ namespace kraEngineSDK {
     InputLayout* m_inputLayout;
     VertexShader* m_vertexShader;
     PixelShader* m_pixelShader;
+    ShaderResourceView* m_SRV;
+    RasterizerState* m_rasState;
+    SamplerState* m_samplerState;
     Matrix4 m_World;
     Matrix4 m_View;
     Matrix4 m_Projection;
