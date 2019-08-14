@@ -20,7 +20,6 @@
 
 #include "kraWin32Window.h"
 #include "kraUIManager.h"
-
 using namespace kraEngineSDK;
 
 class WinApp :
@@ -104,15 +103,16 @@ class WinApp :
 #pragma endregion CAMERA_FUNCTIONS
 
 #pragma region UTILITY_FUNCTIONS
-   
+ public:
+
    bool
-   LoadModel();
+   loadModel() override;
 
    HINSTANCE
-   loadDLL();
+   loadDLL() override;
 
    void
-   CleanupDevice();
+   CleanupDevice() override;
 
 #pragma endregion UTILITY_FUNCTIONS
 
@@ -130,7 +130,6 @@ class WinApp :
    Win32Window* m_window = nullptr;
    Vector4 ClearColor = { 0.329f, 0.050f, 0.431f, 1.0f };
    CameraManager m_camManager;
-   UIManager m_UIManager;
    int m_nCmdShow;
 
 #pragma endregion PRIVARE_MEMBERS

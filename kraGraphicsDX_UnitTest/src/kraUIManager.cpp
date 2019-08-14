@@ -6,12 +6,11 @@
 
 
   bool
-  UIManager::initUI(void* hWnd, void* pDevice, void* pCtx, WinApp* appInstance)
+  UIManager::initUI(void* hWnd, void* pDevice, void* pCtx)
   {
     ID3D11Device* device = reinterpret_cast<ID3D11Device*>(pDevice);
     ID3D11DeviceContext* ctx = reinterpret_cast<ID3D11DeviceContext*>(pCtx);
 
-    m_appInstance = appInstance;
     
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -52,7 +51,7 @@
       if (ImGui::BeginMenu("File"))
       {
         if (ImGui::MenuItem("Load Model")) {
-          m_appInstance->LoadModel();
+          BaseApplication::instance().loadModel();
         }
         ImGui::EndMenu();
       }
@@ -193,4 +192,14 @@
     ImGui::InputFloat("Far Plane", &camFar, .05f, 0, "%.3f");
     ImGui::Separator();
 
+  }
+
+  void UIManager::onStartUp()
+  {
+    throw std::logic_error("The method or operation is not implemented.");
+  }
+
+  void UIManager::onShutdown()
+  {
+    throw std::logic_error("The method or operation is not implemented.");
   }

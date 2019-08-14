@@ -1,4 +1,5 @@
 #pragma once
+#include <kraModule.h>
 #include <windows.h>
 #include <imgui.h>
 #include <imgui_impl_win32.h>
@@ -9,14 +10,12 @@
 
 using namespace kraEngineSDK;
 
-class WinApp;
-
-  class UIManager {
+  class UIManager : public Module<UIManager>{
 
   public:
 
     bool
-    initUI(void* hWnd, void* device, void* ctx, WinApp* appInstance);
+    initUI(void* hWnd, void* device, void* ctx);
 
     void
     updateUI(Scene* scene);
@@ -46,6 +45,10 @@ class WinApp;
 
 #pragma endregion COMPONENT_UI
 
-    WinApp* m_appInstance;
+  protected:
+    virtual void onStartUp() override;
+
+
+    virtual void onShutdown() override;
 
   };

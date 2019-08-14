@@ -137,11 +137,12 @@ WinApp::Initialize()
 
   m_sceneManager->createDefaultScene();
 
-  
+  UIManager::StartUp();
 
-  if(!m_UIManager.initUI(reinterpret_cast<void*>(m_window->m_hWnd),
+
+  if(!UIManager::instance().initUI(reinterpret_cast<void*>(m_window->m_hWnd),
                      m_gfxAPIInstance->getDevice()->getDevice(),
-                     m_gfxAPIInstance->getDevice()->getContext(), this)) {
+                     m_gfxAPIInstance->getDevice()->getContext())) {
     Log("Couldn't initiate UI");
   }
 
@@ -177,7 +178,7 @@ WinApp::preUpdate()
 void 
 WinApp::update()
 {
-  m_UIManager.updateUI(m_sceneManager->getActiveScene());
+  UIManager::instance().updateUI(m_sceneManager->getActiveScene());
 }
 
 void 
@@ -199,7 +200,7 @@ WinApp::render()
 
   m_mainRenderTarget->clearRenderTarget(m_gfxAPIInstance->getDevice(), ClearColor);
 
-  m_UIManager.renderUI();
+  UIManager::instance().renderUI();
 
   m_gfxAPIInstance->getDevice()->PresentSwapChain();
 
@@ -247,7 +248,7 @@ WinApp::setActiveCamera(Camera* newCam)
   m_activeCam = newCam;
 }
 
-bool WinApp::LoadModel()
+bool WinApp::loadModel()
 {
   std::cout << "Load Model\n";
   return true;

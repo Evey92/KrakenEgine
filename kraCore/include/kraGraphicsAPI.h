@@ -1,10 +1,11 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
+#include "kraModule.h"
 #include "kraDevice.h"
 
 namespace kraEngineSDK {
 
-  class GraphicsAPI
+  class GraphicsAPI : public Module<GraphicsAPI>
   {
   public:
 

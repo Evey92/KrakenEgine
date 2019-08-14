@@ -7,4 +7,11 @@ namespace kraEngineSDK {
   {
     Initialize();
   }
+
+  void 
+  BaseApplication::onShutdown()
+  {
+    
+  }
+
 }

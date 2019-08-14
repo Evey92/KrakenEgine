@@ -2,6 +2,10 @@
 #include "kraPrerequisitesPBRenderer.h"
 
 namespace kraEngineSDK {
+  
+  class VertexShader;
+  class PixelShader;
+  class Model;
 
   class KRA_RENDERER_EXPORT DeferredPBRenderer
   {
@@ -39,6 +43,10 @@ namespace kraEngineSDK {
      void
      iblSetup();
 
+     ShrdPtr<VertexShader> m_gbufferVS;
+     ShrdPtr<VertexShader> m_toTextureVS;
+     ShrdPtr<PixelShader> m_toTexturePS;
+     ShrdPtr<PixelShader> m_PBRPS;
 
 
   };

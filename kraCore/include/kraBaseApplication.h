@@ -142,19 +142,36 @@ namespace kraEngineSDK {
 
 #pragma endregion PROTECTED_METHODS
 
+#pragma region UTILITY_FUNCTIONS
+  public:
+
+    virtual bool
+    loadModel() = 0;
+
+    virtual HINSTANCE
+    loadDLL() = 0;
+
+    virtual void
+    CleanupDevice() = 0;
+
+#pragma endregion UTILITY_FUNCTIONS
 
 #pragma region PRIVATE_MEMBERS
    private:
    /**
    * @brief On start up, it executes itself just after being created
    */
-     void
-     onStartUp() override;
+    void
+    onStartUp() override;
+
+    void
+    onShutdown() override;
 
 #pragma endregion PRIVATE_MEMBERS
 
 #pragma region PUBLIC_MEMBERS
   public:
+    //TODO: This should be a module
     kraInputManager* m_inputManager = nullptr;
 
 #pragma endregion PUBLIC_MEMBERS
@@ -162,13 +179,10 @@ namespace kraEngineSDK {
 #pragma region PROTECTED_MEMBERS
    
    protected:    
+
     SceneManager* m_sceneManager = nullptr;
     GraphicsAPI* m_gfxAPIInstance = nullptr;
     InputAPI* m_inputAPIInstance = nullptr;
-    Texture* m_pBackBuffer = nullptr;
-    ShaderResourceView* m_SRV = nullptr;
-    RasterizerState* m_rasState = nullptr;
-    SamplerState* m_samplerState = nullptr;
     Matrix4 m_world = Matrix4::IDENTITY;
     Matrix4 m_projection = Matrix4::ZERO;
 
