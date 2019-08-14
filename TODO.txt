@@ -1,3 +1,4 @@
--Rework Scenegraph to use GameObjects as nodes
+-Move all the stuff from the old app implementation to the GFXAPI class
+-Rweork Constant Buffers to work with anything I throw at it instead of using templates
 -Create the resource Manager 
 -Work on Script as a component to start testing scripts on the engine

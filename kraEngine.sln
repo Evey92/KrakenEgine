@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kraUtilities", "kraUtilities\kraUtilities.vcxproj", "{71CBCC79-1BA9-4302-9924-3FBEF4FCD544}"
 EndProject
@@ -29,6 +29,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kraInputManager", "kraInputManager\kraInputManager.vcxproj", "{7D4E223A-75A3-46BE-9FC9-32B643E63A58}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Histogram", "Histogram\Histogram.vcxproj", "{35672835-A7E4-4629-97DD-16CC8B13BE95}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kraPipelineDeferredPBR", "kraPipelineDeferredPBR\kraPipelineDeferredPBR.vcxproj", "{C2F189A4-0527-4A71-B4FC-EFFE08890EFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,6 +96,14 @@ Global
 		{35672835-A7E4-4629-97DD-16CC8B13BE95}.Release|x64.Build.0 = Release|x64
 		{35672835-A7E4-4629-97DD-16CC8B13BE95}.Release|x86.ActiveCfg = Release|Win32
 		{35672835-A7E4-4629-97DD-16CC8B13BE95}.Release|x86.Build.0 = Release|Win32
+		{C2F189A4-0527-4A71-B4FC-EFFE08890EFD}.Debug|x64.ActiveCfg = Debug|x64
+		{C2F189A4-0527-4A71-B4FC-EFFE08890EFD}.Debug|x64.Build.0 = Debug|x64
+		{C2F189A4-0527-4A71-B4FC-EFFE08890EFD}.Debug|x86.ActiveCfg = Debug|Win32
+		{C2F189A4-0527-4A71-B4FC-EFFE08890EFD}.Debug|x86.Build.0 = Debug|Win32
+		{C2F189A4-0527-4A71-B4FC-EFFE08890EFD}.Release|x64.ActiveCfg = Release|x64
+		{C2F189A4-0527-4A71-B4FC-EFFE08890EFD}.Release|x64.Build.0 = Release|x64
+		{C2F189A4-0527-4A71-B4FC-EFFE08890EFD}.Release|x86.ActiveCfg = Release|Win32
+		{C2F189A4-0527-4A71-B4FC-EFFE08890EFD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

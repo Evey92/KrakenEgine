@@ -48,8 +48,14 @@ namespace kraEngineSDK {
     void
     Cleanup() override;
 
-    Device* m_device;
+    Device* m_device = nullptr;
     
+    RenderTargetView* m_renderT;
+    DepthStencil* m_depthStencil;
+    DepthStencylView* m_depthStencilView;
+    InputLayout* m_inputLayout;
+    VertexShader* m_vertexShader;
+    PixelShader* m_pixelShader;
     Matrix4 m_World;
     Matrix4 m_View;
     Matrix4 m_Projection;

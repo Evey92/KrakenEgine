@@ -38,5 +38,5 @@
 # define KRA_UTILGFX_HIDDEN
 #else
 # define KRA_UTILGFX_EXPORT __attribute__ ((visibility ("default")))
-# define KRA_UTILGFX_EXPORT __attribute__ ((visibility ("hidden")))
+# define KRA_UTILGFX_HIDDEN __attribute__ ((visibility ("hidden")))
 #endif

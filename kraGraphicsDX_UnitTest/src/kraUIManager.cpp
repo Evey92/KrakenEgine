@@ -107,36 +107,35 @@
 
     ImGuiIO& io = ImGui::GetIO();
 
-    ImGui::SetNextWindowPos(ImVec2(5, 20));
-    ImGui::SetNextWindowSize(ImVec2(300, 700));
+    ImGui::SetNextWindowPos(ImVec2(5, 20), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize(ImVec2(300, 700), ImGuiCond_FirstUseEver);
 
     kraEngineSDK::SceneGraph* sc = scene->m_sceneGraph;
 
     ImGui::Begin("Scene Graph");
-    if (ImGui::TreeNode(scene->m_name.c_str()))
+    
+    ImGui::Text(scene->m_name.c_str());
+
+    for (auto* node : sc->getSceneNodes())
     {
-      for (auto* node : sc->getSceneNodes())
+      if (node->getGameObject() != nullptr)
       {
-        if (node->getGameObject() != nullptr)
-        {
           
-          if (ImGui::TreeNode(node->getGameObject()->m_name.c_str()))
-          {
-            ImGui::TreePop();
-          }
+        if (ImGui::TreeNode(node->getGameObject()->m_name.c_str()))
+        {
+          ImGui::TreePop();
         }
       }
-      ImGui::TreePop();
-
     }
+
     ImGui::End();
   }
 
   void
   UIManager::showInspector(GameObject* gameObj)
   {
-    ImGui::SetNextWindowPos(ImVec2(1280, 20));
-    ImGui::SetNextWindowSize(ImVec2(300, 600));
+    ImGui::SetNextWindowPos(ImVec2(1280, 20), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize(ImVec2(300, 600), ImGuiCond_FirstUseEver);
 
     ImGui::Begin("Gameobject details");
 

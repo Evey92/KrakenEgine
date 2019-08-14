@@ -96,11 +96,23 @@ const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
   }
 
   void
-  RenderTargetViewDX::clearRenderTargetView(Device* pDevice, Vector4 clearColor) {
-  DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
+  RenderTargetViewDX::clearRenderTarget(Device* pDevice, Vector4 clearColor) {
+
+    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
     
     m_pDevice->m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView,
                                                           &clearColor[0]);
+  }
+
+  void
+  RenderTargetViewDX::clearRenderTargets(Device* pDevice, Vector4 clearColor) {
+
+    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
+
+    for (auto& rt : m_viewsVec)
+    {
+      m_pDevice->m_pImmediateContext->ClearRenderTargetView(rt, &clearColor[0]);
+    }
   }
 
 }

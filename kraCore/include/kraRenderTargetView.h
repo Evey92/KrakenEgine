@@ -29,7 +29,11 @@ namespace kraEngineSDK {
     cleanRTV() = 0;
 
     virtual void
-    clearRenderTargetView(Device* pDevice, Vector4 clearColor) = 0;
+    clearRenderTarget(Device* pDevice, Vector4 clearColor) = 0;
+
+    virtual void
+    clearRenderTargets(Device* pDevice, Vector4 clearColor) = 0;
+
 
   };
 }

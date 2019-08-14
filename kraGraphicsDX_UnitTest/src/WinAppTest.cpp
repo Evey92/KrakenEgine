@@ -195,7 +195,7 @@ WinApp::render()
 {
   m_mainRenderTarget->setRenderTarget(*m_gfxAPIInstance->getDevice(), *m_depthStencilView);
 
-  m_mainRenderTarget->clearRenderTargetView(m_gfxAPIInstance->getDevice(), ClearColor);
+  m_mainRenderTarget->clearRenderTarget(m_gfxAPIInstance->getDevice(), ClearColor);
 
   m_UIManager.renderUI();
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <kraWindow.h>
 #include <windows.h>
-#include "resource.h"
+#include "Resource.h"
 
 using namespace kraEngineSDK;
 

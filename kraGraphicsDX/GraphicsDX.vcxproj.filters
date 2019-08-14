@@ -5,159 +5,153 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Source Files\include">
-      <UniqueIdentifier>{741ff686-0bad-4007-a90b-905bed8292df}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\src">
-      <UniqueIdentifier>{a7e5a856-a9e0-45dc-a015-30fcfc09d904}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\kraD3D11ConstantBuffer.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11DepthStencil.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11DepthStencylView.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11Device.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11DeviceContext.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11GraphicsAPI.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11IndexBuffer.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11InputLayout.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11PixelShader.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11RasterizerState.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11RenderTargetView.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11Sampler.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11Shader.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11ShaderResourceView.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11SwapChain.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11Texture.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11VertexBuffer.h">
-      <Filter>Source Files\include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraD3D11VertexShader.h">
-      <Filter>Source Files\include</Filter>
+    <ClInclude Include="include\kraPrerequisitesGFX.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\kraD3D11Viewport.h">
-      <Filter>Source Files\include</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\kraPrerequisitesGFX.h">
-      <Filter>Source Files\include</Filter>
+    <ClInclude Include="include\kraD3D11VertexShader.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ConstantBufferMatrices.h">
-      <Filter>Source Files\include</Filter>
+    <ClInclude Include="include\kraD3D11VertexBuffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11Texture.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11SwapChain.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11ShaderResourceView.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11Shader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11Sampler.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11RenderTargetView.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\kraD3D11RenderAPIManager.h">
-      <Filter>Source Files\include</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\kraD3D11Blob.h">
-      <Filter>Source Files\include</Filter>
+    <ClInclude Include="include\kraD3D11RasterizerState.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11PixelShader.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\kraD3D11Mappings.h">
-      <Filter>Source Files\include</Filter>
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11InputLayout.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11IndexBuffer.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\kraD3D11GraphicsBuffer.h">
-      <Filter>Source Files\include</Filter>
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11GraphicsAPI.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11DeviceContext.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11Device.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11DepthStencylView.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11DepthStencil.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11ConstantBuffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraD3D11Blob.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ConstantBufferMatrices.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\kraD3D11Blob.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\kraD3D11ConstantBuffer.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11DepthStencylView.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11Device.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11DeviceContext.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11GraphicsAPI.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11GraphicsBuffer.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11IndexBuffer.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11InputLayout.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11RasterizerState.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11RenderTargetView.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11Sampler.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11Shader.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11ShaderResourceView.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11SwapChain.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11Texture.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11VertexBuffer.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11VertexShader.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraD3D11Viewport.cpp">
-      <Filter>Source Files\src</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\kraD3D11DepthStencil.cpp">
-      <Filter>Source Files\src</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\kraD3D11PixelShader.cpp">
-      <Filter>Source Files\src</Filter>
+    <ClCompile Include="src\kraD3D11DepthStencylView.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\kraD3D11RenderAPIManager.cpp">
-      <Filter>Source Files\src</Filter>
+    <ClCompile Include="src\kraD3D11Device.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\kraD3D11Blob.cpp">
-      <Filter>Source Files\src</Filter>
+    <ClCompile Include="src\kraD3D11DeviceContext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11GraphicsAPI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11GraphicsBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11IndexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11InputLayout.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\kraD3D11Mappings.cpp">
-      <Filter>Source Files\src</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11PixelShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11RasterizerState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11RenderAPIManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11RenderTargetView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11Sampler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11ShaderResourceView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11SwapChain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11VertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11VertexShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraD3D11Viewport.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -150,7 +150,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(SolutionDir)kraCore/include;$(DEVLIBS)FreeImage/Dist/$(PlatformTarget)/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(DEVLIBS)FreeImage/Dist/$(PlatformTarget)/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_UTILGFX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -169,7 +169,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(SolutionDir)kraCore/include;$(DEVLIBS)FreeImage/Dist/$(PlatformTarget)/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(DEVLIBS)FreeImage/Dist/$(PlatformTarget)/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_UTILGFX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -190,7 +190,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(SolutionDir)kraCore/include;$(DEVLIBS)FreeImage/Dist/$(PlatformTarget)/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(DEVLIBS)FreeImage/Dist/$(PlatformTarget)/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_UTILGFX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
@@ -214,7 +214,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(SolutionDir)kraCore/include;$(DEVLIBS)FreeImage/Dist/$(PlatformTarget)/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(SolutionDir)kraUtilities/include;$(DEVLIBS)stb/include/;$(SolutionDir)kraCore/include;$(DEVLIBS)FreeImage/Dist/$(PlatformTarget)/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_UTILGFX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
