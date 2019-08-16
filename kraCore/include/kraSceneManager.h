@@ -1,10 +1,12 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
+#include <kraModule.h>
 #include "kraScene.h"
 
 namespace kraEngineSDK {
   
-  class KRA_CORE_EXPORT SceneManager
+  class KRA_CORE_EXPORT SceneManager :
+    public Module<SceneManager>
   {
    public:
     SceneManager() = default;
@@ -20,9 +22,6 @@ namespace kraEngineSDK {
 
     GameObject*
     createGameobject();
-
-    Component*
-    createComponent();
 
     Scene*
     getActiveScene();
@@ -54,11 +53,17 @@ namespace kraEngineSDK {
 #pragma region PRIVATE_MEMBERS
      
      //Vector<Scene*> m_scenesInBuild;
-     Scene* m_activeScene;
+     Scene* m_activeScene = nullptr;
      int m_scenesLoadedCount = 0;
      int m_scenesInBuildCount = 0;
-
+     Vector<Scene*> m_loadedScenes;
 #pragma endregion PRIVATE_MEMBERS
+
+  protected:
+    void onStartUp() override;
+
+
+    void onShutdown() override;
 
   };
 }

@@ -1,18 +1,19 @@
 #include "kraSceneGraph.h"
+#include "kraSceneManager.h"
 
 namespace kraEngineSDK {
 
   void 
   SceneGraph::initialize()
   {
-    m_root = new SceneNode();
+    m_root = SceneManager::instance().createGameobject();
     m_root->setID(0);
-    m_root->initialize(nullptr); /// This is probably really fucking stupid
+    m_root->initialize(); 
     m_sceneNodes.push_back(m_root);
   }
 
   void
-  SceneGraph::setNode(SceneNode* newNode) {
+  SceneGraph::setNode(GameObject* newNode) {
 
     newNode->setID(m_sceneNodes.size());
     newNode->setParent(m_root);
@@ -21,10 +22,10 @@ namespace kraEngineSDK {
     m_sceneNodes.push_back(newNode);
   }
 
-  /*void
-  SceneGraph::setNodeAtChildren(SceneNode* newNode, String childName) {
+  void
+  SceneGraph::setNodeAtChildren(GameObject* newNode, String childName) {
     
-    SceneNode* parent = getNode(childName);
+    GameObject* parent = getNode(childName);
 
     if (!parent)
     {
@@ -35,12 +36,12 @@ namespace kraEngineSDK {
     newNode->setID(m_sceneNodes.size());
     newNode->setParent(parent);
     parent->addChild(newNode);
-  }*/
+  }
 
   void
-  SceneGraph::setNodeAtChildren(SceneNode* newNode, int childID) {
+  SceneGraph::setNodeAtChildren(GameObject* newNode, int childID) {
     
-    SceneNode* parent = getNode(childID);
+    GameObject* parent = getNode(childID);
 
     if (!parent)
     {
@@ -54,10 +55,10 @@ namespace kraEngineSDK {
   
   }
 
-  /*SceneNode*
+  GameObject*
   SceneGraph::getNode(String nodeName) {
 
-    Vector<SceneNode*>::iterator it = m_sceneNodes.begin();
+    Vector<GameObject*>::iterator it = m_sceneNodes.begin();
 
     while (it != m_sceneNodes.end())
     {
@@ -75,12 +76,12 @@ namespace kraEngineSDK {
       }
     }
 
-  }*/
+  }
 
-  SceneNode*
+  GameObject*
   SceneGraph::getNode(int nodeId) {
 
-    Vector<SceneNode*>::iterator it = m_sceneNodes.begin();
+    Vector<GameObject*>::iterator it = m_sceneNodes.begin();
     
     while (it != m_sceneNodes.end())
     {
@@ -95,7 +96,7 @@ namespace kraEngineSDK {
 
   }
 
-  SceneNode*
+  GameObject*
   SceneGraph::getRootNode()
   {
     return m_root;
@@ -106,7 +107,7 @@ namespace kraEngineSDK {
     return m_sceneNodes.size();
   }
 
-  Vector<SceneNode*> 
+  Vector<GameObject*>
   SceneGraph::getSceneNodes()
   {
     return m_sceneNodes;

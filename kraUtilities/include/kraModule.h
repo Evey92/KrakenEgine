@@ -13,11 +13,11 @@ namespace kraEngineSDK{
      static T&
      instance() {
        if (!isStartedUp()) {
-         std::cout << "Trying to acces module but it hasn't started"; // TODO: Should acces module
+         std::cout << "Trying to access module but it hasn't started\n"; 
        }
 
        if (!isDestroyed()) {
-         std::cout << "Trying to acces a destroyed Module"; // TODO: Should acces module
+         std::cout << "Trying to access a destroyed Module\n"; 
        }
 
        return *_instance();
@@ -27,11 +27,11 @@ namespace kraEngineSDK{
      static T*
      instancePtr() {
        if (!isStartedUp()) {
-         std::cout << "Trying to acces module but it hasn't started\n"; // TODO: Should acces module
+         std::cout << "Trying to access module but it hasn't started\n";
        }
 
        if (!isDestroyed()) {
-         std::cout << "Trying to acces a destroyed Module\n"; // TODO: Should acces module
+         std::cout << "Trying to access a destroyed Module\n"; 
        }
 
        return _instance();
@@ -48,6 +48,7 @@ namespace kraEngineSDK{
        _instance() = new T(std::forward<Args>(args)...);
 
        isStartedUp() = true;
+       isDestroyed() = false;
 
        static_cast<Module*>(_instance())->onStartUp();
      }
@@ -64,6 +65,7 @@ namespace kraEngineSDK{
        _instance() = new SubType(std::forward<Args>(args)...);
 
        isStartedUp() = true;
+       isDestroyed() = false;
 
        static_cast<Module*>(_instance())->onStartUp();
      }

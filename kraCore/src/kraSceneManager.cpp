@@ -14,9 +14,11 @@ namespace kraEngineSDK {
   void 
   SceneManager::createDefaultScene()
   {
+    
     Scene* defaultScene = createScene("SampleScene");
-    defaultScene->initialize();
+    m_loadedScenes.push_back(defaultScene);
     setActiveScene(defaultScene);
+    defaultScene->initialize();
   }
 
   GameObject*
@@ -24,7 +26,7 @@ namespace kraEngineSDK {
   {
 
     GameObject* newGO = new GameObject(getActiveScene());
-
+    newGO->initialize();
     return newGO;
   }
 
@@ -82,6 +84,16 @@ namespace kraEngineSDK {
   SceneManager::setActiveScene(Scene* scene)
   {
     m_activeScene = scene;
+  }
+
+  void SceneManager::onStartUp()
+  {
+    createDefaultScene();
+  }
+
+  void SceneManager::onShutdown()
+  {
+    
   }
 
 }

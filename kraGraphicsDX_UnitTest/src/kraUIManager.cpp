@@ -1,16 +1,13 @@
 #include "kraUIManager.h"
 #include <kraCamera.h>
-#include <kraGameObject.h>
-
 #include "WinAppTest.h"
 
-
+//TODO: Make GFXAPI a module so this manager can be initialized without parameters
   bool
   UIManager::initUI(void* hWnd, void* pDevice, void* pCtx)
   {
     ID3D11Device* device = reinterpret_cast<ID3D11Device*>(pDevice);
     ID3D11DeviceContext* ctx = reinterpret_cast<ID3D11DeviceContext*>(pCtx);
-
     
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -40,7 +37,7 @@
   }
 
   void
-    UIManager::updateUI(kraEngineSDK::Scene* scene)
+    UIManager::updateUI(Scene* scene)
   {
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
@@ -68,7 +65,7 @@
       ImGui::EndMainMenuBar();
     }
     showSceneGraph(scene);
-    showInspector(scene->m_sceneGraph->getNode(1)->getGameObject());
+    showInspector(nullptr);
     showSceneWindow();
 
     ImGui::EndFrame();
@@ -95,13 +92,11 @@
   UIManager::shutDown()
   {
     // Cleanup
-    ImGui_ImplDX11_Shutdown();
-    ImGui_ImplWin32_Shutdown();
-    ImGui::DestroyContext();
+    
   }
 
   void
-  UIManager::showSceneGraph(kraEngineSDK::Scene* scene)
+  UIManager::showSceneGraph(Scene* scene)
   {
 
     ImGuiIO& io = ImGui::GetIO();
@@ -115,19 +110,32 @@
     
     ImGui::Text(scene->m_name.c_str());
 
-    for (auto* node : sc->getSceneNodes())
+    for (auto& node : sc->getSceneNodes())
     {
-      if (node->getGameObject() != nullptr)
-      {
-          
-        if (ImGui::TreeNode(node->getGameObject()->m_name.c_str()))
-        {
-          ImGui::TreePop();
-        }
-      }
+      drawSceneGraphNode(node);
     }
 
     ImGui::End();
+  }
+
+  void
+  UIManager::drawSceneGraphNode(GameObject* node) {
+    
+    if (node == nullptr)
+    {
+      return;
+    }
+
+    if (ImGui::TreeNode(node->getName().c_str()))
+    {
+      for (auto* nd : node->getChildren()) {
+        drawSceneGraphNode(nd);
+      }
+      ImGui::TreePop();
+    }
+
+    
+
   }
 
   void
@@ -138,12 +146,15 @@
 
     ImGui::Begin("Gameobject details");
 
-    for (auto&& comp : gameObj->m_components)
-    {
-      if (comp->isOfType(Camera::Type)) {
-        Camera objCam = gameObj->getComponent<Camera>();
-        drawTransform(gameObj->m_transform);
-        drawCamera(&objCam);
+    if (gameObj != nullptr) {
+
+      for (auto&& comp : gameObj->m_components)
+      {
+        if (comp->isOfType(Camera::Type)) {
+          Camera objCam = gameObj->getComponent<Camera>();
+          drawTransform(gameObj->m_transform);
+          drawCamera(&objCam);
+        }
       }
     }
     ImGui::End();
@@ -194,12 +205,11 @@
 
   }
 
-  void UIManager::onStartUp()
-  {
-    throw std::logic_error("The method or operation is not implemented.");
-  }
+ 
 
   void UIManager::onShutdown()
   {
-    throw std::logic_error("The method or operation is not implemented.");
+    ImGui_ImplDX11_Shutdown();
+    ImGui_ImplWin32_Shutdown();
+    ImGui::DestroyContext();
   }

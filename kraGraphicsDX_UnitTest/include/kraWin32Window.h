@@ -35,6 +35,7 @@ private:
   About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
 public:
+  String m_name;
   HWND m_hWnd = nullptr;
   HINSTANCE m_hInstance = nullptr;
 };

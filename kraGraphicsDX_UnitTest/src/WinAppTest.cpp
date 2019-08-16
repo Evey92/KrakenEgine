@@ -10,6 +10,7 @@ WinApp::preInitialice()
 bool
 WinApp::Initialize()
 {
+
   std::ostringstream stream;
   typedef GraphicsAPI* (*initGFXFunc)();
   typedef InputAPI* (*initInptFunc)();
@@ -47,7 +48,7 @@ WinApp::Initialize()
   }
 
   initInptFunc initInputAPIFunc = (initInptFunc)GetProcAddress(INPUTDLL, "createInputAPI");
-  if (!initAPIFunc) {
+  if (!initInputAPIFunc) {
     MessageBox(NULL, "Could not find specified input function. Error: ", "Error", MB_OK);
 
     FreeLibrary(INPUTDLL);
@@ -68,7 +69,9 @@ WinApp::Initialize()
     return false;
   }
 
-  m_window = new Win32Window(1600, 1000, "Kraken Engine Test Application", Vector2(0, 0));
+  String name("Kraken Engine");
+
+  m_window = new Win32Window(1600, 1000, name, Vector2(0, 0));
   if (!m_window->initWindow(m_nCmdShow))
   {
     std::cout << "Window couldn't be initialized.\n";
@@ -133,11 +136,9 @@ WinApp::Initialize()
 
   m_viewport->setViewport(m_gfxAPIInstance->getDevice());
 
-  m_sceneManager = new SceneManager();
-
-  m_sceneManager->createDefaultScene();
-
-  UIManager::StartUp();
+  //m_sceneManager = new SceneManager();
+  SceneManager::instance().StartUp();
+  //m_sceneManager->createDefaultScene();
 
 
   if(!UIManager::instance().initUI(reinterpret_cast<void*>(m_window->m_hWnd),
@@ -167,6 +168,7 @@ WinApp::run()
   }
 
   destroy();
+  return;
 }
 
 void 
@@ -253,3 +255,18 @@ bool WinApp::loadModel()
   std::cout << "Load Model\n";
   return true;
 }
+
+//HINSTANCE 
+//WinApp::loadDLL()
+//{
+//  HINSTANCE hinstance
+//  //do dll loading
+//}
+
+void 
+WinApp::CleanupDevice()
+{
+  //do cleanup
+}
+
+

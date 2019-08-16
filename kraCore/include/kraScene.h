@@ -24,7 +24,7 @@ namespace kraEngineSDK {
     initialize();
 
     void
-    Scene::addNode(SceneNode* node, int id);
+    Scene::addNode(GameObject* node, int id);
     
     void
     addNewNode();

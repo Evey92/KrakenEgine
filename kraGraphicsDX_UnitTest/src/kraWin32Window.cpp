@@ -5,7 +5,7 @@
 
   Win32Window::Win32Window(uint32 width, uint32 height, String name, Vector2 position)
   : Window(width, height, name, position) {
-
+    m_name = name;
   }
 
   Win32Window::~Win32Window() {

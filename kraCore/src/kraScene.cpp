@@ -13,12 +13,11 @@ namespace kraEngineSDK {
 
     GameObject* newGO = createGameObject("MainCamera");
     newGO->addComponent<Camera>(newGO);
-    
-    SceneNode* newNode = new SceneNode();
-    newNode->initialize(newGO);
-     
-    m_sceneGraph->setNode(newNode);
-    m_nodes = m_sceneGraph->getNodesSize();
+    m_sceneGraph->setNode(newGO);
+
+    GameObject* newEmptyGO = createGameObject();
+    m_sceneGraph->setNode(newEmptyGO);
+
   }
 
   void
@@ -27,7 +26,7 @@ namespace kraEngineSDK {
   }
 
   void
-    Scene::addNode(SceneNode* node, int id)
+    Scene::addNode(GameObject* node, int id)
   {
     m_sceneGraph->setNodeAtChildren(node, id);
     m_nodes = m_sceneGraph->getNodesSize();

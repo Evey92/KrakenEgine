@@ -1,6 +1,6 @@
 #pragma once
 #include "kraPrerequisitesCore.h"
-#include "kraModule"
+#include "kraModule.h"
 #include "kraCamera.h"
 
 namespace kraEngineSDK {

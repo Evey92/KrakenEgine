@@ -7,8 +7,11 @@
 #include <kraCamera.h>
 #include <kraModel.h>
 #include <kraMesh.h>
+#include <kraScene.h>
 
 using namespace kraEngineSDK;
+
+
 
   class UIManager : public Module<UIManager>{
 
@@ -30,8 +33,11 @@ using namespace kraEngineSDK;
     showSceneGraph(Scene* sg);
 
     void
-    showInspector(GameObject* gameObj);
+    drawSceneGraphNode(GameObject* node);
 
+    void
+    showInspector(GameObject* gameObj);
+    
     void
     showSceneWindow();
 
@@ -46,9 +52,8 @@ using namespace kraEngineSDK;
 #pragma endregion COMPONENT_UI
 
   protected:
-    virtual void onStartUp() override;
 
-
-    virtual void onShutdown() override;
+    void
+    onShutdown() override;
 
   };

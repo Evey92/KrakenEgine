@@ -6,8 +6,7 @@ namespace kraEngineSDK {
   SceneNode::initialize(GameObject* gameObject) {   
     m_gameObject = gameObject;
   }
-
-
+  
   void
   SceneNode::addChild(SceneNode* newChild) {
     m_children.push_back(newChild);

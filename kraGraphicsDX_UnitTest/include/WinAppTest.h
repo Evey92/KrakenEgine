@@ -12,7 +12,26 @@
 
 //GFX Headers
 #include <kraRenderAPIManager.h>
-
+#include <kraGraphicsAPI.h>
+#include <kraDevice.h>
+#include <kraRenderTargetView.h>
+#include <kraTexture.h>
+#include <kraDepthStencil.h>
+#include <kraDepthStencilView.h>
+#include <kraViewport.h>
+#include <kraShader.h>
+#include <kraVertexShader.h>
+#include <kraInputLayout.h>
+#include <kraPixelShader.h>
+#include <kraVertexBuffer.h>
+#include <kraIndexBuffer.h>
+#include <kraConstantBuffer.h>
+#include <kraConstantBufferMatrices.h>
+#include <kraRasterizerState.h>
+#include <kraShaderResourceView.h>
+#include <kraSampler.h>
+#include <kraVector4.h>
+#include <kraMatrix4.h>
 
 //Input headers
 #include <kraInputAPI.h>
@@ -108,8 +127,8 @@ class WinApp :
    bool
    loadModel() override;
 
-   HINSTANCE
-   loadDLL() override;
+   /*HINSTANCE
+   loadDLL() override;*/
 
    void
    CleanupDevice() override;
@@ -126,12 +145,18 @@ class WinApp :
 #pragma region PRIVARE_MEMBERS
 
  private:
-   std::string modelPath = "resources/Models/";
+   RenderTargetView* m_mainRenderTarget;
+   DepthStencil* m_depthStencil;
+   DepthStencylView* m_depthStencilView;
+   Viewport* m_viewport;
+   String modelPath = "resources/Models/";
    Win32Window* m_window = nullptr;
    Vector4 ClearColor = { 0.329f, 0.050f, 0.431f, 1.0f };
    CameraManager m_camManager;
    int m_nCmdShow;
 
 #pragma endregion PRIVARE_MEMBERS
+
+
 };
 

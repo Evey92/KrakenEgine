@@ -86,6 +86,7 @@ const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
     //m_device.m_pImmediateContext->OMSetRenderTargets(m_viewsVec.size(), &m_viewsVec[0], m_DSV.m_pDepthStencilView);
     m_device.m_pImmediateContext->OMSetRenderTargets(1, &m_pRenderTargetView, m_DSV.m_pDepthStencilView);
 
+    
 
   }
 

@@ -11,7 +11,7 @@
 #include <kraMatrix4.h>
 
 #include "kraPrerequisitesCore.h"
-#include "kraModule.h"
+#include <kraModule.h>
 #include "kraWindow.h"
 #include "kraSceneManager.h"
 
@@ -148,8 +148,8 @@ namespace kraEngineSDK {
     virtual bool
     loadModel() = 0;
 
-    virtual HINSTANCE
-    loadDLL() = 0;
+    /*virtual HINSTANCE
+    loadDLL() = 0;*/
 
     virtual void
     CleanupDevice() = 0;
