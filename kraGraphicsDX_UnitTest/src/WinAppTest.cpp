@@ -180,7 +180,7 @@ WinApp::preUpdate()
 void 
 WinApp::update()
 {
-  UIManager::instance().updateUI(m_sceneManager->getActiveScene());
+  UIManager::instance().updateUI(SceneManager::instance().getActiveScene());
 }
 
 void 
