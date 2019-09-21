@@ -16,7 +16,7 @@ namespace kraEngineSDK{
          std::cout << "Trying to access module but it hasn't started\n"; 
        }
 
-       if (!isDestroyed()) {
+       if (isDestroyed()) {
          std::cout << "Trying to access a destroyed Module\n"; 
        }
 

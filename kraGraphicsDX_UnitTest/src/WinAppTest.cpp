@@ -69,7 +69,7 @@ WinApp::Initialize()
     return false;
   }
 
-  String name("Kraken Engine");
+  String name = "Kraken Engine";
 
   m_window = new Win32Window(1600, 1000, name, Vector2(0, 0));
   if (!m_window->initWindow(m_nCmdShow))
@@ -137,7 +137,8 @@ WinApp::Initialize()
   m_viewport->setViewport(m_gfxAPIInstance->getDevice());
 
   //m_sceneManager = new SceneManager();
-  SceneManager::instance().StartUp();
+  SceneManager::StartUp<SceneManager>();
+  //SceneManager::instance().StartUp();
   //m_sceneManager->createDefaultScene();
 
 

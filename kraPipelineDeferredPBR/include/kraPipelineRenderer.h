@@ -26,9 +26,6 @@ namespace kraEngineSDK {
      gBufferSetup();
 
      void
-     geometryPass();
-
-     void
      lightPass();
 
      void

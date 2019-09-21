@@ -12,10 +12,12 @@ namespace kraEngineSDK {
   }
 
   void 
-  SceneManager::createDefaultScene()
+  SceneManager::createEmptyScene()
   {
+	
+	  String scenename = "Scene " + std::to_string( m_loadedScenes.size());
     
-    Scene* defaultScene = createScene("SampleScene");
+	Scene* defaultScene = createScene(scenename);
     m_loadedScenes.push_back(defaultScene);
     setActiveScene(defaultScene);
     defaultScene->initialize();
@@ -88,7 +90,7 @@ namespace kraEngineSDK {
 
   void SceneManager::onStartUp()
   {
-    createDefaultScene();
+    createEmptyScene();
   }
 
   void SceneManager::onShutdown()

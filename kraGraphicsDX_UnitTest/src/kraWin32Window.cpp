@@ -25,12 +25,13 @@
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = m_hInstance;
-    wcex.hIcon = LoadIconA(m_hInstance, IDI_WINLOGO);
+    wcex.hIcon = LoadIconA(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_ICON1));
+	wcex.hIconSm = (HICON)LoadImageA(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 16, 16, 0);
+	wcex.cbSize = sizeof(WNDCLASSEXA);
     wcex.hCursor = LoadCursorA(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
     wcex.lpszMenuName = nullptr;
     wcex.lpszClassName = m_name.c_str();
-    wcex.hIconSm = LoadIconA(m_hInstance, IDI_WINLOGO);
 
     if (!RegisterClassExA(&wcex))
     {
@@ -73,9 +74,9 @@
     //MSG msg;
     MSG* m_msg = static_cast<MSG*>(msg);
 
-    while (PeekMessage(m_msg, m_hWnd, 0, 0, PM_REMOVE)) {
+    while (PeekMessageA(m_msg, m_hWnd, 0, 0, PM_REMOVE)) {
       TranslateMessage(m_msg);
-      DispatchMessage(m_msg);
+      DispatchMessageA(m_msg);
       continue;
 
       if (m_msg->message == WM_QUIT) {
@@ -119,7 +120,7 @@
         DestroyWindow(hWnd);
         break;
       default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
+        return DefWindowProcA(hWnd, message, wParam, lParam);
       }
     }
     break;
@@ -132,7 +133,7 @@
       PostQuitMessage(0);
       break;
     default:
-      return DefWindowProcW(hWnd, message, wParam, lParam);
+      return DefWindowProcA(hWnd, message, wParam, lParam);
     }
     return 0;
   }

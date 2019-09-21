@@ -18,7 +18,7 @@ namespace kraEngineSDK {
     createScene(String name);
 
     void
-    createDefaultScene();
+    createEmptyScene();
 
     GameObject*
     createGameobject();
