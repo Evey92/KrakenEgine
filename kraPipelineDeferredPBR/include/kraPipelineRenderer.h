@@ -1,4 +1,6 @@
 #pragma once
+#include <kraRenderTargetView.h>
+
 #include "kraPrerequisitesPBRenderer.h"
 
 namespace kraEngineSDK {
@@ -40,6 +42,7 @@ namespace kraEngineSDK {
      void
      iblSetup();
 
+     Vector<ShrdPtr<RenderTargetView*>> m_GbufferTextures;
      ShrdPtr<VertexShader> m_gbufferVS;
      ShrdPtr<VertexShader> m_toTextureVS;
      ShrdPtr<PixelShader> m_toTexturePS;

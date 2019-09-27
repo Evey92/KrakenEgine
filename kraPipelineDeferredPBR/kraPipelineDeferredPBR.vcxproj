@@ -23,6 +23,7 @@
     <ProjectGuid>{C2F189A4-0527-4A71-B4FC-EFFE08890EFD}</ProjectGuid>
     <RootNamespace>kraPipelineDeferredPBR</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>kraDeferredPBRenderer</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
