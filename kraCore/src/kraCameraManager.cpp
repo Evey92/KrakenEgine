@@ -20,4 +20,10 @@ namespace kraEngineSDK {
     m_activeCamera = cam;
   }
 
+  Camera*
+  CameraManager::getActiveCamera()
+  {
+    return m_activeCamera;
+  }
+
 }

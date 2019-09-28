@@ -19,6 +19,9 @@ namespace kraEngineSDK {
     void
     setActiveCamera(Camera* cam);
 
+    Camera*
+    getActiveCamera();
+
     std::vector<Camera*> m_camList;
     Camera* m_activeCamera = nullptr;
     Camera* m_objectiveCamera = nullptr;

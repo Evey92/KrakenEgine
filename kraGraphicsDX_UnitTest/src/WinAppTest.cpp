@@ -136,10 +136,9 @@ WinApp::Initialize()
 
   m_viewport->setViewport(m_gfxAPIInstance->getDevice());
 
-  //m_sceneManager = new SceneManager();
+  CameraManager::StartUp<CameraManager>();
   SceneManager::StartUp<SceneManager>();
-  //SceneManager::instance().StartUp();
-  //m_sceneManager->createDefaultScene();
+  
 
 
   if(!UIManager::instance().initUI(reinterpret_cast<void*>(m_window->m_hWnd),

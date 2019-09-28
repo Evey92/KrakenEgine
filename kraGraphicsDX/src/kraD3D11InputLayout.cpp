@@ -7,169 +7,6 @@
 
 namespace kraEngineSDK {
 
-  /*
-   * @brief Function to define full Input Layout
-   */
-  void
-    InputLayoutDX::defineInputLayout() {
-
-    D3D11_INPUT_ELEMENT_DESC inputDesc;
-    /*
-    * @brief Vertex layout
-    */
-    m_layoutDescVector.emplace_back();
-    auto& vertexDesc = m_layoutDescVector.back();
-    memset(&vertexDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    vertexDesc.SemanticName = "POSITION";
-    vertexDesc.SemanticIndex = 0;
-    vertexDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    vertexDesc.InputSlot = 0;
-    vertexDesc.AlignedByteOffset = 0;
-    vertexDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    vertexDesc.InstanceDataStepRate = 0;
-    //m_layoutDescVector.push_back(inputDesc);
-
-    /*
-    * @brief TEXCOORD layout
-    */
-    m_layoutDescVector.emplace_back();
-    auto& texDesc = m_layoutDescVector.back();
-    memset(&texDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    texDesc.SemanticName = "TEXCOORD";
-    texDesc.SemanticIndex = 0;
-    texDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
-    texDesc.InputSlot = 0;
-    texDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
-    texDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    texDesc.InstanceDataStepRate = 0;
-
-    ///*
-  //* @brief Normal layout
-  //*/
-    m_layoutDescVector.emplace_back();
-    auto& normalDesc = m_layoutDescVector.back();
-    memset(&normalDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    normalDesc.SemanticName = "NORMAL";
-    normalDesc.SemanticIndex = 0;
-    normalDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
-    normalDesc.InputSlot = 0;
-    normalDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
-    normalDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    normalDesc.InstanceDataStepRate = 0;
-
-    ///*
-  //* @brief Tangent layout
-  //*/
-    m_layoutDescVector.emplace_back();
-    auto& tagentDesc = m_layoutDescVector.back();
-    memset(&tagentDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    tagentDesc.SemanticName = "TANGENT";
-    tagentDesc.SemanticIndex = 0;
-    tagentDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
-    tagentDesc.InputSlot = 0;
-    tagentDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
-    tagentDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    tagentDesc.InstanceDataStepRate = 0;
-
-    ///*
-  //* @brief Binormal layout
-  //*/
-    m_layoutDescVector.emplace_back();
-    auto& binormalDesc = m_layoutDescVector.back();
-    memset(&binormalDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    binormalDesc.SemanticName = "BINORMAL";
-    binormalDesc.SemanticIndex = 0;
-    binormalDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
-    binormalDesc.InputSlot = 0;
-    binormalDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
-    binormalDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    binormalDesc.InstanceDataStepRate = 0;
-
-    ///*
-    //* @brief Index layout
-    //*/
-    m_layoutDescVector.emplace_back();
-    auto& indexDesc = m_layoutDescVector.back();
-    memset(&indexDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    indexDesc.SemanticName = "COLOR";
-    indexDesc.SemanticIndex = 0;
-    indexDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    indexDesc.InputSlot = 0;
-    indexDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
-    indexDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    indexDesc.InstanceDataStepRate = 0;
-   
-  }
-
-  /*
-   * @brief Define Vertex layout
-   */
-  void
-  InputLayoutDX::defineVertexLayout() {
-
-    D3D11_INPUT_ELEMENT_DESC inputDesc;
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    inputDesc.SemanticName = "POSITION";
-    inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 0;
-    inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    inputDesc.InstanceDataStepRate = 0;
-    m_layoutDescVector.push_back(inputDesc);
-  }
-
-  /*
-   * @brief Define Vertex layout
-   */
-  void
-  InputLayoutDX::defineIndexLayout() {
-    D3D11_INPUT_ELEMENT_DESC inputDesc;
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    inputDesc.SemanticName = "COLOR";
-    inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 16;
-    inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    inputDesc.InstanceDataStepRate = 0;
-    m_layoutDescVector.push_back(inputDesc);
-  }
-
-  /*
-   * @brief Define Vertex layout
-   */
-  void
-  InputLayoutDX::defineNormalLayout() {
-    D3D11_INPUT_ELEMENT_DESC inputDesc;
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    inputDesc.SemanticName = "NORMAL";
-    inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-    inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 32;
-    inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    inputDesc.InstanceDataStepRate = 0;
-    m_layoutDescVector.push_back(inputDesc);
-  }
-
-  /*
-   * @brief Define Vertex layout
-   */
-  void
-  InputLayoutDX::defineTexcoordLayout() {
-    D3D11_INPUT_ELEMENT_DESC inputDesc;
-    memset(&inputDesc, 0, sizeof(D3D11_INPUT_ELEMENT_DESC));
-    inputDesc.SemanticName = "TEXCOORD";
-    inputDesc.SemanticIndex = 0;
-    inputDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
-    inputDesc.InputSlot = 0;
-    inputDesc.AlignedByteOffset = 16;
-    inputDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    inputDesc.InstanceDataStepRate = 0;
-    m_layoutDescVector.push_back(inputDesc);
-  }
-
   bool
   InputLayoutDX::createInputLayout(const Device& pDevice, const VertexShader& pVShader) {
 
@@ -177,7 +14,64 @@ namespace kraEngineSDK {
 
     const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
     const VertexShaderDX& m_pVShader = static_cast<const VertexShaderDX&>(pVShader);
-    
+    ID3DBlob* pShaderBlob = m_pVShader.m_pBlob;
+
+    //Reflect the shader into pShaderReflection
+    ID3D11ShaderReflection* pShaderReflection = nullptr;
+    if (FAILED(D3DReflect(pShaderBlob->GetBufferPointer(),
+                          pShaderBlob->GetBufferSize(),
+                          IID_ID3D11ShaderReflection,
+                          (void**)&pShaderReflection))) {
+
+      return false;
+    }
+
+    //Get shader description
+    D3D11_SHADER_DESC shaderDesc;
+    pShaderReflection->GetDesc(&shaderDesc);
+
+    for (uint32 i = 0; i < shaderDesc.InputParameters; i++) {
+      
+      D3D11_SIGNATURE_PARAMETER_DESC paramDesc;
+      pShaderReflection->GetInputParameterDesc(i, &paramDesc);
+
+      D3D11_INPUT_ELEMENT_DESC elementDesc;
+      elementDesc.SemanticName = paramDesc.SemanticName;
+      elementDesc.SemanticIndex = paramDesc.SemanticIndex;
+      elementDesc.InputSlot = 0;
+      elementDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+      elementDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+      elementDesc.InstanceDataStepRate = 0;
+
+      // determine DXGI format
+      if (paramDesc.Mask == 1)
+      {
+        if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32) elementDesc.Format = DXGI_FORMAT_R32_UINT;
+        else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32) elementDesc.Format = DXGI_FORMAT_R32_SINT;
+        else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) elementDesc.Format = DXGI_FORMAT_R32_FLOAT;
+      }
+      else if (paramDesc.Mask <= 3)
+      {
+        if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32) elementDesc.Format = DXGI_FORMAT_R32G32_UINT;
+        else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32) elementDesc.Format = DXGI_FORMAT_R32G32_SINT;
+        else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) elementDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
+      }
+      else if (paramDesc.Mask <= 7)
+      {
+        if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32) elementDesc.Format = DXGI_FORMAT_R32G32B32_UINT;
+        else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32) elementDesc.Format = DXGI_FORMAT_R32G32B32_SINT;
+        else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) elementDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
+      }
+      else if (paramDesc.Mask <= 15)
+      {
+        if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32) elementDesc.Format = DXGI_FORMAT_R32G32B32A32_UINT;
+        else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32) elementDesc.Format = DXGI_FORMAT_R32G32B32A32_SINT;
+        else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) elementDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+      }
+
+      m_layoutDescVector.push_back(elementDesc);
+    }
+
     hr = m_pDevice.m_pd3dDevice->CreateInputLayout(&m_layoutDescVector[0],
                                                     (UINT)m_layoutDescVector.size(), 
                                                     m_pVShader.m_pBlob->GetBufferPointer(),

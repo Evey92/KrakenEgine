@@ -8,4 +8,10 @@ namespace kraEngineSDK {
 
   }
 
+  void
+   DeferredPBRenderer::gBufferSetup()
+  {
+
+  }
+
 }

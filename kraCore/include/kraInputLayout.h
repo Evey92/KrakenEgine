@@ -14,16 +14,7 @@ namespace kraEngineSDK {
     virtual 
       ~InputLayout() {}
 
-    virtual void
-    defineInputLayout() = 0;
-    virtual void
-    defineVertexLayout() = 0;
-    virtual void
-    defineIndexLayout() = 0;
-    virtual void
-    defineNormalLayout() = 0;
-    virtual void
-    defineTexcoordLayout() = 0;
+    
     virtual bool
     createInputLayout(const Device& pd3dDevice, const VertexShader& pVShader) = 0;
     virtual void

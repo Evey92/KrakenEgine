@@ -14,16 +14,10 @@ namespace kraEngineSDK {
     InputLayoutDX() = default;
     ~InputLayoutDX() {}
 
-    void
-    defineInputLayout();
-    void
-    defineVertexLayout();
-    void
-    defineIndexLayout();
-    void
-    defineNormalLayout();
-    void
-    defineTexcoordLayout();
+   /**
+    * @brief Function that creates an input layout by reflecting the shader
+    * @param The graphics API device, and a shader
+    */
     bool
     createInputLayout(const Device& pd3dDevice, const VertexShader& pVShader);
     void
