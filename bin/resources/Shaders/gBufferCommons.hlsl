@@ -18,10 +18,10 @@ struct VS_INPUT
 
 struct PS_INPUT
 {
-    float4 Pos        : SV_POSITION;
-    float2 PosWorld   : TEXCOORD0;
-    float2 TexCoord   : TEXCOORD1;
-    float3x3 TBN      : TEXCOORD2;
+    float4 Pos             : SV_POSITION;
+    float2 WorldPosition   : TEXCOORD0;
+    float2 TexCoord        : TEXCOORD1;
+    float3x3 TBN           : TEXCOORD2;
 };
 
 float ndf_GGX(float cosLH, float roughness)

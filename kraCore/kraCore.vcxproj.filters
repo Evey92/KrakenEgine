@@ -163,6 +163,9 @@
     <ClInclude Include="include\kraViewport.h">
       <Filter>Source Files\kraGraphics</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraGFXMappings.h">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraBaseApplication.cpp">

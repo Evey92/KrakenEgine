@@ -73,10 +73,12 @@ namespace kraEngineSDK {
     }
 
     hr = m_pDevice.m_pd3dDevice->CreateInputLayout(&m_layoutDescVector[0],
-                                                    (UINT)m_layoutDescVector.size(), 
+                                                    m_layoutDescVector.size(), 
                                                     m_pVShader.m_pBlob->GetBufferPointer(),
                                                     m_pVShader.m_pBlob->GetBufferSize(),
                                                     &m_pVertexLayout);
+    pShaderReflection->Release();
+
     if (FAILED(hr))
     {
       MessageBox(NULL, "Failed to create Input Layout", "Error", MB_OK);

@@ -20,7 +20,6 @@ struct PS_INPUT
    float4 Position : SV_POSITION;
    float2 TexCoord : TEXCOORD0;
    float3x3 TBN    : TEXCOORD1;
-   //float4 Depth    : TEXCOORD4;
 
 };
 
@@ -31,10 +30,9 @@ PS_INPUT VS( VS_INPUT Input )
    float4 worldPosition;
    float fNearClipPlane = 0.01f;
    float fFarClipPlane = 1000.0f;
-   
-   Input.Position.w = 1.0f;
 
    Output.Position = mul(Input.Position, World);
+   Output.PosWorld = Output.Position.xyz;
    Output.Position = mul(Output.Position, View);
    Output.Position = mul(Output.Position, Projection);
   
@@ -44,8 +42,6 @@ PS_INPUT VS( VS_INPUT Input )
    Output.TBN[1] = normalize(mul(Input.BiNormal, World));
    Output.TBN[2] = normalize(mul(Input.Normal, World));
    
-   //Output.Depth = (Output.Position.z - fNearClipPlane) / (fFarClipPlane - fNearClipPlane);
-
    return Output;
 
 }

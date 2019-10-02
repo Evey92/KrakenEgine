@@ -4,6 +4,7 @@
 
 #include <d3d11.h>
 #include <kraVertex.h>
+#include <kraGFXMappings.h>
 
 #   define PLUGIN_EXPORT __declspec(dllexport);
 

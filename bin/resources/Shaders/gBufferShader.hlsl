@@ -19,6 +19,25 @@ struct PS_OUTPUT
 
 float calculateDepth(float depth);
 
+PS_INPUT VS(VS_INPUT Input)
+{
+  PS_INPUT Output;
+
+  Output.Position = mul(Input.Position, matWorld);
+  Output.WorldPosition = Output.Position.xyz;
+  Output.Position = mul(Output.Position, matView);
+  Output.Position = mul(Output.Position, matProjection);
+
+  Output.TexCoord = Input.TexCoord;
+  Output.TBN = float3x3(Input.Tangent, Input.Binormal, Input.Normal);
+
+  Output.TBN = mul(Output.TBN, (float3x3) matWorld);
+
+
+  return (Output);
+
+}
+
 PS_OUTPUT PS(PS_INPUT Input) : SV_Target
 {
   PS_OUTPUT Output = (PS_OUTPUT)0;

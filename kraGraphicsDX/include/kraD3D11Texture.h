@@ -21,7 +21,8 @@ namespace kraEngineSDK {
     createTexture2D(const Device& pDevice, int height, int width);
     void
     createTexture2D(void* pDevice, int height, int width,
-                    void* format, void* bindFlag, void* desc);
+      GFX_FORMAT::E format, void* bindFlag, void* desc);
+
 
     void
     createRenderableTexture2D(const Device& pDevice, int height, int width);
