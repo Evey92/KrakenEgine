@@ -128,14 +128,13 @@
 
     if (ImGui::TreeNode(node->getName().c_str()))
     {
+      showInspector(node);
+
       for (auto* nd : node->getChildren()) {
         drawSceneGraphNode(nd);
       }
       ImGui::TreePop();
     }
-
-    
-
   }
 
   void
@@ -150,9 +149,11 @@
 
       for (auto&& comp : gameObj->m_components)
       {
-        if (comp->isOfType(Camera::Type)) {
-          Camera objCam = gameObj->getComponent<Camera>();
+        if (comp->isOfType(Transform::Type)) {
           drawTransform(gameObj->m_transform);
+        }
+        else if (comp->isOfType(Camera::Type)) {
+          Camera objCam = gameObj->getComponent<Camera>();
           drawCamera(&objCam);
         }
       }
