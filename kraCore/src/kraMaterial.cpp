@@ -15,25 +15,22 @@ namespace kraEngineSDK {
     switch (texType)
     {
     case kraTextureType::BASECOLOR:
-      return m_baseColor;
+      return m_texColorMap;
       break;
     case kraTextureType::METALNESS:
-      return m_metalness;
-      break;
-      case kraTextureType::SPECULAR:
-        return m_specular;
+      return m_texMetallicMap;
       break;
       case kraTextureType::ROUGHNESS:
-        return m_roughness;
+        return m_texRoughnessMap;
       break;
     case kraTextureType::EMISSIVE:
-      return m_emissive;
+      return m_texEmissiveMap;
       break;
     case kraTextureType::NORMAL:
-      return m_Normal;
+      return m_texNormalMap;
       break;
     case kraTextureType::AMBIENT:
-      return m_ambientO;
+      return m_texAOMap;
       break;
     }
   }
@@ -44,25 +41,22 @@ namespace kraEngineSDK {
     switch (texType)
     {
     case kraTextureType::BASECOLOR:
-      m_baseColor->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
+      m_texColorMap->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
       break;
     case kraTextureType::METALNESS:
-      m_metalness->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
-      break;
-    case kraTextureType::SPECULAR:
-      m_specular->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
+      m_texMetallicMap->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
       break;
     case kraTextureType::ROUGHNESS:
-      m_roughness->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
+      m_texRoughnessMap->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
       break;
     case kraTextureType::EMISSIVE:
-      m_emissive->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
+      m_texEmissiveMap->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
       break;
     case kraTextureType::NORMAL:
-      m_Normal->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
+      m_texNormalMap->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
       break;
     case kraTextureType::AMBIENT:
-      m_ambientO->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
+      m_texAOMap->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
       break;
     }
   }
