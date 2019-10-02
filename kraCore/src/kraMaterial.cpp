@@ -5,14 +5,7 @@
 namespace kraEngineSDK {
 
   Material::Material(Device& pDevice) {
-    
-    //m_baseColor = pDevice.createTextureInstance();
-    //m_metalness = pDevice.createTextureInstance();
-    //m_specular = pDevice.createTextureInstance();
-    //m_roughness = pDevice.createTextureInstance();
-    //m_emissive = pDevice.createTextureInstance();
-    //m_Normal = pDevice.createTextureInstance();
-    //m_ambientO = pDevice.createTextureInstance();
+
   }
 
   ShrdPtr<Texture>
@@ -51,25 +44,25 @@ namespace kraEngineSDK {
     switch (texType)
     {
     case kraTextureType::BASECOLOR:
-      m_baseColor->createTexture2DFromFile(pDevice, fileName);
+      m_baseColor->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
       break;
     case kraTextureType::METALNESS:
-      m_metalness->createTexture2DFromFile(pDevice, fileName);
+      m_metalness->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
       break;
     case kraTextureType::SPECULAR:
-      m_specular->createTexture2DFromFile(pDevice, fileName);
+      m_specular->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
       break;
     case kraTextureType::ROUGHNESS:
-      m_roughness->createTexture2DFromFile(pDevice, fileName);
+      m_roughness->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
       break;
     case kraTextureType::EMISSIVE:
-      m_emissive->createTexture2DFromFile(pDevice, fileName);
+      m_emissive->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
       break;
     case kraTextureType::NORMAL:
-      m_Normal->createTexture2DFromFile(pDevice, fileName);
+      m_Normal->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
       break;
     case kraTextureType::AMBIENT:
-      m_ambientO->createTexture2DFromFile(pDevice, fileName);
+      m_ambientO->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
       break;
     }
   }

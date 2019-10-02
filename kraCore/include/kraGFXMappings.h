@@ -1,6 +1,6 @@
 #pragma once
 #pragma once
-#include "kraPrerequisitesGFX.h"
+#include "kraPrerequisitesCore.h"
 #include <kraCommonTypes.h>
 
 namespace kraEngineSDK {
@@ -151,6 +151,13 @@ namespace kraEngineSDK {
       kUSAGE_IMMUTABLE,
       kUSAGE_DYNAMIC,
       kUSAGE_STAGING,
+    };
+  }
+
+  namespace CPU_USAGE {
+    enum E {
+      kCPU_ACCESS_WRITE = 0x10000L,
+      kCPU_ACCESS_READ = 0x20000L,
     };
   }
 

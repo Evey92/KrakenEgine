@@ -21,13 +21,24 @@ namespace kraEngineSDK {
 
   public:
 
-    ShrdPtr<Texture> m_baseColor = nullptr;
-    ShrdPtr<Texture> m_metalness = nullptr;
-    ShrdPtr<Texture> m_specular = nullptr;
-    ShrdPtr<Texture> m_roughness = nullptr;
-    ShrdPtr<Texture> m_emissive = nullptr;
-    ShrdPtr<Texture> m_Normal = nullptr;
-    ShrdPtr<Texture> m_ambientO = nullptr;
-
+    ShrdPtr<Texture> m_texColorMap = nullptr;
+    ShrdPtr<Texture> m_texNormalMap = nullptr;
+    ShrdPtr<Texture> m_texMetallicMap = nullptr;
+    ShrdPtr<Texture> m_texRoughnessMap = nullptr;
+    ShrdPtr<Texture> m_texEmissiveMap = nullptr;
+    ShrdPtr<Texture> m_texAOMap = nullptr;
+    Vector4 m_baseColor;
+    Vector4 m_emissive;
+    Vector2 m_UVOffset;
+    Vector2 m_UVScale;
+    float m_emissiveIntensity;
+    float m_metallic;
+    float m_roughness;
+    bool m_useBaseColor;
+    bool m_useNormalMap;
+    bool m_useMetallicMap;
+    bool m_useRoughnessMap;
+    bool m_useEmissiveMap;
+    bool m_useAOMap;
   };
 }

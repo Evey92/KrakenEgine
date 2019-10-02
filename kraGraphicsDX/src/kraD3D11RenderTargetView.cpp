@@ -46,11 +46,14 @@ const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
     TextureDX* m_pTexture = reinterpret_cast<TextureDX*>(pTexture);
     HRESULT hr = S_OK;
 
-   
+    D3D11_TEXTURE2D_DESC desc;
+
+    m_pTexture->m_pd3dTexture2D->GetDesc(&desc);
+
     //ID3D11RenderTargetView* m_pRenderTargetView;
     D3D11_RENDER_TARGET_VIEW_DESC renderTargetViewDesc;
 
-    renderTargetViewDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+    renderTargetViewDesc.Format = desc.Format;
     renderTargetViewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
     renderTargetViewDesc.Texture2D.MipSlice = 0;
 

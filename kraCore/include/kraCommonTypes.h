@@ -11,13 +11,7 @@ namespace kraEngineSDK {
       kraCUSTOM,
     };
   }
-    //TODO: Finish these types
-    namespace DXGI_FORMAT {
-      enum E {
-
-      };
-    }
-
+    
     namespace TEXTURE_ADRESS {
       enum E {
 

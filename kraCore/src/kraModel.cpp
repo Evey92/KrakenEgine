@@ -51,7 +51,11 @@ namespace kraEngineSDK {
         {
           String filename = String(path.C_Str());
           filename = texturesPath + filename;
-          texture.createTexture2DFromFile(pDevice, filename);
+          texture.createTexture2DFromFile(pDevice,
+                                          filename,
+                                          GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                          GFX_USAGE::E::kUSAGE_DYNAMIC,
+                                          CPU_USAGE::E::kCPU_ACCESS_WRITE);
           return true;
         }
       }

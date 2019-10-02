@@ -42,26 +42,25 @@ namespace kraEngineSDK {
 
   void
   TextureDX::createTexture2D(void* pDevice, int height, int width,
-      void* format, void* bindFlag,
-      void*  descTexture) {
+                             GFX_FORMAT::E format, void* bindFlag,
+                             GFX_USAGE::E usage = GFX_USAGE::E::kUSAGE_DEFAULT,
+                             CPU_USAGE::E cpuUsage = CPU_USAGE::E::kCPU_ACCESS_READ) {
 
     ID3D11Device* m_pDevice = static_cast<ID3D11Device*>(pDevice);
-    //DXGI_FORMAT* m_format = static_cast<DXGI_FORMAT*>(format);
     D3D11_BIND_FLAG* m_bindFlag = static_cast<D3D11_BIND_FLAG*>(bindFlag);
-    D3D11_TEXTURE2D_DESC* m_desc = static_cast<D3D11_TEXTURE2D_DESC*>(descTexture);
-
-
+    
+    D3D11_TEXTURE2D_DESC* m_desc;
     memset(&m_desc, 0, sizeof(m_desc));
     m_desc->Height = height;
     m_desc->Width = width;
     m_desc->MipLevels = 1;
     m_desc->ArraySize = 1;
-    m_desc->Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+    m_desc->Format = static_cast<DXGI_FORMAT>(format);
     m_desc->SampleDesc.Count = 1;
     m_desc->SampleDesc.Quality = 0;
-    m_desc->Usage = D3D11_USAGE_DEFAULT;
+    m_desc->Usage = static_cast<D3D11_USAGE>(usage);
     m_desc->BindFlags = *m_bindFlag;
-    m_desc->CPUAccessFlags = 0;
+    m_desc->CPUAccessFlags = cpuUsage;
     m_desc->MiscFlags = 0;
 
     D3D11_SUBRESOURCE_DATA initBuffer;
@@ -71,10 +70,12 @@ namespace kraEngineSDK {
 
   bool
   TextureDX::createTexture2DFromFile(const Device& pDevice, 
-                                     std::string filename) {
+                                     std::string filename,
+                                     GFX_FORMAT::E format,
+                                     GFX_USAGE::E usage = GFX_USAGE::E::kUSAGE_DEFAULT,
+                                     CPU_USAGE::E  cpuUsage = CPU_USAGE::E::kCPU_ACCESS_READ) {
     
     const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
-
 
     HRESULT hr = S_OK;
     int channels;
@@ -102,12 +103,12 @@ namespace kraEngineSDK {
     descTexture.Width = static_cast<uint32>(m_width);
     descTexture.MipLevels = 1;
     descTexture.ArraySize = 1;
-    descTexture.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+    descTexture.Format = static_cast<DXGI_FORMAT>(format);
     descTexture.SampleDesc.Count = 1;
     descTexture.SampleDesc.Quality = 0;
-    descTexture.Usage = D3D11_USAGE_DEFAULT;
+    descTexture.Usage = static_cast<D3D11_USAGE>(usage);
     descTexture.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-    descTexture.CPUAccessFlags = 0;
+    descTexture.CPUAccessFlags = cpuUsage;
     descTexture.MiscFlags = 0;
 
     D3D11_SUBRESOURCE_DATA initBuffer;

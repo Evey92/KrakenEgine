@@ -13,7 +13,17 @@ namespace kraEngineSDK {
 
     HRESULT hr;
 
-    hr = m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_texture->m_pd3dTexture2D, NULL, &m_pTextureRV);
+    D3D11_SHADER_RESOURCE_VIEW_DESC desc;
+    D3D11_TEXTURE2D_DESC descTexture;
+
+    m_texture->m_pd3dTexture2D->GetDesc(&descTexture);
+
+    desc.Format = descTexture.Format;
+    desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+    desc.Texture2D.MostDetailedMip = 0;
+    desc.Texture2D.MipLevels = 1;
+
+    hr = m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_texture->m_pd3dTexture2D, &desc, &m_pTextureRV);
     
     if (!m_pTextureRV) {
       MessageBox(NULL, "Failed to load Shader Resource View", "Error", MB_OK);
