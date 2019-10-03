@@ -1,5 +1,5 @@
-#include "kraVector2.h"
 #include "kraVector3.h"
+#include "kraVector2.h"
 
 
 /***************************************************************************/

@@ -8,8 +8,10 @@
 
 namespace kraEngineSDK {
 
+  CLASS_DEFINITION(Component, Model)
+
   bool
-  Model::loadModelFromFile(const std::string& fileName, Device& pDevice, Texture* pTexture) {
+  Model::loadModelFromFile(const std::string& fileName, Device& pDevice) {
 
     Assimp::Importer aImporter;
 
@@ -229,7 +231,7 @@ namespace kraEngineSDK {
       textypeteststr == "*4" ||
       textypeteststr == "*5")
     {
-      if (scene->mTextures[0]->mHeight = 0)
+      if (scene->mTextures[0]->mHeight == 0)
       {
         return "embedded compressed texture";
       }

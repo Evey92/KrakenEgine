@@ -20,17 +20,21 @@ namespace kraEngineSDK {
   class Vector3;
   
   class KRA_CORE_EXPORT Model : 
-  public GameObject {
+  public Component {
+
+    CLASS_DECLARATION(Model)
 
    public:
 
-     Model() = default;
+     Model(GameObject* owner)
+     : Component(owner) {}
+
      virtual
      ~Model() {}
 
 
     bool 
-    loadModelFromFile(const std::string& fileName,  Device& pDevice, Texture* pTexture);
+    loadModelFromFile(const String& fileName,  Device& pDevice );
     
     bool
     loadMaterialTextures(Device& pDevice, Texture& texture, aiMaterial * mat, aiTextureType type, String typeName, const aiScene * scene);
@@ -44,7 +48,7 @@ namespace kraEngineSDK {
     SIZE_T
     getMeshVecSize();
     
-    const std::vector<Mesh*>&
+    const Vector<Mesh*>&
     getMeshVec() const;
     
     Mesh&
@@ -60,9 +64,9 @@ namespace kraEngineSDK {
    private:
     
      //TODO: Refactor Model and mesh so the model's index buffer is filled with 
-     IndexBuffer* m_indexBuffer = nullptr;
+    IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
-    std::vector<Mesh*> m_meshVec;
+    Vector<Mesh*> m_meshVec;
     Vector<aiMaterial*> m_materialsVec;
     uint32 m_currentMesh = 0;
     uint32 m_currentMat = 0;

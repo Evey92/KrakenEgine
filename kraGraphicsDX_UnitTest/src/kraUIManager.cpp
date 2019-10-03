@@ -104,7 +104,7 @@
     ImGui::SetNextWindowPos(ImVec2(5, 20), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(300, 700), ImGuiCond_FirstUseEver);
 
-    kraEngineSDK::SceneGraph* sc = scene->m_sceneGraph;
+    kraEngineSDK::SceneGraph* sc = SceneManager::instance().getActiveScene()->m_sceneGraph;
 
     ImGui::Begin("Scene Graph");
     
@@ -156,6 +156,10 @@
           Camera objCam = gameObj->getComponent<Camera>();
           drawCamera(&objCam);
         }
+        else if (comp->isOfType(Model::Type)) {
+          Model objModel = gameObj->getComponent<Model>();
+          drawModel(&objModel);
+        }
       }
     }
     ImGui::End();
@@ -206,9 +210,40 @@
 
   }
 
- 
+  void 
+  UIManager::drawMaterial(Material* mat)
+  {
+    ImGui::Text("Material");
 
-  void UIManager::onShutdown()
+    /* 
+     TODO: Show material properties:
+     -Show Color Texture
+     -Show normal texture
+     -Show Metallic Texture
+     -Show Roughness Texture
+     -Show Emissive texture
+     -Show AO Texture
+     */
+    
+    //-Base color RGB
+    ImGui::ColorEdit3("Base Color", (float*)&mat->m_baseColor);
+
+    //-Metalness float (range 0.0f - 1.0f)
+    ImGui::SliderFloat("Metalness", &mat->m_metallic, 0.0f, 1.0f);
+
+     //-Roughness float (range 0.0f - 1.0f)
+    ImGui::SliderFloat("Roughness", &mat->m_roughness, 0.0f, 1.0f);
+    ImGui::Separator();
+  }
+
+  void 
+  UIManager::drawModel(Model* model)
+  {
+    //TODO: Draw mesh/model
+  }
+
+  void
+  UIManager::onShutdown()
   {
     ImGui_ImplDX11_Shutdown();
     ImGui_ImplWin32_Shutdown();

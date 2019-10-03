@@ -127,8 +127,8 @@ namespace kraEngineSDK {
     ShaderResourceView*
     createShaderRVInstance();
     
-    Material*
-    createMaterialInstance();
+    /*Material*
+    createMaterialInstance();*/
     
     RasterizerState*
     creatreRasterizerStateInstance();

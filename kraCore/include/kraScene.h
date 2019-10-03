@@ -27,7 +27,7 @@ namespace kraEngineSDK {
     Scene::addNode(GameObject* node, int id);
     
     void
-    addNewNode();
+    addNewNode(GameObject* GO);
 
     GameObject*
     createGameObject();

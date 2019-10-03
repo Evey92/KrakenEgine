@@ -41,13 +41,19 @@ using namespace kraEngineSDK;
     void
     showSceneWindow();
 
-    void
-    drawTransform(Transform transform);
-
 #pragma region COMPONENT_UI
 
     void
+    drawTransform(Transform transform);
+
+    void
     drawCamera(Camera* cam);
+
+    void
+    drawMaterial(Material* mat);
+
+    void
+    drawModel(Model* model);
 
 #pragma endregion COMPONENT_UI
 

@@ -23,6 +23,9 @@ namespace kraEngineSDK {
     GameObject*
     createGameobject();
 
+    GameObject*
+    createGameObject(String name);
+
     Scene*
     getActiveScene();
 

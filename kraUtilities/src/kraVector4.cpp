@@ -1,6 +1,6 @@
-#include "kraVector2.h"
-#include "kraVector3.h"
 #include "kraVector4.h"
+#include "kraVector3.h"
+#include "kraVector2.h"
 
 namespace kraEngineSDK {
 

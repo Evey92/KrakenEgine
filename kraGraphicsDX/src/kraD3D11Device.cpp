@@ -259,10 +259,10 @@ namespace kraEngineSDK {
     return new ShaderResourceViewDX();
   }
 
-  Material*
+  /*Material*
   DeviceDX::createMaterialInstance() {
-    return new Material(*this);
-  }
+    return new Material();
+  }*/
   
   RasterizerState*
   DeviceDX::creatreRasterizerStateInstance() {

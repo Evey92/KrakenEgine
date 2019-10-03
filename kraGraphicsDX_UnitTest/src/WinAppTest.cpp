@@ -118,6 +118,13 @@ WinApp::Initialize()
     return false;
   }
 
+  m_textureManager = m_gfxAPIInstance->getDevice()->createTextureInstance();
+  if (!m_textureManager)
+  {
+    MessageBox(NULL, "Failed to create Texture Manager", "Error", MB_OK);
+    return false;
+  }
+
   m_mainRenderTarget->createRenderTargetView(*m_gfxAPIInstance->getDevice());
 
   m_depthStencil->setDepthStencil(*m_gfxAPIInstance->getDevice(), m_gfxAPIInstance->getDevice()->getHeight(), m_gfxAPIInstance->getDevice()->getWidth());
@@ -186,7 +193,7 @@ WinApp::update()
 void 
 WinApp::update(float deltaTime)
 {
-
+  deltaTime;
 }
 
 void 
@@ -233,9 +240,12 @@ WinApp::getInputManager()
 }
 
 
-void WinApp::MapBoolDevice(uint32 userBtn, uint32 deviceID, uint32 key)
+void 
+WinApp::MapBoolDevice(uint32 userBtn, uint32 deviceID, uint32 key)
 {
-
+  userBtn;
+  deviceID;
+  key;
 }
 
 Camera* 
@@ -252,8 +262,59 @@ WinApp::setActiveCamera(Camera* newCam)
 
 bool WinApp::loadModel()
 {
-  std::cout << "Load Model\n";
+  String filename = loadFile();
+
+  if (filename != "") {
+
+    int strPos = filename.find_last_of('\\');
+    String name = filename.substr(strPos + 1);
+
+    GameObject* newGO = SceneManager::instance().createGameObject(name);
+    newGO->addComponent<Model>(newGO);
+    newGO->getComponent<Model>().loadModelFromFile(filename, *m_gfxAPIInstance->getDevice());
+    SceneManager::instance().getActiveScene()->addNewNode(newGO);
+  }
+
   return true;
+}
+
+bool 
+WinApp::loadTexture()
+{
+  //TODO: Texture loading
+  String filename = loadFile();
+  //m_textureManager->createTexture2D();
+  return true;
+}
+
+String 
+WinApp::loadFile()
+{
+  char filename[MAX_PATH];
+  memset(&filename, 0, sizeof(filename));
+
+  OPENFILENAME ofn;
+  memset(&ofn, 0, sizeof(ofn));
+
+  ofn.lStructSize = sizeof(ofn);
+  ofn.hwndOwner = m_window->m_hWnd;
+  ofn.lpstrFilter = "FBX Files\0*.fbx\0OBJ Files\0*.obj\0Any File\0*.*\0";
+  ofn.lpstrFile = filename;
+  ofn.nMaxFile = MAX_PATH;
+  ofn.lpstrTitle = "Choose a File!";
+  ofn.Flags = OFN_DONTADDTORECENT | OFN_FILEMUSTEXIST;
+
+  if (GetOpenFileName(&ofn))
+  {
+    std::cout << "You chose the file \"" << filename << "\"\n";
+    return filename;
+  }
+  else
+  {
+    std::cout << "There was an error and the file couldn't be opened";
+    return "";
+  }
+
 }
 
 //HINSTANCE 

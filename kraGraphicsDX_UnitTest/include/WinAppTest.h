@@ -124,11 +124,18 @@ class WinApp :
 #pragma region UTILITY_FUNCTIONS
  public:
 
+   //TODO: All of these should probably be on a resource manager
    bool
    loadModel() override;
 
    /*HINSTANCE
    loadDLL() override;*/
+
+   bool
+   loadTexture();
+
+   String
+   loadFile();
 
    void
    CleanupDevice() override;
@@ -145,10 +152,12 @@ class WinApp :
 #pragma region PRIVARE_MEMBERS
 
  private:
-   RenderTargetView* m_mainRenderTarget;
-   DepthStencil* m_depthStencil;
-   DepthStencylView* m_depthStencilView;
-   Viewport* m_viewport;
+   Vector<ShrdPtr<Model>> m_modelsVector;
+   RenderTargetView* m_mainRenderTarget = nullptr;
+   DepthStencil* m_depthStencil = nullptr;
+   DepthStencylView* m_depthStencilView = nullptr;
+   Viewport* m_viewport = nullptr;
+   ShrdPtr<Texture> m_textureManager = nullptr;
    String modelPath = "resources/Models/";
    Win32Window* m_window = nullptr;
    Vector4 ClearColor = { 0.329f, 0.050f, 0.431f, 1.0f };

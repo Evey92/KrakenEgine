@@ -1,6 +1,7 @@
 #include "kraScene.h"
 #include "kraGameObject.h"
 #include "kraCamera.h"
+#include "kraSceneManager.h"
 
 namespace kraEngineSDK {
 
@@ -11,7 +12,7 @@ namespace kraEngineSDK {
     m_sceneGraph = new SceneGraph();
     m_sceneGraph->initialize();
 
-    GameObject* newGO = createGameObject("MainCamera");
+    GameObject* newGO = SceneManager::instance().createGameObject("MainCamera");
     newGO->addComponent<Camera>(newGO);
     m_sceneGraph->setNode(newGO);
 
@@ -21,8 +22,9 @@ namespace kraEngineSDK {
   }
 
   void
-  Scene::addNewNode() {
-
+  Scene::addNewNode(GameObject* GO) {
+    m_sceneGraph->setNode(GO);
+    m_nodes = m_sceneGraph->getNodesSize();
   }
 
   void

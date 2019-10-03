@@ -4,9 +4,7 @@
 
 namespace kraEngineSDK {
 
-  Material::Material(Device& pDevice) {
-
-  }
+  CLASS_DEFINITION(Component, Material)
 
   ShrdPtr<Texture>
   Material::getTextureOfType(kraTextureType::E texType)
