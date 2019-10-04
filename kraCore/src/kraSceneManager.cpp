@@ -24,7 +24,7 @@ namespace kraEngineSDK {
   }
 
   GameObject*
-  SceneManager::createGameobject()
+  SceneManager::createGameObject()
   {
 
     GameObject* newGO = new GameObject(getActiveScene());

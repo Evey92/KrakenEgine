@@ -111,8 +111,8 @@
     ImGui::Text(scene->m_name.c_str());
 
     for (auto& node : sc->getSceneNodes())
-    {
-      drawSceneGraphNode(node);
+    {  
+      drawSceneGraphNode(node); 
     }
 
     ImGui::End();
@@ -121,7 +121,7 @@
   void
   UIManager::drawSceneGraphNode(GameObject* node) {
     
-    if (node == nullptr)
+    if (node->getName() == "Root")
     {
       return;
     }
@@ -149,6 +149,7 @@
 
       for (auto&& comp : gameObj->m_components)
       {
+        
         if (comp->isOfType(Transform::Type)) {
           drawTransform(gameObj->m_transform);
         }
@@ -160,6 +161,7 @@
           Model objModel = gameObj->getComponent<Model>();
           drawModel(&objModel);
         }
+        
       }
     }
     ImGui::End();

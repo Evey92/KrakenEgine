@@ -5,9 +5,10 @@
 
 namespace kraEngineSDK {
 
-  class GraphicsAPI : public Module<GraphicsAPI>
-  {
-  public:
+  class GraphicsAPI : 
+  public Module<GraphicsAPI> {
+   
+   public:
 
     GraphicsAPI() = default;
     virtual
@@ -25,6 +26,8 @@ namespace kraEngineSDK {
     virtual void
     Cleanup() = 0;
 
+
+  
 
   };
 }
