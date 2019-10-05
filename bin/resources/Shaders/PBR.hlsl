@@ -1,109 +1,89 @@
-#define m_PI  3.141592653f
-#define Epsilon 0.00000000001f
-
-float ndfGGX(float cosLH, float roughness )
-{
-  float alpha = roughness * roughness;
-  float alphaSQ = alpha * alpha;
-
-  float denom = (cosLH * cosLH) * (alphaSQ - 1.0) + 1.0;
-
-  return alphaSQ / (m_PI * denom * denom);
-}
-
-float kraSchlickG1(float cosTheta, float k)
-{
-  return cosTheta / (cosTheta * (1.0 - k) + k);
-}
-
-float kraShlickGGX(float cosLi, float cosLo, float roughness)
-{
-  float r = roughness + 1.0;
-  float k = (r * r) / 8.0;
-
-  return kraSchlickG1(cosLi, k) * kraSchlickG1(cosLo, k);
-}
-
-float3 fresnelShlick(float3 F0, float cosTheta)
-{
-  return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
-}
-
-sampler AlbedoSampler;
-sampler MetalnessSampler;
-sampler RoughnessSampler;
-sampler NormalSampler;
-sampler EmissiveSampler;
-sampler IrradianceSampler;
+#include "gBufferCommons.hlsl"
 
 float3 m_lightPos;
 float4 m_eyePos;
 
-struct PS_INPUT
+float4 ps_main(PS_INPUT Input) : SV_Target
 {
-  float3 PosWorld : TEXCOORD0;
-  float2 TexCoord : TEXCOORD1;
-  float3x3 TBN    : TEXCOORD2;
-  float4 Depth    : TEXCOORD5;
-};
 
-struct PS_OUTPUT
-{
-  float4 Position  : COLOR0;
-  float4 Normal    : COLOR1;
-  float4 Color     : COLOR2;
-  float4 Depth     : COLOR3;
-};
-
-float3 fresnelShlcik(float3 F0, float cosTheta)
-{
-  return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
-}
-
-float4 ps_main(PS_INPUT Input) : COLOR0
-{
-  float Fdielectric = 0.03;
-
+// Sample input textures to get shading model params.
   float4 albedo = tex2D(AlbedoSampler, Input.TexCoord);
-  float3 normal = tex2D(NormalSampler, Input.TexCoord);
   float metalness = tex2D(MetalnessSampler, Input.TexCoord);
   float roughness = tex2D(RoughnessSampler, Input.TexCoord);
 
-  normal = 2.0f * mul(normal, Input.TBN) - 1.0f;
-  normal = normalize(normal);
+  // Outgoing light direction (vector from world-space fragment position to the "eye").
+	float3 Lo = normalize(m_eyePos - Input.Pos);
 
+  float N = normalize(2.0 * texNormal.Sample(samLinear, Input.TexCoord).rgb - 1.0);
+  N = normalize(mul(Input.TBN, N));
 
-  float3 lightDir = normalize(m_lightPos - Input.PosWorld);
-  float3 viewDir = normalize(m_eyePos.xyz - Input.PosWorld);
-  float3 h = normalize(lightDir + viewDir);
+	// Angle between surface normal and outgoing light direction.
+  float cosLo = max(0.0, dot(N, Lo));
 
-  float NdL = max(0.0, dot(normal, lightDir));
-  float NdH = max(0.0, dot(normal, h));
-  float NdV = max(0.0, dot(normal, viewDir));
+  // Specular reflection vector.
+	float3 Lr = 2.0 * cosLo * N - Lo;
 
   float3 F0 = lerp(Fdielectric, albedo, metalness);
 
-  float3 F = fresnelShlick(F0, max(0.0f, 1.0f));
-  float D = ndfGGX(NdH, roughness);
-  float G = kraShlickGGX(NdL, NdV, roughness);
+  // Direct lighting calculation for analytical lights.
+	float3 directLight = 0.0;
+  for(uint i=0; i<NumLights; ++i)
+	{
+    float3 Li = -lights[i].direction;
+		float3 Lradiance = lights[i].radiance;
 
-  float3 kd = lerp(float3(1, 1, 1) - F, float3(0, 0, 0), metalness);
-  float3 diffuseBRDF = kd * albedo;
-  float3 specularBRDF = (F * G * D) / max(Epsilon, 4.0 * NdL * NdV);
+    // Half-vector between Li and Lo.
+		float3 Lh = normalize(Li + Lo);
 
-  float3 directLight = (diffuseBRDF + specularBRDF)  * NdL;
+    // Calculate angles between surface normal and various light vectors.
+		float cosLi = max(0.0, dot(N, Li));
+		float cosLh = max(0.0, dot(N, Lh));
 
+		// Calculate Fresnel term for direct lighting. 
+    float3 F = fresnelShlick(F0, max(Lh, Lo));
+
+		// Calculate normal distribution for specular BRDF.
+    float D = ndfGGX(cosLh, roughness);
+
+		// Calculate geometric attenuation for specular BRDF.
+    float G = gaSchlickGGX(cosLi, cosLo, roughness);
+
+    float3 kd = lerp(float3(1, 1, 1) - F, float3(0, 0, 0), metalness);
+
+    float3 diffuseBRDF = kd * albedo;
+
+    float3 specularBRDF = (F * G * D) / max(Epsilon, 4.0 * cosLi * cosLo);
+
+    directLight = (diffuseBRDF + specularBRDF)  *  Lradiance * cosLi;
+  }
+
+	// Ambient lighting (IBL).
   float3 ambientLight;
   {
-    float3 irradiance = texCUBE(IrradianceSampler, normal).rgb;
-    float3 F = fresnelShlick(F0, NdV);
-    float3 kd = lerp(1.0f - F, 0.0f, metalness);
+		float3 irradiance = texIrradiance.Sample(samLinear, N).rgb;
 
-    float3 diffuseBRDF = kd * albedo * irradiance;
+    float3 F = fresnelShlick(F0, cosLo);
 
-    ambientLight = diffuseBRDF;
+		// Get diffuse contribution factor (as with direct lighting).
+    float3 kd = lerp(1.0f - F, 0.0, metalness);
+
+    float3 diffuseIBL = kd * albedo * irradiance;
+
+    // Sample pre-filtered specular reflection environment at correct mipmap level.
+		uint specularTextureLevels = querySpecularTextureLevels();
+		float3 specularIrradiance = texSpecular.SampleLevel(samLinear, Lr, roughness * specularTextureLevels).rgb;
+
+    // Split-sum approximation factors for Cook-Torrance specular BRDF.
+		float2 specularBRDF = specularBRDF_LUT.Sample(spBRDF_Sampler, float2(cosLo, roughness)).rg;
+
+    // Total specular IBL contribution.
+		float3 specularIBL = (F0 * specularBRDF.x + specularBRDF.y) * specularIrradiance;
+
+    // Total ambient lighting contribution.
+		ambientLighting = diffuseIBL + specularIBL;
 
   }
 
-  return float4(ambientLight, 1);
+  // Final fragment color.
+	return float4(directLight + ambientLighting, 1.0);
 }

@@ -136,8 +136,8 @@ namespace kraEngineSDK {
     const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
 
     m_pDevice->m_pImmediateContext->PSSetShaderResources(startSlot,
-      numViews,
-      &m_pTextureRV);
+                                                         numViews,
+                                                         &m_pTextureRV);
   }
 
   void

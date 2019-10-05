@@ -1,10 +1,29 @@
 
+static const float PI = 3.141592;
+static const float Epsilon = 0.00001;
+static const float3 Fdielectric = 0.04;
+
+//This probably doesn't go here
+static const uint NumLights = 3;
+
 cbuffer cbMain : register(b0)
 {
   matrix World;
   matrix View;
   matrix Projection;
 };
+
+Texture2D texAlbedo    : register(t0);
+Texture2D texNormal    : register(t1);
+Texture2D texMetalness : register(t2);
+Texture2D texRoughness : register(t3);
+Texture2D texAO        : register(t4);
+TextureCube texSpecular : register(t4);
+TextureCube texIrradiance : register(t5);
+Texture2D specularBRDF_LUT : register(t6);
+
+SamplerState samLinear : register(s0);
+SamplerState spBRDF_Sampler : register(s1);
 
 struct VS_INPUT 
 {
@@ -24,33 +43,43 @@ struct PS_INPUT
     float3x3 TBN           : TEXCOORD2;
 };
 
-float ndf_GGX(float cosLH, float roughness)
+// GGX/Towbridge-Reitz normal distribution function.
+// Uses Disney's reparametrization of alpha = roughness^2.
+float ndfGGX(float cosLH, float roughness )
 {
   float alpha = roughness * roughness;
-  float alphaSq = alpha * alpha;
+  float alphaSQ = alpha * alpha;
 
-  float denom = (cosLH * cosLH) * (alphaSq - 1.0f) + 1.0f;
-  return alphaSq / (M_PI * denom * denom);
+  float denom = (cosLH * cosLH) * (alphaSQ - 1.0) + 1.0;
 
+  return alphaSQ / (PI * denom * denom);
 }
 
-float ga_SchlickG1(float cosTheta, float k)
+// Single term for separable Schlick-GGX below.
+float gaSchlickG1(float cosTheta, float k)
 {
   return cosTheta / (cosTheta * (1.0 - k) + k);
 }
 
-//Schlick-GGX approximation of geometric attenaution function using Smith's methods
-float ga_SchlickGGX(float cosLi, float cosLo, float roughness)
+// Schlick-GGX approximation of geometric attenuation function using Smith's method.
+float gaSchlickGGX(float cosLi, float cosLo, float roughness)
 {
-  float r = roughness + 1.0;
-
-  float k = (r * r) / 8.0;
-
-  return ga_SchlickG1(cosLi, k) * ga_SchlickG1(cosLo, k);
+	float r = roughness + 1.0;
+	float k = (r * r) / 8.0; // Epic suggests using this roughness remapping for analytic lights.
+  
+	return gaSchlickG1(cosLi, k) * gaSchlickG1(cosLo, k);
 }
 
-//Schlick's aproximation of the Fresnel factor
-float3 fresnelSchlick(float3 F0, float cosTheta)
+// Shlick's approximation of the Fresnel factor.
+float3 fresnelShlick(float3 F0, float cosTheta)
 {
   return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
+}
+
+// Returns number of mipmap levels for specular IBL environment map.
+uint querySpecularTextureLevels()
+{
+	uint width, height, levels;
+	texSpecular.GetDimensions(0, width, height, levels);
+	return levels;
 }

@@ -1,13 +1,4 @@
-
-#include <GBufferCommons.hlsl>
-
-Texture2D texAlbedo    : register(t0);
-Texture2D texNormal    : register(t1);
-Texture2D texRoughness : register(t2);
-Texture2D texMetalness : register(t3);
-Texture2D texAO        : register(t4);
-
-SamplerState samLinear : register(s0);
+#include "gBufferCommons.hlsl"
 
 struct PS_OUTPUT
 {
