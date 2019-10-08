@@ -25,8 +25,8 @@
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = m_hInstance;
-    wcex.hIcon = LoadIconA(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_ICON1));
-	wcex.hIconSm = (HICON)LoadImageA(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 16, 16, 0);
+    wcex.hIcon = LoadIconA(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_ICON2));
+	wcex.hIconSm = (HICON)LoadImageA(GetModuleHandle(nullptr), MAKEINTRESOURCE(IDI_ICON2), IMAGE_ICON, 16, 16, 0);
 	wcex.cbSize = sizeof(WNDCLASSEXA);
     wcex.hCursor = LoadCursorA(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);

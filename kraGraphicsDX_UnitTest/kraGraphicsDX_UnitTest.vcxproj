@@ -223,9 +223,12 @@
     <ResourceCompile Include="kraGraphicsDX_UnitTest.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="icon2.ico" />
+    <Image Include="icon3.ico" />
     <Image Include="kraGraphicsDX_UnitTest.ico" />
     <Image Include="KrakenIcon1.ico" />
     <Image Include="kraken_icon.ico" />
+    <Image Include="octopp.ico" />
     <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
