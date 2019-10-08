@@ -12,7 +12,9 @@ namespace kraEngineSDK {
     ~RasterizerState() {}
 
     virtual void
-    createRasterizerState(const Device& pDevice) = 0;
+    createRasterizerState(const Device& pDevice,
+                          FILL_MODE::E fillMode,
+                          CULL_MODE::E cullMode) = 0;
     virtual void
     setRasterizerState(const Device& pDevice) = 0;
   };

@@ -19,7 +19,7 @@ namespace kraEngineSDK {
 #pragma region PUBLIC_MEMBERS
      Vector3 Position = Vector3(0.0f, 0.0f, 0.0f);
      Vector3 Rotation = Vector3(0.0f, 0.0f, 0.0f);
-     Vector3 Scale = Vector3(0.0f, 0.0f, 0.0f);
+     Vector3 Scale = Vector3(1.0f, 1.0f, 1.0f);
 #pragma endregion PUBLIC_MEMBERS
   };
 }

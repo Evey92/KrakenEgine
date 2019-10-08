@@ -71,7 +71,7 @@ WinApp::Initialize()
 
   String name = "Kraken Engine";
 
-  m_window = new Win32Window(1600, 1000, name, Vector2(0, 0));
+  m_window = new Win32Window(1600, 1040, name, Vector2(0, 0));
   if (!m_window->initWindow(m_nCmdShow))
   {
     std::cout << "Window couldn't be initialized.\n";

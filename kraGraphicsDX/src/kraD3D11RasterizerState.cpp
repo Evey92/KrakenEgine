@@ -6,17 +6,19 @@
 namespace kraEngineSDK {
  
   void
-  RasterizerStateDX::createRasterizerState(const Device& pDevice)
-  {
+  RasterizerStateDX::createRasterizerState(const Device& pDevice,
+                                           FILL_MODE::E fillMode = FILL_MODE::E::kFILL_SOLID,
+                                           CULL_MODE::E cullMode = CULL_MODE::E::kCULL_BACK) {
+
     const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
 
     D3D11_RASTERIZER_DESC rasDesc;
     memset(&rasDesc, 0, sizeof(D3D11_RASTERIZER_DESC));
  
-    rasDesc.FillMode = D3D11_FILL_SOLID;
-    rasDesc.CullMode = D3D11_CULL_BACK;
-    rasDesc.FrontCounterClockwise = false;
+    rasDesc.FillMode = static_cast<D3D11_FILL_MODE>(fillMode);
+    rasDesc.CullMode = static_cast<D3D11_CULL_MODE>(cullMode);
+    rasDesc.FrontCounterClockwise = true;
     rasDesc.DepthBias = 0;
     rasDesc.DepthBiasClamp = 0;
     rasDesc.SlopeScaledDepthBias = 0;

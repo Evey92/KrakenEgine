@@ -144,6 +144,7 @@ namespace kraEngineSDK {
       kFORMAT_V408 = 132,
     };
   }
+#pragma region BUFFER_USAGE
 
   namespace GFX_USAGE {
     enum E {
@@ -160,5 +161,26 @@ namespace kraEngineSDK {
       kCPU_ACCESS_READ = 0x20000L,
     };
   }
+
+#pragma endregion
+
+#pragma region RASTERIZER_DESCRIPTOR
+
+  namespace FILL_MODE {
+    enum E {
+      kFILL_WIREFRAME = 2,
+      kFILL_SOLID = 3
+    };
+  }
+
+  namespace CULL_MODE {
+    enum E {
+      kCULL_NONE = 1,
+      kCULL_FRONT = 2,
+      kCULL_BACK = 3
+    };
+  }
+
+#pragma endregion RASTERIZER_DESCRIPTOR
 
 }
