@@ -19,6 +19,7 @@
     
     m_hInstance = GetModuleHandle(nullptr);
 
+
     wcex.cbSize = sizeof(WNDCLASSEXA);
     wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
     wcex.lpfnWndProc = Win32Window::WndProcc;
