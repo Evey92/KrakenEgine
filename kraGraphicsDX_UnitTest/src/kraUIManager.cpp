@@ -220,9 +220,6 @@
     CameraManager::instance().getActiveCamera()->setFarPlane(camFar);
     ImGui::Separator();
 
-    std::cout << "Current camera FOV: " << CameraManager::instance().getActiveCamera()->getFOVAsDeg();
-    std::cout << "Current camera Near plane: " << CameraManager::instance().getActiveCamera()->getNearPlane();
-    std::cout << "Current camera Far plane: " << CameraManager::instance().getActiveCamera()->getFarPlane();
   }
 
   void 

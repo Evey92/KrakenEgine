@@ -153,9 +153,13 @@ class WinApp :
 
  private:
    Vector<ShrdPtr<Model>> m_modelsVector;
-   RenderTargetView* m_mainRenderTarget = nullptr;
-   DepthStencil* m_depthStencil = nullptr;
+   RenderTargetView* m_backBufferRTV = nullptr;
+
+   RasterizerState* m_rasterizerState = nullptr;
+   DepthStencil* m_defaultDepthStencil = nullptr;
+   DepthStencil* m_skyboxDepthStencil = nullptr;
    DepthStencylView* m_depthStencilView = nullptr;
+   
    Viewport* m_viewport = nullptr;
    ShrdPtr<Texture> m_textureManager = nullptr;
    String modelPath = "resources/Models/";

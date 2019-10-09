@@ -6,6 +6,7 @@ namespace kraEngineSDK {
   BaseApplication::onStartUp()
   {
     Initialize();
+   
   }
 
   void 

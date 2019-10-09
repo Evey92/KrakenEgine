@@ -13,8 +13,8 @@ namespace kraEngineSDK {
      RenderAPIManagerDX() = default;
      ~RenderAPIManagerDX() {};
 
-    /*GraphicsAPI*
-    initializeGraphicsAPI();*/
+    GraphicsAPI*
+    initializeGraphicsAPI();
 
     bool m_APIInitialized;
   };
@@ -30,7 +30,8 @@ namespace kraEngineSDK {
 MS_ALIGN(16)
 extern "C" KRA_UTILGFX_EXPORT kraEngineSDK::GraphicsAPI*
 createGraphicsAPI() {
-  
-  return new kraEngineSDK::GraphicsAPIDX();
+ 
+  kraEngineSDK::GraphicsAPI::StartUp<kraEngineSDK::GraphicsAPIDX>();
+  return kraEngineSDK::GraphicsAPI::instancePtr();
 }
 GCC_ALIGN(16)
