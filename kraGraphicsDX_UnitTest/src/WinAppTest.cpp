@@ -21,7 +21,9 @@ WinApp::Initialize()
   std::string GFXpath = "kraGraphicsDXd.dll";
   std::string Inputpath = "kraInputManagerd.dll";
 
-  GFXDLL = LoadLibraryExA(GFXpath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
+  //TODO: I REALLY NEED TO FIX THIS BULLSHIT. I need to make something to handle dynamic library loading. 
+
+  GFXDLL = LoadLibraryEx(GFXpath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
   if (!GFXDLL) {
     DWORD err = GetLastError();
     MessageBox(NULL, "Could not find specified graphics DLL. Error: " + err, "Error", MB_OK);
@@ -30,7 +32,7 @@ WinApp::Initialize()
     return false;
   }
 
-  INPUTDLL = LoadLibraryExA(Inputpath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
+  INPUTDLL = LoadLibraryEx(Inputpath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
   if (!INPUTDLL) {
     DWORD err = GetLastError();
     MessageBox(NULL, "Could not find specified input DLL. Error: " + err, "Error", MB_OK);

@@ -16,6 +16,24 @@ namespace kraEngineSDK {
 
      ~Transform() = default;
 
+     void
+     setPosition(Vector3 newPosition);
+
+     Vector3
+     getPosition();
+
+     void
+     setRotation(Vector3 newPosition);
+
+     Vector3
+     getRotation();
+
+     void
+     setScale(Vector3 newPosition);
+
+     Vector3
+     getScale();
+
 #pragma region PUBLIC_MEMBERS
      Vector3 Position = Vector3(0.0f, 0.0f, 0.0f);
      Vector3 Rotation = Vector3(0.0f, 0.0f, 0.0f);

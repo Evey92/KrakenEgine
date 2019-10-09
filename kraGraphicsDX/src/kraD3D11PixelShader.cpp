@@ -10,7 +10,7 @@ namespace kraEngineSDK {
   bool
     PixelShaderDX::compilePixelShader(std::string fileName,
       const char* entryPoint) {
-    HRESULT hr = S_OK;
+    bool hr;
 
     hr = compileShaderFromFile(fileName, entryPoint, "ps_5_0", &m_pBlob);
 
@@ -57,12 +57,12 @@ namespace kraEngineSDK {
 
   bool
   PixelShaderDX::compileShaderFromFile(std::string  filename,
-      std::string entryPoint,
-      std::string shaderModel,
-      ID3DBlob** ppBlobOut)
+                                       std::string entryPoint,
+                                       std::string shaderModel,
+                                       ID3DBlob** ppBlobOut)
   {
 
-    HRESULT hr = S_OK;
+    bool hr;
 
     std::ifstream VSfile(filename.c_str());
 

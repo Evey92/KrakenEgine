@@ -191,8 +191,14 @@
     
     ImGui::Text("Transform");
     ImGui::InputFloat3("Position", pos);
+    //transform.setPosition(pos);
+
     ImGui::InputFloat3("Rotation", rot);
+
+
     ImGui::InputFloat3("Scale", scale);
+    
+
     ImGui::Separator();
   }
 
@@ -205,11 +211,18 @@
 
     ImGui::Text("Camera");
     ImGui::SliderFloat("Field of View", &camFov, 0.0f, 179.0f);
-    cam->setFOVfromDeg(camFov);
+    CameraManager::instance().getActiveCamera()->setFOVfromDeg(camFov);
+
     ImGui::InputFloat("Near Plane", &camNear, .05f, 0, "%.3f");
+    CameraManager::instance().getActiveCamera()->setNearPlane(camNear);
+
     ImGui::InputFloat("Far Plane", &camFar, .05f, 0, "%.3f");
+    CameraManager::instance().getActiveCamera()->setFarPlane(camFar);
     ImGui::Separator();
 
+    std::cout << "Current camera FOV: " << CameraManager::instance().getActiveCamera()->getFOVAsDeg();
+    std::cout << "Current camera Near plane: " << CameraManager::instance().getActiveCamera()->getNearPlane();
+    std::cout << "Current camera Far plane: " << CameraManager::instance().getActiveCamera()->getFarPlane();
   }
 
   void 
