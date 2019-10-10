@@ -6,13 +6,13 @@ namespace kraEngineSDK {
   class Device;
   class DepthStencil;
 
-  class DepthStencylView
+  class DepthStencilView
   {
   public:
     
-    DepthStencylView() = default;
+    DepthStencilView() = default;
     virtual
-    ~DepthStencylView() = default;
+    ~DepthStencilView() = default;
 
     virtual bool
     createDepthStencilView(const Device& pDevice,

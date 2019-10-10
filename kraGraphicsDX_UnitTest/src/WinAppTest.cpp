@@ -98,10 +98,9 @@ WinApp::Initialize()
     return false;
   }
 
-  //Create The main Render target
+  //Create The main Render target or Backbuffer
   m_backBufferRTV = m_gfxAPIInstance->getDevice()->createRenderTargetInsttance();
   m_backBufferRTV->createRenderTargetView(*m_gfxAPIInstance->getDevice());
-  m_backBufferRTV->setRenderTarget(*m_gfxAPIInstance->getDevice(), *m_depthStencilView);
 
   //Create and set the viewport
   m_viewport = m_gfxAPIInstance->getDevice()->createViewportInstance();
@@ -118,9 +117,12 @@ WinApp::Initialize()
   m_depthStencilView = m_gfxAPIInstance->getDevice()->createDepthStencilViewInstance();
   m_depthStencilView->createDepthStencilView(*m_gfxAPIInstance->getDevice(), *m_defaultDepthStencil);
 
+  m_backBufferRTV->setRenderTarget(*m_gfxAPIInstance->getDevice(), *m_depthStencilView);
+
   //Create a texture manager
   m_textureManager = m_gfxAPIInstance->getDevice()->createTextureInstance();
 
+  //Create rasterizer state
   m_rasterizerState = m_gfxAPIInstance->getDevice()->creatreRasterizerStateInstance();
   m_rasterizerState->createRasterizerState(*m_gfxAPIInstance->getDevice(),
                                            FILL_MODE::kFILL_SOLID,

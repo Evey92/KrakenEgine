@@ -7,7 +7,7 @@ namespace kraEngineSDK {
   class InputLayout;
   class Viewport;
   class DepthStencil;
-  class DepthStencylView;
+  class DepthStencilView;
   class PixelShader;
   class VertexShader;
   class VertexBuffer;
@@ -73,7 +73,7 @@ namespace kraEngineSDK {
     virtual void
     PresentSwapChain() = 0;
     
-    virtual RenderTargetView*
+    virtual ShrdPtr<RenderTargetView>
     createRenderTargetInsttance() = 0;
     
     virtual Viewport*
@@ -82,16 +82,16 @@ namespace kraEngineSDK {
     virtual InputLayout*
     createInputLayoutInstance() = 0;
     
-    virtual DepthStencil*
+    virtual ShrdPtr<DepthStencil>
     createDepthStencilInstance() = 0;
     
-    virtual DepthStencylView*
+    virtual ShrdPtr<DepthStencilView>
     createDepthStencilViewInstance() = 0;
     
-    virtual VertexShader*
+    virtual ShrdPtr<VertexShader>
     createVertexShaderInstance() = 0;
     
-    virtual PixelShader*
+    virtual ShrdPtr<PixelShader>
     createPixelShaderInstance() = 0;
     
     virtual VertexBuffer*
@@ -115,7 +115,7 @@ namespace kraEngineSDK {
     virtual ConstantBuffer<Vector4>*
     createConstantBufferInstanceVec3() = 0;
     
-    virtual SamplerState*
+    virtual ShrdPtr<SamplerState>
     createSamplerStateInstance() = 0;
     
     virtual ShrdPtr<Texture>
@@ -127,7 +127,7 @@ namespace kraEngineSDK {
     /*virtual Material*
     createMaterialInstance() = 0;*/
     
-    virtual RasterizerState*
+    virtual ShrdPtr<RasterizerState>
     creatreRasterizerStateInstance() = 0;
 
   };

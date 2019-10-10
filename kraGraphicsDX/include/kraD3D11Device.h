@@ -76,7 +76,7 @@ namespace kraEngineSDK {
     void
     PresentSwapChain();
     
-    RenderTargetView*
+    ShrdPtr<RenderTargetView>
     createRenderTargetInsttance();
     
     Viewport*
@@ -85,16 +85,16 @@ namespace kraEngineSDK {
     InputLayout*
     createInputLayoutInstance();
     
-    DepthStencil*
+    ShrdPtr<DepthStencil>
     createDepthStencilInstance();
     
-    DepthStencylView*
+    ShrdPtr<DepthStencilView>
     createDepthStencilViewInstance();
     
-    VertexShader*
+    ShrdPtr<VertexShader>
     createVertexShaderInstance();
     
-    PixelShader*
+    ShrdPtr<PixelShader>
     createPixelShaderInstance();
     
     VertexBuffer*
@@ -118,7 +118,7 @@ namespace kraEngineSDK {
     ConstantBuffer<Vector4>*
     createConstantBufferInstanceVec3();
     
-    SamplerState*
+    ShrdPtr<SamplerState>
     createSamplerStateInstance(); 
     
     ShrdPtr<Texture>
@@ -130,7 +130,7 @@ namespace kraEngineSDK {
     /*Material*
     createMaterialInstance();*/
     
-    RasterizerState*
+    ShrdPtr<RasterizerState>
     creatreRasterizerStateInstance();
     
     ID3D11Device* m_pd3dDevice = nullptr;

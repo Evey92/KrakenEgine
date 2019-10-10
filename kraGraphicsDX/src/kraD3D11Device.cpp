@@ -179,9 +179,9 @@ namespace kraEngineSDK {
     m_pSwapChain.m_pd3dSwapChain->Present(1, 0);
   }
 
-  RenderTargetView*
+  ShrdPtr<RenderTargetView>
   DeviceDX::createRenderTargetInsttance() {
-    return new RenderTargetViewDX();
+    return std::make_shared<RenderTargetViewDX>();
   }
 
   Viewport*
@@ -194,23 +194,24 @@ namespace kraEngineSDK {
     return new InputLayoutDX();
   }
 
-  DepthStencil*
+  ShrdPtr<DepthStencil>
   DeviceDX::createDepthStencilInstance() {
-    return new DepthStencilDX();
+    return std::make_shared<DepthStencilDX>();
   }
 
-  DepthStencylView*
+  ShrdPtr<DepthStencilView>
   DeviceDX::createDepthStencilViewInstance() {
-    return new DepthStencylViewDX();
+    return std::make_shared<DepthStencylViewDX>();
   }
 
-  VertexShader*
+  ShrdPtr<VertexShader>
   DeviceDX::createVertexShaderInstance() {
-    return new VertexShaderDX();
+    return std::make_shared<VertexShaderDX>();
   }
-  PixelShader*
+
+  ShrdPtr<PixelShader>
   DeviceDX::createPixelShaderInstance() {
-    return new PixelShaderDX();
+    return std::make_shared<PixelShaderDX>();
   }
   VertexBuffer*
   DeviceDX::createVertexBufferInstance() {
@@ -242,9 +243,9 @@ namespace kraEngineSDK {
     DeviceDX::createConstantBufferInstanceVec3() {
     return new ConstantBufferDX<Vector4>();
   }
-  SamplerState*
+  ShrdPtr<SamplerState>
   DeviceDX::createSamplerStateInstance() {
-    return new SamplerStateDX();
+    return std::make_shared<SamplerStateDX>();
   }
 
   ShrdPtr<Texture>
@@ -264,8 +265,8 @@ namespace kraEngineSDK {
     return new Material();
   }*/
   
-  RasterizerState*
+  ShrdPtr<RasterizerState>
   DeviceDX::creatreRasterizerStateInstance() {
-    return new RasterizerStateDX();
+    return std::make_shared<RasterizerStateDX>();
   }
 }

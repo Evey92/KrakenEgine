@@ -80,7 +80,7 @@ const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
   }
 
   void
-  RenderTargetViewDX::setRenderTarget(const Device& pDevice, const DepthStencylView& pDSV) {
+  RenderTargetViewDX::setRenderTarget(const Device& pDevice, const DepthStencilView& pDSV) {
 
     const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
     const DepthStencylViewDX& m_DSV = static_cast<const DepthStencylViewDX&>(pDSV);
