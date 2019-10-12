@@ -216,61 +216,7 @@
     <ClCompile Include="src\kraTransform.cpp">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClCompile>
-    <ClCompile Include="src\kraConstantBuffer.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraDepthStencil.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraDepthStencilView.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraDevice.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraDeviceContext.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraGraphicsAPI.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraGraphicsBuffer.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraIndexBuffer.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraInputLayout.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraPixelShader.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraRasterizerState.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
     <ClCompile Include="src\kraRenderAPIManager.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraSampler.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraShader.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraShaderResourceView.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraSwapChain.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraVertexBuffer.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraVertexShader.cpp">
-      <Filter>Source Files\kraGraphics</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraViewport.cpp">
       <Filter>Source Files\kraGraphics</Filter>
     </ClCompile>
   </ItemGroup>

@@ -107,9 +107,13 @@
     kraEngineSDK::SceneGraph* sc = SceneManager::instance().getActiveScene()->m_sceneGraph;
 
     ImGui::Begin("Scene Graph");
-    
+    if (ImGui::OpenPopupOnItemClick("Scenegrapgh context menu", 1)) {
+      ImGui::Text("Hi I'm Elfo");
+    }
+
     ImGui::Text(scene->m_name.c_str());
 
+    
     for (auto& node : sc->getSceneNodes())
     {  
       drawSceneGraphNode(node); 
@@ -121,20 +125,36 @@
   void
   UIManager::drawSceneGraphNode(GameObject* node) {
     
+    static int selection_mask = (1 << 2);
+    int node_clicked = -1;
+
     if (node->getName() == "Root")
     {
       return;
     }
 
-    if (ImGui::TreeNode(node->getName().c_str()))
-    {
+    ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+    if (m_selectedNode == node) {
+      node_flags |= ImGuiTreeNodeFlags_Selected;
       showInspector(node);
+    }
 
+    bool nodeOpen = ImGui::TreeNodeEx(static_cast<void*>(m_selectedNode), node_flags, node->getName().c_str());
+    
+    if (ImGui::IsItemClicked())
+    {
+      m_selectedNode = node;
+    }
+
+    if (nodeOpen)
+    {
       for (auto* nd : node->getChildren()) {
         drawSceneGraphNode(nd);
       }
+
       ImGui::TreePop();
     }
+    
   }
 
   void

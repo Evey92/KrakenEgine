@@ -6,7 +6,7 @@
 //Utility Headers
 #include <kraVector4.h>
 #include <kraMatrix4.h>
-
+#include <kraResourceLoading.h>
 //Core Headers
 #include <kraCameraManager.h>
 
@@ -124,7 +124,7 @@ class WinApp :
 #pragma region UTILITY_FUNCTIONS
  public:
 
-   //TODO: All of these should probably be on a resource manager
+   //TODO: All of these should probably be on a resource manager or at least utility
    bool
    loadModel() override;
 
@@ -135,7 +135,7 @@ class WinApp :
    loadTexture();
 
    String
-   loadFile();
+   loadFile(String filetypes);
 
    void
    CleanupDevice() override;

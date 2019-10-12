@@ -118,6 +118,7 @@ namespace kraEngineSDK {
     {
       return m_emissive;
     }
+    return nullptr;
   }
 
 }

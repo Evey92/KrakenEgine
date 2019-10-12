@@ -18,20 +18,30 @@ namespace kraEngineSDK {
 
     bool
     createRenderTargetView(const Device& pDevice);
+    
     bool
     createRenderTargetView(const Device& pDevice, Texture* pTexture);
+    
     void
     setRenderTarget(const Device& pDevice, uint32 numViews);
+    
     void
     setRenderTarget(const Device& pDevice, const DepthStencilView& pDSV) override;
+    
+    void
+      setRenderTargets(Device* pDevice, Vector<RenderTargetView*> renderTargets, const DepthStencilView& pDSV);
+
     void 
     cleanRTV();
+    
     void
     clearRenderTarget(Device* pDevice, Vector4 clearColor);
+    
     void
     clearRenderTargets(Device* pDevice, Vector4 clearColor);
     
-    ID3D11RenderTargetView* m_pRenderTargetView = nullptr;
+    
+    ID3D11RenderTargetView* m_pRenderTargetView;
     Vector<ID3D11RenderTargetView*> m_viewsVec;
   };
 }

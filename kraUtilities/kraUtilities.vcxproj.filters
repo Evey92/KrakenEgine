@@ -5,144 +5,144 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Source Files\Include">
-      <UniqueIdentifier>{7d72d185-670a-4e14-a0d1-e40f9938ae43}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\src">
-      <UniqueIdentifier>{e1e77381-4199-4ad4-9e9f-cbdbf8ba8948}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Source.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraMath.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraVector4.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraWindowsMath.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraPlatformMath.cpp">
-      <Filter>Source Files\src</Filter>
+    <ClCompile Include="src\CameraManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\kraAABB.cpp">
-      <Filter>Source Files\src</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\kraBox2d.cpp">
-      <Filter>Source Files\src</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\kraFrustrum.cpp">
-      <Filter>Source Files\src</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraMath.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\kraMatrix4.cpp">
-      <Filter>Source Files\src</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\kraOOBB.cpp">
-      <Filter>Source Files\src</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\kraRay.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraSphere.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraTriangle.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraVector2.cpp">
-      <Filter>Source Files\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\kraVector3.cpp">
-      <Filter>Source Files\src</Filter>
+    <ClCompile Include="src\kraPlatformMath.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\kraProfiler.cpp">
-      <Filter>Source Files\src</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\kraQuaternion.cpp">
-      <Filter>Source Files\src</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CameraManager.cpp">
-      <Filter>Source Files\src</Filter>
+    <ClCompile Include="src\kraRay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraResourceLoading.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraSphere.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraTriangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraVector2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraVector3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraVector4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraWindowsMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Source.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\kraMath.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraPlatformDefines.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraPlatformMath.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraPlatformTypes.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraPrerequisitesUtil.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraVector4.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraWindowsMath.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraAABB.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraBox2d.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraFrustrum.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraMatrix4.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraOOBB.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraRay.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraSphere.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraTriangle.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraVector3.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraVector2.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraProfiler.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraStdheaders.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraVertex.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraModule.h">
-      <Filter>Source Files\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\kraQuaternion.h">
-      <Filter>Source Files\Include</Filter>
+    <ClInclude Include="include\CameraManager.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\kraPlane.h">
-      <Filter>Source Files\src</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="CameraManager.h">
-      <Filter>Source Files\Include</Filter>
+    <ClInclude Include="include\kraResourceLoading.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraAABB.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraBox2d.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraFrustrum.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="include\kraMacros.h">
-      <Filter>Source Files\Include</Filter>
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraMath.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraMatrix4.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraModule.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraOOBB.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraPlatformDefines.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraPlatformMath.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraPlatformTypes.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraPrerequisitesUtil.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraProfiler.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraQuaternion.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraRay.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraSphere.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraStdheaders.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraTriangle.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraVector2.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraVector3.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraVector4.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraVertex.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraWindowsMath.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

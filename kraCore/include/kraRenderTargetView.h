@@ -26,6 +26,9 @@ namespace kraEngineSDK {
     setRenderTarget(const Device& pDevice, const DepthStencilView& pDSV) = 0;
 
     virtual void
+    setRenderTargets(Device* pDevice, Vector<RenderTargetView*> renderTargets, const DepthStencilView& pDSV) = 0;
+
+    virtual void
     cleanRTV() = 0;
 
     virtual void
@@ -33,7 +36,6 @@ namespace kraEngineSDK {
 
     virtual void
     clearRenderTargets(Device* pDevice, Vector4 clearColor) = 0;
-
 
   };
 }

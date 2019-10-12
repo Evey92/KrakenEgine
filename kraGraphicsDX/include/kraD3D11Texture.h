@@ -30,11 +30,11 @@ namespace kraEngineSDK {
     createRenderableTexture2D(const Device& pDevice, int height, int width);
 
     bool
-    createTexture2DFromFile(const Device& pDevice, 
-                            std::string filename,
+    createTexture2DFromFile(const Device& device,
+                            String filename,
                             GFX_FORMAT::E format,
                             GFX_USAGE::E usage,
-                            CPU_USAGE::E cpuUsage);
+                            CPU_USAGE::E  cpuUsage) override;
     void
     setTextureShaderResource(const Device* pDevice,
                              uint32 startSlot,
@@ -44,10 +44,10 @@ namespace kraEngineSDK {
 
     ID3D11Resource* m_pd3dresoruce = nullptr;
     ID3D11Texture2D* m_pd3dTexture2D = nullptr;
-    ID3D11ShaderResourceView* m_pTextureRV = nullptr;
+    ID3D11ShaderResourceView* m_pSRV = nullptr;
+    ID3D11UnorderedAccessView* m_UAV = nullptr;
     int m_height = 0;
     int m_width = 0;
-    std::string m_missingTexture = "resources/Textures/missingChecker.png";
-
+    bool m_isHDR = false;
   };
 }

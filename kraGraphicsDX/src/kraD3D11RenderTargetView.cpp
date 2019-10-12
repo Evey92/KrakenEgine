@@ -86,10 +86,27 @@ const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
     const DepthStencylViewDX& m_DSV = static_cast<const DepthStencylViewDX&>(pDSV);
 
 
-    //m_device.m_pImmediateContext->OMSetRenderTargets(m_viewsVec.size(), &m_viewsVec[0], m_DSV.m_pDepthStencilView);
     m_device.m_pImmediateContext->OMSetRenderTargets(1, &m_pRenderTargetView, m_DSV.m_pDepthStencilView);
+  }
+
+  //TODO: Also fix this bullshit. I'll probably need to refactor the whole architecture... 
+  void
+  RenderTargetViewDX::setRenderTargets(Device* pDevice, Vector<RenderTargetView*> renderTargets, const DepthStencilView& pDSV) {
 
     
+    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
+    const DepthStencylViewDX& m_DSV = static_cast<const DepthStencylViewDX&>(pDSV);
+
+    Vector<ID3D11RenderTargetView*> rtvector;
+
+    for (auto& rt : renderTargets)
+    {
+      RenderTargetViewDX* rtdx = static_cast<RenderTargetViewDX*>(rt);
+      rtvector.push_back(rtdx->m_pRenderTargetView);
+    }
+
+    m_pDevice->m_pImmediateContext->OMSetRenderTargets(rtvector.size(), &rtvector[0], m_DSV.m_pDepthStencilView);
+
 
   }
 
@@ -118,5 +135,4 @@ const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
       m_pDevice->m_pImmediateContext->ClearRenderTargetView(rt, &clearColor[0]);
     }
   }
-
 }

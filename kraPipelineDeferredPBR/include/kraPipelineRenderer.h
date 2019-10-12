@@ -47,12 +47,21 @@ namespace kraEngineSDK {
 
      GraphicsAPI* m_GFXAPI;
      Vector<ShrdPtr<RenderTargetView*>> m_GbufferTextures;
+     
      ShrdPtr<VertexShader> m_gbufferVS;
      ShrdPtr<PixelShader> m_gbufferPS;
+     ShrdPtr<InputLayout> m_pbrInputLayout;
 
-     ShrdPtr<VertexShader> m_toTextureVS;
-     ShrdPtr<PixelShader> m_toTexturePS;
-     ShrdPtr<PixelShader> m_PBRPS;
+     ShrdPtr<VertexShader> m_skyboxVS;
+     ShrdPtr<PixelShader> m_skyboxPS;
+     ShrdPtr<InputLayout> m_skyboxInputLayout;
+
+     ShrdPtr<VertexShader> m_toneMapVS;
+     ShrdPtr<PixelShader> m_toneMapPS;
+
+     /*ShrdPtr<VertexShader> m_toTextureVS;
+     ShrdPtr<PixelShader> m_toTexturePS;*/
+     
 
 
   };

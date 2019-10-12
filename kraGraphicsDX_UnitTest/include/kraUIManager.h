@@ -11,8 +11,6 @@
 
 using namespace kraEngineSDK;
 
-
-
   class UIManager : public Module<UIManager>{
 
   public:
@@ -33,7 +31,7 @@ using namespace kraEngineSDK;
     showSceneGraph(Scene* sg);
 
     void
-    drawSceneGraphNode(GameObject* node);
+      drawSceneGraphNode(GameObject* node);
 
     void
     showInspector(GameObject* gameObj);
@@ -57,9 +55,14 @@ using namespace kraEngineSDK;
 
 #pragma endregion COMPONENT_UI
 
+    //Ugly ass reference to the node selected in the hierarchy 
+    GameObject* m_selectedNode;
+
   protected:
 
     void
     onShutdown() override;
+
+
 
   };

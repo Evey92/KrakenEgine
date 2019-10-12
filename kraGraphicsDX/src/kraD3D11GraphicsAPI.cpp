@@ -43,7 +43,19 @@ namespace kraEngineSDK {
     m_device->cleanDevice();
   }
 
-  Device* 
+  void 
+  GraphicsAPIDX::onStartUp()
+  {
+    
+  }
+
+  void 
+  GraphicsAPIDX::onShutdown()
+  {
+    
+  }
+
+  Device*
   GraphicsAPIDX::getDevice()
   {
     return m_device;

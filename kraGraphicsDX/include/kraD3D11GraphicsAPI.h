@@ -64,5 +64,13 @@ namespace kraEngineSDK {
     Vector4 m_meshColor = Vector4(.7f, .7f, .7f, 1.0f);
     Viewport* m_viewport;
 
+  protected:
+    virtual void 
+    onStartUp() override;
+
+
+    virtual void 
+    onShutdown() override;
+
   };
 }

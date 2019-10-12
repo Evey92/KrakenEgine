@@ -14,7 +14,9 @@ namespace kraEngineSDK {
     ~SamplerStateDX() {}
 
     bool
-    createSamplerState(const Device& pDevice);
+      createSamplerState(const Device& pDevice,
+                         SAMPLER_FILTER::E filter,
+                         TEXTURE_ADDRESS_MODE::E addressMode);
 
     void
     setSamplerState(const Device& pDevice);

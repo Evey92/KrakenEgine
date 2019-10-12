@@ -1,4 +1,5 @@
 #include <kraDevice.h>
+#include <kraResourceLoading.h>
 
 #include "kraD3D11Device.h"
 #include "kraD3D11Texture.h"
@@ -40,60 +41,41 @@ namespace kraEngineSDK {
     m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
   }
 
-  void
-  TextureDX::createTexture2D(void* pDevice, int height, int width,
-                             GFX_FORMAT::E format, void* bindFlag,
-                             GFX_USAGE::E usage = GFX_USAGE::E::kUSAGE_DEFAULT,
-                             CPU_USAGE::E cpuUsage = CPU_USAGE::E::kCPU_ACCESS_READ) {
-
-    ID3D11Device* m_pDevice = static_cast<ID3D11Device*>(pDevice);
-    D3D11_BIND_FLAG* m_bindFlag = static_cast<D3D11_BIND_FLAG*>(bindFlag);
-    
-    D3D11_TEXTURE2D_DESC* m_desc;
-    memset(&m_desc, 0, sizeof(m_desc));
-    m_desc->Height = height;
-    m_desc->Width = width;
-    m_desc->MipLevels = 1;
-    m_desc->ArraySize = 1;
-    m_desc->Format = static_cast<DXGI_FORMAT>(format);
-    m_desc->SampleDesc.Count = 1;
-    m_desc->SampleDesc.Quality = 0;
-    m_desc->Usage = static_cast<D3D11_USAGE>(usage);
-    m_desc->BindFlags = *m_bindFlag;
-    m_desc->CPUAccessFlags = cpuUsage;
-    m_desc->MiscFlags = 0;
-
-    D3D11_SUBRESOURCE_DATA initBuffer;
-    memset(&initBuffer, 0, sizeof(initBuffer));
-    m_pDevice->CreateTexture2D(m_desc, NULL, &m_pd3dTexture2D);
+ 
+  void 
+  TextureDX::createTexture2D(void* pDevice, int height, int width, GFX_FORMAT::E format, void* bindFlag, GFX_USAGE::E usage, CPU_USAGE::E cpuUsage)
+  {
+    //TODO
   }
 
-  bool
+  void 
+  TextureDX::createRenderableTexture2D(const Device& pDevice, int height, int width)
+  {
+    //TODO
+  }
+
+  bool 
   TextureDX::createTexture2DFromFile(const Device& pDevice, 
-                                     std::string filename,
-                                     GFX_FORMAT::E format,
-                                     GFX_USAGE::E usage = GFX_USAGE::E::kUSAGE_DEFAULT,
-                                     CPU_USAGE::E  cpuUsage = CPU_USAGE::E::kCPU_ACCESS_READ) {
-    
+                                     String filename, 
+                                     GFX_FORMAT::E format, 
+                                     GFX_USAGE::E usage, 
+                                     CPU_USAGE::E cpuUsage)
+  {
     const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
     HRESULT hr = S_OK;
+
+    Image image;
+    unsigned char* pixels;
     int channels;
 
-    auto image = stbi_load(filename.c_str(), &m_width, &m_height, &channels, 4);
-
-    if (!image)
+    if (EngineUtility::LoadImageFromFile(filename, &image))
     {
-      //MessageBox(NULL, "Couldnt find texture, loading default texture", "Error", MB_OK);
-      
-      std::cout << "Couldnt find texture, loading default texture\n";
-      //throw std::exception("Texture couldn't be loaded." );
-      stbi_image_free(image);
-      image = stbi_load(m_missingTexture.c_str(), &m_width, &m_height, &channels, 4);
-    }
-    else
-    {
-      std::cout << "Texture loaded succesfully\n";
+      m_width = image.m_width;
+      m_height = image.m_height;
+      m_isHDR = image.m_isHDR;
+      channels = image.channels;
+      pixels = image.pixels;
     }
 
     D3D11_TEXTURE2D_DESC descTexture;
@@ -108,12 +90,12 @@ namespace kraEngineSDK {
     descTexture.SampleDesc.Quality = 0;
     descTexture.Usage = static_cast<D3D11_USAGE>(usage);
     descTexture.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-    descTexture.CPUAccessFlags = cpuUsage;
+    descTexture.CPUAccessFlags = static_cast<D3D11_CPU_ACCESS_FLAG>(cpuUsage);
     descTexture.MiscFlags = 0;
 
     D3D11_SUBRESOURCE_DATA initBuffer;
     memset(&initBuffer, 0, sizeof(initBuffer));
-    initBuffer.pSysMem = image;
+    initBuffer.pSysMem = pixels;
     initBuffer.SysMemPitch = m_width * 4;
 
     hr = m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
@@ -121,9 +103,16 @@ namespace kraEngineSDK {
       return false;
     }
 
-    stbi_image_free(image);
+    stbi_image_free(pixels);
 
-    m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, NULL, &m_pTextureRV);
+    D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+    memset(&srvDesc, 0, sizeof(srvDesc));
+    srvDesc.Format = static_cast<DXGI_FORMAT>(format);
+    srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+    srvDesc.Texture2D.MostDetailedMip = 0;
+    srvDesc.Texture2D.MipLevels = -1;
+
+    m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, &srvDesc, &m_pSRV);
 
     return true;
   }
@@ -137,7 +126,7 @@ namespace kraEngineSDK {
 
     m_pDevice->m_pImmediateContext->PSSetShaderResources(startSlot,
                                                          numViews,
-                                                         &m_pTextureRV);
+                                                         &m_pSRV);
   }
 
   void

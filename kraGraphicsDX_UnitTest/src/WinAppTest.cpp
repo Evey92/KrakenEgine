@@ -18,8 +18,8 @@ WinApp::Initialize()
   HINSTANCE GFXDLL;
   HINSTANCE INPUTDLL;
 
-  std::string GFXpath = "kraGraphicsDXd.dll";
-  std::string Inputpath = "kraInputManagerd.dll";
+  String GFXpath("kraGraphicsDXd.dll");
+  String Inputpath("kraInputManagerd.dll");
 
   //TODO: I REALLY NEED TO FIX THIS BULLSHIT. I need to make something to handle dynamic library loading. 
 
@@ -78,7 +78,7 @@ WinApp::Initialize()
   }
 
   //Create the main window
-  String name = "Kraken Engine";
+  String name("Kraken Engine");
 
   m_window = new Win32Window(1600, 1040, name, Vector2(0, 0));
   if (!m_window->initWindow(m_nCmdShow))
@@ -98,9 +98,10 @@ WinApp::Initialize()
     return false;
   }
 
-  //Create The main Render target or Backbuffer
+  //Create The main Render target for Backbuffer
   m_backBufferRTV = m_gfxAPIInstance->getDevice()->createRenderTargetInsttance();
   m_backBufferRTV->createRenderTargetView(*m_gfxAPIInstance->getDevice());
+  m_backBufferRTV->setRenderTarget(*m_gfxAPIInstance->getDevice(), 1);
 
   //Create and set the viewport
   m_viewport = m_gfxAPIInstance->getDevice()->createViewportInstance();
@@ -117,8 +118,6 @@ WinApp::Initialize()
   m_depthStencilView = m_gfxAPIInstance->getDevice()->createDepthStencilViewInstance();
   m_depthStencilView->createDepthStencilView(*m_gfxAPIInstance->getDevice(), *m_defaultDepthStencil);
 
-  m_backBufferRTV->setRenderTarget(*m_gfxAPIInstance->getDevice(), *m_depthStencilView);
-
   //Create a texture manager
   m_textureManager = m_gfxAPIInstance->getDevice()->createTextureInstance();
 
@@ -127,8 +126,18 @@ WinApp::Initialize()
   m_rasterizerState->createRasterizerState(*m_gfxAPIInstance->getDevice(),
                                            FILL_MODE::kFILL_SOLID,
                                            CULL_MODE::kCULL_BACK);
+  //Create default sampler state
+  m_defaultSampler = m_gfxAPIInstance->getDevice()->createSamplerStateInstance();
+  m_defaultSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
+                                       SAMPLER_FILTER::E::kFILTER_ANISOTROPIC,
+                                       TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_WRAP);
 
-
+  //Create compute sampler state to calculate the environment cube map
+  m_computeSampler = m_gfxAPIInstance->getDevice()->createSamplerStateInstance();
+  m_computeSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
+                                       SAMPLER_FILTER::kFILTER_COMPARISON_MIN_MAG_MIP_LINEAR,
+                                       TEXTURE_ADDRESS_MODE::kTEXTURE_ADDRESS_WRAP);
+  
   //Startup Camera manager module
   CameraManager::StartUp<CameraManager>();
   
@@ -199,6 +208,9 @@ WinApp::render()
 
   UIManager::instance().renderUI();
 
+  //TODO: ActiveRederPipeline.render();
+
+  //TODO: Move to render pipeline
   m_gfxAPIInstance->getDevice()->PresentSwapChain();
 
 }
@@ -250,7 +262,8 @@ WinApp::setActiveCamera(Camera* newCam)
 
 bool WinApp::loadModel()
 {
-  String filename = loadFile();
+  String filetypes("FBX Files\0*.fbx\0OBJ Files\0*.obj\0Any File\0*.*\0");
+  String filename = EngineUtility::loadFile(&filetypes[0], m_window->gethWnd());
 
   if (filename != "") {
 
@@ -261,6 +274,8 @@ bool WinApp::loadModel()
     newGO->addComponent<Model>(newGO);
     newGO->getComponent<Model>().loadModelFromFile(filename, *m_gfxAPIInstance->getDevice());
     SceneManager::instance().getActiveScene()->addNewNode(newGO);
+
+    m_modelsVector.push_back(make_shared<Model>(newGO->getComponent<Model>()));
   }
 
   return true;
@@ -269,41 +284,19 @@ bool WinApp::loadModel()
 bool 
 WinApp::loadTexture()
 {
-  //TODO: Texture loading
-  String filename = loadFile();
+  String filetypes("PNG Files\0*.png\0JPG Files\0*.jpg\0Any File\0*.*\0");
+  
+  String filename = EngineUtility::loadFile(filetypes, m_window->gethWnd());
   //m_textureManager->createTexture2D();
   return true;
 }
 
-String 
-WinApp::loadFile()
-{
-  char filename[MAX_PATH];
-  memset(&filename, 0, sizeof(filename));
-
-  OPENFILENAME ofn;
-  memset(&ofn, 0, sizeof(ofn));
-
-  ofn.lStructSize = sizeof(ofn);
-  ofn.hwndOwner = m_window->m_hWnd;
-  ofn.lpstrFilter = "FBX Files\0*.fbx\0OBJ Files\0*.obj\0Any File\0*.*\0";
-  ofn.lpstrFile = filename;
-  ofn.nMaxFile = MAX_PATH;
-  ofn.lpstrTitle = "Choose a File!";
-  ofn.Flags = OFN_DONTADDTORECENT | OFN_FILEMUSTEXIST;
-
-  if (GetOpenFileName(&ofn))
-  {
-    std::cout << "You chose the file \"" << filename << "\"\n";
-    return filename;
-  }
-  else
-  {
-    std::cout << "There was an error and the file couldn't be opened";
-    return "";
-  }
-
-}
+//Moved to resource lodaing
+//String 
+//WinApp::loadFile(String filetypes)
+//{
+//  
+//}
 
 //HINSTANCE 
 //WinApp::loadDLL()

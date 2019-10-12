@@ -98,7 +98,7 @@
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
       <UseFullPaths>false</UseFullPaths>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)EASTL/test/packages/EABase/include/Common/;$(DEVLIBS)EASTL/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)EASTL/test/packages/EABase/include/Common/;$(DEVLIBS)EASTL/include/;$(DEVLIBS)stb/include/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_UTILITY_EXPORTS</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp14</LanguageStandard>
@@ -118,7 +118,7 @@
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
       <UseFullPaths>false</UseFullPaths>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)EASTL/test/packages/EABase/include/Common/;$(DEVLIBS)EASTL/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)EASTL/test/packages/EABase/include/Common/;$(DEVLIBS)EASTL/include/;$(DEVLIBS)stb/include/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_UTILITY_EXPORTS</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp14</LanguageStandard>
@@ -140,7 +140,7 @@
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
       <UseFullPaths>false</UseFullPaths>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)EASTL/test/packages/EABase/include/Common/;$(DEVLIBS)EASTL/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)EASTL/test/packages/EABase/include/Common/;$(DEVLIBS)EASTL/include/;$(DEVLIBS)stb/include/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_UTILITY_EXPORTS</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp14</LanguageStandard>
@@ -164,7 +164,7 @@
       <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
       <UseFullPaths>false</UseFullPaths>
-      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)EASTL/test/packages/EABase/include/Common/;$(DEVLIBS)EASTL/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./include/;$(DEVLIBS)EASTL/test/packages/EABase/include/Common/;$(DEVLIBS)EASTL/include/;$(DEVLIBS)stb/include/</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>KRA_UTILITY_EXPORTS</PreprocessorDefinitions>
       <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
       <LanguageStandard>stdcpp14</LanguageStandard>
@@ -180,7 +180,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CameraManager.cpp" />
+    <ClCompile Include="src\CameraManager.cpp" />
     <ClCompile Include="src\kraAABB.cpp" />
     <ClCompile Include="src\kraBox2d.cpp" />
     <ClCompile Include="src\kraFrustrum.cpp" />
@@ -191,6 +191,7 @@
     <ClCompile Include="src\kraProfiler.cpp" />
     <ClCompile Include="src\kraQuaternion.cpp" />
     <ClCompile Include="src\kraRay.cpp" />
+    <ClCompile Include="src\kraResourceLoading.cpp" />
     <ClCompile Include="src\kraSphere.cpp" />
     <ClCompile Include="src\kraTriangle.cpp" />
     <ClCompile Include="src\kraVector2.cpp" />
@@ -200,7 +201,7 @@
     <ClCompile Include="src\Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="include\CameraManager.h" />
     <ClInclude Include="include\kraAABB.h" />
     <ClInclude Include="include\kraBox2d.h" />
     <ClInclude Include="include\kraFrustrum.h" />
@@ -217,6 +218,7 @@
     <ClInclude Include="include\kraProfiler.h" />
     <ClInclude Include="include\kraQuaternion.h" />
     <ClInclude Include="include\kraRay.h" />
+    <ClInclude Include="include\kraResourceLoading.h" />
     <ClInclude Include="include\kraSphere.h" />
     <ClInclude Include="include\kraStdheaders.h" />
     <ClInclude Include="include\kraTriangle.h" />
