@@ -17,9 +17,11 @@ WinApp::Initialize()
 
   HINSTANCE GFXDLL;
   HINSTANCE INPUTDLL;
+  HINSTANCE RENDERDLL;
 
   String GFXpath("kraGraphicsDXd.dll");
   String Inputpath("kraInputManagerd.dll");
+  String Renderpath("kraDeferredPBRendererd.dll");
 
   //TODO: I REALLY NEED TO FIX THIS BULLSHIT. I need to make something to handle dynamic library loading. 
 
