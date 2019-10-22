@@ -6,8 +6,9 @@
 #include "kraD3D11GraphicsAPI.h"
 
 namespace kraEngineSDK {
-  class KRA_UTILGFX_EXPORT RenderAPIManagerDX : public RenderAPIManager
-  {
+  class KRA_UTILGFX_EXPORT RenderAPIManagerDX : 
+    public RenderAPIManager {
+
    public:
 
      RenderAPIManagerDX() = default;

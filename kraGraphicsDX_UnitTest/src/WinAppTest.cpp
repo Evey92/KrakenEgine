@@ -13,7 +13,8 @@ WinApp::Initialize()
 
   std::ostringstream stream;
   typedef GraphicsAPI* (*initGFXFunc)();
-  typedef InputAPI* (*initInptFunc)();
+  typedef InputAPI* (*initInptFunc)(); 
+  typedef RenderPipeline* (*initRenderFunc)();
 
   HINSTANCE GFXDLL;
   HINSTANCE INPUTDLL;
@@ -75,6 +76,33 @@ WinApp::Initialize()
   m_inputAPIInstance = initInputAPIFunc();
   if (!m_inputAPIInstance) {
     MessageBox(NULL, "Failed to create Input API", "Error", MB_OK);
+
+    return false;
+  }
+
+  //Load Render pipeline DLL
+  RENDERDLL = LoadLibraryEx(Renderpath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
+  if (!RENDERDLL) {
+    DWORD err = GetLastError();
+    MessageBox(NULL, "Could not find specified renderer DLL. Error: " + err, "Error", MB_OK);
+
+    FreeLibrary(RENDERDLL);
+    return false;
+  }
+
+  //Get function to startup Render Pipeline module with selected pipeline 
+  initRenderFunc initPipelineFunc = (initRenderFunc)GetProcAddress(RENDERDLL, "createRenderPipeline");
+  if (!initPipelineFunc) {
+    MessageBox(NULL, "Could not find specified render function. Error: ", "Error", MB_OK);
+
+    FreeLibrary(RENDERDLL);
+    return false;
+  }
+
+  //Startup the graphics module, and get the pointer to the instance
+  m_renderPipeInstance = initPipelineFunc();
+  if (!m_renderPipeInstance) {
+    MessageBox(NULL, "Failed to create Renderer", "Error", MB_OK);
 
     return false;
   }
@@ -168,9 +196,13 @@ WinApp::run()
   MSG msg = { 0 };
   while (m_window->isOpen())
   {
+    m_renderPipeInstance->Setup();
     m_window->handleMSG(static_cast<void*>(&msg), *m_inputManager);
     update();
+    
+    //m_renderPipeInstance->render();
     render();
+
   }
 
   destroy();

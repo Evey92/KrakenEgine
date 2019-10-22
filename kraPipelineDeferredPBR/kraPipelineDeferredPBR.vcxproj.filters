@@ -10,12 +10,18 @@
     <ClInclude Include="include\kraPrerequisitesPBRenderer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\kraPipelineRenderer.h">
+    <ClInclude Include="include\kraPBRenderPipelineManager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraPBRPipelineRenderer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\kraPipelineRenderer.cpp">
+    <ClCompile Include="src\kraPBRenderPipelineManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraPBRPipelineRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

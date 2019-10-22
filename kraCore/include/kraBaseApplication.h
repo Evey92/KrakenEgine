@@ -25,6 +25,9 @@
 #include "kraInputAPI.h"
 #include "kraInputManager.h"
 
+//Renderer headers
+#include "kraRenderPipeline.h"
+
 namespace kraEngineSDK {
   
   namespace Button
@@ -183,8 +186,10 @@ namespace kraEngineSDK {
     SceneManager* m_sceneManager = nullptr;
     GraphicsAPI* m_gfxAPIInstance = nullptr;
     InputAPI* m_inputAPIInstance = nullptr;
+    RenderPipeline* m_renderPipeInstance = nullptr;
     Matrix4 m_world = Matrix4::IDENTITY;
     Matrix4 m_projection = Matrix4::ZERO;
+    ShrdPtr<Texture> m_textureManager = nullptr;
 
 #pragma endregion PROTECTED_MEMBERS
 

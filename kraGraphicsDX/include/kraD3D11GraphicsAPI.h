@@ -49,20 +49,7 @@ namespace kraEngineSDK {
     Cleanup() override;
 
     Device* m_device = nullptr;
-    RenderTargetView* m_renderT;
-    DepthStencil* m_depthStencil;
-    DepthStencylView* m_depthStencilView;
-    InputLayout* m_inputLayout;
-    VertexShader* m_vertexShader;
-    PixelShader* m_pixelShader;
-    ShaderResourceView* m_SRV;
-    RasterizerState* m_rasState;
-    SamplerState* m_samplerState;
-    Matrix4 m_World;
-    Matrix4 m_View;
-    Matrix4 m_Projection;
     Vector4 m_meshColor = Vector4(.7f, .7f, .7f, 1.0f);
-    Viewport* m_viewport;
 
   protected:
     virtual void 

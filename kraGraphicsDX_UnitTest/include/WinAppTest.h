@@ -151,6 +151,10 @@ class WinApp :
 
 #pragma region PRIVARE_MEMBERS
 
+ public:
+   
+
+
  private:
    Vector<ShrdPtr<Model>> m_modelsVector;
    ShrdPtr<RenderTargetView> m_backBufferRTV = nullptr;
@@ -165,7 +169,6 @@ class WinApp :
    ShrdPtr<SamplerState> m_BRDFSampler;
 
    Viewport* m_viewport = nullptr;
-   ShrdPtr<Texture> m_textureManager = nullptr;
    String modelPath = "resources/Models/";
    Win32Window* m_window = nullptr;
    Vector4 ClearColor = { 0.329f, 0.050f, 0.431f, 1.0f };

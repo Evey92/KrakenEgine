@@ -173,11 +173,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\kraPipelineRenderer.h" />
+    <ClInclude Include="include\kraPBRenderPipelineManager.h" />
+    <ClInclude Include="include\kraPBRPipelineRenderer.h" />
     <ClInclude Include="include\kraPrerequisitesPBRenderer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\kraPipelineRenderer.cpp" />
+    <ClCompile Include="src\kraPBRenderPipelineManager.cpp" />
+    <ClCompile Include="src\kraPBRPipelineRenderer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

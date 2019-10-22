@@ -20,6 +20,9 @@
     <Filter Include="Source Files\Physics">
       <UniqueIdentifier>{62bc65d4-5d45-4e98-bb8b-1b4d4c4abb8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\RenderPipeline">
+      <UniqueIdentifier>{46ef1ef2-ee6c-4113-8dd4-c6c4203ef503}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\kraBaseApplication.h">
@@ -166,6 +169,12 @@
     <ClInclude Include="include\kraGFXMappings.h">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraRenderPipeline.h">
+      <Filter>Source Files\RenderPipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="include\kraRenderPipelineManager.h">
+      <Filter>Source Files\RenderPipeline</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraBaseApplication.cpp">
@@ -218,6 +227,9 @@
     </ClCompile>
     <ClCompile Include="src\kraRenderAPIManager.cpp">
       <Filter>Source Files\kraGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraRenderPipeline.cpp">
+      <Filter>Source Files\RenderPipeline</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
