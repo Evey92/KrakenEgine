@@ -41,7 +41,7 @@ namespace kraEngineSDK {
     clearRenderTargets(Device* pDevice, Vector4 clearColor);
     
     
-    ID3D11RenderTargetView* m_pRenderTargetView;
+    ID3D11RenderTargetView* m_pRenderTargetView = nullptr;
     Vector<ID3D11RenderTargetView*> m_viewsVec;
   };
 }

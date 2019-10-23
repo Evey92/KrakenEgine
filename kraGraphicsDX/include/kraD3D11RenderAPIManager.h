@@ -17,7 +17,7 @@ namespace kraEngineSDK {
     GraphicsAPI*
     initializeGraphicsAPI();
 
-    bool m_APIInitialized;
+    bool m_APIInitialized = false;
   };
 
   /*GraphicsAPI*

@@ -8,8 +8,9 @@ namespace kraEngineSDK {
   class Viewport;
   class DepthStencil;
   class DepthStencilView;
-  class PixelShader;
   class VertexShader;
+  class PixelShader;
+  class ComputeShader;
   class VertexBuffer;
   class IndexBuffer;
   class SamplerState;
@@ -93,6 +94,9 @@ namespace kraEngineSDK {
     
     virtual ShrdPtr<PixelShader>
     createPixelShaderInstance() = 0;
+
+    virtual ShrdPtr<ComputeShader>
+    createComputeShaderInstance() = 0;
     
     virtual VertexBuffer*
     createVertexBufferInstance() = 0;

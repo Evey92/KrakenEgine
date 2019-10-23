@@ -186,6 +186,7 @@
     <ClInclude Include="include\kraCollider.h" />
     <ClInclude Include="include\kraCommonTypes.h" />
     <ClInclude Include="include\kraComponent.h" />
+    <ClInclude Include="include\kraComputeShader.h" />
     <ClInclude Include="include\kraConstantBuffer.h" />
     <ClInclude Include="include\kraConstantBufferMatrices.h" />
     <ClInclude Include="include\kraDepthStencil.h" />

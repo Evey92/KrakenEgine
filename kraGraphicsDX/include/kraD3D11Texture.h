@@ -39,6 +39,11 @@ namespace kraEngineSDK {
     setTextureShaderResource(const Device* pDevice,
                              uint32 startSlot,
                              uint32 numViews);
+
+    void 
+    setTextureComputeShaderResource(const Device* pDevice, uint32 startSlot, uint32 numViews) override;
+
+
     void
     releaseTexture();
 
@@ -49,5 +54,7 @@ namespace kraEngineSDK {
     int m_height = 0;
     int m_width = 0;
     bool m_isHDR = false;
+
+
   };
 }

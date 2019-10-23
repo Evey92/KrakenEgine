@@ -5,6 +5,7 @@
 #include <kraRenderPipeline.h>
 #include <kraVertexShader.h>
 #include <kraPixelShader.h>
+#include <kraComputeShader.h>
 
 #include "kraPrerequisitesPBRenderer.h"
 
@@ -32,9 +33,7 @@ namespace kraEngineSDK {
     render() override;
 
    private:
-
      
-
      void
      lightPass();
 
@@ -73,6 +72,8 @@ namespace kraEngineSDK {
 
      ShrdPtr<VertexShader> m_toneMapVS;
      ShrdPtr<PixelShader> m_toneMapPS;
+
+     ShrdPtr<ComputeShader> m_equirect2CubeCS;
 
      bool m_useIBL = true;
      /*ShrdPtr<VertexShader> m_toTextureVS;

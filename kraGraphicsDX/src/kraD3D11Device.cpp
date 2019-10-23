@@ -4,6 +4,9 @@
 #include <kraRenderTargetView.h>
 #include <kraViewport.h>
 #include <kraInputLayout.h>
+#include <kraVertexShader.h>
+#include <kraPixelShader.h>
+#include <kraComputeShader.h>
 #include <kraVertexBuffer.h>
 #include <kraIndexBuffer.h>
 #include <kraConstantBuffer.h>
@@ -21,6 +24,7 @@
 #include "kraD3D11InputLayout.h"
 #include "kraD3D11VertexShader.h"
 #include "kraD3D11PixelShader.h"
+#include "kraD3D11ComputeShader.h"
 #include "kraD3D11VertexBuffer.h"
 #include "kraD3D11IndexBuffer.h"
 #include "kraD3D11ConstantBuffer.h"
@@ -213,6 +217,13 @@ namespace kraEngineSDK {
   DeviceDX::createPixelShaderInstance() {
     return std::make_shared<PixelShaderDX>();
   }
+
+  ShrdPtr<ComputeShader>
+  DeviceDX::createComputeShaderInstance() {
+    return std::make_shared<ComputeShaderDX>();
+
+  }
+
   VertexBuffer*
   DeviceDX::createVertexBufferInstance() {
     return new VertexBufferDX();
@@ -269,4 +280,5 @@ namespace kraEngineSDK {
   DeviceDX::creatreRasterizerStateInstance() {
     return std::make_shared<RasterizerStateDX>();
   }
+
 }

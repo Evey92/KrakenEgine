@@ -5,14 +5,19 @@ namespace kraEngineSDK {
   void
     DeferredPBRenderer::initialize()
   {
-    //m_GFXAPI = GraphicsAPI::instance();
+    m_GFXAPI = GraphicsAPI::instancePtr();
     m_appInstance = BaseApplication::instancePtr();
-    m_PBRVS = make_shared<VertexShader>(GraphicsAPI::instance().getDevice()->createVertexShaderInstance());
-    //m_PBRPS = m_GFXAPI->getDevice()->createPixelShaderInstance();
-    m_PBRPS = make_shared<PixelShader>(GraphicsAPI::instance().getDevice()->createVertexShaderInstance());
-   
 
-    
+    //Init shaders
+    m_PBRVS = m_GFXAPI->getDevice()->createVertexShaderInstance();
+    m_PBRPS = m_GFXAPI->getDevice()->createPixelShaderInstance();
+    m_skyboxVS = m_GFXAPI->getDevice()->createVertexShaderInstance();
+    m_skyboxPS = m_GFXAPI->getDevice()->createPixelShaderInstance();
+    m_toneMapVS = m_GFXAPI->getDevice()->createVertexShaderInstance();
+    m_toneMapPS = m_GFXAPI->getDevice()->createPixelShaderInstance();
+    m_equirect2CubeCS = m_GFXAPI->getDevice()->createComputeShaderInstance();
+
+    m_skyboxInputLayout;
   }
 
   void 
@@ -40,13 +45,16 @@ namespace kraEngineSDK {
   DeferredPBRenderer::Setup()
   {
     //Set up PBR
-    m_PBRVS->compileVertexShader("gBufferShader.hlsl", "VS");
-    std::cout << "Setting up the pipeline\n";
-    //m_PBRPS->compilePixelShader("gBufferShader.hlsl", "PS");
+    m_PBRVS->compileVertexShader(L"PBR.hlsl", "VS");
+    m_PBRPS->compilePixelShader(L"PBR.hlsl", "PS");
 
     //Setup Skybox
+    m_skyboxVS->compileVertexShader(L"skyboxShader.hlsl", "VS");
+    m_skyboxPS->compilePixelShader(L"skyboxShader.hlsl", "PS");
 
-    //Setup tonemap
+    //Setup tonemapping
+    m_toneMapVS->compileVertexShader(L"toneMappingShader.hlsl", "VS");
+    m_toneMapPS->compilePixelShader(L"toneMappingShader.hlsl", "PS");
 
     //Setup IBL
     if (m_useIBL) {
@@ -58,8 +66,15 @@ namespace kraEngineSDK {
   void 
   DeferredPBRenderer::iblSetup()
   {
-    //create texture
-    //Texture envMap = m_GFXAPI->getDevice->createTextureInstance();
+    m_equirect2CubeCS->compileComputeShader(L"equirect2Cube.hlsl", "CS");
+    ShrdPtr<Texture> envitromentText = m_GFXAPI->getDevice()->createTextureInstance();
+    envitromentText->createTexture2DFromFile(*m_GFXAPI->getDevice(),
+                                             "enviroment.hdr",
+                                             GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                             GFX_USAGE::E::kUSAGE_DYNAMIC,
+                                             CPU_USAGE::E::kCPU_ACCESS_WRITE);
+
+    envitromentText
 
   }
 

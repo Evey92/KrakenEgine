@@ -175,6 +175,9 @@
     <ClInclude Include="include\kraRenderPipelineManager.h">
       <Filter>Source Files\RenderPipeline</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraComputeShader.h">
+      <Filter>Source Files\kraGraphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraBaseApplication.cpp">

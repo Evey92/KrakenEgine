@@ -16,6 +16,7 @@ namespace kraEngineSDK {
   class DepthStencylView;
   class VertexShader;
   class PixelShader;
+  class ComputeShader;
   class VertexBuffer;
   class IndexBuffer;
   class SamplerState;
@@ -97,6 +98,9 @@ namespace kraEngineSDK {
     ShrdPtr<PixelShader>
     createPixelShaderInstance();
     
+    ShrdPtr<ComputeShader> 
+    createComputeShaderInstance() override;
+        
     VertexBuffer*
     createVertexBufferInstance();
     

@@ -21,6 +21,12 @@ namespace kraEngineSDK {
     void
     setSamplerState(const Device& pDevice);
 
+    void 
+    setComputeSamplerState(const Device& pDevice) override;
+
+
     ID3D11SamplerState* m_samplerState = nullptr;
+
+
   };
 }

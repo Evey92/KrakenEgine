@@ -12,8 +12,8 @@ namespace kraEngineSDK {
     ~PixelShader() {}
 
     virtual bool
-    compilePixelShader(std::string fileName,
-                       const char* entryPoint) = 0;
+    compilePixelShader(const WString  fileName,
+                       String entryPoint) = 0;
     virtual bool
     createPixelShader(const Device& pDevice) = 0;
     virtual void

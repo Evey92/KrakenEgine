@@ -130,6 +130,18 @@ namespace kraEngineSDK {
   }
 
   void
+  TextureDX::setTextureComputeShaderResource(const Device* pDevice,
+                                             uint32 startSlot,
+                                             uint32 numViews) {
+
+    const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
+
+    m_pDevice->m_pImmediateContext->CSSetShaderResources(startSlot,
+                                                         numViews,
+                                                         &m_pSRV);
+  }
+
+  void
   TextureDX::releaseTexture() {
     m_pd3dTexture2D->Release();
   }

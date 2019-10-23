@@ -15,11 +15,11 @@ namespace kraEngineSDK {
     ShaderDX() = default;
     ~ShaderDX() {}
 
-    /*bool
-    compileShaderFromFile(const wchar_t* filename,
-                                  std::string entryPoint,
-                                  std::string shaderModel,
-                                  Blob* ppBlobOut);*/
+    bool
+    compileShaderFromFile(const WString filename,
+                          String entryPoint,
+                          String shaderModel,
+                          void* ppBlobOut) override;
     /*virtual void
     cleanShader();*/
   };

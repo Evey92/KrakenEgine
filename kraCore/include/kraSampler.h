@@ -18,5 +18,8 @@ namespace kraEngineSDK {
     virtual void
     setSamplerState(const Device& pDevice) = 0;
 
+    virtual void
+    setComputeSamplerState(const Device& pDevice) = 0;
+
   };
 }

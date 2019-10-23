@@ -80,6 +80,29 @@ WinApp::Initialize()
     return false;
   }
 
+
+
+  //Create the main window
+  String name("Kraken Engine");
+
+  m_window = new Win32Window(1600, 1040, name, Vector2(0, 0));
+  if (!m_window->initWindow(m_nCmdShow))
+  {
+    std::cout << "Window couldn't be initialized.\n";
+  }
+
+  if (!m_gfxAPIInstance->initializeAPI(m_window->m_hWnd))
+  {
+    MessageBox(NULL, "Failed to Initialize Graphics API Device", "Error", MB_OK);
+    return false;
+  }
+  m_inputManager = m_inputAPIInstance->initializeAPI(m_gfxAPIInstance->getDevice()->getWidth(), m_gfxAPIInstance->getDevice()->getHeight());
+  if (!m_inputManager)
+  {
+    MessageBox(NULL, "Failed to create Initialize Input Manager", "Error", MB_OK);
+    return false;
+  }
+
   //Load Render pipeline DLL
   RENDERDLL = LoadLibraryEx(Renderpath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
   if (!RENDERDLL) {
@@ -104,27 +127,6 @@ WinApp::Initialize()
   if (!m_renderPipeInstance) {
     MessageBox(NULL, "Failed to create Renderer", "Error", MB_OK);
 
-    return false;
-  }
-
-  //Create the main window
-  String name("Kraken Engine");
-
-  m_window = new Win32Window(1600, 1040, name, Vector2(0, 0));
-  if (!m_window->initWindow(m_nCmdShow))
-  {
-    std::cout << "Window couldn't be initialized.\n";
-  }
-
-  if (!m_gfxAPIInstance->initializeAPI(m_window->m_hWnd))
-  {
-    MessageBox(NULL, "Failed to Initialize Graphics API Device", "Error", MB_OK);
-    return false;
-  }
-  m_inputManager = m_inputAPIInstance->initializeAPI(m_gfxAPIInstance->getDevice()->getWidth(), m_gfxAPIInstance->getDevice()->getHeight());
-  if (!m_inputManager)
-  {
-    MessageBox(NULL, "Failed to create Initialize Input Manager", "Error", MB_OK);
     return false;
   }
 
@@ -180,6 +182,8 @@ WinApp::Initialize()
                      m_gfxAPIInstance->getDevice()->getContext())) {
     Log("Couldn't initiate UI");
   }
+
+ 
 
   return true;
 }

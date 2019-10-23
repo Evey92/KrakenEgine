@@ -4,22 +4,27 @@
 #include "kraDevice.h"
 
 namespace kraEngineSDK {
-  class VertexShader {
+  class ComputeShader {
 
-  public:
-    VertexShader() = default;
+   public:
+
+    ComputeShader() = default;
+    
     virtual
-    ~VertexShader() {}
+    ~ComputeShader() {}
 
     virtual bool
-    compileVertexShader(const WString fileName,
+    compileComputeShader(const WString fileName,
                         String entryPoint) = 0;
+
     virtual bool
-    createVertexShader(const Device& pDevice) = 0;
+    createComputeShader(const Device& pDevice) = 0;
+    
     virtual void
     cleanShader() = 0;
+    
     virtual void
-    setVertexShader(const Device& pDevice) = 0;
+    setComputeShader(const Device& pDevice) = 0;
 
   };
 }

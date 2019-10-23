@@ -32,6 +32,12 @@ namespace kraEngineSDK {
     setTextureShaderResource(const Device* pDevice,
                                uint32 startSlot,
                                uint32 numViews) = 0;
+
+    virtual void
+    setTextureComputeShaderResource(const Device* pDevice,
+                                    uint32 startSlot,
+                                    uint32 numViews) = 0;
+    
     virtual void
     releaseTexture() = 0;
 
