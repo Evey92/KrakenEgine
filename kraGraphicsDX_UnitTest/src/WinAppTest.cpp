@@ -84,7 +84,7 @@ WinApp::Initialize()
   RENDERDLL = LoadLibraryEx(Renderpath.c_str(), nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
   if (!RENDERDLL) {
     DWORD err = GetLastError();
-    MessageBox(NULL, "Could not find specified renderer DLL. Error: " + err, "Error", MB_OK);
+    MessageBox(NULL, "Could not find specified renderer DLL. Error.", "Error", MB_OK);
 
     FreeLibrary(RENDERDLL);
     return false;

@@ -25,9 +25,6 @@ namespace kraEngineSDK {
 
     virtual void
     Cleanup() = 0;
-
-
-  
-
+       
   };
 }

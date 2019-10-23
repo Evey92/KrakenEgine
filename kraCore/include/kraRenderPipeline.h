@@ -9,7 +9,7 @@ namespace kraEngineSDK {
   
     public:
       
-      RenderPipeline();
+      RenderPipeline() = default;
       virtual 
       ~RenderPipeline() {}
 

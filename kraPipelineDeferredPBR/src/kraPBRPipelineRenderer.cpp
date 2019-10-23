@@ -5,10 +5,11 @@ namespace kraEngineSDK {
   void
     DeferredPBRenderer::initialize()
   {
-    m_GFXAPI = GraphicsAPI::instancePtr();
+    //m_GFXAPI = GraphicsAPI::instance();
     m_appInstance = BaseApplication::instancePtr();
-    m_PBRVS = m_GFXAPI->getDevice()->createVertexShaderInstance();
-    m_PBRPS = m_GFXAPI->getDevice()->createPixelShaderInstance();
+    m_PBRVS = make_shared<VertexShader>(GraphicsAPI::instance().getDevice()->createVertexShaderInstance());
+    //m_PBRPS = m_GFXAPI->getDevice()->createPixelShaderInstance();
+    m_PBRPS = make_shared<PixelShader>(GraphicsAPI::instance().getDevice()->createVertexShaderInstance());
    
 
     
@@ -40,8 +41,8 @@ namespace kraEngineSDK {
   {
     //Set up PBR
     m_PBRVS->compileVertexShader("gBufferShader.hlsl", "VS");
-
-    m_PBRPS->compilePixelShader("gBufferShader.hlsl", "PS");
+    std::cout << "Setting up the pipeline\n";
+    //m_PBRPS->compilePixelShader("gBufferShader.hlsl", "PS");
 
     //Setup Skybox
 
@@ -61,5 +62,18 @@ namespace kraEngineSDK {
     //Texture envMap = m_GFXAPI->getDevice->createTextureInstance();
 
   }
+
+  void 
+  DeferredPBRenderer::onStartUp()
+  {
+    initialize();
+  }
+  
+  void
+  DeferredPBRenderer::onShutdown()
+  {
+    //Shutdown
+  }
+
 
 }  

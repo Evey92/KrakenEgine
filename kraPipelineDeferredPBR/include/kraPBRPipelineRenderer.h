@@ -10,8 +10,8 @@
 
 namespace kraEngineSDK {
   
-  class VertexShader;
-  class PixelShader;
+  /*class VertexShader;
+  class PixelShader;*/
   class Model;
 
   class KRA_RENDERER_EXPORT DeferredPBRenderer : 
@@ -50,6 +50,15 @@ namespace kraEngineSDK {
      void
      iblSetup();
 
+   protected:
+    virtual void
+      onStartUp() override;
+
+
+    virtual void
+      onShutdown() override;
+
+   public:
      GraphicsAPI* m_GFXAPI = nullptr;
      BaseApplication* m_appInstance = nullptr;
      Vector<ShrdPtr<RenderTargetView*>> m_GbufferTextures;
