@@ -1,8 +1,15 @@
-Texture2D txDiffuse : register(t0);
 
-SamplerState samLinear : register(s0);
+Texture2D text : register(t0);
 
-PS_OUTPUT PS(PS_INPUT input) : SV_Target
+sampler samLinear : register(s0);
+
+struct PS_INPUT 
 {
-  return = float4(txDiffuse.Sample( samLinear, input.texCoord));
+   float4 Position : SV_POSITION;
+   float2 TexCoord : TEXCOORD0;
+};
+
+float4 PS(PS_INPUT Input) : SV_Target
+{
+  return float4(text.Sample(samLinear, Input.TexCoord));
 }

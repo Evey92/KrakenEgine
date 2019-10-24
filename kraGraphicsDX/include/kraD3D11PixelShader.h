@@ -34,7 +34,7 @@ namespace kraEngineSDK {
                           std::string shaderModel,
                           ID3DBlob** ppBlobOut);*/
 
-    ID3DBlob* m_pBlob = nullptr;
+    
     //Blob* m_blob;
     ID3D11PixelShader* m_pPixelShader = nullptr;
   };

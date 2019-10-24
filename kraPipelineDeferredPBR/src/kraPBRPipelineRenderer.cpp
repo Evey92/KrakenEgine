@@ -52,7 +52,7 @@ namespace kraEngineSDK {
     m_skyboxVS->compileVertexShader(L"skyboxShader.hlsl", "VS");
     m_skyboxPS->compilePixelShader(L"skyboxShader.hlsl", "PS");
 
-    //Setup tonemapping
+    //Setup tone mapping
     m_toneMapVS->compileVertexShader(L"toneMappingShader.hlsl", "VS");
     m_toneMapPS->compilePixelShader(L"toneMappingShader.hlsl", "PS");
 
@@ -74,7 +74,10 @@ namespace kraEngineSDK {
                                              GFX_USAGE::E::kUSAGE_DYNAMIC,
                                              CPU_USAGE::E::kCPU_ACCESS_WRITE);
 
-    //envitromentText;
+
+    envitromentText->setTextureComputeShaderResource(m_GFXAPI->getDevice(), 0, 1);
+    m_equirectSampler->setComputeSamplerState(*m_GFXAPI->getDevice());
+    m_equirect2CubeCS->setComputeShader(*m_GFXAPI->getDevice());
 
   }
 

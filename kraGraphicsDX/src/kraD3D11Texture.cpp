@@ -66,7 +66,7 @@ namespace kraEngineSDK {
     HRESULT hr = S_OK;
 
     Image image;
-    unsigned char* pixels;
+    unsigned char* pixels = nullptr;
     int channels;
 
     if (EngineUtility::LoadImageFromFile(filename, &image))

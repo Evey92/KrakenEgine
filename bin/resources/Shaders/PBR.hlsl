@@ -3,7 +3,7 @@
 float3 m_lightPos;
 float4 m_eyePos;
 
-float4 ps_main(PS_INPUT Input) : SV_Target
+float4 PS(PS_INPUT Input) : SV_Target
 {
 
 // Sample input textures to get shading model params.

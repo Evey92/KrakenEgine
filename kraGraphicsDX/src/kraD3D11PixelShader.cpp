@@ -12,7 +12,9 @@ namespace kraEngineSDK {
                                       String entryPoint) {
     bool hr;
 
-    hr = compileShaderFromFile(fileName, entryPoint, "ps_5_0", reinterpret_cast<void**>(&m_pBlob));
+    hr = compileShaderFromFile(fileName,
+                               entryPoint,
+                               "ps_5_0");
 
     if (!m_pBlob)
     {
@@ -29,9 +31,9 @@ namespace kraEngineSDK {
     HRESULT hr = S_OK;
 
     hr = m_pDevice.m_pd3dDevice->CreatePixelShader(m_pBlob->GetBufferPointer(),
-      m_pBlob->GetBufferSize(),
-      NULL,
-      &m_pPixelShader);
+                                                   m_pBlob->GetBufferSize(),
+                                                   NULL,
+                                                   &m_pPixelShader);
 
     if (FAILED(hr))
     {

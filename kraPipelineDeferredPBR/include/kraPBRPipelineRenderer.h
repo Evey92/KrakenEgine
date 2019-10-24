@@ -74,6 +74,7 @@ namespace kraEngineSDK {
      ShrdPtr<PixelShader> m_toneMapPS;
 
      ShrdPtr<ComputeShader> m_equirect2CubeCS;
+     ShrdPtr<SamplerState> m_equirectSampler;
 
      bool m_useIBL = true;
      /*ShrdPtr<VertexShader> m_toTextureVS;

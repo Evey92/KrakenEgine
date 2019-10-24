@@ -113,10 +113,10 @@ namespace kraEngineSDK {
     virtual ConstantBuffer<CBChangesEveryFrame>*
     createConstantBufferEveryFrame() = 0;
     
-    virtual ConstantBuffer<Matrix4>*
+    virtual ShrdPtr<ConstantBuffer<Matrix4>>
     createConstantBufferInstance() = 0;
     
-    virtual ConstantBuffer<Vector4>*
+    virtual ShrdPtr<ConstantBuffer<Vector4>>
     createConstantBufferInstanceVec3() = 0;
     
     virtual ShrdPtr<SamplerState>

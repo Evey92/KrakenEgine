@@ -170,6 +170,9 @@ WinApp::Initialize()
                                        SAMPLER_FILTER::kFILTER_COMPARISON_MIN_MAG_MIP_LINEAR,
                                        TEXTURE_ADDRESS_MODE::kTEXTURE_ADDRESS_WRAP);
   
+  m_mainCB = m_gfxAPIInstance->getDevice()->createConstantBufferInstance();
+  m_lightCB = m_gfxAPIInstance->getDevice()->createConstantBufferInstanceVec3();
+
   //Startup Camera manager module
   CameraManager::StartUp<CameraManager>();
   
@@ -247,7 +250,6 @@ WinApp::render()
 
   m_depthStencilView->clearDSV(*m_gfxAPIInstance->getDevice());
 
-  UIManager::instance().renderUI();
 
   m_localVS->setVertexShader(*m_gfxAPIInstance->getDevice());
   m_localPS->setPixelShader(*m_gfxAPIInstance->getDevice());
@@ -264,6 +266,7 @@ WinApp::render()
   for (uint32 i = 0; i < m_modelsVector.size(); ++i) {
     m_modelsVector[i]->Draw(m_gfxAPIInstance->getDevice());
   }
+  UIManager::instance().renderUI();
 
   //TODO: ActiveRederPipeline.render();
 
@@ -391,7 +394,7 @@ WinApp::localRenderSetup()
 
   //Set Primitive Topology
   m_gfxAPIInstance->getDevice()->setPrimitiveTopology();
-
+  m_defaultSampler->setSamplerState(*m_gfxAPIInstance->getDevice());
   //Setting rendering matrices
   m_world.identity();
   m_mainCB->add(m_world);
@@ -399,8 +402,8 @@ WinApp::localRenderSetup()
   CameraManager::instance().getActiveCamera()->setUp(Vector3(0.0f, 1.0f, 0.0f));
   CameraManager::instance().getActiveCamera()->setFront(Vector3(0.0f, 0.0f, -1.0f));
   CameraManager::instance().getActiveCamera()->setRight(Vector3(1.0f, 0.0f, 0.0f));
-  CameraManager::instance().getActiveCamera()->SetPosition(Vector3(0.0f, 60.0f, 80.0f));
-  CameraManager::instance().getActiveCamera()->SetObjecive(Vector3(0.0f, 50.0f, 0.0f));
+  CameraManager::instance().getActiveCamera()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
+  CameraManager::instance().getActiveCamera()->SetObjecive(Vector3(0.0f, 0.0f, 0.0f));
 
   CameraManager::instance().getActiveCamera()->createViewMat();
   m_mainCB->add(CameraManager::instance().getActiveCamera()->GetViewMatrix());

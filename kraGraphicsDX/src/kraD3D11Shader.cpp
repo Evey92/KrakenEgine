@@ -8,11 +8,8 @@ namespace kraEngineSDK {
   bool
   ShaderDX::compileShaderFromFile(const WString filename,
                                   String entryPoint,
-                                  String shaderModel,
-                                  void** ppBlobOut)
+                                  String shaderModel)
   {
-
-    BlobDX* m_pBlob = reinterpret_cast<BlobDX*>(ppBlobOut);
 
     HRESULT hr = S_OK;
 
@@ -33,7 +30,7 @@ namespace kraEngineSDK {
                             shaderModel.c_str(),
                             dwShaderFlags,
                             0,
-                            &m_pBlob->m_blob,
+                            &m_pBlob,
                             &pErrorBlob);
 
     if (FAILED(hr))

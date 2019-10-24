@@ -34,7 +34,6 @@ namespace kraEngineSDK {
 
 
 
-    ID3DBlob* m_pBlob = nullptr;
     //Blob* m_blob;
     ID3D11VertexShader* m_pVertexShader = nullptr;
   };

@@ -246,13 +246,14 @@ namespace kraEngineSDK {
   DeviceDX::createConstantBufferEveryFrame() {
     return new ConstantBufferDX<CBChangesEveryFrame>();
   }
-  ConstantBuffer<Matrix4>*
+  ShrdPtr<ConstantBuffer<Matrix4>>
   DeviceDX::createConstantBufferInstance() {
-    return new ConstantBufferDX<Matrix4>();
+    return  make_shared<ConstantBufferDX<Matrix4>>();
   }
-  ConstantBuffer<Vector4>*
-    DeviceDX::createConstantBufferInstanceVec3() {
-    return new ConstantBufferDX<Vector4>();
+  
+  ShrdPtr<ConstantBuffer<Vector4>>
+  DeviceDX::createConstantBufferInstanceVec3() {
+    return make_shared<ConstantBufferDX<Vector4>>();
   }
   ShrdPtr<SamplerState>
   DeviceDX::createSamplerStateInstance() {

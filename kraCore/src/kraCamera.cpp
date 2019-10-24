@@ -101,11 +101,14 @@ namespace kraEngineSDK {
   void
   Camera::setFOV(float FOV) {
     m_fov = FOV;
+    m_dirty = true;
+
   }
 
   void Camera::setFOVfromDeg(float FOV)
   {
     m_fov = kraMath::DEG2RAD(FOV);
+    m_dirty = true;
   }
 
   float
@@ -121,21 +124,29 @@ namespace kraEngineSDK {
   void
   Camera::setNearPlane(float nearZ) {
     m_nearZ = nearZ;
+    m_dirty = true;
+
   }
 
   float
   Camera::getNearPlane() {
     return m_nearZ;
+    m_dirty = true;
+
   }
 
   void
   Camera::setFarPlane(float farZ) {
     m_farZ = farZ;
+    m_dirty = true;
+
   }
 
   float& const
   Camera::getFarPlane() {
     return m_farZ;
+    m_dirty = true;
+
   }
 
   void
