@@ -193,9 +193,9 @@ namespace kraEngineSDK {
     return new ViewportDX();
   }
 
-  InputLayout*
+  ShrdPtr<InputLayout>
   DeviceDX::createInputLayoutInstance() {
-    return new InputLayoutDX();
+    return make_shared<InputLayoutDX>();
   }
 
   ShrdPtr<DepthStencil>

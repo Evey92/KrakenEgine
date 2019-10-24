@@ -80,7 +80,7 @@ namespace kraEngineSDK {
     virtual Viewport*
     createViewportInstance() = 0;
     
-    virtual InputLayout*
+    virtual ShrdPtr<InputLayout>
     createInputLayoutInstance() = 0;
     
     virtual ShrdPtr<DepthStencil>

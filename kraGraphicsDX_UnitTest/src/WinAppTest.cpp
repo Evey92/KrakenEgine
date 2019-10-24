@@ -123,12 +123,12 @@ WinApp::Initialize()
   }
 
   //Startup the graphics module, and get the pointer to the instance
-  m_renderPipeInstance = initPipelineFunc();
+  /*m_renderPipeInstance = initPipelineFunc();
   if (!m_renderPipeInstance) {
     MessageBox(NULL, "Failed to create Renderer", "Error", MB_OK);
 
     return false;
-  }
+  }*/
 
   //Create The main Render target for Backbuffer
   m_backBufferRTV = m_gfxAPIInstance->getDevice()->createRenderTargetInsttance();
@@ -198,9 +198,10 @@ void
 WinApp::run()
 {
   MSG msg = { 0 };
+  localRenderSetup();
   while (m_window->isOpen())
   {
-    m_renderPipeInstance->Setup();
+    //m_renderPipeInstance->Setup();
     m_window->handleMSG(static_cast<void*>(&msg), *m_inputManager);
     update();
     
@@ -244,11 +245,28 @@ WinApp::render()
 
   m_backBufferRTV->clearRenderTarget(m_gfxAPIInstance->getDevice(), ClearColor);
 
+  m_depthStencilView->clearDSV(*m_gfxAPIInstance->getDevice());
+
   UIManager::instance().renderUI();
+
+  m_localVS->setVertexShader(*m_gfxAPIInstance->getDevice());
+  m_localPS->setPixelShader(*m_gfxAPIInstance->getDevice());
+  m_localLayout->setInputLayout(*m_gfxAPIInstance->getDevice());
+
+
+  m_mainCB->setConstData(0, m_world);
+  m_mainCB->setConstData(1, CameraManager::instance().getActiveCamera()->GetViewMatrix());
+  m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
+
+  m_lightCB->setConstData(0, CameraManager::instance().getActiveCamera()->getPosition());
+  m_lightCB->updateSubResources(*m_gfxAPIInstance->getDevice());
+
+  for (uint32 i = 0; i < m_modelsVector.size(); ++i) {
+    m_modelsVector[i]->Draw(m_gfxAPIInstance->getDevice());
+  }
 
   //TODO: ActiveRederPipeline.render();
 
-  //TODO: Move to render pipeline
   m_gfxAPIInstance->getDevice()->PresentSwapChain();
 
 }
@@ -349,4 +367,59 @@ WinApp::CleanupDevice()
   //do cleanup
 }
 
+void 
+WinApp::localRenderSetup()
+{
+  //Setting up camera
+  CameraManager::instance().getActiveCamera()->setFOV(kraMath::DEG2RAD(90.0f));
+  CameraManager::instance().getActiveCamera()->setNearPlane(0.01f);
+  CameraManager::instance().getActiveCamera()->setFarPlane(10000.0f);
+  
+  //Setting up shaders
+  m_localVS = m_gfxAPIInstance->getDevice()->createVertexShaderInstance();
+  m_localPS = m_gfxAPIInstance->getDevice()->createPixelShaderInstance();
+
+  m_localVS->compileVertexShader(L"resources/Shaders/VS.hlsl", "VS");
+  m_localVS->createVertexShader(*m_gfxAPIInstance->getDevice());
+
+  m_localPS->compilePixelShader(L"resources/Shaders/PS.hlsl", "PS");
+  m_localPS->createPixelShader(*m_gfxAPIInstance->getDevice());
+
+  //Seting input layout
+  m_localLayout = m_gfxAPIInstance->getDevice()->createInputLayoutInstance();
+  m_localLayout->createInputLayout(*m_gfxAPIInstance->getDevice(), *m_localVS);
+
+  //Set Primitive Topology
+  m_gfxAPIInstance->getDevice()->setPrimitiveTopology();
+
+  //Setting rendering matrices
+  m_world.identity();
+  m_mainCB->add(m_world);
+
+  CameraManager::instance().getActiveCamera()->setUp(Vector3(0.0f, 1.0f, 0.0f));
+  CameraManager::instance().getActiveCamera()->setFront(Vector3(0.0f, 0.0f, -1.0f));
+  CameraManager::instance().getActiveCamera()->setRight(Vector3(1.0f, 0.0f, 0.0f));
+  CameraManager::instance().getActiveCamera()->SetPosition(Vector3(0.0f, 60.0f, 80.0f));
+  CameraManager::instance().getActiveCamera()->SetObjecive(Vector3(0.0f, 50.0f, 0.0f));
+
+  CameraManager::instance().getActiveCamera()->createViewMat();
+  m_mainCB->add(CameraManager::instance().getActiveCamera()->GetViewMatrix());
+
+
+  m_projection.MatrixPerspectiveFOV(CameraManager::instance().getActiveCamera()->getFOV(),
+                                    static_cast<float>(m_gfxAPIInstance->getDevice()->getWidth()),
+                                    static_cast<float>(m_gfxAPIInstance->getDevice()->getHeight()),
+                                    CameraManager::instance().getActiveCamera()->getNearPlane(),
+                                    CameraManager::instance().getActiveCamera()->getFarPlane());
+
+  m_mainCB->add(m_projection);
+  m_mainCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
+  m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
+
+  Vector3 lightPos = Vector3(100.0f, 0.0f, 100.0f);
+  m_lightCB->add(Vector4(lightPos, 1.0f));
+  m_lightCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
+  m_lightCB->updateSubResources(*m_gfxAPIInstance->getDevice());
+  
+}
 

@@ -8,7 +8,7 @@ namespace kraEngineSDK {
   {
     bool hr;
 
-    hr = compileShaderFromFile(fileName, entryPoint, "cs_5_0", &m_pBlob);
+    hr = compileShaderFromFile(fileName, entryPoint, "cs_5_0", reinterpret_cast<void**>(&m_pBlob));
 
     if (!m_pBlob)
     {

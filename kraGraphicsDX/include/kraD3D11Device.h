@@ -83,7 +83,7 @@ namespace kraEngineSDK {
     Viewport*
     createViewportInstance();
     
-    InputLayout*
+    ShrdPtr<InputLayout>
     createInputLayoutInstance();
     
     ShrdPtr<DepthStencil>

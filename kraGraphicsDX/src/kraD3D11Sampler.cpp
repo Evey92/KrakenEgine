@@ -54,5 +54,4 @@ namespace kraEngineSDK {
     m_device.m_pImmediateContext->CSSetSamplers(0, 1, &m_samplerState);
 
   }
-....
 }

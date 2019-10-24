@@ -140,6 +140,10 @@ class WinApp :
    void
    CleanupDevice() override;
 
+   //This is only so i can render stuff while I work on the pbr renderer
+   void
+   localRenderSetup();
+
 #pragma endregion UTILITY_FUNCTIONS
 
 #pragma region PUBLIC_MEMBERS
@@ -167,6 +171,14 @@ class WinApp :
    ShrdPtr<SamplerState> m_defaultSampler;
    ShrdPtr<SamplerState> m_computeSampler;
    ShrdPtr<SamplerState> m_BRDFSampler;
+
+   //This is just temporary BS
+   ShrdPtr<VertexShader> m_localVS;
+   ShrdPtr<PixelShader> m_localPS;
+   ShrdPtr<InputLayout> m_localLayout;
+   ShrdPtr<RasterizerState> m_localRasterizer;
+   ShrdPtr<ConstantBuffer<Matrix4>> m_mainCB;
+   ShrdPtr<ConstantBuffer<Vector4>> m_lightCB;
 
    Viewport* m_viewport = nullptr;
    String modelPath = "resources/Models/";

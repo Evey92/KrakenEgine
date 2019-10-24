@@ -15,7 +15,7 @@ namespace kraEngineSDK {
     compileShaderFromFile(const WString filename,
                           String entryPoint,
                           String shaderModel,
-                          void* ppBlobOut) = 0;
+                          void** ppBlobOut) = 0;
     virtual void
     cleanShader() = 0;
   };

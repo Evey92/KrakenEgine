@@ -14,7 +14,7 @@ namespace kraEngineSDK {
     isCompiled = compileShaderFromFile(fileName.c_str(),
                                entryPoint,
                                "vs_5_0",
-                               &m_pBlob);
+                               reinterpret_cast<void**>(m_pBlob));
 
     if (!m_pBlob)
     {

@@ -74,7 +74,7 @@ namespace kraEngineSDK {
                                              GFX_USAGE::E::kUSAGE_DYNAMIC,
                                              CPU_USAGE::E::kCPU_ACCESS_WRITE);
 
-    envitromentText
+    //envitromentText;
 
   }
 

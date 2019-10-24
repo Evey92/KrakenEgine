@@ -9,7 +9,7 @@ namespace kraEngineSDK {
   ShaderDX::compileShaderFromFile(const WString filename,
                                   String entryPoint,
                                   String shaderModel,
-                                  void* ppBlobOut)
+                                  void** ppBlobOut)
   {
 
     BlobDX* m_pBlob = reinterpret_cast<BlobDX*>(ppBlobOut);
