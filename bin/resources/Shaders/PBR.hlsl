@@ -1,7 +1,81 @@
-#include "gBufferCommons.hlsl"
+#include "Commons.hlsl"
 
 float3 m_lightPos;
 float4 m_eyePos;
+
+cbuffer cbMain : register(b0)
+{
+  matrix World;
+  matrix View;
+  matrix Projection;
+};
+
+cbuffer cbShading : register(b1)
+{
+  float4 eyePosition;
+  float4 lightDirection;
+  float4 radiance;
+};
+
+struct VS_INPUT 
+{
+   float4 Position : POSITION;
+   float2 TexCoord : TEXCOORD;
+   float3 Normal   : NORMAL;
+   float3 Tangent  : TANGENT;
+   float3 BiNormal : BINORMAL;
+
+};
+
+struct PS_INPUT
+{
+    float4 Position             : SV_POSITION;
+    float2 WorldPosition   : POSITION;
+    float2 TexCoord        : TEXCOORD0;
+    float3x3 TBN           : TEXCOORD1;
+};
+
+Texture2D texAlbedo    : register(t0);
+Texture2D texNormal    : register(t1);
+Texture2D texMetalness : register(t2);
+Texture2D texRoughness : register(t3);
+TextureCube texSpecular : register(t4);
+TextureCube texIrradiance : register(t5);
+Texture2D specularBRDF_LUT : register(t6);
+
+SamplerState samLinear : register(s0);
+SamplerState spBRDF_Sampler : register(s1);
+
+Texture2D texAlbedo    : register(t0);
+Texture2D texNormal    : register(t1);
+Texture2D texMetalness : register(t2);
+Texture2D texRoughness : register(t3);
+Texture2D texAO        : register(t4);
+TextureCube texSpecular : register(t4);
+TextureCube texIrradiance : register(t5);
+Texture2D specularBRDF_LUT : register(t6);
+
+SamplerState samLinear : register(s0);
+SamplerState spBRDF_Sampler : register(s1);
+
+PS_INPUT VS(VS_INPUT Input)
+{
+  PS_INPUT POutput;
+  POutput = mul
+
+  Output.Position = mul(Input.Position, World);
+  Output.WorldPosition = Output.Position.xyz;
+  Output.Position = mul(Output.Position, View);
+  Output.Position = mul(Output.Position, Projection);
+
+  Output.TexCoord = Input.TexCoord;
+  
+  float3x3 TBN = float3x3(Input.Tangent, Input.Binormal, Input.Normal);
+
+  Output.TBN = mul(TBN, (float3x3) World);
+
+  return Output;
+}
 
 float4 PS(PS_INPUT Input) : SV_Target
 {

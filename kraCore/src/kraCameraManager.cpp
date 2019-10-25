@@ -12,6 +12,7 @@ namespace kraEngineSDK {
   CameraManager::Transition(Camera* A, Camera* B, float time)
   {
     kraMath::lerp(A->getPosition(), B->getPosition(), time);
+    setActiveCamera(B);
   }
 
   void 

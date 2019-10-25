@@ -32,9 +32,6 @@ namespace kraEngineSDK {
     void
     setVertexShader(const Device& pDevice);
 
-
-
-    //Blob* m_blob;
     ID3D11VertexShader* m_pVertexShader = nullptr;
   };
 }

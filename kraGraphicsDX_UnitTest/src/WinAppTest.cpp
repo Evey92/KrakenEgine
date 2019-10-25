@@ -130,48 +130,50 @@ WinApp::Initialize()
     return false;
   }*/
 
+  m_gfxDevice = m_gfxAPIInstance->getDevice();
+
   //Create The main Render target for Backbuffer
-  m_backBufferRTV = m_gfxAPIInstance->getDevice()->createRenderTargetInsttance();
-  m_backBufferRTV->createRenderTargetView(*m_gfxAPIInstance->getDevice());
-  m_backBufferRTV->setRenderTarget(*m_gfxAPIInstance->getDevice(), 1);
+  m_backBufferRTV = m_gfxDevice->createRenderTargetInsttance();
+  m_backBufferRTV->createRenderTargetView(*m_gfxDevice);
+  m_backBufferRTV->setRenderTarget(*m_gfxDevice, 1);
 
   //Create and set the viewport
-  m_viewport = m_gfxAPIInstance->getDevice()->createViewportInstance();
-  m_viewport->createViewport(m_gfxAPIInstance->getDevice()->getWidth(), m_gfxAPIInstance->getDevice()->getHeight(), 0.0f, 0.0f);
-  m_viewport->setViewport(m_gfxAPIInstance->getDevice());
+  m_viewport = m_gfxDevice->createViewportInstance();
+  m_viewport->createViewport(m_gfxDevice->getWidth(), m_gfxAPIInstance->getDevice()->getHeight(), 0.0f, 0.0f);
+  m_viewport->setViewport(m_gfxDevice);
 
   // Create Depth stencil
-  m_defaultDepthStencil = m_gfxAPIInstance->getDevice()->createDepthStencilInstance();
-  m_defaultDepthStencil->setDepthStencil(*m_gfxAPIInstance->getDevice(), m_gfxAPIInstance->getDevice()->getHeight(), m_gfxAPIInstance->getDevice()->getWidth());
-  m_defaultDepthStencil->createDepthStencilState(*m_gfxAPIInstance->getDevice());
-  m_defaultDepthStencil->setDepthStencilState(*m_gfxAPIInstance->getDevice());
+  m_defaultDepthStencil = m_gfxDevice->createDepthStencilInstance();
+  m_defaultDepthStencil->setDepthStencil(*m_gfxDevice, m_gfxAPIInstance->getDevice()->getHeight(), m_gfxAPIInstance->getDevice()->getWidth());
+  m_defaultDepthStencil->createDepthStencilState(*m_gfxDevice);
+  m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
 
   //Create Depth Stencil view from depth stencil
-  m_depthStencilView = m_gfxAPIInstance->getDevice()->createDepthStencilViewInstance();
+  m_depthStencilView = m_gfxDevice->createDepthStencilViewInstance();
   m_depthStencilView->createDepthStencilView(*m_gfxAPIInstance->getDevice(), *m_defaultDepthStencil);
 
   //Create a texture manager
-  m_textureManager = m_gfxAPIInstance->getDevice()->createTextureInstance();
+  m_textureManager = m_gfxDevice->createTextureInstance();
 
   //Create rasterizer state
-  m_rasterizerState = m_gfxAPIInstance->getDevice()->creatreRasterizerStateInstance();
+  m_rasterizerState = m_gfxDevice->creatreRasterizerStateInstance();
   m_rasterizerState->createRasterizerState(*m_gfxAPIInstance->getDevice(),
                                            FILL_MODE::kFILL_SOLID,
                                            CULL_MODE::kCULL_BACK);
   //Create default sampler state
-  m_defaultSampler = m_gfxAPIInstance->getDevice()->createSamplerStateInstance();
+  m_defaultSampler = m_gfxDevice->createSamplerStateInstance();
   m_defaultSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
                                        SAMPLER_FILTER::E::kFILTER_ANISOTROPIC,
                                        TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_WRAP);
 
   //Create compute sampler state to calculate the environment cube map
-  m_computeSampler = m_gfxAPIInstance->getDevice()->createSamplerStateInstance();
+  m_computeSampler = m_gfxDevice->createSamplerStateInstance();
   m_computeSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
                                        SAMPLER_FILTER::kFILTER_COMPARISON_MIN_MAG_MIP_LINEAR,
                                        TEXTURE_ADDRESS_MODE::kTEXTURE_ADDRESS_WRAP);
   
-  m_mainCB = m_gfxAPIInstance->getDevice()->createConstantBufferInstance();
-  m_lightCB = m_gfxAPIInstance->getDevice()->createConstantBufferInstanceVec3();
+  m_mainCB = m_gfxDevice->createConstantBufferInstance();
+  m_shadingCB = m_gfxDevice->createConstantBufferInstanceVec3();
 
   //Startup Camera manager module
   CameraManager::StartUp<CameraManager>();
@@ -181,8 +183,8 @@ WinApp::Initialize()
   
   //Start up UI Module
   if(!UIManager::instance().initUI(reinterpret_cast<void*>(m_window->m_hWnd),
-                     m_gfxAPIInstance->getDevice()->getDevice(),
-                     m_gfxAPIInstance->getDevice()->getContext())) {
+                                   m_gfxDevice->getDevice(),
+                                   m_gfxDevice->getContext())) {
     Log("Couldn't initiate UI");
   }
 
@@ -244,33 +246,33 @@ WinApp::postUpdate()
 void 
 WinApp::render()
 {
-  m_backBufferRTV->setRenderTarget(*m_gfxAPIInstance->getDevice(), *m_depthStencilView);
+  m_backBufferRTV->setRenderTarget(*m_gfxDevice, *m_depthStencilView);
 
-  m_backBufferRTV->clearRenderTarget(m_gfxAPIInstance->getDevice(), ClearColor);
+  m_backBufferRTV->clearRenderTarget(m_gfxDevice, ClearColor);
 
-  m_depthStencilView->clearDSV(*m_gfxAPIInstance->getDevice());
+  m_depthStencilView->clearDSV(*m_gfxDevice);
 
 
-  m_localVS->setVertexShader(*m_gfxAPIInstance->getDevice());
-  m_localPS->setPixelShader(*m_gfxAPIInstance->getDevice());
-  m_localLayout->setInputLayout(*m_gfxAPIInstance->getDevice());
+  m_localVS->setVertexShader(*m_gfxDevice);
+  m_localPS->setPixelShader(*m_gfxDevice);
+  m_localLayout->setInputLayout(*m_gfxDevice);
 
 
   m_mainCB->setConstData(0, m_world);
   m_mainCB->setConstData(1, CameraManager::instance().getActiveCamera()->GetViewMatrix());
-  m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
+  m_mainCB->updateSubResources(*m_gfxDevice);
 
   m_lightCB->setConstData(0, CameraManager::instance().getActiveCamera()->getPosition());
-  m_lightCB->updateSubResources(*m_gfxAPIInstance->getDevice());
+  m_lightCB->updateSubResources(*m_gfxDevice);
 
   for (uint32 i = 0; i < m_modelsVector.size(); ++i) {
-    m_modelsVector[i]->Draw(m_gfxAPIInstance->getDevice());
+    m_modelsVector[i]->Draw(m_gfxDevice);
   }
   UIManager::instance().renderUI();
 
   //TODO: ActiveRederPipeline.render();
 
-  m_gfxAPIInstance->getDevice()->PresentSwapChain();
+  m_gfxDevice->PresentSwapChain();
 
 }
 
@@ -314,9 +316,9 @@ WinApp::getActiveCamera()
 }
 
 void
-WinApp::setActiveCamera(Camera* newCam)
+WinApp::updateCamera(Camera* newCam)
 {
-  m_activeCam = newCam;
+  CameraManager::instance().setActiveCamera(newCam);
 }
 
 bool WinApp::loadModel()
@@ -331,7 +333,7 @@ bool WinApp::loadModel()
 
     GameObject* newGO = SceneManager::instance().createGameObject(name);
     newGO->addComponent<Model>(newGO);
-    newGO->getComponent<Model>().loadModelFromFile(filename, *m_gfxAPIInstance->getDevice());
+    newGO->getComponent<Model>().loadModelFromFile(filename, *m_gfxDevice);
     SceneManager::instance().getActiveScene()->addNewNode(newGO);
 
     m_modelsVector.push_back(make_shared<Model>(newGO->getComponent<Model>()));
@@ -370,40 +372,98 @@ WinApp::CleanupDevice()
   //do cleanup
 }
 
+void WinApp::localRenderInit()
+{
+  m_PBRVS = m_gfxDevice->createVertexShaderInstance();
+  m_PBRPS = m_gfxDevice->createPixelShaderInstance();
+  m_pbrInputLayout = m_gfxDevice->createInputLayoutInstance();
+
+  m_skyboxVS = m_gfxDevice->createVertexShaderInstance();
+  m_skyboxPS = m_gfxDevice->createPixelShaderInstance();
+  m_skyboxInputLayout = m_gfxDevice->createInputLayoutInstance();
+  
+  m_toneMapVS = m_gfxDevice->createVertexShaderInstance();
+  m_toneMapPS = m_gfxDevice->createPixelShaderInstance();
+  
+  m_equirect2CubeCS = m_gfxDevice->createComputeShaderInstance();
+  m_computeSampler = m_gfxDevice->createSamplerStateInstance();
+  m_computeSampler = m_gfxDevice->createSamplerStateInstance();
+  m_computeSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
+                                       SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
+                                       TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_WRAP);
+}
+
 void 
 WinApp::localRenderSetup()
 {
   //Setting up camera
-  CameraManager::instance().getActiveCamera()->setFOV(kraMath::DEG2RAD(90.0f));
-  CameraManager::instance().getActiveCamera()->setNearPlane(0.01f);
-  CameraManager::instance().getActiveCamera()->setFarPlane(10000.0f);
+  m_camManager->getActiveCamera()->setFOV(kraMath::DEG2RAD(90.0f));
+  m_camManager->getActiveCamera()->setNearPlane(0.01f);
+  m_camManager->getActiveCamera()->setFarPlane(10000.0f);
   
   //Setting up shaders
-  m_localVS = m_gfxAPIInstance->getDevice()->createVertexShaderInstance();
-  m_localPS = m_gfxAPIInstance->getDevice()->createPixelShaderInstance();
 
-  m_localVS->compileVertexShader(L"resources/Shaders/VS.hlsl", "VS");
-  m_localVS->createVertexShader(*m_gfxAPIInstance->getDevice());
+  m_PBRVS->compileVertexShader(L"resources/Shaders/PBR.hlsl", "VS");
+  m_PBRVS->createVertexShader(*m_gfxAPIInstance->getDevice());
 
-  m_localPS->compilePixelShader(L"resources/Shaders/PS.hlsl", "PS");
-  m_localPS->createPixelShader(*m_gfxAPIInstance->getDevice());
+  m_PBRPS->compilePixelShader(L"resources/Shaders/PBR.hlsl", "PS");
+  m_PBRPS->createPixelShader(*m_gfxAPIInstance->getDevice());
+
+  m_skyboxVS->compileVertexShader(L"resources/Shaders/skyboxShader.hlsl", "VS");
+  m_skyboxVS->createVertexShader(*m_gfxAPIInstance->getDevice());
+
+  m_skyboxPS->compilePixelShader(L"resources/Shaders/skyboxShader.hlsl", "PS");
+  m_skyboxPS->createPixelShader(*m_gfxAPIInstance->getDevice());
+
+  m_toneMapVS->compileVertexShader(L"resources/Shaders/toneMappingShader.hlsl", "VS");
+  m_toneMapVS->createVertexShader(*m_gfxAPIInstance->getDevice());
+
+  m_toneMapPS->compilePixelShader(L"resources/Shaders/toneMappingShader.hlsl", "PS");
+  m_toneMapPS->createPixelShader(*m_gfxAPIInstance->getDevice());
 
   //Seting input layout
-  m_localLayout = m_gfxAPIInstance->getDevice()->createInputLayoutInstance();
-  m_localLayout->createInputLayout(*m_gfxAPIInstance->getDevice(), *m_localVS);
+  m_pbrInputLayout = m_gfxAPIInstance->getDevice()->createInputLayoutInstance();
+  m_pbrInputLayout->createInputLayout(*m_gfxDevice, *m_PBRVS);
+
+  m_skyboxInputLayout = m_gfxAPIInstance->getDevice()->createInputLayoutInstance();
+  m_skyboxInputLayout->createInputLayout(*m_gfxDevice, *m_skyboxVS);
+
+  //This one is specially disgusting
+  GameObject* skyGO = SceneManager::instance().createGameObject("Skybox");
+  skyGO->addComponent<Model>(skyGO);
+  skyGO->getComponent<Model>().loadModelFromFile("resources/Models/skybox.obj",
+                                                 *m_gfxDevice);
+  SceneManager::instance().getActiveScene()->addNewNode(skyGO);
+  m_modelsVector.push_back(make_shared<Model>(skyGO->getComponent<Model>()));
+
+  m_equirect2CubeCS->compileComputeShader(L"resources/Shaders/equirect2Cube.hlsl", "CS");
+  ShrdPtr<Texture> enviroTexture = m_gfxDevice->createTextureInstance();
+  enviroTexture->createTexture2DFromFile(*m_gfxDevice,
+                                         "/resources/Textures/HDRenvironment.hdr", 
+                                         GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                         GFX_USAGE::E::kUSAGE_DYNAMIC,
+                                         CPU_USAGE::E::kCPU_ACCESS_WRITE);
+  enviroTexture->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
+  m_computeSampler->setComputeSamplerState(*m_gfxDevice);
+  
+
+
 
   //Set Primitive Topology
   m_gfxAPIInstance->getDevice()->setPrimitiveTopology();
   m_defaultSampler->setSamplerState(*m_gfxAPIInstance->getDevice());
+
   //Setting rendering matrices
   m_world.identity();
   m_mainCB->add(m_world);
 
+  m_activeCam = CameraManager::instance().getActiveCamera();
+
   CameraManager::instance().getActiveCamera()->setUp(Vector3(0.0f, 1.0f, 0.0f));
   CameraManager::instance().getActiveCamera()->setFront(Vector3(0.0f, 0.0f, -1.0f));
   CameraManager::instance().getActiveCamera()->setRight(Vector3(1.0f, 0.0f, 0.0f));
-  CameraManager::instance().getActiveCamera()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
-  CameraManager::instance().getActiveCamera()->SetObjecive(Vector3(0.0f, 0.0f, 0.0f));
+  CameraManager::instance().getActiveCamera()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+  CameraManager::instance().getActiveCamera()->SetObjecive(Vector3(0.0f, 0.0f, 1.0f));
 
   CameraManager::instance().getActiveCamera()->createViewMat();
   m_mainCB->add(CameraManager::instance().getActiveCamera()->GetViewMatrix());

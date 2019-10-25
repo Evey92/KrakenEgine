@@ -229,7 +229,9 @@ namespace kraEngineSDK {
   }
 
   Matrix4
-  Matrix4::MatrixLookAtLH(const Vector3& Eye, const Vector3& At, const Vector3& Up) {
+  Matrix4::MatrixLookAtLH(const Vector3& Eye, 
+                          const Vector3& At,
+                          const Vector3& Up) {
     Vector3 zAxis = At - Eye;
     zAxis.normalize();
     Vector3 xAxis = Up ^ zAxis;
@@ -263,22 +265,22 @@ namespace kraEngineSDK {
   void
   Matrix4::MatrixPerspectiveFOV(float FOV, float width, float height, float nearZ, float farZ) {
 
+    //based on the formula from OpenGL
     float hfov = FOV *0.5f;
-    float sinFov = kraMath::sin(hfov);
-    float cosFov = kraMath::cos(hfov);
     float aspectRatio = width / height;
+    float farMnear = farZ - nearZ;
 
-    float m_height = cosFov/ sinFov;
-    float m_width = m_height / aspectRatio;
+    float yScale = 1.0 / kraMath::tan(hfov);
+    float xScale = yScale / aspectRatio;
 
     //float aspectRatio = static_cast<float>(width / height);
 
 
-    m[0][0] = 1.0f / kraMath::tan(hfov);
-    m[1][1] = aspectRatio * 1.0f / kraMath::tan(hfov);;
-    m[2][2] = farZ / (farZ - nearZ);
-    m[2][3] = -nearZ * (farZ / (farZ - nearZ));
-    m[3][2] = 1.0f;
+    m[0][0] = xScale;
+    m[1][1] = yScale;
+    m[2][2] = farZ / farMnear;
+    m[2][3] = 1.0;
+    m[3][2] = -nearZ * farZ / farMnear;
   }
 
   void 

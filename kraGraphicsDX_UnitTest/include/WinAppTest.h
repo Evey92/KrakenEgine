@@ -108,7 +108,7 @@ class WinApp :
    getActiveCamera();
 
    void
-   setActiveCamera(Camera* newCam);
+   updateCamera(Camera* newCam);
 
    void
    RotateWorldMat(int dir);
@@ -142,12 +142,18 @@ class WinApp :
 
    //This is only so i can render stuff while I work on the pbr renderer
    void
+   localRenderInit();
+   
+   void
    localRenderSetup();
 
 #pragma endregion UTILITY_FUNCTIONS
 
 #pragma region PUBLIC_MEMBERS
+
+   Device* m_gfxDevice = nullptr;
    Camera* m_activeCam =nullptr;
+   CameraManager* m_camManager;
    kraInputManager* m_inputManager = nullptr;
 
 #pragma endregion PUBLIC_MEMBERS
@@ -161,6 +167,7 @@ class WinApp :
 
  private:
    Vector<ShrdPtr<Model>> m_modelsVector;
+   ShrdPtr<Model> m_skyBox;
    ShrdPtr<RenderTargetView> m_backBufferRTV = nullptr;
 
    ShrdPtr<RasterizerState> m_rasterizerState = nullptr;
@@ -173,18 +180,35 @@ class WinApp :
    ShrdPtr<SamplerState> m_BRDFSampler;
 
    //This is just temporary BS
-   ShrdPtr<VertexShader> m_localVS;
-   ShrdPtr<PixelShader> m_localPS;
+
+    //Shaders
+   ShrdPtr<VertexShader> m_PBRVS;
+   ShrdPtr<PixelShader> m_PBRPS;
+   ShrdPtr<InputLayout> m_pbrInputLayout;
+
+   ShrdPtr<VertexShader> m_skyboxVS;
+   ShrdPtr<PixelShader> m_skyboxPS;
+   ShrdPtr<InputLayout> m_skyboxInputLayout;
+
+   ShrdPtr<VertexShader> m_toneMapVS;
+   ShrdPtr<PixelShader> m_toneMapPS;
+
+   ShrdPtr<ComputeShader> m_equirect2CubeCS;
+   
+    //Input layout
    ShrdPtr<InputLayout> m_localLayout;
-   ShrdPtr<RasterizerState> m_localRasterizer;
+    //Sampler state
+   ShrdPtr<SamplerState> m_equirectSampler;
+
+    //Constant buffers
    ShrdPtr<ConstantBuffer<Matrix4>> m_mainCB;
-   ShrdPtr<ConstantBuffer<Vector4>> m_lightCB;
+   ShrdPtr<ConstantBuffer<Vector4>> m_shadingCB;
+   /////////////////////////////////////////////
 
    Viewport* m_viewport = nullptr;
    String modelPath = "resources/Models/";
    Win32Window* m_window = nullptr;
    Vector4 ClearColor = { 0.329f, 0.050f, 0.431f, 1.0f };
-   CameraManager m_camManager;
    int m_nCmdShow;
 
 #pragma endregion PRIVARE_MEMBERS

@@ -161,7 +161,7 @@
   UIManager::showInspector(GameObject* gameObj)
   {
     ImGui::SetNextWindowPos(ImVec2(1280, 20), ImGuiCond_FirstUseEver);
-    ImGui::SetNextWindowSize(ImVec2(300, 600), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize(ImVec2(320, 600), ImGuiCond_FirstUseEver);
 
     ImGui::Begin("Gameobject details");
 
