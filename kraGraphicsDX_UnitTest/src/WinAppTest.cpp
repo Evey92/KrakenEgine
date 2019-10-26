@@ -421,7 +421,7 @@ WinApp::localRenderSetup()
   m_toneMapPS->compilePixelShader(L"resources/Shaders/toneMappingShader.hlsl", "PS");
   m_toneMapPS->createPixelShader(*m_gfxAPIInstance->getDevice());
 
-  //Seting input layout
+  //setting input layout
   m_pbrInputLayout = m_gfxAPIInstance->getDevice()->createInputLayoutInstance();
   m_pbrInputLayout->createInputLayout(*m_gfxDevice, *m_PBRVS);
 
@@ -436,7 +436,10 @@ WinApp::localRenderSetup()
   SceneManager::instance().getActiveScene()->addNewNode(skyGO);
   m_modelsVector.push_back(make_shared<Model>(skyGO->getComponent<Model>()));
 
+  // Set shader to load a texture of equirectangular proyecton an transforming it to a cube
   m_equirect2CubeCS->compileComputeShader(L"resources/Shaders/equirect2Cube.hlsl", "CS");
+  m_equirect2CubeCS->createComputeShader(*m_gfxDevice);
+
   ShrdPtr<Texture> enviroTexture = m_gfxDevice->createTextureInstance();
   enviroTexture->createTexture2DFromFile(*m_gfxDevice,
                                          "/resources/Textures/HDRenvironment.hdr", 
@@ -445,9 +448,24 @@ WinApp::localRenderSetup()
                                          CPU_USAGE::E::kCPU_ACCESS_WRITE);
   enviroTexture->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
   m_computeSampler->setComputeSamplerState(*m_gfxDevice);
+  m_equirect2CubeCS->setComputeShader(*m_gfxDevice);
   
+  //Calculating Cook-Torrance's BRFD model
+  ShrdPtr<ComputeShader> spBRDFshader = m_gfxDevice->createComputeShaderInstance();
+  spBRDFshader->compileComputeShader(L"resources/Shaders/equirect2Cube.hlsl", "CS");
 
+  ShrdPtr<Texture> m_spBRDFLUT = m_gfxDevice->createTextureInstance();
+  m_spBRDFLUT->createTexture2DFromFile(*m_gfxDevice,
+                                         "/resources/Textures/brfdLUT.png",
+                                         GFX_FORMAT::E::kFORMAT_R16G16_FLOAT,
+                                         GFX_USAGE::E::kUSAGE_DYNAMIC,
+                                         CPU_USAGE::E::kCPU_ACCESS_WRITE);
 
+  m_spBRDFLUT->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
+  m_BRDFSampler = m_gfxDevice->createSamplerStateInstance();
+  m_BRDFSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
+                                    SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
+                                    TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_CLAMP);
 
   //Set Primitive Topology
   m_gfxAPIInstance->getDevice()->setPrimitiveTopology();
@@ -459,11 +477,11 @@ WinApp::localRenderSetup()
 
   m_activeCam = CameraManager::instance().getActiveCamera();
 
-  CameraManager::instance().getActiveCamera()->setUp(Vector3(0.0f, 1.0f, 0.0f));
-  CameraManager::instance().getActiveCamera()->setFront(Vector3(0.0f, 0.0f, -1.0f));
-  CameraManager::instance().getActiveCamera()->setRight(Vector3(1.0f, 0.0f, 0.0f));
-  CameraManager::instance().getActiveCamera()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-  CameraManager::instance().getActiveCamera()->SetObjecive(Vector3(0.0f, 0.0f, 1.0f));
+  m_activeCam->setUp(Vector3(0.0f, 1.0f, 0.0f));
+  m_activeCam->setFront(Vector3(0.0f, 0.0f, -1.0f));
+  m_activeCam->setRight(Vector3(1.0f, 0.0f, 0.0f));
+  m_activeCam->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+  m_activeCam->SetObjecive(Vector3(0.0f, 0.0f, 1.0f));
 
   CameraManager::instance().getActiveCamera()->createViewMat();
   m_mainCB->add(CameraManager::instance().getActiveCamera()->GetViewMatrix());
@@ -480,9 +498,9 @@ WinApp::localRenderSetup()
   m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
 
   Vector3 lightPos = Vector3(100.0f, 0.0f, 100.0f);
-  m_lightCB->add(Vector4(lightPos, 1.0f));
-  m_lightCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
-  m_lightCB->updateSubResources(*m_gfxAPIInstance->getDevice());
+  m_shadingCB->add(Vector4(lightPos, 1.0f));
+  m_shadingCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
+  m_shadingCB->updateSubResources(*m_gfxAPIInstance->getDevice());
   
 }
 

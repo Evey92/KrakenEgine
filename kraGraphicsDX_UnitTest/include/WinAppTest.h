@@ -23,6 +23,7 @@
 #include <kraVertexShader.h>
 #include <kraInputLayout.h>
 #include <kraPixelShader.h>
+#include <kraComputeShader.h>
 #include <kraVertexBuffer.h>
 #include <kraIndexBuffer.h>
 #include <kraConstantBuffer.h>
