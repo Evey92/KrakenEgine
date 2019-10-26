@@ -437,6 +437,13 @@ WinApp::localRenderSetup()
   m_modelsVector.push_back(make_shared<Model>(skyGO->getComponent<Model>()));
 
   // Set shader to load a texture of equirectangular proyecton an transforming it to a cube
+  ShrdPtr<Texture> m_cubeUnfiltered = m_gfxDevice->createTextureInstance();
+  m_cubeUnfiltered->createCubeTexture(m_gfxDevice,
+                                      1024,
+                                      1024,
+                                      1,
+                                      GFX_FORMAT::E::kFORMAT_R16G16B16A16_FLOAT,)
+  
   m_equirect2CubeCS->compileComputeShader(L"resources/Shaders/equirect2Cube.hlsl", "CS");
   m_equirect2CubeCS->createComputeShader(*m_gfxDevice);
 
@@ -467,6 +474,14 @@ WinApp::localRenderSetup()
                                     SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
                                     TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_CLAMP);
 
+
+
+  
+  
+  
+  
+  
+  
   //Set Primitive Topology
   m_gfxAPIInstance->getDevice()->setPrimitiveTopology();
   m_defaultSampler->setSamplerState(*m_gfxAPIInstance->getDevice());

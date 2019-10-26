@@ -13,13 +13,22 @@ namespace kraEngineSDK {
      ~Texture() {}
 
     virtual void
-    createTexture2D(const Device& pDevice, int height, int width) = 0;
+    createCubeTexture(void* pDevice,
+                        uint32 height,
+                        uint32 width,
+                        GFX_FORMAT::E format,
+                        GFX_USAGE::E usage,
+                        CPU_USAGE::E cpuUsage,
+                        uint32 levels) = 0;
 
     virtual void
-    createTexture2D(void* pDevice, int height, int width,
-                    GFX_FORMAT::E format, void* bindFlag,
+    createTexture2D(void* pDevice,
+                    uint32 height,
+                    uint32 width,
+                    GFX_FORMAT::E format,
                     GFX_USAGE::E usage,
-                    CPU_USAGE::E cpuUsage) = 0;
+                    CPU_USAGE::E cpuUsage,
+                    uint32 levels) = 0;
 
     virtual bool
     createTexture2DFromFile(const Device& device,
@@ -27,6 +36,10 @@ namespace kraEngineSDK {
                             GFX_FORMAT::E format,
                             GFX_USAGE::E usage,
                             CPU_USAGE::E  cpuUsage) = 0;
+
+    virtual void
+    createTextureUAV(const Device& device,
+                     uint32 mipSlice) = 0;
 
     virtual void
     setTextureShaderResource(const Device* pDevice,

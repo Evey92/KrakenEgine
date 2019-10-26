@@ -15,37 +15,92 @@ namespace kraEngineSDK {
   }
 
   void
-  TextureDX::createTexture2D(const Device& pDevice, int height, int width) {
+  TextureDX::createCubeTexture(void* pDevice,
+                               uint32 height,
+                               uint32 width,
+                               GFX_FORMAT::E format,
+                               GFX_USAGE::E usage,
+                               CPU_USAGE::E cpuUsage,
+                               uint32 levels = 0U) {
 
-    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
-    /*DXGI_FORMAT* m_format = static_cast<DXGI_FORMAT*>(format);
-    D3D11_BIND_FLAG* m_bindFlag = static_cast<D3D11_BIND_FLAG*>(bindFlag);*/
+    const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
 
     D3D11_TEXTURE2D_DESC descTexture;
-    memset(&descTexture, 0, sizeof(descTexture));
-    descTexture.Height = height;
     descTexture.Width = width;
-    descTexture.MipLevels = 1;
-    descTexture.ArraySize = 1;
-    descTexture.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+    descTexture.Height = height;
+    descTexture.MipLevels = levels;
+    descTexture.ArraySize = 6;
+    descTexture.Format = static_cast<DXGI_FORMAT>(format);
     descTexture.SampleDesc.Count = 1;
-    descTexture.SampleDesc.Quality = 0;
     descTexture.Usage = D3D11_USAGE_DEFAULT;
-    descTexture.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-    descTexture.CPUAccessFlags = 0;
-    descTexture.MiscFlags = 0;
+    descTexture.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
+    descTexture.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE;
 
+    if (levels == 0) {
+      descTexture.BindFlags |= D3D11_BIND_RENDER_TARGET;
+      descTexture.MiscFlags |= D3D11_RESOURCE_MISC_GENERATE_MIPS;
+    }
 
-    D3D11_SUBRESOURCE_DATA initBuffer;
-    memset(&initBuffer, 0, sizeof(initBuffer));
-    m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
+    if (FAILED(m_pDevice->m_pd3dDevice->CreateTexture2D(&descTexture, nullptr, &m_pd3dTexture2D))) {
+      std::cout << "Failed to create Cubemap texture\n";
+    }
+
+    D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+    memset(&srvDesc, 0, sizeof(srvDesc));
+    srvDesc.Format = static_cast<DXGI_FORMAT>(format);
+    srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+    srvDesc.Texture2D.MostDetailedMip = 0;
+    srvDesc.Texture2D.MipLevels = -1;
+
+    if (FAILED(m_pDevice->m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, &srvDesc, &m_pSRV))) {
+      std::cout << "Failed to create Cubemap Shader Resource View\n";
+
+    }
   }
 
  
   void 
-  TextureDX::createTexture2D(void* pDevice, int height, int width, GFX_FORMAT::E format, void* bindFlag, GFX_USAGE::E usage, CPU_USAGE::E cpuUsage)
+  TextureDX::createTexture2D(void* pDevice,
+                             uint32 height,
+                             uint32 width,
+                             GFX_FORMAT::E format,
+                             GFX_USAGE::E usage,
+                             CPU_USAGE::E cpuUsage,
+                             uint32 levels)
   {
-    //TODO
+
+    const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
+
+    D3D11_TEXTURE2D_DESC descTexture;
+    descTexture.Width = width;
+    descTexture.Height = height;
+    descTexture.MipLevels = levels;
+    descTexture.ArraySize = 1;
+    descTexture.Format = static_cast<DXGI_FORMAT>(format);
+
+    descTexture.SampleDesc.Count = 1;
+    descTexture.Usage = D3D11_USAGE_DEFAULT;
+    descTexture.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
+    if (levels == 0) {
+      descTexture.BindFlags |= D3D11_BIND_RENDER_TARGET;
+      descTexture.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
+    }
+
+    if (FAILED(m_pDevice->m_pd3dDevice->CreateTexture2D(&descTexture, nullptr, &m_pd3dTexture2D))) {
+      std::cout << "Failed to create 2D texture\n";
+    }
+
+    D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+    memset(&srvDesc, 0, sizeof(srvDesc));
+    srvDesc.Format = static_cast<DXGI_FORMAT>(format);
+    srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+    srvDesc.Texture2D.MostDetailedMip = 0;
+    srvDesc.Texture2D.MipLevels = -1;
+
+    if (FAILED(m_pDevice->m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, &srvDesc, &m_pSRV))) {
+      std::cout << "Failed to create Shader Resource View\n";
+
+    }
   }
 
   void 
@@ -79,8 +134,8 @@ namespace kraEngineSDK {
     }
 
     D3D11_TEXTURE2D_DESC descTexture;
-
     memset(&descTexture, 0, sizeof(descTexture));
+
     descTexture.Height = static_cast<uint32>(m_height);
     descTexture.Width = static_cast<uint32>(m_width);
     descTexture.MipLevels = 1;
@@ -115,6 +170,37 @@ namespace kraEngineSDK {
     m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, &srvDesc, &m_pSRV);
 
     return true;
+  }
+
+  void TextureDX::createTextureUAV(const Device& pDevice, uint32 mipSlice)
+  {
+    assert(m_pd3dTexture2D);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
+
+    D3D11_TEXTURE2D_DESC descTexture;
+    memset(&descTexture, 0, sizeof(descTexture));
+
+    m_pd3dTexture2D->GetDesc(&descTexture);
+
+    D3D11_UNORDERED_ACCESS_VIEW_DESC uavDesc;
+    memset(&uavDesc, 0, sizeof(uavDesc));
+
+    uavDesc.Format = descTexture.Format;
+    if (descTexture.ArraySize == 1) {
+      uavDesc.ViewDimension = D3D11_UAV_DIMENSION_TEXTURE2D;
+      uavDesc.Texture2D.MipSlice = mipSlice;
+    }
+    else {
+      uavDesc.ViewDimension = D3D11_UAV_DIMENSION_TEXTURE2DARRAY;
+      uavDesc.Texture2DArray.MipSlice = mipSlice;
+      uavDesc.Texture2DArray.FirstArraySlice = 0;
+      uavDesc.Texture2DArray.ArraySize = descTexture.ArraySize;
+    }
+
+    if (FAILED(m_pDevice.m_pd3dDevice->CreateUnorderedAccessView(m_pd3dTexture2D, &uavDesc, &m_UAV))) {
+      std::cout << "Failed to create texture UAV\n";
+    }
+
   }
 
   void

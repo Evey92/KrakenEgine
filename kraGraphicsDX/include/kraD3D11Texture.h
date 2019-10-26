@@ -18,12 +18,21 @@ namespace kraEngineSDK {
      ~TextureDX() {}
 
     void
-    createTexture2D(const Device& pDevice, int height, int width);
+    createCubeTexture(void* pDevice,
+                      uint32 height,
+                      uint32 width,
+                      GFX_FORMAT::E format,
+                      GFX_USAGE::E usage,
+                      CPU_USAGE::E cpuUsage,
+                      uint32 levels);
     void
-    createTexture2D(void* pDevice, int height, int width,
-                    GFX_FORMAT::E format, void* bindFlag,
+    createTexture2D(void* pDevice, 
+                    uint32 height,
+                    uint32 width,
+                    GFX_FORMAT::E format,
                     GFX_USAGE::E usage,
-                    CPU_USAGE::E cpuUsage);
+                    CPU_USAGE::E cpuUsage,
+                    uint32 levels);
 
 
     void
@@ -35,6 +44,10 @@ namespace kraEngineSDK {
                             GFX_FORMAT::E format,
                             GFX_USAGE::E usage,
                             CPU_USAGE::E  cpuUsage) override;
+
+    void
+    createTextureUAV(const Device& device, uint32 mipSlice) override;
+
     void
     setTextureShaderResource(const Device* pDevice,
                              uint32 startSlot,
@@ -54,7 +67,6 @@ namespace kraEngineSDK {
     int m_height = 0;
     int m_width = 0;
     bool m_isHDR = false;
-
 
   };
 }
