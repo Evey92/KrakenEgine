@@ -441,8 +441,8 @@ WinApp::localRenderSetup()
   m_cubeUnfiltered->createCubeTexture(m_gfxDevice,
                                       1024,
                                       1024,
-                                      1,
-                                      GFX_FORMAT::E::kFORMAT_R16G16B16A16_FLOAT,)
+                                      GFX_FORMAT::E::kFORMAT_R16G16B16A16_FLOAT,
+                                      1);
   
   m_equirect2CubeCS->compileComputeShader(L"resources/Shaders/equirect2Cube.hlsl", "CS");
   m_equirect2CubeCS->createComputeShader(*m_gfxDevice);

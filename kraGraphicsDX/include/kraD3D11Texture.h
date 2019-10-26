@@ -23,7 +23,6 @@ namespace kraEngineSDK {
                       uint32 width,
                       GFX_FORMAT::E format,
                       GFX_USAGE::E usage,
-                      CPU_USAGE::E cpuUsage,
                       uint32 levels);
     void
     createTexture2D(void* pDevice, 
@@ -31,7 +30,6 @@ namespace kraEngineSDK {
                     uint32 width,
                     GFX_FORMAT::E format,
                     GFX_USAGE::E usage,
-                    CPU_USAGE::E cpuUsage,
                     uint32 levels);
 
 
@@ -54,7 +52,14 @@ namespace kraEngineSDK {
                              uint32 numViews);
 
     void 
-    setTextureComputeShaderResource(const Device* pDevice, uint32 startSlot, uint32 numViews) override;
+    setTextureComputeShaderResource(const Device* pDevice, 
+                                    uint32 startSlot, 
+                                    uint32 numViews) override;
+
+    void
+    setTextureUnorderedAccesVews(const Device* pDevice, 
+                                 uint32 startSlot,
+                                 uint32 numViews) override;
 
 
     void
@@ -67,6 +72,8 @@ namespace kraEngineSDK {
     int m_height = 0;
     int m_width = 0;
     bool m_isHDR = false;
+
+
 
   };
 }

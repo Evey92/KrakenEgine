@@ -19,8 +19,7 @@ namespace kraEngineSDK {
                                uint32 height,
                                uint32 width,
                                GFX_FORMAT::E format,
-                               GFX_USAGE::E usage,
-                               CPU_USAGE::E cpuUsage,
+                               GFX_USAGE::E usage = GFX_USAGE::E::kUSAGE_DEFAULT,
                                uint32 levels = 0U) {
 
     const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
@@ -32,7 +31,7 @@ namespace kraEngineSDK {
     descTexture.ArraySize = 6;
     descTexture.Format = static_cast<DXGI_FORMAT>(format);
     descTexture.SampleDesc.Count = 1;
-    descTexture.Usage = D3D11_USAGE_DEFAULT;
+    descTexture.Usage = static_cast<D3D11_USAGE>(usage);
     descTexture.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
     descTexture.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE;
 
@@ -63,10 +62,9 @@ namespace kraEngineSDK {
   TextureDX::createTexture2D(void* pDevice,
                              uint32 height,
                              uint32 width,
-                             GFX_FORMAT::E format,
-                             GFX_USAGE::E usage,
-                             CPU_USAGE::E cpuUsage,
-                             uint32 levels)
+                             GFX_FORMAT::E format ,
+                             GFX_USAGE::E usage = GFX_USAGE::E::kUSAGE_DEFAULT,
+                             uint32 levels = 0U)
   {
 
     const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
@@ -79,7 +77,7 @@ namespace kraEngineSDK {
     descTexture.Format = static_cast<DXGI_FORMAT>(format);
 
     descTexture.SampleDesc.Count = 1;
-    descTexture.Usage = D3D11_USAGE_DEFAULT;
+    descTexture.Usage = static_cast<D3D11_USAGE>(usage);
     descTexture.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
     if (levels == 0) {
       descTexture.BindFlags |= D3D11_BIND_RENDER_TARGET;
@@ -221,14 +219,27 @@ namespace kraEngineSDK {
                                              uint32 numViews) {
 
     const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
-
     m_pDevice->m_pImmediateContext->CSSetShaderResources(startSlot,
                                                          numViews,
                                                          &m_pSRV);
+  }
+
+  void 
+  TextureDX::setTextureUnorderedAccesVews(const Device* pDevice, 
+                                          uint32 startSlot,
+                                          uint32 numViews)
+  {
+    const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
+    m_pDevice->m_pImmediateContext->CSGetUnorderedAccessViews(startSlot,
+                                                              numViews,
+                                                              &m_UAV);
   }
 
   void
   TextureDX::releaseTexture() {
     m_pd3dTexture2D->Release();
   }
+
+  
+
 }

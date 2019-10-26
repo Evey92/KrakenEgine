@@ -14,16 +14,24 @@ namespace kraEngineSDK {
   public ShaderDX, public ComputeShader {
   
   public:
-    virtual bool compileComputeShader(const WString fileName, String entryPoint) override;
+    virtual bool
+    compileComputeShader(const WString fileName, String entryPoint) override;
 
-
-    virtual bool createComputeShader(const Device& pDevice) override;
-
+    virtual bool 
+    createComputeShader(const Device& pDevice) override;
+    
     void
     cleanShader();
 
-    virtual void setComputeShader(const Device& pDevice) override;
+    virtual void 
+    setComputeShader(const Device& pDevice) override;
 
+    virtual void 
+    dispatchCS(const Device& pDevice, 
+               uint32 threadCountX,
+               uint32 threadCountY,
+               uint32 threadCountZ) override;
+    
     ID3DBlob* m_pBlob = nullptr;
     ID3D11ComputeShader* m_pcomputeShader = nullptr;
 

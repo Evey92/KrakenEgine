@@ -52,4 +52,15 @@ namespace kraEngineSDK {
     m_pDevice.m_pImmediateContext->CSSetShader(m_pcomputeShader, 0, 0);
   }
 
+  void ComputeShaderDX::dispatchCS(const Device&   pDevice,
+                                   uint32 threadCountX,
+                                   uint32 threadCountY,
+                                   uint32 threadCountZ)
+  {
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
+    m_pDevice.m_pImmediateContext->Dispatch(threadCountX,
+                                            threadCountY,
+                                            threadCountZ);
+  }
+
 }

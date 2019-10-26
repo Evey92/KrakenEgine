@@ -26,5 +26,11 @@ namespace kraEngineSDK {
     virtual void
     setComputeShader(const Device& pDevice) = 0;
 
+    virtual void
+    dispatchCS(const Device& pDevice,
+               uint32 threadCountX,
+               uint32 threadCountY,
+               uint32 threadCountZ) = 0;
+
   };
 }

@@ -18,7 +18,6 @@ namespace kraEngineSDK {
                         uint32 width,
                         GFX_FORMAT::E format,
                         GFX_USAGE::E usage,
-                        CPU_USAGE::E cpuUsage,
                         uint32 levels) = 0;
 
     virtual void
@@ -27,7 +26,6 @@ namespace kraEngineSDK {
                     uint32 width,
                     GFX_FORMAT::E format,
                     GFX_USAGE::E usage,
-                    CPU_USAGE::E cpuUsage,
                     uint32 levels) = 0;
 
     virtual bool
@@ -48,6 +46,10 @@ namespace kraEngineSDK {
 
     virtual void
     setTextureComputeShaderResource(const Device* pDevice,
+                                    uint32 startSlot,
+                                    uint32 numViews) = 0;
+    virtual void
+    setTextureUnorderedAccesVews(const Device* pDevice,
                                     uint32 startSlot,
                                     uint32 numViews) = 0;
     
