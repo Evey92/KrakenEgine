@@ -40,6 +40,16 @@ namespace kraEngineSDK {
                      uint32 mipSlice) = 0;
 
     virtual void
+      generateMips() = 0;
+
+    virtual uint32
+      getHeight() = 0;
+
+    virtual uint32
+      getWidth() = 0;
+
+    //TODO: Move all of this bullshit either to an abstraction of device context, or to the device itself
+    virtual void
     setTextureShaderResource(const Device* pDevice,
                                uint32 startSlot,
                                uint32 numViews) = 0;
@@ -52,6 +62,9 @@ namespace kraEngineSDK {
     setTextureUnorderedAccesVews(const Device* pDevice,
                                     uint32 startSlot,
                                     uint32 numViews) = 0;
+
+    virtual bool
+    isHDR() = 0;
     
     virtual void
     releaseTexture() = 0;

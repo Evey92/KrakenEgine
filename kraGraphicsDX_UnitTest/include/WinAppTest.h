@@ -196,6 +196,9 @@ class WinApp :
 
    ShrdPtr<ComputeShader> m_equirect2CubeCS;
    
+    //LUT texture 
+   ShrdPtr<Texture> m_BRDFLUTTex;
+
     //Input layout
    ShrdPtr<InputLayout> m_localLayout;
     //Sampler state

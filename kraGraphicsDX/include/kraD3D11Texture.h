@@ -61,6 +61,17 @@ namespace kraEngineSDK {
                                  uint32 startSlot,
                                  uint32 numViews) override;
 
+    virtual 
+    uint32 getHeight() override;
+
+
+    virtual 
+    uint32 getWidth() override;
+
+
+    virtual bool 
+    isHDR() override;
+
 
     void
     releaseTexture();
@@ -69,11 +80,14 @@ namespace kraEngineSDK {
     ID3D11Texture2D* m_pd3dTexture2D = nullptr;
     ID3D11ShaderResourceView* m_pSRV = nullptr;
     ID3D11UnorderedAccessView* m_UAV = nullptr;
-    int m_height = 0;
-    int m_width = 0;
+    uint32 m_height = 0;
+    uint32 m_width = 0;
     bool m_isHDR = false;
 
 
+
+
+    
 
   };
 }

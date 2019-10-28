@@ -235,11 +235,27 @@ namespace kraEngineSDK {
                                                               &m_UAV);
   }
 
+  uint32 
+  TextureDX::getHeight()
+  {
+    return m_height;
+  }
+
+  uint32 
+  TextureDX::getWidth()
+  {
+    return m_width;
+  }
+
+  bool 
+  TextureDX::isHDR()
+  { 
+    return m_isHDR;
+  }
+
   void
   TextureDX::releaseTexture() {
     m_pd3dTexture2D->Release();
-  }
-
-  
+  } 
 
 }

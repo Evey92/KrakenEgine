@@ -188,7 +188,36 @@ WinApp::Initialize()
     Log("Couldn't initiate UI");
   }
 
- 
+  //Setting rendering matrices
+  m_world.identity();
+  m_mainCB->add(m_world);
+
+  m_activeCam = CameraManager::instance().getActiveCamera();
+
+  m_activeCam->setUp(Vector3(0.0f, 1.0f, 0.0f));
+  m_activeCam->setFront(Vector3(0.0f, 0.0f, -1.0f));
+  m_activeCam->setRight(Vector3(1.0f, 0.0f, 0.0f));
+  m_activeCam->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+  m_activeCam->SetObjecive(Vector3(0.0f, 0.0f, 1.0f));
+
+  CameraManager::instance().getActiveCamera()->createViewMat();
+  m_mainCB->add(CameraManager::instance().getActiveCamera()->GetViewMatrix());
+
+
+  m_projection.MatrixPerspectiveFOV(CameraManager::instance().getActiveCamera()->getFOV(),
+    static_cast<float>(m_gfxAPIInstance->getDevice()->getWidth()),
+    static_cast<float>(m_gfxAPIInstance->getDevice()->getHeight()),
+    CameraManager::instance().getActiveCamera()->getNearPlane(),
+    CameraManager::instance().getActiveCamera()->getFarPlane());
+
+  m_mainCB->add(m_projection);
+  m_mainCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
+  m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
+
+  Vector3 lightPos = Vector3(100.0f, 0.0f, 100.0f);
+  m_shadingCB->add(Vector4(lightPos, 1.0f));
+  m_shadingCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
+  m_shadingCB->updateSubResources(*m_gfxAPIInstance->getDevice());
 
   return true;
 }
@@ -246,24 +275,44 @@ WinApp::postUpdate()
 void 
 WinApp::render()
 {
+  m_mainCB->clear();
+
+  // Setting world matrix
+  m_mainCB->add(m_world);
+
+  //Setting view matrix
+  m_mainCB->add(CameraManager::instance().getActiveCamera()->GetViewMatrix());
+
+  //Setting projection matrix
+  m_projection.MatrixPerspectiveFOV(CameraManager::instance().getActiveCamera()->getFOV(),
+    static_cast<float>(m_gfxAPIInstance->getDevice()->getWidth()),
+    static_cast<float>(m_gfxAPIInstance->getDevice()->getHeight()),
+    CameraManager::instance().getActiveCamera()->getNearPlane(),
+    CameraManager::instance().getActiveCamera()->getFarPlane());
+
+  m_mainCB->add(m_projection);
+
+  m_mainCB->updateSubResources(*m_gfxDevice);
+
   m_backBufferRTV->setRenderTarget(*m_gfxDevice, *m_depthStencilView);
 
   m_backBufferRTV->clearRenderTarget(m_gfxDevice, ClearColor);
 
   m_depthStencilView->clearDSV(*m_gfxDevice);
 
+  m_gfxAPIInstance->getDevice()->setPrimitiveTopology();
+  m_rasterizerState->setRasterizerState(*m_gfxDevice);
+  m_mainCB->setVertexConstantBuffer(*m_gfxDevice, 0, 1);
 
-  m_localVS->setVertexShader(*m_gfxDevice);
-  m_localPS->setPixelShader(*m_gfxDevice);
-  m_localLayout->setInputLayout(*m_gfxDevice);
+  m_shadingCB->clear();
+  m_shadingCB->add(Vector4(m_activeCam->getPosition(), 0.0f));
+  m_shadingCB.add();
+
+  //Render Skybox
+
+  //Render PBR Models
 
 
-  m_mainCB->setConstData(0, m_world);
-  m_mainCB->setConstData(1, CameraManager::instance().getActiveCamera()->GetViewMatrix());
-  m_mainCB->updateSubResources(*m_gfxDevice);
-
-  m_lightCB->setConstData(0, CameraManager::instance().getActiveCamera()->getPosition());
-  m_lightCB->updateSubResources(*m_gfxDevice);
 
   for (uint32 i = 0; i < m_modelsVector.size(); ++i) {
     m_modelsVector[i]->Draw(m_gfxDevice);
@@ -271,6 +320,7 @@ WinApp::render()
   UIManager::instance().renderUI();
 
   //TODO: ActiveRederPipeline.render();
+  m_defaultSampler->setSamplerState(*m_gfxAPIInstance->getDevice());
 
   m_gfxDevice->PresentSwapChain();
 
@@ -442,8 +492,11 @@ WinApp::localRenderSetup()
                                       1024,
                                       1024,
                                       GFX_FORMAT::E::kFORMAT_R16G16B16A16_FLOAT,
+                                      GFX_USAGE::E::kUSAGE_DYNAMIC,
                                       1);
   
+  m_cubeUnfiltered->createTextureUAV(*m_gfxDevice, 0);
+
   m_equirect2CubeCS->compileComputeShader(L"resources/Shaders/equirect2Cube.hlsl", "CS");
   m_equirect2CubeCS->createComputeShader(*m_gfxDevice);
 
@@ -454,68 +507,34 @@ WinApp::localRenderSetup()
                                          GFX_USAGE::E::kUSAGE_DYNAMIC,
                                          CPU_USAGE::E::kCPU_ACCESS_WRITE);
   enviroTexture->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
+  m_cubeUnfiltered->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);
   m_computeSampler->setComputeSamplerState(*m_gfxDevice);
   m_equirect2CubeCS->setComputeShader(*m_gfxDevice);
+  m_equirect2CubeCS->dispatchCS(*m_gfxDevice,
+                                m_cubeUnfiltered->getWidth() / 32,
+                                m_cubeUnfiltered->getHeight() / 32,
+                                6);
   
   //Calculating Cook-Torrance's BRFD model
   ShrdPtr<ComputeShader> spBRDFshader = m_gfxDevice->createComputeShaderInstance();
-  spBRDFshader->compileComputeShader(L"resources/Shaders/equirect2Cube.hlsl", "CS");
+  spBRDFshader->compileComputeShader(L"resources/Shaders/spbrdf.hlsl", "CS");
 
-  ShrdPtr<Texture> m_spBRDFLUT = m_gfxDevice->createTextureInstance();
-  m_spBRDFLUT->createTexture2DFromFile(*m_gfxDevice,
+  m_BRDFLUTTex = m_gfxDevice->createTextureInstance();
+  m_BRDFLUTTex->createTexture2DFromFile(*m_gfxDevice,
                                          "/resources/Textures/brfdLUT.png",
                                          GFX_FORMAT::E::kFORMAT_R16G16_FLOAT,
                                          GFX_USAGE::E::kUSAGE_DYNAMIC,
                                          CPU_USAGE::E::kCPU_ACCESS_WRITE);
 
-  m_spBRDFLUT->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
   m_BRDFSampler = m_gfxDevice->createSamplerStateInstance();
   m_BRDFSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
                                     SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
                                     TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_CLAMP);
-
-
-
   
-  
-  
-  
-  
-  
-  //Set Primitive Topology
-  m_gfxAPIInstance->getDevice()->setPrimitiveTopology();
-  m_defaultSampler->setSamplerState(*m_gfxAPIInstance->getDevice());
-
-  //Setting rendering matrices
-  m_world.identity();
-  m_mainCB->add(m_world);
-
-  m_activeCam = CameraManager::instance().getActiveCamera();
-
-  m_activeCam->setUp(Vector3(0.0f, 1.0f, 0.0f));
-  m_activeCam->setFront(Vector3(0.0f, 0.0f, -1.0f));
-  m_activeCam->setRight(Vector3(1.0f, 0.0f, 0.0f));
-  m_activeCam->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-  m_activeCam->SetObjecive(Vector3(0.0f, 0.0f, 1.0f));
-
-  CameraManager::instance().getActiveCamera()->createViewMat();
-  m_mainCB->add(CameraManager::instance().getActiveCamera()->GetViewMatrix());
-
-
-  m_projection.MatrixPerspectiveFOV(CameraManager::instance().getActiveCamera()->getFOV(),
-                                    static_cast<float>(m_gfxAPIInstance->getDevice()->getWidth()),
-                                    static_cast<float>(m_gfxAPIInstance->getDevice()->getHeight()),
-                                    CameraManager::instance().getActiveCamera()->getNearPlane(),
-                                    CameraManager::instance().getActiveCamera()->getFarPlane());
-
-  m_mainCB->add(m_projection);
-  m_mainCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
-  m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
-
-  Vector3 lightPos = Vector3(100.0f, 0.0f, 100.0f);
-  m_shadingCB->add(Vector4(lightPos, 1.0f));
-  m_shadingCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
-  m_shadingCB->updateSubResources(*m_gfxAPIInstance->getDevice());
-  
+  m_BRDFLUTTex->createTextureUAV(*m_gfxDevice, 0);
+  m_BRDFLUTTex->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);
+  m_BRDFLUTTex->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
+   
+  spBRDFshader->dispatchCS(*m_gfxDevice, m_BRDFLUTTex->getWidth()/32, m_BRDFLUTTex->getHeight()/32, 1);
 }
 
