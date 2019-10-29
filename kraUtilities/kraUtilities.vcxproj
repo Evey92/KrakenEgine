@@ -199,6 +199,7 @@
     <ClCompile Include="src\kraVector4.cpp" />
     <ClCompile Include="src\kraWindowsMath.cpp" />
     <ClCompile Include="src\Source.cpp" />
+    <ClCompile Include="src\TransformUtilities.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CameraManager.h" />
@@ -227,6 +228,7 @@
     <ClInclude Include="include\kraVector4.h" />
     <ClInclude Include="include\kraVertex.h" />
     <ClInclude Include="include\kraWindowsMath.h" />
+    <ClInclude Include="include\TransformUtilities.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

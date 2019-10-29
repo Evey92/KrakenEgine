@@ -61,15 +61,18 @@ namespace kraEngineSDK {
                                  uint32 startSlot,
                                  uint32 numViews) override;
 
-    virtual 
-    uint32 getHeight() override;
+    void 
+    generateMips() override;
 
 
-    virtual 
-    uint32 getWidth() override;
+    uint32 
+    getHeight() override;
 
 
-    virtual bool 
+    uint32
+    getWidth() override;
+    
+    bool 
     isHDR() override;
 
 
@@ -83,11 +86,6 @@ namespace kraEngineSDK {
     uint32 m_height = 0;
     uint32 m_width = 0;
     bool m_isHDR = false;
-
-
-
-
-    
 
   };
 }

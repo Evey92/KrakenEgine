@@ -31,10 +31,12 @@ namespace kraEngineSDK {
     descTexture.ArraySize = 6;
     descTexture.Format = static_cast<DXGI_FORMAT>(format);
     descTexture.SampleDesc.Count = 1;
+    descTexture.SampleDesc.Quality = 0;
     descTexture.Usage = static_cast<D3D11_USAGE>(usage);
     descTexture.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
     descTexture.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE;
-
+    descTexture.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+    
     if (levels == 0) {
       descTexture.BindFlags |= D3D11_BIND_RENDER_TARGET;
       descTexture.MiscFlags |= D3D11_RESOURCE_MISC_GENERATE_MIPS;
@@ -47,7 +49,7 @@ namespace kraEngineSDK {
     D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
     memset(&srvDesc, 0, sizeof(srvDesc));
     srvDesc.Format = static_cast<DXGI_FORMAT>(format);
-    srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+    srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
     srvDesc.Texture2D.MostDetailedMip = 0;
     srvDesc.Texture2D.MipLevels = -1;
 
@@ -257,5 +259,10 @@ namespace kraEngineSDK {
   TextureDX::releaseTexture() {
     m_pd3dTexture2D->Release();
   } 
+
+  void TextureDX::generateMips()
+  {
+    //do
+  }
 
 }

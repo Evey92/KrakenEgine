@@ -20,6 +20,7 @@ namespace kraEngineSDK {
     // the shaders to be optimized and to run exactly the way they will run in 
     // the release configuration of this program.
     dwShaderFlags |= D3DCOMPILE_DEBUG;
+    dwShaderFlags |= D3DCOMPILE_SKIP_OPTIMIZATION;
 #endif
 
     ID3DBlob* pErrorBlob;
@@ -41,7 +42,14 @@ namespace kraEngineSDK {
       return false;
     }
     if (pErrorBlob) {   
+      String errorMsg;
+      errorMsg += String("\n") + static_cast<const char*>(pErrorBlob->GetBufferPointer());
+      //throw std::runtime_error(errorMsg);
+      
+      std::cout << "Error: " << errorMsg;
       pErrorBlob->Release();
+    
+      return false;
     }
 
     return true;

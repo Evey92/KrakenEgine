@@ -32,7 +32,7 @@ namespace kraEngineSDK {
                uint32 threadCountY,
                uint32 threadCountZ) override;
     
-    ID3DBlob* m_pBlob = nullptr;
+ 
     ID3D11ComputeShader* m_pcomputeShader = nullptr;
 
   };

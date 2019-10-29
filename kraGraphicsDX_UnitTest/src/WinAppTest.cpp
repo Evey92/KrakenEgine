@@ -148,7 +148,10 @@ WinApp::Initialize()
   m_defaultDepthStencil->createDepthStencilState(*m_gfxDevice, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ALL);
   m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
   
+  m_skyboxDepthStencil = m_gfxDevice->createDepthStencilInstance();
   m_skyboxDepthStencil->createDepthStencilState(*m_gfxDevice, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ZERO);
+  m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
+
   //Create Depth Stencil view from depth stencil
   m_depthStencilView = m_gfxDevice->createDepthStencilViewInstance();
   m_depthStencilView->createDepthStencilView(*m_gfxAPIInstance->getDevice(), *m_defaultDepthStencil);
@@ -198,8 +201,8 @@ WinApp::Initialize()
   m_activeCam->setUp(Vector3(0.0f, 1.0f, 0.0f));
   m_activeCam->setFront(Vector3(0.0f, 0.0f, -1.0f));
   m_activeCam->setRight(Vector3(1.0f, 0.0f, 0.0f));
-  m_activeCam->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-  m_activeCam->SetObjecive(Vector3(0.0f, 0.0f, 1.0f));
+  m_activeCam->SetPosition(Vector3(0.0f, 1.0f, -10.0f));
+  m_activeCam->SetObjecive(Vector3(0.0f, 0.0f, 0.0f));
 
   CameraManager::instance().getActiveCamera()->createViewMat();
   m_mainCB->add(CameraManager::instance().getActiveCamera()->GetViewMatrix());
@@ -233,13 +236,14 @@ void
 WinApp::run()
 {
   MSG msg = { 0 };
-  localRenderSetup();
+  localRenderInit();
   while (m_window->isOpen())
   {
     //m_renderPipeInstance->Setup();
     m_window->handleMSG(static_cast<void*>(&msg), *m_inputManager);
     update();
-    
+    localRenderSetup();
+
     //m_renderPipeInstance->render();
     render();
 
@@ -331,7 +335,12 @@ WinApp::render()
     m_modelsVector[i]->Draw(m_gfxDevice);
   }
 
-  m_backBufferRTV->setRenderTarget(*m_gfxDevice, nullptr);
+  m_backBufferRTV->setRenderTarget(*m_gfxDevice, 1);
+  m_toneMapVS->setVertexShader(*m_gfxDevice);
+  m_toneMapPS->setPixelShader(*m_gfxDevice);
+  m_computeSampler->setSamplerState(*m_gfxDevice, 0, 1);
+  
+  m_gfxDevice->Draw(3, 0);
 
   UIManager::instance().renderUI();
 
@@ -462,13 +471,11 @@ void WinApp::localRenderInit()
 void 
 WinApp::localRenderSetup()
 {
-
-
-
+   
   //Setting up camera
-  m_camManager->getActiveCamera()->setFOV(kraMath::DEG2RAD(90.0f));
-  m_camManager->getActiveCamera()->setNearPlane(0.01f);
-  m_camManager->getActiveCamera()->setFarPlane(10000.0f);
+  m_activeCam->setFOV(kraMath::DEG2RAD(90.0f));
+  m_activeCam->setNearPlane(0.01f);
+  m_activeCam->setFarPlane(10000.0f);
   
   //Setting up shaders
 
@@ -511,12 +518,12 @@ WinApp::localRenderSetup()
                                       1024,
                                       1024,
                                       GFX_FORMAT::E::kFORMAT_R16G16B16A16_FLOAT,
-                                      GFX_USAGE::E::kUSAGE_DYNAMIC,
+                                      GFX_USAGE::E::kUSAGE_DEFAULT,
                                       1);
   
   m_cubeUnfiltered->createTextureUAV(*m_gfxDevice, 0);
 
-  m_equirect2CubeCS->compileComputeShader(L"resources/Shaders/equirect2Cube.hlsl", "CS");
+  m_equirect2CubeCS->compileComputeShader(L"resources/Shaders/equirect2Cube.hlsl", "main");
   m_equirect2CubeCS->createComputeShader(*m_gfxDevice);
 
   ShrdPtr<Texture> enviroTexture = m_gfxDevice->createTextureInstance();
@@ -536,13 +543,13 @@ WinApp::localRenderSetup()
   
   //Calculating Cook-Torrance's BRFD model
   ShrdPtr<ComputeShader> spBRDFshader = m_gfxDevice->createComputeShaderInstance();
-  spBRDFshader->compileComputeShader(L"resources/Shaders/spbrdf.hlsl", "CS");
+  spBRDFshader->compileComputeShader(L"resources/Shaders/specBRDF.hlsl", "main");
 
   m_BRDFLUT = m_gfxDevice->createTextureInstance();
   m_BRDFLUT->createTexture2DFromFile(*m_gfxDevice,
                                          "/resources/Textures/brfdLUT.png",
                                          GFX_FORMAT::E::kFORMAT_R16G16_FLOAT,
-                                         GFX_USAGE::E::kUSAGE_DYNAMIC,
+                                         GFX_USAGE::E::kUSAGE_DEFAULT,
                                          CPU_USAGE::E::kCPU_ACCESS_WRITE);
 
   m_BRDFSampler = m_gfxDevice->createSamplerStateInstance();

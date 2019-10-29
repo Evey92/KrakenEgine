@@ -8,4 +8,7 @@ namespace kraEngineSDK {
   const float kraPlatformMath::RADIAN = kraPlatformMath::PI / 180.0f;
   
   const float kraPlatformMath::EULER = 2.71828182f;
+
+  
+
 }

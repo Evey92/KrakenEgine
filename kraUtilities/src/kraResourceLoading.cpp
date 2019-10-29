@@ -36,7 +36,7 @@ namespace kraEngineSDK {
         stbi_image_free(pixels);
         pixels = stbi_load("resources/Textures/missingChecker.png", &img->m_width, &img->m_height, &img->channels, 4);
         img->pixels = pixels;
-        return false;
+        return true;
       }
     }
   }
