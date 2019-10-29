@@ -17,7 +17,7 @@ namespace kraEngineSDK {
      bool
      setDepthStencil(const Device& pDevice, uint32 height, uint32 width) override;
      bool
-     createDepthStencilState(const Device& pDevice) override;
+     createDepthStencilState(const Device& pDevice, DEPTH_WRITE_MASK::E writeMask) override;
      void
      setDepthStencilState(const Device& pDevice) override;
      void

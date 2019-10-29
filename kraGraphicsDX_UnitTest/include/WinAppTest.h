@@ -183,22 +183,19 @@ class WinApp :
    //This is just temporary BS
 
     //Shaders
-   ShrdPtr<VertexShader> m_PBRVS;
-   ShrdPtr<PixelShader> m_PBRPS;
-   ShrdPtr<InputLayout> m_pbrInputLayout;
+   ShrdPtr<VertexShader> m_PBRVS = nullptr;
+   ShrdPtr<PixelShader> m_PBRPS = nullptr;
+   ShrdPtr<InputLayout> m_pbrInputLayout = nullptr;
+   ShrdPtr<Texture> m_BRDFLUT = nullptr;
+   ShrdPtr<VertexShader> m_skyboxVS = nullptr;
+   ShrdPtr<PixelShader> m_skyboxPS = nullptr;
+   ShrdPtr<InputLayout> m_skyboxInputLayout = nullptr;
 
-   ShrdPtr<VertexShader> m_skyboxVS;
-   ShrdPtr<PixelShader> m_skyboxPS;
-   ShrdPtr<InputLayout> m_skyboxInputLayout;
-
-   ShrdPtr<VertexShader> m_toneMapVS;
-   ShrdPtr<PixelShader> m_toneMapPS;
+   ShrdPtr<VertexShader> m_toneMapVS = nullptr;
+   ShrdPtr<PixelShader> m_toneMapPS = nullptr;
 
    ShrdPtr<ComputeShader> m_equirect2CubeCS;
    
-    //LUT texture 
-   ShrdPtr<Texture> m_BRDFLUTTex;
-
     //Input layout
    ShrdPtr<InputLayout> m_localLayout;
     //Sampler state

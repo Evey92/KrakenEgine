@@ -40,10 +40,10 @@ namespace kraEngineSDK {
   }
 
   void
-  SamplerStateDX::setSamplerState(const Device& pDevice) {
+  SamplerStateDX::setSamplerState(const Device& pDevice, uint32 startSlot = 0, uint32 numSampl = 1) {
     
     const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
-    m_device.m_pImmediateContext->PSSetSamplers(0, 1, &m_samplerState);
+    m_device.m_pImmediateContext->PSSetSamplers(startSlot, numSampl, &m_samplerState);
   }
 
   void 

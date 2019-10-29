@@ -144,6 +144,16 @@ namespace kraEngineSDK {
       kFORMAT_V408 = 132,
     };
   }
+
+  namespace DEPTH_WRITE_MASK {
+    enum class E {
+
+      kDEPTH_WRITE_MASK_ZERO = 0,
+      kDEPTH_WRITE_MASK_ALL = 1
+
+    };
+  }
+
 #pragma region BUFFER_USAGE
 
   namespace GFX_USAGE {

@@ -19,7 +19,7 @@ namespace kraEngineSDK {
                          TEXTURE_ADDRESS_MODE::E addressMode);
 
     void
-    setSamplerState(const Device& pDevice);
+    setSamplerState(const Device& pDevice, uint32 startSlot, uint32 numSampl);
 
     void 
     setComputeSamplerState(const Device& pDevice) override;

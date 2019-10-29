@@ -145,9 +145,10 @@ WinApp::Initialize()
   // Create Depth stencil
   m_defaultDepthStencil = m_gfxDevice->createDepthStencilInstance();
   m_defaultDepthStencil->setDepthStencil(*m_gfxDevice, m_gfxAPIInstance->getDevice()->getHeight(), m_gfxAPIInstance->getDevice()->getWidth());
-  m_defaultDepthStencil->createDepthStencilState(*m_gfxDevice);
+  m_defaultDepthStencil->createDepthStencilState(*m_gfxDevice, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ALL);
   m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
-
+  
+  m_skyboxDepthStencil->createDepthStencilState(*m_gfxDevice, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ZERO);
   //Create Depth Stencil view from depth stencil
   m_depthStencilView = m_gfxDevice->createDepthStencilViewInstance();
   m_depthStencilView->createDepthStencilView(*m_gfxAPIInstance->getDevice(), *m_defaultDepthStencil);
@@ -294,8 +295,13 @@ WinApp::render()
 
   m_mainCB->updateSubResources(*m_gfxDevice);
 
-  m_backBufferRTV->setRenderTarget(*m_gfxDevice, *m_depthStencilView);
+  m_shadingCB->clear();
+  m_shadingCB->add(Vector4(m_activeCam->getPosition(), 0.0f));
+  m_shadingCB->add(Vector4(-1.0, 0.0f, 0.0f, 0.0f));
+  m_shadingCB->add(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
+  m_shadingCB->updateSubResources(*m_gfxDevice);
 
+  m_backBufferRTV->setRenderTarget(*m_gfxDevice, *m_depthStencilView);
   m_backBufferRTV->clearRenderTarget(m_gfxDevice, ClearColor);
 
   m_depthStencilView->clearDSV(*m_gfxDevice);
@@ -303,24 +309,34 @@ WinApp::render()
   m_gfxAPIInstance->getDevice()->setPrimitiveTopology();
   m_rasterizerState->setRasterizerState(*m_gfxDevice);
   m_mainCB->setVertexConstantBuffer(*m_gfxDevice, 0, 1);
-
-  m_shadingCB->clear();
-  m_shadingCB->add(Vector4(m_activeCam->getPosition(), 0.0f));
-  m_shadingCB.add();
+  m_shadingCB->setPixelConstantBuffer(*m_gfxDevice, 0, 1);
 
   //Render Skybox
+  m_skyboxInputLayout->setInputLayout(*m_gfxDevice);
+  m_skyboxVS->setVertexShader(*m_gfxDevice);
+  m_skyboxPS->setPixelShader(*m_gfxDevice);
+  m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
+  m_skyboxDepthStencil->setDepthStencilState(*m_gfxDevice);
+  m_skyBox->Draw(m_gfxDevice);
 
   //Render PBR Models
-
-
+  m_pbrInputLayout->setInputLayout(*m_gfxDevice);
+  m_PBRVS->setVertexShader(*m_gfxDevice);
+  m_PBRPS->setPixelShader(*m_gfxDevice);
+  m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
+  m_BRDFSampler->setSamplerState(*m_gfxDevice, 1, 1);
+  m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
 
   for (uint32 i = 0; i < m_modelsVector.size(); ++i) {
     m_modelsVector[i]->Draw(m_gfxDevice);
   }
+
+  m_backBufferRTV->setRenderTarget(*m_gfxDevice, nullptr);
+
   UIManager::instance().renderUI();
 
   //TODO: ActiveRederPipeline.render();
-  m_defaultSampler->setSamplerState(*m_gfxAPIInstance->getDevice());
+
 
   m_gfxDevice->PresentSwapChain();
 
@@ -446,6 +462,9 @@ void WinApp::localRenderInit()
 void 
 WinApp::localRenderSetup()
 {
+
+
+
   //Setting up camera
   m_camManager->getActiveCamera()->setFOV(kraMath::DEG2RAD(90.0f));
   m_camManager->getActiveCamera()->setNearPlane(0.01f);
@@ -519,8 +538,8 @@ WinApp::localRenderSetup()
   ShrdPtr<ComputeShader> spBRDFshader = m_gfxDevice->createComputeShaderInstance();
   spBRDFshader->compileComputeShader(L"resources/Shaders/spbrdf.hlsl", "CS");
 
-  m_BRDFLUTTex = m_gfxDevice->createTextureInstance();
-  m_BRDFLUTTex->createTexture2DFromFile(*m_gfxDevice,
+  m_BRDFLUT = m_gfxDevice->createTextureInstance();
+  m_BRDFLUT->createTexture2DFromFile(*m_gfxDevice,
                                          "/resources/Textures/brfdLUT.png",
                                          GFX_FORMAT::E::kFORMAT_R16G16_FLOAT,
                                          GFX_USAGE::E::kUSAGE_DYNAMIC,
@@ -531,10 +550,10 @@ WinApp::localRenderSetup()
                                     SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
                                     TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_CLAMP);
   
-  m_BRDFLUTTex->createTextureUAV(*m_gfxDevice, 0);
-  m_BRDFLUTTex->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);
-  m_BRDFLUTTex->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
+  m_BRDFLUT->createTextureUAV(*m_gfxDevice, 0);
+  m_BRDFLUT->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);
+  m_BRDFLUT->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
    
-  spBRDFshader->dispatchCS(*m_gfxDevice, m_BRDFLUTTex->getWidth()/32, m_BRDFLUTTex->getHeight()/32, 1);
+  spBRDFshader->dispatchCS(*m_gfxDevice, m_BRDFLUT->getWidth()/32, m_BRDFLUT->getHeight()/32, 1);
 }
 
