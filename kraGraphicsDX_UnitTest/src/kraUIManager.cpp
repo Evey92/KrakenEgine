@@ -172,9 +172,11 @@
         
         if (comp->isOfType(Transform::Type)) {
           drawTransform(gameObj->m_transform);
+
         }
         else if (comp->isOfType(Camera::Type)) {
           Camera objCam = gameObj->getComponent<Camera>();
+          
           drawCamera(&objCam);
         }
         else if (comp->isOfType(Model::Type)) {
@@ -211,7 +213,7 @@
     
     ImGui::Text("Transform");
     ImGui::InputFloat3("Position", pos);
-    //transform.setPosition(pos);
+    transform.setPosition(Vector3(pos[0], pos[1], pos[2]));
 
     ImGui::InputFloat3("Rotation", rot);
 

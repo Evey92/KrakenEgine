@@ -66,6 +66,9 @@ namespace kraEngineSDK {
     getContext() = 0;
 
     virtual void
+    resolveSubreresource(const Texture& source, const Texture& result) = 0;
+
+    virtual void
     Draw(uint32 numVertex, uint32 startIndex) = 0;
     
     virtual void
@@ -135,4 +138,6 @@ namespace kraEngineSDK {
     creatreRasterizerStateInstance() = 0;
 
   };
+
+
 }

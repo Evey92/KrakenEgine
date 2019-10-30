@@ -40,4 +40,16 @@ namespace kraEngineSDK {
     return Scale;
   }
 
+  bool 
+  Transform::isDirty()
+  {
+    return m_dirty;
+  }
+
+  void 
+  Transform::setDirty(bool dirty)
+  {
+    m_dirty = dirty;
+  }
+
 }

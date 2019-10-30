@@ -148,8 +148,11 @@ WinApp::Initialize()
   m_defaultDepthStencil->createDepthStencilState(*m_gfxDevice, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ALL);
   m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
   
+  
   m_skyboxDepthStencil = m_gfxDevice->createDepthStencilInstance();
   m_skyboxDepthStencil->createDepthStencilState(*m_gfxDevice, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ZERO);
+  
+
   m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
 
   //Create Depth Stencil view from depth stencil
@@ -218,7 +221,7 @@ WinApp::Initialize()
   m_mainCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
   m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
 
-  Vector3 lightPos = Vector3(100.0f, 0.0f, 100.0f);
+  Vector3 lightPos = Vector3(0.0f, 0.0f, 0.0f);
   m_shadingCB->add(Vector4(lightPos, 1.0f));
   m_shadingCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
   m_shadingCB->updateSubResources(*m_gfxAPIInstance->getDevice());
@@ -301,7 +304,7 @@ WinApp::render()
 
   m_shadingCB->clear();
   m_shadingCB->add(Vector4(m_activeCam->getPosition(), 0.0f));
-  m_shadingCB->add(Vector4(-1.0, 0.0f, 0.0f, 0.0f));
+  m_shadingCB->add(Vector4(1.0, 0.0f, 0.0f, 0.0f));
   m_shadingCB->add(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
   m_shadingCB->updateSubResources(*m_gfxDevice);
 
@@ -316,12 +319,15 @@ WinApp::render()
   m_shadingCB->setPixelConstantBuffer(*m_gfxDevice, 0, 1);
 
   //Render Skybox
+  
   m_skyboxInputLayout->setInputLayout(*m_gfxDevice);
   m_skyboxVS->setVertexShader(*m_gfxDevice);
   m_skyboxPS->setPixelShader(*m_gfxDevice);
+  enviroTexture->setTextureShaderResource(m_gfxDevice, 0, 1);
   m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
   m_skyboxDepthStencil->setDepthStencilState(*m_gfxDevice);
   m_skyBoxModel->Draw(m_gfxDevice);
+  
 
   //Render PBR Models
   m_pbrInputLayout->setInputLayout(*m_gfxDevice);
@@ -453,6 +459,7 @@ void WinApp::localRenderInit()
   m_PBRPS = m_gfxDevice->createPixelShaderInstance();
   m_pbrInputLayout = m_gfxDevice->createInputLayoutInstance();
 
+  
   m_skyboxVS = m_gfxDevice->createVertexShaderInstance();
   m_skyboxPS = m_gfxDevice->createPixelShaderInstance();
   m_skyboxInputLayout = m_gfxDevice->createInputLayoutInstance();
@@ -469,24 +476,28 @@ void WinApp::localRenderInit()
 
   m_pbrInputLayout = m_gfxAPIInstance->getDevice()->createInputLayoutInstance();
   spBRDFshader = m_gfxDevice->createComputeShaderInstance();
+  
+  
   m_skyboxInputLayout = m_gfxAPIInstance->getDevice()->createInputLayoutInstance();
+  
   m_BRDFLUT = m_gfxDevice->createTextureInstance();
   m_cubeUnfiltered = m_gfxDevice->createTextureInstance();
   m_BRDFSampler = m_gfxDevice->createSamplerStateInstance();
 
-
+  
   //This one is specially disgusting
   GameObject* skyGO = SceneManager::instance().createGameObject("Skybox");
   skyGO->addComponent<Model>(skyGO);
   skyGO->getComponent<Model>().loadModelFromFile("resources/Models/Skybox.fbx",
     *m_gfxDevice);
   m_skyBoxModel = make_shared<Model>(skyGO->getComponent<Model>());
+  
 
   enviroTexture = m_gfxDevice->createTextureInstance();
   enviroTexture->createTexture2DFromFile(*m_gfxDevice,
                                          "resources/Textures/HDR/loft.hdr",
                                          GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
-                                         GFX_USAGE::E::kUSAGE_DYNAMIC,
+                                         GFX_USAGE::E::kUSAGE_DEFAULT,
                                          CPU_USAGE::E::kCPU_ACCESS_WRITE);
 
   m_BRDFLUT->createTexture2DFromFile(*m_gfxDevice,
@@ -503,11 +514,13 @@ void WinApp::localRenderInit()
   m_PBRPS->compilePixelShader(L"resources/Shaders/PBR.hlsl", "PS");
   m_PBRPS->createPixelShader(*m_gfxAPIInstance->getDevice());
 
+  
   m_skyboxVS->compileVertexShader(L"resources/Shaders/skyboxShader.hlsl", "VS");
   m_skyboxVS->createVertexShader(*m_gfxAPIInstance->getDevice());
 
   m_skyboxPS->compilePixelShader(L"resources/Shaders/skyboxShader.hlsl", "PS");
   m_skyboxPS->createPixelShader(*m_gfxAPIInstance->getDevice());
+  
 
   m_toneMapVS->compileVertexShader(L"resources/Shaders/toneMappingShader.hlsl", "VS");
   m_toneMapVS->createVertexShader(*m_gfxAPIInstance->getDevice());
@@ -529,10 +542,9 @@ WinApp::localRenderSetup()
  
 
   //setting input layout
-  m_pbrInputLayout->createInputLayout(*m_gfxDevice, *m_PBRVS);
-
+  m_pbrInputLayout->createInputLayout(*m_gfxDevice, *m_PBRVS);  
   m_skyboxInputLayout->createInputLayout(*m_gfxDevice, *m_skyboxVS);
-
+  
   // Set shader to load a texture of equirectangular proyecton an transforming it to a cube
   m_cubeUnfiltered->createCubeTexture(m_gfxDevice,
                                       1024,

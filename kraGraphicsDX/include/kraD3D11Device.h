@@ -68,6 +68,10 @@ namespace kraEngineSDK {
     virtual void* 
     getContext() override;
     
+    void 
+    resolveSubreresource(const Texture& source, const Texture& result) override;
+
+
     void
     Draw(uint32 numVertex, uint32 startIndex);
     

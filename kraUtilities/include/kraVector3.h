@@ -24,7 +24,6 @@ namespace kraEngineSDK {
      */
     Vector3(float X, float Y, float Z);
 
-
     /**
      * @brief Construct a Vector3 from the X & Y components from a Vector4.
      */

@@ -42,6 +42,19 @@
 #include "kraUIManager.h"
 using namespace kraEngineSDK;
 
+//This is like a tumor that should be removed soon. Used for capturing a frame for render-to-texture purposes
+
+struct FrameBuffer{
+  ShrdPtr<Texture> colorTex;
+  ShrdPtr<Texture> depthTex;
+  ShrdPtr<RenderTargetView> frameRTV;
+  ShrdPtr<DepthStencilView> frameDSV;
+  uint32 width;
+  uint32 height;
+  uint32 samples;
+
+};
+
 class WinApp :
   public BaseApplication
 {
@@ -185,6 +198,8 @@ class WinApp :
 
    //This is just temporary BS
 
+   FrameBuffer srcFB;
+   FrameBuffer destinationFB;
     //Shaders
    ShrdPtr<VertexShader> m_PBRVS = nullptr;
    ShrdPtr<PixelShader> m_PBRPS = nullptr;

@@ -36,7 +36,7 @@
 namespace kraEngineSDK {
 
   bool
-  DeviceDX::initializeDevice(void* g_hWnd) {
+    DeviceDX::initializeDevice(void* g_hWnd) {
 
     HWND m_hWnd = reinterpret_cast<HWND>(g_hWnd);
     HRESULT hr = S_OK;
@@ -61,8 +61,8 @@ namespace kraEngineSDK {
     featureLevels.push_back(D3D_FEATURE_LEVEL_11_0);
     featureLevels.push_back(D3D_FEATURE_LEVEL_10_1);
     featureLevels.push_back(D3D_FEATURE_LEVEL_10_0);
-    
-    
+
+
     DXGI_SWAP_CHAIN_DESC sd;
     memset(&sd, 0, sizeof(sd));
     sd.BufferCount = 2;
@@ -88,17 +88,17 @@ namespace kraEngineSDK {
       D3D_DRIVER_TYPE& dt = driverTypes[driverTypeIndex];
 
       hr = D3D11CreateDeviceAndSwapChain(nullptr,
-                                         dt,
-                                         nullptr,
-                                         createDeviceFlags,
-                                         &featureLevels[0],
-                                         static_cast<UINT>(featureLevels.size()),
-                                         D3D11_SDK_VERSION,
-                                         &sd,
-                                         &m_pSwapChain.m_pd3dSwapChain,
-                                         &m_pd3dDevice, 
-                                         &selectedFL,
-                                         &m_pImmediateContext);
+        dt,
+        nullptr,
+        createDeviceFlags,
+        &featureLevels[0],
+        static_cast<UINT>(featureLevels.size()),
+        D3D11_SDK_VERSION,
+        &sd,
+        &m_pSwapChain.m_pd3dSwapChain,
+        &m_pd3dDevice,
+        &selectedFL,
+        &m_pImmediateContext);
 
       if (SUCCEEDED(hr)) {
         break;
@@ -112,8 +112,8 @@ namespace kraEngineSDK {
   }
 
   void
-  DeviceDX::setRenderTarget(RenderTargetView* pRTV, void* pDSV) {
-    
+    DeviceDX::setRenderTarget(RenderTargetView* pRTV, void* pDSV) {
+
     RenderTargetViewDX* m_pRTV = static_cast<RenderTargetViewDX*>(pRTV);
     ID3D11DepthStencilView* m_pDSV = static_cast<ID3D11DepthStencilView*>(pDSV);
 
@@ -121,154 +121,154 @@ namespace kraEngineSDK {
   }
 
   void
-  DeviceDX::cleanContext() {
+    DeviceDX::cleanContext() {
     m_pImmediateContext->Release();
   }
 
   void
-  DeviceDX::cleanDevice() {
+    DeviceDX::cleanDevice() {
     m_pd3dDevice->Release();
   }
 
   void
-  DeviceDX::cleanSwapChain() {
+    DeviceDX::cleanSwapChain() {
     m_pSwapChain.m_pd3dSwapChain->Release();
   }
 
   void
-  DeviceDX::cleanContextState() {
+    DeviceDX::cleanContextState() {
     m_pImmediateContext->ClearState();
   }
 
   void
-  DeviceDX::setPrimitiveTopology() {
+    DeviceDX::setPrimitiveTopology() {
     m_pImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
   }
 
   uint32
-  DeviceDX::getHeight() {
+    DeviceDX::getHeight() {
     return m_height;
   }
 
   uint32
-  DeviceDX::getWidth() {
+    DeviceDX::getWidth() {
     return m_width;
   }
 
-  void* 
-  DeviceDX::getDevice()
+  void*
+    DeviceDX::getDevice()
   {
     return reinterpret_cast<void*>(m_pd3dDevice);
   }
 
-  void* 
-  DeviceDX::getContext()
+  void*
+    DeviceDX::getContext()
   {
     return reinterpret_cast<void*>(m_pImmediateContext);
   }
 
   void
-  DeviceDX::Draw(uint32 numVertex, uint32 startIndex) {
+    DeviceDX::Draw(uint32 numVertex, uint32 startIndex) {
     m_pImmediateContext->Draw(numVertex, startIndex);
   }
 
   void
-  DeviceDX::DrawIndexed(uint32 count, uint32 start, int32 baseLoc) {
+    DeviceDX::DrawIndexed(uint32 count, uint32 start, int32 baseLoc) {
     m_pImmediateContext->DrawIndexed(count, start, baseLoc);
   }
 
   //TODO fix this bullshit with a factory.
   void
-  DeviceDX::PresentSwapChain() {
+    DeviceDX::PresentSwapChain() {
     m_pSwapChain.m_pd3dSwapChain->Present(1, 0);
   }
 
   ShrdPtr<RenderTargetView>
-  DeviceDX::createRenderTargetInsttance() {
+    DeviceDX::createRenderTargetInsttance() {
     return std::make_shared<RenderTargetViewDX>();
   }
 
   Viewport*
-  DeviceDX::createViewportInstance() {
+    DeviceDX::createViewportInstance() {
     return new ViewportDX();
   }
 
   ShrdPtr<InputLayout>
-  DeviceDX::createInputLayoutInstance() {
+    DeviceDX::createInputLayoutInstance() {
     return make_shared<InputLayoutDX>();
   }
 
   ShrdPtr<DepthStencil>
-  DeviceDX::createDepthStencilInstance() {
+    DeviceDX::createDepthStencilInstance() {
     return std::make_shared<DepthStencilDX>();
   }
 
   ShrdPtr<DepthStencilView>
-  DeviceDX::createDepthStencilViewInstance() {
+    DeviceDX::createDepthStencilViewInstance() {
     return std::make_shared<DepthStencylViewDX>();
   }
 
   ShrdPtr<VertexShader>
-  DeviceDX::createVertexShaderInstance() {
+    DeviceDX::createVertexShaderInstance() {
     return std::make_shared<VertexShaderDX>();
   }
 
   ShrdPtr<PixelShader>
-  DeviceDX::createPixelShaderInstance() {
+    DeviceDX::createPixelShaderInstance() {
     return std::make_shared<PixelShaderDX>();
   }
 
   ShrdPtr<ComputeShader>
-  DeviceDX::createComputeShaderInstance() {
+    DeviceDX::createComputeShaderInstance() {
     return std::make_shared<ComputeShaderDX>();
 
   }
 
   VertexBuffer*
-  DeviceDX::createVertexBufferInstance() {
+    DeviceDX::createVertexBufferInstance() {
     return new VertexBufferDX();
   }
   IndexBuffer*
-  DeviceDX::createIndexBufferInstance() {
+    DeviceDX::createIndexBufferInstance() {
     return new IndexBufferDX();
   }
   ConstantBuffer<CBNeverChanges>*
-  DeviceDX::createConstantBufferNever() {
- 
+    DeviceDX::createConstantBufferNever() {
+
     return new ConstantBufferDX<CBNeverChanges>();
 
   }
   ConstantBuffer<CBChangeOnResize>*
-  DeviceDX::createConstantBufferResize() {
+    DeviceDX::createConstantBufferResize() {
     return new ConstantBufferDX<CBChangeOnResize>();
   }
   ConstantBuffer<CBChangesEveryFrame>*
-  DeviceDX::createConstantBufferEveryFrame() {
+    DeviceDX::createConstantBufferEveryFrame() {
     return new ConstantBufferDX<CBChangesEveryFrame>();
   }
   ShrdPtr<ConstantBuffer<Matrix4>>
-  DeviceDX::createConstantBufferInstance() {
+    DeviceDX::createConstantBufferInstance() {
     return  make_shared<ConstantBufferDX<Matrix4>>();
   }
-  
+
   ShrdPtr<ConstantBuffer<Vector4>>
-  DeviceDX::createConstantBufferInstanceVec3() {
+    DeviceDX::createConstantBufferInstanceVec3() {
     return make_shared<ConstantBufferDX<Vector4>>();
   }
   ShrdPtr<SamplerState>
-  DeviceDX::createSamplerStateInstance() {
+    DeviceDX::createSamplerStateInstance() {
     return std::make_shared<SamplerStateDX>();
   }
 
   ShrdPtr<Texture>
-  DeviceDX::createTextureInstance() {
-  
+    DeviceDX::createTextureInstance() {
+
     ShrdPtr<TextureDX> newTex = make_shared<TextureDX>();
     return reinterpret_cast<ShrdPtr<Texture>&>(newTex);
   }
 
   ShaderResourceView*
-  DeviceDX::createShaderRVInstance() {
+    DeviceDX::createShaderRVInstance() {
     return new ShaderResourceViewDX();
   }
 
@@ -276,10 +276,24 @@ namespace kraEngineSDK {
   DeviceDX::createMaterialInstance() {
     return new Material();
   }*/
-  
+
   ShrdPtr<RasterizerState>
-  DeviceDX::creatreRasterizerStateInstance() {
+    DeviceDX::creatreRasterizerStateInstance() {
     return std::make_shared<RasterizerStateDX>();
   }
 
+  void
+    DeviceDX::resolveSubreresource(const Texture& source, const Texture& destination)
+  {
+    const TextureDX& sourceText = static_cast<const TextureDX&>(source);
+    const TextureDX& destText = static_cast<const TextureDX&>(destination);
+
+    D3D11_TEXTURE2D_DESC descTexture;
+    sourceText.m_pd3dTexture2D->GetDesc(&descTexture);
+
+    if (sourceText.m_pd3dTexture2D == destText.m_pd3dTexture2D) {
+      m_pImmediateContext->ResolveSubresource(destText.m_pd3dTexture2D, 0, sourceText.m_pd3dTexture2D, 0, descTexture.Format);
+    }
+
+  }
 }
