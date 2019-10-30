@@ -12,7 +12,7 @@ namespace kraEngineSDK {
                                entryPoint,
                                "cs_5_0");
 
-    if (!m_pBlob)
+    if (!m_pBlob || !hr)
     {
       MessageBox(NULL, "Failed to compile Compute Shader", "Error", MB_OK);
       return false;

@@ -12,6 +12,8 @@ namespace kraEngineSDK {
 
     HRESULT hr = S_OK;
 
+    m_layoutDescVector.clear();
+
     const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
     const VertexShaderDX& m_pVShader = static_cast<const VertexShaderDX&>(pVShader);
     ID3DBlob* pShaderBlob = m_pVShader.m_pBlob;

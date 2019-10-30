@@ -208,7 +208,7 @@ namespace kraEngineSDK {
   }
 
   void
-    Model::Draw(Device* pDevice) {
+  Model::Draw(Device* pDevice) {
 
     for (uint32 i = 0; i < m_meshVec.size(); i++)
     {

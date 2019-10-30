@@ -36,21 +36,18 @@ namespace kraEngineSDK {
 
     if (FAILED(hr))
     {
-      if (pErrorBlob != NULL)
-        OutputDebugStringA((char*)pErrorBlob->GetBufferPointer());
-      if (pErrorBlob) pErrorBlob->Release();
-      return false;
+      if (pErrorBlob) {
+        String errorMsg;
+        errorMsg += String("\n") + static_cast<const char*>(pErrorBlob->GetBufferPointer());
+        //throw std::runtime_error(errorMsg);
+
+        std::cout << "Error: " << errorMsg;
+        pErrorBlob->Release();
+
+        return false;
+      }
     }
-    if (pErrorBlob) {   
-      String errorMsg;
-      errorMsg += String("\n") + static_cast<const char*>(pErrorBlob->GetBufferPointer());
-      //throw std::runtime_error(errorMsg);
-      
-      std::cout << "Error: " << errorMsg;
-      pErrorBlob->Release();
     
-      return false;
-    }
 
     return true;
   }

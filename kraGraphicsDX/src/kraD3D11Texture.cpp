@@ -144,7 +144,7 @@ namespace kraEngineSDK {
     descTexture.SampleDesc.Count = 1;
     descTexture.SampleDesc.Quality = 0;
     descTexture.Usage = static_cast<D3D11_USAGE>(usage);
-    descTexture.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+    descTexture.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
     descTexture.CPUAccessFlags = static_cast<D3D11_CPU_ACCESS_FLAG>(cpuUsage);
     descTexture.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
 

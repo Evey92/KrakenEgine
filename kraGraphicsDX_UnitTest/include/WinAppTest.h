@@ -168,8 +168,11 @@ class WinApp :
 
  private:
    Vector<ShrdPtr<Model>> m_modelsVector;
-   ShrdPtr<Model> m_skyBox;
+   ShrdPtr<Model> m_skyBoxModel;
    ShrdPtr<RenderTargetView> m_backBufferRTV = nullptr;
+   ShrdPtr<Texture> enviroTexture;
+   ShrdPtr<ComputeShader> spBRDFshader;
+   ShrdPtr<Texture> m_cubeUnfiltered;
 
    ShrdPtr<RasterizerState> m_rasterizerState = nullptr;
    ShrdPtr<DepthStencil> m_defaultDepthStencil = nullptr;

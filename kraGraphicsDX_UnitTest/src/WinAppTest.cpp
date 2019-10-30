@@ -321,7 +321,7 @@ WinApp::render()
   m_skyboxPS->setPixelShader(*m_gfxDevice);
   m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
   m_skyboxDepthStencil->setDepthStencilState(*m_gfxDevice);
-  m_skyBox->Draw(m_gfxDevice);
+  m_skyBoxModel->Draw(m_gfxDevice);
 
   //Render PBR Models
   m_pbrInputLayout->setInputLayout(*m_gfxDevice);
@@ -466,17 +466,35 @@ void WinApp::localRenderInit()
   m_computeSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
                                        SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
                                        TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_WRAP);
-}
 
-void 
-WinApp::localRenderSetup()
-{
-   
-  //Setting up camera
-  m_activeCam->setFOV(kraMath::DEG2RAD(90.0f));
-  m_activeCam->setNearPlane(0.01f);
-  m_activeCam->setFarPlane(10000.0f);
-  
+  m_pbrInputLayout = m_gfxAPIInstance->getDevice()->createInputLayoutInstance();
+  spBRDFshader = m_gfxDevice->createComputeShaderInstance();
+  m_skyboxInputLayout = m_gfxAPIInstance->getDevice()->createInputLayoutInstance();
+  m_BRDFLUT = m_gfxDevice->createTextureInstance();
+  m_cubeUnfiltered = m_gfxDevice->createTextureInstance();
+  m_BRDFSampler = m_gfxDevice->createSamplerStateInstance();
+
+
+  //This one is specially disgusting
+  GameObject* skyGO = SceneManager::instance().createGameObject("Skybox");
+  skyGO->addComponent<Model>(skyGO);
+  skyGO->getComponent<Model>().loadModelFromFile("resources/Models/Skybox.fbx",
+    *m_gfxDevice);
+  m_skyBoxModel = make_shared<Model>(skyGO->getComponent<Model>());
+
+  enviroTexture = m_gfxDevice->createTextureInstance();
+  enviroTexture->createTexture2DFromFile(*m_gfxDevice,
+                                         "resources/Textures/HDR/loft.hdr",
+                                         GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                         GFX_USAGE::E::kUSAGE_DYNAMIC,
+                                         CPU_USAGE::E::kCPU_ACCESS_WRITE);
+
+  m_BRDFLUT->createTexture2DFromFile(*m_gfxDevice,
+                                     "resources/Textures/brfdLUT.png",
+                                     GFX_FORMAT::E::kFORMAT_R16G16_FLOAT,
+                                     GFX_USAGE::E::kUSAGE_DEFAULT,
+                                     CPU_USAGE::E::kCPU_ACCESS_WRITE);
+
   //Setting up shaders
 
   m_PBRVS->compileVertexShader(L"resources/Shaders/PBR.hlsl", "VS");
@@ -497,23 +515,25 @@ WinApp::localRenderSetup()
   m_toneMapPS->compilePixelShader(L"resources/Shaders/toneMappingShader.hlsl", "PS");
   m_toneMapPS->createPixelShader(*m_gfxAPIInstance->getDevice());
 
+}
+
+void 
+WinApp::localRenderSetup()
+{
+   
+  //Setting up camera
+  m_activeCam->setFOV(kraMath::DEG2RAD(90.0f));
+  m_activeCam->setNearPlane(0.01f);
+  m_activeCam->setFarPlane(10000.0f);
+  
+ 
+
   //setting input layout
-  m_pbrInputLayout = m_gfxAPIInstance->getDevice()->createInputLayoutInstance();
   m_pbrInputLayout->createInputLayout(*m_gfxDevice, *m_PBRVS);
 
-  m_skyboxInputLayout = m_gfxAPIInstance->getDevice()->createInputLayoutInstance();
   m_skyboxInputLayout->createInputLayout(*m_gfxDevice, *m_skyboxVS);
 
-  //This one is specially disgusting
-  GameObject* skyGO = SceneManager::instance().createGameObject("Skybox");
-  skyGO->addComponent<Model>(skyGO);
-  skyGO->getComponent<Model>().loadModelFromFile("resources/Models/skybox.obj",
-                                                 *m_gfxDevice);
-  SceneManager::instance().getActiveScene()->addNewNode(skyGO);
-  m_modelsVector.push_back(make_shared<Model>(skyGO->getComponent<Model>()));
-
   // Set shader to load a texture of equirectangular proyecton an transforming it to a cube
-  ShrdPtr<Texture> m_cubeUnfiltered = m_gfxDevice->createTextureInstance();
   m_cubeUnfiltered->createCubeTexture(m_gfxDevice,
                                       1024,
                                       1024,
@@ -526,12 +546,6 @@ WinApp::localRenderSetup()
   m_equirect2CubeCS->compileComputeShader(L"resources/Shaders/equirect2Cube.hlsl", "main");
   m_equirect2CubeCS->createComputeShader(*m_gfxDevice);
 
-  ShrdPtr<Texture> enviroTexture = m_gfxDevice->createTextureInstance();
-  enviroTexture->createTexture2DFromFile(*m_gfxDevice,
-                                         "/resources/Textures/HDRenvironment.hdr", 
-                                         GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
-                                         GFX_USAGE::E::kUSAGE_DYNAMIC,
-                                         CPU_USAGE::E::kCPU_ACCESS_WRITE);
   enviroTexture->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
   m_cubeUnfiltered->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);
   m_computeSampler->setComputeSamplerState(*m_gfxDevice);
@@ -542,18 +556,9 @@ WinApp::localRenderSetup()
                                 6);
   
   //Calculating Cook-Torrance's BRFD model
-  ShrdPtr<ComputeShader> spBRDFshader = m_gfxDevice->createComputeShaderInstance();
   spBRDFshader->compileComputeShader(L"resources/Shaders/specBRDF.hlsl", "main");
 
-  m_BRDFLUT = m_gfxDevice->createTextureInstance();
-  m_BRDFLUT->createTexture2DFromFile(*m_gfxDevice,
-                                         "/resources/Textures/brfdLUT.png",
-                                         GFX_FORMAT::E::kFORMAT_R16G16_FLOAT,
-                                         GFX_USAGE::E::kUSAGE_DEFAULT,
-                                         CPU_USAGE::E::kCPU_ACCESS_WRITE);
-
-  m_BRDFSampler = m_gfxDevice->createSamplerStateInstance();
-  m_BRDFSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
+  m_BRDFSampler->createSamplerState(*m_gfxDevice,
                                     SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
                                     TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_CLAMP);
   
