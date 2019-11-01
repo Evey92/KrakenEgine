@@ -178,6 +178,9 @@
     <ClInclude Include="include\kraComputeShader.h">
       <Filter>Source Files\kraGraphics</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraFrameBuffer.h">
+      <Filter>Source Files\kraGraphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraBaseApplication.cpp">

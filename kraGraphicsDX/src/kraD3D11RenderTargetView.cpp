@@ -83,7 +83,7 @@ const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
   RenderTargetViewDX::setRenderTarget(const Device& pDevice, const DepthStencilView& pDSV) {
 
     const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
-    const DepthStencylViewDX& m_DSV = static_cast<const DepthStencylViewDX&>(pDSV);
+    const DepthStencilViewDX& m_DSV = static_cast<const DepthStencilViewDX&>(pDSV);
 
 
     m_device.m_pImmediateContext->OMSetRenderTargets(1, &m_pRenderTargetView, m_DSV.m_pDepthStencilView);
@@ -95,7 +95,7 @@ const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
     
     DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
-    const DepthStencylViewDX& m_DSV = static_cast<const DepthStencylViewDX&>(pDSV);
+    const DepthStencilViewDX& m_DSV = static_cast<const DepthStencilViewDX&>(pDSV);
 
     Vector<ID3D11RenderTargetView*> rtvector;
 

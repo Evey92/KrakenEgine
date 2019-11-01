@@ -99,6 +99,13 @@ namespace kraEngineSDK {
     
   }
 
+  void InputLayoutDX::setNullInputLayout(const Device& pDevice)
+  {
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
+
+    m_pDevice.m_pImmediateContext->IASetInputLayout(nullptr);
+  }
+
   void
   InputLayoutDX::cleanInputLayout() {
     m_pVertexLayout->Release();

@@ -18,6 +18,7 @@ namespace kraEngineSDK {
   class ShaderResourceView;
   class Material;
   class RasterizerState;
+  class FrameBuffer;
 
   template<typename CONSVERTEX> class ConstantBuffer;
 
@@ -67,6 +68,9 @@ namespace kraEngineSDK {
 
     virtual void
     resolveSubreresource(const Texture& source, const Texture& result) = 0;
+    
+    virtual uint32
+    checkMaxSupportedMSAALevel() = 0;
 
     virtual void
     Draw(uint32 numVertex, uint32 startIndex) = 0;
@@ -136,6 +140,9 @@ namespace kraEngineSDK {
     
     virtual ShrdPtr<RasterizerState>
     creatreRasterizerStateInstance() = 0;
+    
+    virtual ShrdPtr<FrameBuffer>
+    createFrameBufferInstance() = 0;
 
   };
 

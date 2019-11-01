@@ -8,7 +8,7 @@
 namespace kraEngineSDK {
   
   bool
-  DepthStencylViewDX::createDepthStencilView(const Device& pDevice,
+  DepthStencilViewDX::createDepthStencilView(const Device& pDevice,
                                            const DepthStencil& pDepthStencil) {
     
     const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
@@ -34,12 +34,12 @@ namespace kraEngineSDK {
   }
 
   void
-  DepthStencylViewDX::cleanDSV() {
+  DepthStencilViewDX::cleanDSV() {
     m_pDepthStencilView->Release();
   }
 
   void
-  DepthStencylViewDX::clearDSV(const Device& pDevice) {
+  DepthStencilViewDX::clearDSV(const Device& pDevice) {
 
     const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
     

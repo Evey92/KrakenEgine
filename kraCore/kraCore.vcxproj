@@ -193,6 +193,7 @@
     <ClInclude Include="include\kraDepthStencilView.h" />
     <ClInclude Include="include\kraDevice.h" />
     <ClInclude Include="include\kraDeviceContext.h" />
+    <ClInclude Include="include\kraFrameBuffer.h" />
     <ClInclude Include="include\kraGameObject.h" />
     <ClInclude Include="include\kraGFXMappings.h" />
     <ClInclude Include="include\kraGraphicsAPI.h" />

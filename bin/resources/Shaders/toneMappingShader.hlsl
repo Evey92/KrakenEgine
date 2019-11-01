@@ -1,6 +1,6 @@
 #include "Commons.hlsl"
 
-Texture2D txAlbedo : register(t0);
+Texture2D texAlbedo : register(t0);
 SamplerState samLinear : register(s0);
 
 struct PS_INPUT
@@ -32,7 +32,7 @@ PS_INPUT VS(uint vertID : SV_VertexID)
 
 float4 PS(PS_INPUT Input) : SV_Target
 {
-    float3 albedo = txAlbedo.Sample(samLinear, Input.TexCoord).rgb * exposure;
+    float3 albedo = texAlbedo.Sample(samLinear, Input.TexCoord).rgb * exposure;
 
     // Reinhard tonemapping operator.
     float luminance = dot(albedo, float3(0.2126, 0.7152, 0.0722));

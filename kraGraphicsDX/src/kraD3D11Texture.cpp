@@ -25,6 +25,7 @@ namespace kraEngineSDK {
     const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
 
     D3D11_TEXTURE2D_DESC descTexture;
+    memset(&descTexture, 0, sizeof(descTexture));
     descTexture.Width = width;
     descTexture.Height = height;
     descTexture.MipLevels = levels;
@@ -72,6 +73,7 @@ namespace kraEngineSDK {
     const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
 
     D3D11_TEXTURE2D_DESC descTexture;
+    memset(&descTexture, 0, sizeof(descTexture));
     descTexture.Width = width;
     descTexture.Height = height;
     descTexture.MipLevels = levels;

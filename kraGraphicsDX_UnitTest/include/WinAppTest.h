@@ -33,6 +33,7 @@
 #include <kraSampler.h>
 #include <kraVector4.h>
 #include <kraMatrix4.h>
+#include <kraFrameBuffer.h>
 
 //Input headers
 #include <kraInputAPI.h>
@@ -44,16 +45,16 @@ using namespace kraEngineSDK;
 
 //This is like a tumor that should be removed soon. Used for capturing a frame for render-to-texture purposes
 
-struct FrameBuffer{
-  ShrdPtr<Texture> colorTex;
-  ShrdPtr<Texture> depthTex;
-  ShrdPtr<RenderTargetView> frameRTV;
-  ShrdPtr<DepthStencilView> frameDSV;
-  uint32 width;
-  uint32 height;
-  uint32 samples;
-
-};
+//struct FrameBuffer{
+//  ShrdPtr<Texture> colorTex;
+//  ShrdPtr<Texture> depthTex;
+//  ShrdPtr<RenderTargetView> frameRTV;
+//  ShrdPtr<DepthStencilView> frameDSV;
+//  uint32 width;
+//  uint32 height;
+//  uint32 samples;
+//
+//};
 
 class WinApp :
   public BaseApplication
@@ -161,6 +162,15 @@ class WinApp :
    void
    localRenderSetup();
 
+   void
+   drawSkybox();
+
+   void
+   drawPBRModels();
+
+   void
+   toneMapPasss();
+
 #pragma endregion UTILITY_FUNCTIONS
 
 #pragma region PUBLIC_MEMBERS
@@ -198,8 +208,8 @@ class WinApp :
 
    //This is just temporary BS
 
-   FrameBuffer srcFB;
-   FrameBuffer destinationFB;
+   ShrdPtr<FrameBuffer> srcFB;
+   ShrdPtr<FrameBuffer> destinationFB;
     //Shaders
    ShrdPtr<VertexShader> m_PBRVS = nullptr;
    ShrdPtr<PixelShader> m_PBRPS = nullptr;

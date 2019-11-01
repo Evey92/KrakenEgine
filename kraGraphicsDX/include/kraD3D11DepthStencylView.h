@@ -11,11 +11,11 @@ namespace kraEngineSDK {
   class DepthStencil;
   class Device;
 
-  class KRA_UTILGFX_EXPORT DepthStencylViewDX : public DepthStencilView
+  class KRA_UTILGFX_EXPORT DepthStencilViewDX : public DepthStencilView
   {
    public:
-     DepthStencylViewDX() = default;
-    ~DepthStencylViewDX() {}
+     DepthStencilViewDX() = default;
+    ~DepthStencilViewDX() {}
 
     bool
     createDepthStencilView(const Device& pDevice,

@@ -319,34 +319,16 @@ WinApp::render()
   m_shadingCB->setPixelConstantBuffer(*m_gfxDevice, 0, 1);
 
   //Render Skybox
-  
-  m_skyboxInputLayout->setInputLayout(*m_gfxDevice);
-  m_skyboxVS->setVertexShader(*m_gfxDevice);
-  m_skyboxPS->setPixelShader(*m_gfxDevice);
-  enviroTexture->setTextureShaderResource(m_gfxDevice, 0, 1);
-  m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
-  m_skyboxDepthStencil->setDepthStencilState(*m_gfxDevice);
-  m_skyBoxModel->Draw(m_gfxDevice);
-  
+  drawSkybox();
 
   //Render PBR Models
-  m_pbrInputLayout->setInputLayout(*m_gfxDevice);
-  m_PBRVS->setVertexShader(*m_gfxDevice);
-  m_PBRPS->setPixelShader(*m_gfxDevice);
-  m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
-  m_BRDFSampler->setSamplerState(*m_gfxDevice, 1, 1);
-  m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
+  drawPBRModels();
 
-  for (uint32 i = 0; i < m_modelsVector.size(); ++i) {
-    m_modelsVector[i]->Draw(m_gfxDevice);
-  }
+  //Capture this frame frame
+  m_gfxDevice->resolveSubreresource(*srcFB->m_colorTex, *destinationFB->m_colorTex);
 
-  m_backBufferRTV->setRenderTarget(*m_gfxDevice, 1);
-  m_toneMapVS->setVertexShader(*m_gfxDevice);
-  m_toneMapPS->setPixelShader(*m_gfxDevice);
-  m_computeSampler->setSamplerState(*m_gfxDevice, 0, 1);
-  
-  m_gfxDevice->Draw(3, 0);
+ //Tone mapping pass
+  toneMapPasss();
 
   UIManager::instance().renderUI();
 
@@ -455,6 +437,7 @@ WinApp::CleanupDevice()
 
 void WinApp::localRenderInit()
 {
+  //Creating instances of classes
   m_PBRVS = m_gfxDevice->createVertexShaderInstance();
   m_PBRPS = m_gfxDevice->createPixelShaderInstance();
   m_pbrInputLayout = m_gfxDevice->createInputLayoutInstance();
@@ -470,6 +453,7 @@ void WinApp::localRenderInit()
   m_equirect2CubeCS = m_gfxDevice->createComputeShaderInstance();
   m_computeSampler = m_gfxDevice->createSamplerStateInstance();
   m_computeSampler = m_gfxDevice->createSamplerStateInstance();
+
   m_computeSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
                                        SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
                                        TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_WRAP);
@@ -483,7 +467,8 @@ void WinApp::localRenderInit()
   m_BRDFLUT = m_gfxDevice->createTextureInstance();
   m_cubeUnfiltered = m_gfxDevice->createTextureInstance();
   m_BRDFSampler = m_gfxDevice->createSamplerStateInstance();
-
+  srcFB = m_gfxDevice->createFrameBufferInstance();
+  destinationFB = m_gfxDevice->createFrameBufferInstance();
   
   //This one is specially disgusting
   GameObject* skyGO = SceneManager::instance().createGameObject("Skybox");
@@ -495,7 +480,7 @@ void WinApp::localRenderInit()
 
   enviroTexture = m_gfxDevice->createTextureInstance();
   enviroTexture->createTexture2DFromFile(*m_gfxDevice,
-                                         "resources/Textures/HDR/loft.hdr",
+                                         "resources/Textures/HDR/appart.hdr",
                                          GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
                                          GFX_USAGE::E::kUSAGE_DEFAULT,
                                          CPU_USAGE::E::kCPU_ACCESS_WRITE);
@@ -527,6 +512,28 @@ void WinApp::localRenderInit()
 
   m_toneMapPS->compilePixelShader(L"resources/Shaders/toneMappingShader.hlsl", "PS");
   m_toneMapPS->createPixelShader(*m_gfxAPIInstance->getDevice());
+
+  uint32 samples = m_gfxDevice->checkMaxSupportedMSAALevel();
+
+  if (!srcFB->initFramebuffer(m_gfxDevice->getWidth(),
+                             m_gfxDevice->getHeight(),
+                             samples,
+                             GFX_FORMAT::E::kFORMAT_R16G16B16A16_FLOAT,
+                             GFX_FORMAT::E::kFORMAT_D24_UNORM_S8_UINT)) {
+
+    throw std::exception("Failed to initialize FrameBuffer");
+  }
+
+  if (samples > 1) {
+    destinationFB->initFramebuffer(m_gfxDevice->getWidth(),
+                                   m_gfxDevice->getHeight(),
+                                   1,
+                                   GFX_FORMAT::E::kFORMAT_R16G16B16A16_FLOAT,
+                                   GFX_FORMAT::E::kFORMAT_UNKNOWN);
+  }
+  else {
+    destinationFB = srcFB;
+  }
 
 }
 
@@ -579,5 +586,44 @@ WinApp::localRenderSetup()
   m_BRDFLUT->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
    
   spBRDFshader->dispatchCS(*m_gfxDevice, m_BRDFLUT->getWidth()/32, m_BRDFLUT->getHeight()/32, 1);
+}
+
+void 
+WinApp::drawSkybox()
+{
+  m_skyboxInputLayout->setInputLayout(*m_gfxDevice);
+  m_skyboxVS->setVertexShader(*m_gfxDevice);
+  m_skyboxPS->setPixelShader(*m_gfxDevice);
+  enviroTexture->setTextureShaderResource(m_gfxDevice, 0, 1);
+  m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
+  m_skyboxDepthStencil->setDepthStencilState(*m_gfxDevice);
+  m_skyBoxModel->Draw(m_gfxDevice);
+}
+
+void 
+WinApp::drawPBRModels()
+{
+  m_pbrInputLayout->setInputLayout(*m_gfxDevice);
+  m_PBRVS->setVertexShader(*m_gfxDevice);
+  m_PBRPS->setPixelShader(*m_gfxDevice);
+  m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
+  m_BRDFSampler->setSamplerState(*m_gfxDevice, 1, 1);
+  m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
+
+  for (uint32 i = 0; i < m_modelsVector.size(); ++i) {
+    m_modelsVector[i]->Draw(m_gfxDevice);
+  }
+}
+
+void WinApp::toneMapPasss()
+{
+
+  m_backBufferRTV->setRenderTarget(*m_gfxDevice, 1);
+  m_toneMapVS->setVertexShader(*m_gfxDevice);
+  m_toneMapPS->setPixelShader(*m_gfxDevice);
+  m_skyboxInputLayout->setNullInputLayout(*m_gfxDevice);
+  destinationFB->m_colorTex->setTextureShaderResource(m_gfxDevice, 0, 1);
+  m_computeSampler->setSamplerState(*m_gfxDevice, 0, 1);
+  m_gfxDevice->Draw(3, 0);
 }
 

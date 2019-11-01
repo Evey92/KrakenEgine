@@ -15,6 +15,7 @@
 #include <kraShaderResourceView.h>
 #include <kraMaterial.h>
 #include <kraRasterizerState.h>
+#include <kraFrameBuffer.h>
 
 #include "kraD3D11Device.h"
 #include "kraD3D11RenderTargetView.h"
@@ -32,6 +33,7 @@
 #include "kraD3D11Texture.h"
 #include "kraD3D11ShaderResourceView.h"
 #include "kraD3D11RasterizerState.h"
+#include "kraD3D11FrameBuffer.h"
 
 namespace kraEngineSDK {
 
@@ -179,7 +181,7 @@ namespace kraEngineSDK {
 
   //TODO fix this bullshit with a factory.
   void
-    DeviceDX::PresentSwapChain() {
+  DeviceDX::PresentSwapChain() {
     m_pSwapChain.m_pd3dSwapChain->Present(1, 0);
   }
 
@@ -205,7 +207,7 @@ namespace kraEngineSDK {
 
   ShrdPtr<DepthStencilView>
     DeviceDX::createDepthStencilViewInstance() {
-    return std::make_shared<DepthStencylViewDX>();
+    return std::make_shared<DepthStencilViewDX>();
   }
 
   ShrdPtr<VertexShader>
@@ -296,4 +298,33 @@ namespace kraEngineSDK {
     }
 
   }
+
+  uint32
+  DeviceDX::checkMaxSupportedMSAALevel()
+  {
+    uint32 samples = 0;
+    uint32 maxSamples = 16; 
+    
+    for (samples = maxSamples; samples > 1; samples /= 2) {
+      uint32 colorQuality;
+      uint32 depthQuality;
+      m_pd3dDevice->CheckMultisampleQualityLevels(DXGI_FORMAT_R16G16B16A16_FLOAT, samples, &colorQuality);
+      m_pd3dDevice->CheckMultisampleQualityLevels(DXGI_FORMAT_D24_UNORM_S8_UINT, samples, &depthQuality);
+
+      if (colorQuality > 0 && depthQuality > 0)
+      {
+        break;
+      }
+    }
+
+    return samples;
+  }
+
+  ShrdPtr<FrameBuffer>
+  DeviceDX::createFrameBufferInstance()
+  {
+    return make_shared<FrameBufferDX>();
+  }
+
+
 }

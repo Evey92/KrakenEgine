@@ -17,8 +17,13 @@ namespace kraEngineSDK {
     
     virtual bool
     createInputLayout(const Device& pd3dDevice, const VertexShader& pVShader) = 0;
+    
     virtual void
-    setInputLayout(const Device& pDeviceContext) = 0;
+    setInputLayout(const Device& pDevice) = 0;
+    
+    virtual void
+    setNullInputLayout(const Device& pDevice) = 0;
+    
     virtual void
     cleanInputLayout() = 0;
   };

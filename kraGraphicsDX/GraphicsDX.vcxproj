@@ -27,6 +27,7 @@
     <ClInclude Include="include\kraD3D11DepthStencylView.h" />
     <ClInclude Include="include\kraD3D11Device.h" />
     <ClInclude Include="include\kraD3D11DeviceContext.h" />
+    <ClInclude Include="include\kraD3D11FrameBuffer.h" />
     <ClInclude Include="include\kraD3D11GraphicsAPI.h" />
     <ClInclude Include="include\kraD3D11GraphicsBuffer.h" />
     <ClInclude Include="include\kraD3D11IndexBuffer.h" />
@@ -47,6 +48,7 @@
     <ClInclude Include="include\kraPrerequisitesGFX.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\kraD3D11FrameBuffer.cpp" />
     <ClCompile Include="src\kraD3D11Blob.cpp" />
     <ClCompile Include="src\kraD3D11ComputeShader.cpp" />
     <ClCompile Include="src\kraD3D11ConstantBuffer.cpp" />

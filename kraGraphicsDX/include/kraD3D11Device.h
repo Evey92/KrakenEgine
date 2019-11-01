@@ -24,6 +24,7 @@ namespace kraEngineSDK {
   class ShaderResourceView;
   class Material;
   class RasterizerState;
+  class FrameBuffer;
 
   template<typename CONSVERTEX> class ConstantBuffer;
 
@@ -70,6 +71,9 @@ namespace kraEngineSDK {
     
     void 
     resolveSubreresource(const Texture& source, const Texture& result) override;
+
+    uint32 
+    checkMaxSupportedMSAALevel() override;
 
 
     void
@@ -146,6 +150,10 @@ namespace kraEngineSDK {
     SwapChainDX m_pSwapChain;
     uint32 m_height = 0;
     uint32 m_width = 0;
+
+
+    ShrdPtr<FrameBuffer>
+    createFrameBufferInstance() override;
 
   };
 }
