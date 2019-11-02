@@ -293,7 +293,7 @@ namespace kraEngineSDK {
     D3D11_TEXTURE2D_DESC descTexture;
     sourceText.m_pd3dTexture2D->GetDesc(&descTexture);
 
-    if (sourceText.m_pd3dTexture2D == destText.m_pd3dTexture2D) {
+    if (sourceText.m_pd3dTexture2D != destText.m_pd3dTexture2D) {
       m_pImmediateContext->ResolveSubresource(destText.m_pd3dTexture2D, 0, sourceText.m_pd3dTexture2D, 0, descTexture.Format);
     }
 
@@ -320,11 +320,41 @@ namespace kraEngineSDK {
     return samples;
   }
 
+  void 
+  DeviceDX::generateMips(ShrdPtr<Texture> tex)
+  {
+    TextureDX& pTexture = reinterpret_cast<TextureDX&>(*tex);
+
+    m_pImmediateContext->GenerateMips(pTexture.m_pSRV);
+  }
+
   ShrdPtr<FrameBuffer>
   DeviceDX::createFrameBufferInstance()
   {
     return make_shared<FrameBufferDX>();
   }
 
+  void 
+  DeviceDX::copySubresourceRegion(ShrdPtr<Texture> destTex, 
+                                  uint32 destIndex, 
+                                  uint32 dstX, 
+                                  uint32 dstY, 
+                                  uint32 dstZ, 
+                                  ShrdPtr<Texture> sourceTex, 
+                                  uint32 srcIndex, 
+                                  void* box)
+  {
+    TextureDX& pdestTexture = reinterpret_cast<TextureDX&>(*destTex);
+    TextureDX& psrcTexture = reinterpret_cast<TextureDX&>(*sourceTex);
+
+    m_pImmediateContext->CopySubresourceRegion(pdestTexture.m_pd3dTexture2D,
+                                               destIndex,
+                                               dstX,
+                                               dstY,
+                                               dstZ,
+                                               psrcTexture.m_pd3dTexture2D,
+                                               srcIndex,
+                                               reinterpret_cast<D3D11_BOX*>(box));
+  }
 
 }

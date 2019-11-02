@@ -43,23 +43,6 @@ Texture2D specularBRDF_LUT : register(t6);
 SamplerState samLinear : register(s0);
 SamplerState spBRDF_Sampler : register(s1);
 
-PS_INPUT VS(VS_INPUT Input)
-{
-  PS_INPUT Output;
-
-  Output.Position = mul(Input.Position, World);
-  Output.WorldPosition = Output.Position.xyz;
-  Output.Position = mul(Output.Position, View);
-  Output.Position = mul(Output.Position, Projection);
-
-  Output.TexCoord = Input.TexCoord;
-  
-  float3x3 TBN = float3x3(Input.Tangent, Input.BiNormal, Input.Normal);
-
-  Output.TBN = mul(TBN, (float3x3) World);
-
-  return Output;
-}
 
 // GGX/Towbridge-Reitz normal distribution function.
 // Uses Disney's reparametrization of alpha = roughness^2.
@@ -100,6 +83,24 @@ uint querySpecularTextureLevels()
 	uint width, height, levels;
 	texSpecular.GetDimensions(0, width, height, levels);
 	return levels;
+}
+
+PS_INPUT VS(VS_INPUT Input)
+{
+    PS_INPUT Output;
+
+    Output.Position = mul(Input.Position, World);
+    Output.WorldPosition = Output.Position.xyz;
+    Output.Position = mul(Output.Position, View);
+    Output.Position = mul(Output.Position, Projection);
+
+    Output.TexCoord = Input.TexCoord;
+  
+    float3x3 TBN = float3x3(Input.Tangent, Input.BiNormal, Input.Normal);
+
+    Output.TBN = mul(transpose(TBN), (float3x3) World);
+
+    return Output;
 }
 
 float4 PS(PS_INPUT Input) : SV_Target

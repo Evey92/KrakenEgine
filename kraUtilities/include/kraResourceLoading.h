@@ -8,6 +8,7 @@ namespace kraEngineSDK {
   struct Image {
     int m_height = 0;
     int m_width = 0;
+    uint32 m_levels =  0;
     bool m_isHDR = false;
     int channels = 4;
     unsigned char* pixels = nullptr;

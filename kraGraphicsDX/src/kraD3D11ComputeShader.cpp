@@ -28,7 +28,7 @@ namespace kraEngineSDK {
 
     hr = m_pDevice.m_pd3dDevice->CreateComputeShader(m_pBlob->GetBufferPointer(),
                                                      m_pBlob->GetBufferSize(),
-                                                     NULL,
+                                                     nullptr,
                                                      &m_pcomputeShader);
 
     if (FAILED(hr))

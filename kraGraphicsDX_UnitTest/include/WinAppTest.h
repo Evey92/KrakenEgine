@@ -43,19 +43,6 @@
 #include "kraUIManager.h"
 using namespace kraEngineSDK;
 
-//This is like a tumor that should be removed soon. Used for capturing a frame for render-to-texture purposes
-
-//struct FrameBuffer{
-//  ShrdPtr<Texture> colorTex;
-//  ShrdPtr<Texture> depthTex;
-//  ShrdPtr<RenderTargetView> frameRTV;
-//  ShrdPtr<DepthStencilView> frameDSV;
-//  uint32 width;
-//  uint32 height;
-//  uint32 samples;
-//
-//};
-
 class WinApp :
   public BaseApplication
 {
@@ -163,6 +150,9 @@ class WinApp :
    localRenderSetup();
 
    void
+   setUpIBL();
+
+   void
    drawSkybox();
 
    void
@@ -193,7 +183,8 @@ class WinApp :
    Vector<ShrdPtr<Model>> m_modelsVector;
    ShrdPtr<Model> m_skyBoxModel;
    ShrdPtr<RenderTargetView> m_backBufferRTV = nullptr;
-   ShrdPtr<Texture> enviroTexture;
+   ShrdPtr<Texture> m_equirectHDRTexture;
+   ShrdPtr<Texture> m_enviroMap;
    ShrdPtr<ComputeShader> spBRDFshader;
    ShrdPtr<Texture> m_cubeUnfiltered;
 
@@ -223,6 +214,7 @@ class WinApp :
    ShrdPtr<PixelShader> m_toneMapPS = nullptr;
 
    ShrdPtr<ComputeShader> m_equirect2CubeCS;
+   ShrdPtr<ComputeShader> m_specMapCS;
    
     //Input layout
    ShrdPtr<InputLayout> m_localLayout;
@@ -232,13 +224,15 @@ class WinApp :
     //Constant buffers
    ShrdPtr<ConstantBuffer<Matrix4>> m_mainCB;
    ShrdPtr<ConstantBuffer<Vector4>> m_shadingCB;
+   ShrdPtr<ConstantBuffer<Vector4>> m_specMapCB;
+
    /////////////////////////////////////////////
 
    Viewport* m_viewport = nullptr;
    String modelPath = "resources/Models/";
    Win32Window* m_window = nullptr;
    Vector4 ClearColor = { 0.329f, 0.050f, 0.431f, 1.0f };
-   int m_nCmdShow;
+   int m_nCmdShow = 0;
 
 #pragma endregion PRIVARE_MEMBERS
 

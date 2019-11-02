@@ -41,7 +41,8 @@ namespace kraEngineSDK {
                             String filename,
                             GFX_FORMAT::E format,
                             GFX_USAGE::E usage,
-                            CPU_USAGE::E  cpuUsage) override;
+                            CPU_USAGE::E  cpuUsage,
+                            uint32 levels) override;
 
     void
     createTextureUAV(const Device& device, uint32 mipSlice) override;
@@ -62,6 +63,10 @@ namespace kraEngineSDK {
                                  uint32 numViews) override;
 
     void 
+    setComputeNullUAV(const Device& pDevice) override;
+
+
+    void 
     generateMips() override;
 
 
@@ -72,6 +77,9 @@ namespace kraEngineSDK {
     uint32
     getWidth() override;
     
+    uint32
+    getLevels() override;
+
     bool 
     isHDR() override;
 
@@ -85,7 +93,10 @@ namespace kraEngineSDK {
     ID3D11UnorderedAccessView* m_UAV = nullptr;
     uint32 m_height = 0;
     uint32 m_width = 0;
+    uint32 m_levels= 0;
     bool m_isHDR = false;
+
+
 
   };
 }

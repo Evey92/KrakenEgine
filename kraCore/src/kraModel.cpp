@@ -56,8 +56,9 @@ namespace kraEngineSDK {
           texture.createTexture2DFromFile(pDevice,
                                           filename,
                                           GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
-                                          GFX_USAGE::E::kUSAGE_DYNAMIC,
-                                          CPU_USAGE::E::kCPU_ACCESS_WRITE);
+                                          GFX_USAGE::E::kUSAGE_DEFAULT,
+                                          CPU_USAGE::E::kCPU_ACCESS_WRITE, 
+                                          1);
           return true;
         }
       }
@@ -150,13 +151,13 @@ namespace kraEngineSDK {
 
       ShrdPtr<Texture> diffuseTex = pDevice.createTextureInstance();
       if (loadMaterialTextures(pDevice,
-        *diffuseTex,
-        material,
-        aiTextureType_DIFFUSE,
-        "texture_diffuse",
-        scene))
+                               *diffuseTex,
+                               material,
+                               aiTextureType_DIFFUSE,
+                               "texture_diffuse",
+                               scene))
       {
-        newMesh->setTexture(kraTextureType::BASECOLOR, diffuseTex);
+        newMesh->setTexture(TEXTURE_TYPE::E::BASECOLOR, diffuseTex);
       }
 
       ShrdPtr<Texture> normalTex = pDevice.createTextureInstance();
@@ -167,7 +168,7 @@ namespace kraEngineSDK {
         "texture_normal",
         scene))
       {
-        newMesh->setTexture(kraTextureType::NORMAL, normalTex);
+        newMesh->setTexture(TEXTURE_TYPE::E::NORMAL, normalTex);
       }
 
 
@@ -180,7 +181,7 @@ namespace kraEngineSDK {
         "texture_Specular",
         scene))
       {
-        newMesh->setTexture(kraTextureType::SPECULAR, specularTex);
+        newMesh->setTexture(TEXTURE_TYPE::E::SPECULAR, specularTex);
       }
 
     }

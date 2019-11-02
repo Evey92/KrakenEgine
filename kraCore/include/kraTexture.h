@@ -33,7 +33,8 @@ namespace kraEngineSDK {
                             String filename,
                             GFX_FORMAT::E format,
                             GFX_USAGE::E usage,
-                            CPU_USAGE::E  cpuUsage) = 0;
+                            CPU_USAGE::E  cpuUsage,
+                            uint32 levels) = 0;
 
     virtual void
     createTextureUAV(const Device& device,
@@ -47,6 +48,9 @@ namespace kraEngineSDK {
 
     virtual uint32
     getWidth() = 0;
+
+    virtual uint32
+    getLevels() = 0;
 
     //TODO: Move all of this bullshit either to an abstraction of device context, or to the device itself
     virtual void
@@ -62,6 +66,9 @@ namespace kraEngineSDK {
     setTextureUnorderedAccesVews(const Device* pDevice,
                                     uint32 startSlot,
                                     uint32 numViews) = 0;
+
+    virtual void
+    setComputeNullUAV(const Device& pDevice) = 0;
 
     virtual bool
     isHDR() = 0;

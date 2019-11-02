@@ -66,6 +66,12 @@ namespace kraEngineSDK {
     setPixelConstantBuffer(const Device& pDevice, uint32 startSlot, uint32 NumBuffs) = 0;
 
     virtual void
+    setComputeConstantBuffer(const Device& pDevice, uint32 startSlot, uint32 NumBuffs) = 0;
+
+    virtual void
+    setComputeNullConstantBuffer(const Device& pDevice) = 0;
+
+    virtual void
     setConstData(uint32 index, CONSVERTEX obj) = 0;
 
     virtual std::vector<CONSVERTEX>

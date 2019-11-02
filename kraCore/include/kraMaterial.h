@@ -26,10 +26,10 @@ namespace kraEngineSDK {
     initialize();
 
     ShrdPtr<Texture>
-    getTextureOfType(kraTextureType::E texType);
+    getTextureOfType(TEXTURE_TYPE::E texType);
 
     void
-    setTextureOfType(Device& pDevice, kraTextureType::E texType, std::string fileName);
+    setTextureOfType(Device& pDevice, TEXTURE_TYPE::E texType, std::string fileName);
 
     void
     setAlbedoTex(Device& pDevice, ShrdPtr<Texture> tex);

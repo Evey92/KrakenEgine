@@ -75,6 +75,19 @@ namespace kraEngineSDK {
     uint32 
     checkMaxSupportedMSAALevel() override;
 
+    void 
+    generateMips(ShrdPtr<Texture> tex) override;
+
+    void 
+    copySubresourceRegion(ShrdPtr<Texture> destTex, 
+                          uint32 destIndex,
+                          uint32 dstX, 
+                          uint32 dstY, 
+                          uint32 dstZ, 
+                          ShrdPtr<Texture> sourceTex, 
+                          uint32 srcIndex, 
+                          void* box) override;
+
 
     void
     Draw(uint32 numVertex, uint32 startIndex);
@@ -154,6 +167,8 @@ namespace kraEngineSDK {
 
     ShrdPtr<FrameBuffer>
     createFrameBufferInstance() override;
+
+
 
   };
 }

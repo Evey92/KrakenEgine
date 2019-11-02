@@ -28,21 +28,21 @@ namespace kraEngineSDK {
     VertexBuffer*
     getVertexBuffer();
 
-    Vector<Texture*>& const
+    Vector<ShrdPtr<Texture>>& const
     getTextureVector();
 
     void
-    setTexture(kraTextureType::E texType, ShrdPtr<Texture> newTex);
+    setTexture(TEXTURE_TYPE::E texType, ShrdPtr<Texture> newTex);
 
 
     ShrdPtr<Texture> const
-    getTexture(kraTextureType::E texType);
+    getTexture(TEXTURE_TYPE::E texType);
 
     
   private:
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
-    Vector<Texture*> m_meshTextures;
+    Vector<ShrdPtr<Texture>> m_meshTextures;
     ShrdPtr<Texture> m_diffuse = nullptr;
     ShrdPtr<Texture> m_normal = nullptr;
     ShrdPtr<Texture> m_specular = nullptr;

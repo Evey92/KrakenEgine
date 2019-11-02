@@ -6,7 +6,7 @@
 namespace kraEngineSDK {
 
   namespace VERTEX_FORMAT {
-    enum E {
+    enum class E {
       kraFLOATR = 0,
       kraFLOATRG,
       kraFLOATRGB,
@@ -177,14 +177,14 @@ namespace kraEngineSDK {
 #pragma region RASTERIZER_DESCRIPTOR
 
   namespace FILL_MODE {
-    enum E {
+    enum class E {
       kFILL_WIREFRAME = 2,
       kFILL_SOLID = 3
     };
   }
 
   namespace CULL_MODE {
-    enum E {
+    enum class E {
       kCULL_NONE = 1,
       kCULL_FRONT = 2,
       kCULL_BACK = 3
@@ -196,7 +196,7 @@ namespace kraEngineSDK {
 #pragma region SAMPLER_DESCRIPTOR
 
   namespace SAMPLER_FILTER {
-    enum E {
+    enum class E {
       kFILTER_MIN_MAG_MIP_POINT = 0,
       kFILTER_MIN_MAG_POINT_MIP_LINEAR = 0x1,
       kFILTER_MIN_POINT_MAG_LINEAR_MIP_POINT = 0x4,
@@ -236,8 +236,21 @@ namespace kraEngineSDK {
     };
   }
 
+  namespace COMPARISON_FUNCTION {
+    enum class E {
+      kCOMPARISON_NEVER = 1,
+      kCOMPARISON_LESS = 2,
+      kCOMPARISON_EQUAL = 3,
+      kCOMPARISON_LESS_EQUAL = 4,
+      kCOMPARISON_GREATER = 5,
+      kCOMPARISON_NOT_EQUAL = 6,
+      kCOMPARISON_GREATER_EQUAL = 7,
+      kCOMPARISON_ALWAYS = 8
+    };
+  }
+
   namespace TEXTURE_ADDRESS_MODE {
-    enum E {
+    enum class E {
       kTEXTURE_ADDRESS_WRAP = 1,
       kTEXTURE_ADDRESS_MIRROR = 2,
       kTEXTURE_ADDRESS_CLAMP = 3,

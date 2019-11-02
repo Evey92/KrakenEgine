@@ -8,7 +8,8 @@ namespace kraEngineSDK {
   bool
   SamplerStateDX::createSamplerState(const Device& pDevice,
                                      SAMPLER_FILTER::E filter ,
-                                     TEXTURE_ADDRESS_MODE::E addressMode) {
+                                     TEXTURE_ADDRESS_MODE::E addressMode,
+                                     COMPARISON_FUNCTION::E compareFunction) {
 
     const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
@@ -20,9 +21,9 @@ namespace kraEngineSDK {
     sampDesc.AddressU = static_cast<D3D11_TEXTURE_ADDRESS_MODE>(addressMode);
     sampDesc.AddressV = static_cast<D3D11_TEXTURE_ADDRESS_MODE>(addressMode);
     sampDesc.AddressW = static_cast<D3D11_TEXTURE_ADDRESS_MODE>(addressMode);
+    sampDesc.MaxAnisotropy = (filter == SAMPLER_FILTER::E::kFILTER_ANISOTROPIC) ? D3D11_REQ_MAXANISOTROPY : 1;
+    sampDesc.ComparisonFunc = static_cast<D3D11_COMPARISON_FUNC>(compareFunction);
     sampDesc.MipLODBias = 0.0f;
-    sampDesc.MaxAnisotropy = (filter == D3D11_FILTER_ANISOTROPIC) ? D3D11_REQ_MAXANISOTROPY : 1;
-    sampDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
     sampDesc.BorderColor[0] = 0;
     sampDesc.BorderColor[1] = 0;
     sampDesc.BorderColor[2] = 0;

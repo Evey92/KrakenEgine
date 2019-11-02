@@ -3,7 +3,7 @@
 namespace kraEngineSDK {
   
   namespace INPUT_DEVICE {
-    enum E {
+    enum class E {
       kraMOUSE,
       kraKEYBOARD,
       kraGAMEPAD,
@@ -13,13 +13,13 @@ namespace kraEngineSDK {
   }
     
     namespace TEXTURE_ADRESS {
-      enum E {
+      enum class E {
 
       };
     }
 
-    namespace kraTextureType {
-      enum E
+    namespace TEXTURE_TYPE{
+      enum class E
       {
         BASECOLOR,
         METALNESS,

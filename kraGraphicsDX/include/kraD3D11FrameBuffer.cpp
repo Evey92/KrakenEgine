@@ -103,11 +103,6 @@ namespace kraEngineSDK {
         return false;
       }
     }
-
-    m_colorTex = make_shared<TextureDX>(pTexture);
-    m_depthTex = make_shared<TextureDX>(pDepthTex);
-    m_frameRTV = make_shared<RenderTargetViewDX>(pRTV);
-    m_frameDSV = make_shared<DepthStencilViewDX>(pDSV);
     
    return true;
   }

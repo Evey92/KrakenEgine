@@ -73,6 +73,20 @@ namespace kraEngineSDK {
     checkMaxSupportedMSAALevel() = 0;
 
     virtual void
+    generateMips(ShrdPtr<Texture> tex) = 0;
+
+    
+    virtual void
+    copySubresourceRegion(ShrdPtr<Texture> destTex, 
+                          uint32 destIndex,
+                          uint32 dstX,
+                          uint32 dstY,
+                          uint32 dstZ, 
+                          ShrdPtr<Texture> sourceTex,
+                          uint32 srcIndex,
+                          void* box) = 0;
+
+    virtual void
     Draw(uint32 numVertex, uint32 startIndex) = 0;
     
     virtual void

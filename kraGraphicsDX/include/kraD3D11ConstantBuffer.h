@@ -127,6 +127,22 @@ namespace kraEngineSDK {
     }
 
     void
+    setComputeConstantBuffer(const Device& pDevice, uint32 startSlot, uint32 NumBuffs) override {
+      
+      const DeviceDX& device = static_cast<const DeviceDX&>(pDevice);
+      device.m_pImmediateContext->CSSetConstantBuffers(startSlot, NumBuffs, &m_pBuffer);
+
+    }
+
+    void
+    setComputeNullConstantBuffer(const Device& pDevice) override {
+      
+      const DeviceDX& device = static_cast<const DeviceDX&>(pDevice);
+      m_pBuffer = nullptr;
+      device.m_pImmediateContext->CSSetConstantBuffers(0, 1, &m_pBuffer);
+    }
+
+    void
     setConstData(uint32 index, CONSVERTEX obj) {
       m_constData[index] = obj;
     }

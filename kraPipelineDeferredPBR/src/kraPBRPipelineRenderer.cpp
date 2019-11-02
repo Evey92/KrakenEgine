@@ -72,7 +72,8 @@ namespace kraEngineSDK {
                                              "enviroment.hdr",
                                              GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
                                              GFX_USAGE::E::kUSAGE_DYNAMIC,
-                                             CPU_USAGE::E::kCPU_ACCESS_WRITE);
+                                             CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                             1);
 
 
     envitromentText->setTextureComputeShaderResource(m_GFXAPI->getDevice(), 0, 1);

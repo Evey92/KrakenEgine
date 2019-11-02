@@ -24,6 +24,10 @@ namespace kraEngineSDK {
 
     const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
 
+    m_height = height;
+    m_width = width;
+    m_levels = levels;
+
     D3D11_TEXTURE2D_DESC descTexture;
     memset(&descTexture, 0, sizeof(descTexture));
     descTexture.Width = width;
@@ -32,11 +36,9 @@ namespace kraEngineSDK {
     descTexture.ArraySize = 6;
     descTexture.Format = static_cast<DXGI_FORMAT>(format);
     descTexture.SampleDesc.Count = 1;
-    descTexture.SampleDesc.Quality = 0;
     descTexture.Usage = static_cast<D3D11_USAGE>(usage);
     descTexture.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
     descTexture.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE;
-    descTexture.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
     
     if (levels == 0) {
       descTexture.BindFlags |= D3D11_BIND_RENDER_TARGET;
@@ -49,7 +51,7 @@ namespace kraEngineSDK {
 
     D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
     memset(&srvDesc, 0, sizeof(srvDesc));
-    srvDesc.Format = static_cast<DXGI_FORMAT>(format);
+    srvDesc.Format = descTexture.Format;
     srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
     srvDesc.Texture2D.MostDetailedMip = 0;
     srvDesc.Texture2D.MipLevels = -1;
@@ -71,6 +73,10 @@ namespace kraEngineSDK {
   {
 
     const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
+
+    m_height = height;
+    m_width = width;
+    m_levels = levels;
 
     D3D11_TEXTURE2D_DESC descTexture;
     memset(&descTexture, 0, sizeof(descTexture));
@@ -116,7 +122,8 @@ namespace kraEngineSDK {
                                      String filename, 
                                      GFX_FORMAT::E format, 
                                      GFX_USAGE::E usage, 
-                                     CPU_USAGE::E cpuUsage)
+                                     CPU_USAGE::E cpuUsage,
+                                     uint32 levels = 0U)
   {
     const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
@@ -135,12 +142,14 @@ namespace kraEngineSDK {
       pixels = image.pixels;
     }
 
+    m_levels = levels;
+
     D3D11_TEXTURE2D_DESC descTexture;
     memset(&descTexture, 0, sizeof(descTexture));
 
     descTexture.Height = static_cast<uint32>(m_height);
     descTexture.Width = static_cast<uint32>(m_width);
-    descTexture.MipLevels = 1;
+    descTexture.MipLevels = m_levels;
     descTexture.ArraySize = 1;
     descTexture.Format = static_cast<DXGI_FORMAT>(format);
     descTexture.SampleDesc.Count = 1;
@@ -234,9 +243,18 @@ namespace kraEngineSDK {
                                           uint32 numViews)
   {
     const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
-    m_pDevice->m_pImmediateContext->CSGetUnorderedAccessViews(startSlot,
+    m_pDevice->m_pImmediateContext->CSSetUnorderedAccessViews(startSlot,
                                                               numViews,
-                                                              &m_UAV);
+                                                              &m_UAV,
+                                                              nullptr);
+  }
+
+  void
+  TextureDX::setComputeNullUAV(const Device& pDevice)
+  {
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
+    m_UAV = nullptr;
+    m_pDevice.m_pImmediateContext->CSSetUnorderedAccessViews(0, 1, &m_UAV, nullptr);
   }
 
   uint32 
@@ -251,7 +269,13 @@ namespace kraEngineSDK {
     return m_width;
   }
 
-  bool 
+  uint32
+  TextureDX::getLevels()
+  {
+    return m_levels;
+  }
+
+  bool
   TextureDX::isHDR()
   { 
     return m_isHDR;
@@ -261,6 +285,8 @@ namespace kraEngineSDK {
   TextureDX::releaseTexture() {
     m_pd3dTexture2D->Release();
   } 
+
+  
 
   void TextureDX::generateMips()
   {

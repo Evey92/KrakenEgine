@@ -80,8 +80,6 @@ WinApp::Initialize()
     return false;
   }
 
-
-
   //Create the main window
   String name("Kraken Engine");
 
@@ -148,36 +146,28 @@ WinApp::Initialize()
   m_defaultDepthStencil->createDepthStencilState(*m_gfxDevice, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ALL);
   m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
   
-  
+  // Create Skybox Depth stencil
   m_skyboxDepthStencil = m_gfxDevice->createDepthStencilInstance();
   m_skyboxDepthStencil->createDepthStencilState(*m_gfxDevice, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ZERO);
   
-
   m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
 
   //Create Depth Stencil view from depth stencil
   m_depthStencilView = m_gfxDevice->createDepthStencilViewInstance();
   m_depthStencilView->createDepthStencilView(*m_gfxAPIInstance->getDevice(), *m_defaultDepthStencil);
 
-  //Create a texture manager
-  m_textureManager = m_gfxDevice->createTextureInstance();
-
   //Create rasterizer state
   m_rasterizerState = m_gfxDevice->creatreRasterizerStateInstance();
   m_rasterizerState->createRasterizerState(*m_gfxAPIInstance->getDevice(),
-                                           FILL_MODE::kFILL_SOLID,
-                                           CULL_MODE::kCULL_BACK);
+                                           FILL_MODE::E::kFILL_SOLID,
+                                           CULL_MODE::E::kCULL_BACK);
   //Create default sampler state
   m_defaultSampler = m_gfxDevice->createSamplerStateInstance();
   m_defaultSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
                                        SAMPLER_FILTER::E::kFILTER_ANISOTROPIC,
-                                       TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_WRAP);
+                                       TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_WRAP,
+                                       COMPARISON_FUNCTION::E::kCOMPARISON_ALWAYS);
 
-  //Create compute sampler state to calculate the environment cube map
-  m_computeSampler = m_gfxDevice->createSamplerStateInstance();
-  m_computeSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
-                                       SAMPLER_FILTER::kFILTER_COMPARISON_MIN_MAG_MIP_LINEAR,
-                                       TEXTURE_ADDRESS_MODE::kTEXTURE_ADDRESS_WRAP);
   
   m_mainCB = m_gfxDevice->createConstantBufferInstance();
   m_shadingCB = m_gfxDevice->createConstantBufferInstanceVec3();
@@ -196,33 +186,38 @@ WinApp::Initialize()
   }
 
   //Setting rendering matrices
-  m_world.identity();
   m_mainCB->add(m_world);
 
   m_activeCam = CameraManager::instance().getActiveCamera();
 
+  //Setting up camera
   m_activeCam->setUp(Vector3(0.0f, 1.0f, 0.0f));
   m_activeCam->setFront(Vector3(0.0f, 0.0f, -1.0f));
   m_activeCam->setRight(Vector3(1.0f, 0.0f, 0.0f));
   m_activeCam->SetPosition(Vector3(0.0f, 1.0f, -10.0f));
   m_activeCam->SetObjecive(Vector3(0.0f, 0.0f, 0.0f));
 
+  m_activeCam->setFOV(kraMath::DEG2RAD(90.0f));
+  m_activeCam->setNearPlane(0.01f);
+  m_activeCam->setFarPlane(1000.0f);
+
   CameraManager::instance().getActiveCamera()->createViewMat();
   m_mainCB->add(CameraManager::instance().getActiveCamera()->GetViewMatrix());
 
 
   m_projection.MatrixPerspectiveFOV(CameraManager::instance().getActiveCamera()->getFOV(),
-    static_cast<float>(m_gfxAPIInstance->getDevice()->getWidth()),
-    static_cast<float>(m_gfxAPIInstance->getDevice()->getHeight()),
-    CameraManager::instance().getActiveCamera()->getNearPlane(),
-    CameraManager::instance().getActiveCamera()->getFarPlane());
+                                    static_cast<float>(m_gfxAPIInstance->getDevice()->getWidth()),
+                                    static_cast<float>(m_gfxAPIInstance->getDevice()->getHeight()),
+                                    CameraManager::instance().getActiveCamera()->getNearPlane(),
+                                    CameraManager::instance().getActiveCamera()->getFarPlane());
 
   m_mainCB->add(m_projection);
   m_mainCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
   m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
 
-  Vector3 lightPos = Vector3(0.0f, 0.0f, 0.0f);
-  m_shadingCB->add(Vector4(lightPos, 1.0f));
+  m_shadingCB->add(Vector4(m_activeCam->getPosition(), 0.0f));
+  m_shadingCB->add(Vector4(1.0, 0.0f, 0.0f, 0.0f));
+  m_shadingCB->add(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
   m_shadingCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
   m_shadingCB->updateSubResources(*m_gfxAPIInstance->getDevice());
 
@@ -239,14 +234,13 @@ void
 WinApp::run()
 {
   MSG msg = { 0 };
-  localRenderInit();
+
+  localRenderSetup();
   while (m_window->isOpen())
   {
     //m_renderPipeInstance->Setup();
     m_window->handleMSG(static_cast<void*>(&msg), *m_inputManager);
     update();
-    localRenderSetup();
-
     //m_renderPipeInstance->render();
     render();
 
@@ -293,10 +287,10 @@ WinApp::render()
 
   //Setting projection matrix
   m_projection.MatrixPerspectiveFOV(CameraManager::instance().getActiveCamera()->getFOV(),
-    static_cast<float>(m_gfxAPIInstance->getDevice()->getWidth()),
-    static_cast<float>(m_gfxAPIInstance->getDevice()->getHeight()),
-    CameraManager::instance().getActiveCamera()->getNearPlane(),
-    CameraManager::instance().getActiveCamera()->getFarPlane());
+                                    static_cast<float>(m_gfxDevice->getWidth()),
+                                    static_cast<float>(m_gfxDevice->getHeight()),
+                                    CameraManager::instance().getActiveCamera()->getNearPlane(),
+                                    CameraManager::instance().getActiveCamera()->getFarPlane());
 
   m_mainCB->add(m_projection);
 
@@ -308,10 +302,9 @@ WinApp::render()
   m_shadingCB->add(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
   m_shadingCB->updateSubResources(*m_gfxDevice);
 
-  m_backBufferRTV->setRenderTarget(*m_gfxDevice, *m_depthStencilView);
-  m_backBufferRTV->clearRenderTarget(m_gfxDevice, ClearColor);
+  srcFB->m_frameRTV->setRenderTarget(*m_gfxDevice, *srcFB->m_frameDSV);
+  srcFB->m_frameDSV->clearDSV(*m_gfxDevice);
 
-  m_depthStencilView->clearDSV(*m_gfxDevice);
 
   m_gfxAPIInstance->getDevice()->setPrimitiveTopology();
   m_rasterizerState->setRasterizerState(*m_gfxDevice);
@@ -329,6 +322,8 @@ WinApp::render()
 
  //Tone mapping pass
   toneMapPasss();
+
+  m_backBufferRTV->setRenderTarget(*m_gfxDevice, 1);
 
   UIManager::instance().renderUI();
 
@@ -415,116 +410,61 @@ WinApp::loadTexture()
   return true;
 }
 
-//Moved to resource lodaing
-//String 
-//WinApp::loadFile(String filetypes)
-//{
-//  
-//}
-
-//HINSTANCE 
-//WinApp::loadDLL()
-//{
-//  HINSTANCE hinstance
-//  //do dll loading
-//}
-
 void 
 WinApp::CleanupDevice()
 {
   //do cleanup
 }
 
-void WinApp::localRenderInit()
+//void WinApp::localRenderInit()
+//{
+//
+//  m_BRDFLUT->createTexture2D(m_gfxDevice, 256, 256, GFX_FORMAT::E::kFORMAT_R16G16_FLOAT, GFX_USAGE::E::kUSAGE_DEFAULT, 1);
+// 
+//
+//}
+
+void 
+WinApp::localRenderSetup()
 {
   //Creating instances of classes
   m_PBRVS = m_gfxDevice->createVertexShaderInstance();
   m_PBRPS = m_gfxDevice->createPixelShaderInstance();
   m_pbrInputLayout = m_gfxDevice->createInputLayoutInstance();
-
-  
   m_skyboxVS = m_gfxDevice->createVertexShaderInstance();
   m_skyboxPS = m_gfxDevice->createPixelShaderInstance();
   m_skyboxInputLayout = m_gfxDevice->createInputLayoutInstance();
-  
   m_toneMapVS = m_gfxDevice->createVertexShaderInstance();
   m_toneMapPS = m_gfxDevice->createPixelShaderInstance();
-  
   m_equirect2CubeCS = m_gfxDevice->createComputeShaderInstance();
   m_computeSampler = m_gfxDevice->createSamplerStateInstance();
   m_computeSampler = m_gfxDevice->createSamplerStateInstance();
-
-  m_computeSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
-                                       SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
-                                       TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_WRAP);
-
-  m_pbrInputLayout = m_gfxAPIInstance->getDevice()->createInputLayoutInstance();
+  m_equirectHDRTexture = m_gfxDevice->createTextureInstance();
+  m_enviroMap = m_gfxDevice->createTextureInstance();
+  m_pbrInputLayout = m_gfxDevice->createInputLayoutInstance();
   spBRDFshader = m_gfxDevice->createComputeShaderInstance();
-  
-  
-  m_skyboxInputLayout = m_gfxAPIInstance->getDevice()->createInputLayoutInstance();
-  
+  m_skyboxInputLayout = m_gfxDevice->createInputLayoutInstance();
   m_BRDFLUT = m_gfxDevice->createTextureInstance();
   m_cubeUnfiltered = m_gfxDevice->createTextureInstance();
   m_BRDFSampler = m_gfxDevice->createSamplerStateInstance();
   srcFB = m_gfxDevice->createFrameBufferInstance();
   destinationFB = m_gfxDevice->createFrameBufferInstance();
-  
-  //This one is specially disgusting
-  GameObject* skyGO = SceneManager::instance().createGameObject("Skybox");
-  skyGO->addComponent<Model>(skyGO);
-  skyGO->getComponent<Model>().loadModelFromFile("resources/Models/Skybox.fbx",
-    *m_gfxDevice);
-  m_skyBoxModel = make_shared<Model>(skyGO->getComponent<Model>());
-  
-
-  enviroTexture = m_gfxDevice->createTextureInstance();
-  enviroTexture->createTexture2DFromFile(*m_gfxDevice,
-                                         "resources/Textures/HDR/appart.hdr",
-                                         GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
-                                         GFX_USAGE::E::kUSAGE_DEFAULT,
-                                         CPU_USAGE::E::kCPU_ACCESS_WRITE);
-
-  m_BRDFLUT->createTexture2DFromFile(*m_gfxDevice,
-                                     "resources/Textures/brfdLUT.png",
-                                     GFX_FORMAT::E::kFORMAT_R16G16_FLOAT,
-                                     GFX_USAGE::E::kUSAGE_DEFAULT,
-                                     CPU_USAGE::E::kCPU_ACCESS_WRITE);
-
-  //Setting up shaders
-
-  m_PBRVS->compileVertexShader(L"resources/Shaders/PBR.hlsl", "VS");
-  m_PBRVS->createVertexShader(*m_gfxAPIInstance->getDevice());
-
-  m_PBRPS->compilePixelShader(L"resources/Shaders/PBR.hlsl", "PS");
-  m_PBRPS->createPixelShader(*m_gfxAPIInstance->getDevice());
-
-  
-  m_skyboxVS->compileVertexShader(L"resources/Shaders/skyboxShader.hlsl", "VS");
-  m_skyboxVS->createVertexShader(*m_gfxAPIInstance->getDevice());
-
-  m_skyboxPS->compilePixelShader(L"resources/Shaders/skyboxShader.hlsl", "PS");
-  m_skyboxPS->createPixelShader(*m_gfxAPIInstance->getDevice());
-  
-
-  m_toneMapVS->compileVertexShader(L"resources/Shaders/toneMappingShader.hlsl", "VS");
-  m_toneMapVS->createVertexShader(*m_gfxAPIInstance->getDevice());
-
-  m_toneMapPS->compilePixelShader(L"resources/Shaders/toneMappingShader.hlsl", "PS");
-  m_toneMapPS->createPixelShader(*m_gfxAPIInstance->getDevice());
+  m_specMapCB = m_gfxDevice->createConstantBufferInstanceVec3();
+  m_specMapCS = m_gfxDevice->createComputeShaderInstance();
 
   uint32 samples = m_gfxDevice->checkMaxSupportedMSAALevel();
 
   if (!srcFB->initFramebuffer(m_gfxDevice->getWidth(),
-                             m_gfxDevice->getHeight(),
-                             samples,
-                             GFX_FORMAT::E::kFORMAT_R16G16B16A16_FLOAT,
-                             GFX_FORMAT::E::kFORMAT_D24_UNORM_S8_UINT)) {
+                              m_gfxDevice->getHeight(),
+                              samples,
+                              GFX_FORMAT::E::kFORMAT_R16G16B16A16_FLOAT,
+                              GFX_FORMAT::E::kFORMAT_D24_UNORM_S8_UINT)) {
 
     throw std::exception("Failed to initialize FrameBuffer");
   }
 
   if (samples > 1) {
+    
     destinationFB->initFramebuffer(m_gfxDevice->getWidth(),
                                    m_gfxDevice->getHeight(),
                                    1,
@@ -535,37 +475,96 @@ void WinApp::localRenderInit()
     destinationFB = srcFB;
   }
 
+  m_mainCB->createConstantBuffer(*m_gfxDevice);
+
+  //Compiling up shaders
+  m_PBRVS->compileVertexShader(L"resources/Shaders/PBR.hlsl", "VS");
+  m_PBRVS->createVertexShader(*m_gfxDevice);
+
+  m_PBRPS->compilePixelShader(L"resources/Shaders/PBR.hlsl", "PS");
+  m_PBRPS->createPixelShader(*m_gfxDevice);
+
+  m_skyboxVS->compileVertexShader(L"resources/Shaders/skyboxShader.hlsl", "VS");
+  m_skyboxVS->createVertexShader(*m_gfxDevice);
+
+  m_skyboxPS->compilePixelShader(L"resources/Shaders/skyboxShader.hlsl", "PS");
+  m_skyboxPS->createPixelShader(*m_gfxDevice);
+
+
+  m_toneMapVS->compileVertexShader(L"resources/Shaders/toneMappingShader.hlsl", "VS");
+  m_toneMapVS->createVertexShader(*m_gfxDevice);
+
+  m_toneMapPS->compilePixelShader(L"resources/Shaders/toneMappingShader.hlsl", "PS");
+  m_toneMapPS->createPixelShader(*m_gfxDevice);
+
+  //setting input layout
+  m_pbrInputLayout->createInputLayout(*m_gfxDevice, *m_PBRVS);
+  m_skyboxInputLayout->createInputLayout(*m_gfxDevice, *m_skyboxVS);
+
+  //This one is specially disgusting
+  GameObject* skyGO = SceneManager::instance().createGameObject("Skybox");
+  skyGO->addComponent<Model>(skyGO);
+  skyGO->getComponent<Model>().loadModelFromFile("resources/Models/Skybox.fbx",
+    *m_gfxDevice);
+  m_skyBoxModel = make_shared<Model>(skyGO->getComponent<Model>());
+
+
+  setUpIBL();
+    
+  //Calculating Cook-Torrance's BRFD model
+  spBRDFshader->compileComputeShader(L"resources/Shaders/specBRDF.hlsl", "main");
+  spBRDFshader->createComputeShader(*m_gfxDevice);
+
+  m_BRDFLUT->createTexture2DFromFile(*m_gfxDevice,
+                                     "resources/Textures/brfdLUT.png",
+                                     GFX_FORMAT::E::kFORMAT_R16G16_FLOAT,
+                                     GFX_USAGE::E::kUSAGE_DEFAULT,
+                                     CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                     1);
+
+  m_BRDFSampler->createSamplerState(*m_gfxDevice,
+                                    SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
+                                    TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_CLAMP,
+                                    COMPARISON_FUNCTION::E::kCOMPARISON_NEVER);
+
+  m_BRDFLUT->createTextureUAV(*m_gfxDevice, 0);
+  m_BRDFLUT->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);
+  spBRDFshader->setComputeShader(*m_gfxDevice);
+  spBRDFshader->dispatchCS(*m_gfxDevice, m_BRDFLUT->getWidth()/32, m_BRDFLUT->getHeight()/32, 1);
+  m_BRDFLUT->setComputeNullUAV(*m_gfxDevice);
 }
 
 void 
-WinApp::localRenderSetup()
+WinApp::setUpIBL()
 {
-   
-  //Setting up camera
-  m_activeCam->setFOV(kraMath::DEG2RAD(90.0f));
-  m_activeCam->setNearPlane(0.01f);
-  m_activeCam->setFarPlane(10000.0f);
-  
  
-
-  //setting input layout
-  m_pbrInputLayout->createInputLayout(*m_gfxDevice, *m_PBRVS);  
-  m_skyboxInputLayout->createInputLayout(*m_gfxDevice, *m_skyboxVS);
-  
-  // Set shader to load a texture of equirectangular proyecton an transforming it to a cube
+  //Creating unfiltered cube texture
   m_cubeUnfiltered->createCubeTexture(m_gfxDevice,
                                       1024,
                                       1024,
                                       GFX_FORMAT::E::kFORMAT_R16G16B16A16_FLOAT,
                                       GFX_USAGE::E::kUSAGE_DEFAULT,
-                                      1);
-  
+                                      0U);
   m_cubeUnfiltered->createTextureUAV(*m_gfxDevice, 0);
 
+  //Compiling shader to convert an equirectangular projection image into a cubemap 
   m_equirect2CubeCS->compileComputeShader(L"resources/Shaders/equirect2Cube.hlsl", "main");
   m_equirect2CubeCS->createComputeShader(*m_gfxDevice);
 
-  enviroTexture->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
+  //Loading the equirectangular projection texture
+  m_equirectHDRTexture->createTexture2DFromFile(*m_gfxDevice,
+                                                "resources/Textures/HDR/canyon.hdr",
+                                                GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                                GFX_USAGE::E::kUSAGE_DEFAULT,
+                                                CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                                1);
+  m_computeSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
+                                       SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
+                                       TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_WRAP,
+                                       COMPARISON_FUNCTION::E::kCOMPARISON_NEVER);
+  
+  //Setting up both textures to be used by the shader
+  m_equirectHDRTexture->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
   m_cubeUnfiltered->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);
   m_computeSampler->setComputeSamplerState(*m_gfxDevice);
   m_equirect2CubeCS->setComputeShader(*m_gfxDevice);
@@ -573,19 +572,69 @@ WinApp::localRenderSetup()
                                 m_cubeUnfiltered->getWidth() / 32,
                                 m_cubeUnfiltered->getHeight() / 32,
                                 6);
-  
-  //Calculating Cook-Torrance's BRFD model
-  spBRDFshader->compileComputeShader(L"resources/Shaders/specBRDF.hlsl", "main");
+  m_cubeUnfiltered->setComputeNullUAV(*m_gfxDevice);
 
-  m_BRDFSampler->createSamplerState(*m_gfxDevice,
-                                    SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
-                                    TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_CLAMP);
-  
-  m_BRDFLUT->createTextureUAV(*m_gfxDevice, 0);
-  m_BRDFLUT->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);
-  m_BRDFLUT->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
-   
-  spBRDFshader->dispatchCS(*m_gfxDevice, m_BRDFLUT->getWidth()/32, m_BRDFLUT->getHeight()/32, 1);
+
+  m_gfxDevice->generateMips(m_cubeUnfiltered);
+
+  //Compiling shader to compute the specular env map 
+  m_specMapCS->compileComputeShader(L"resources/Shaders/specMapShader.hlsl", "main");
+  m_specMapCS->createComputeShader(*m_gfxDevice);
+
+  //m_specMapCB->createConstantBuffer(*m_gfxDevice);
+
+  m_enviroMap->createCubeTexture(m_gfxDevice,
+                                 1024,
+                                 1024,
+                                 GFX_FORMAT::E::kFORMAT_R16G16B16A16_FLOAT,
+                                 GFX_USAGE::E::kUSAGE_DEFAULT,
+                                 0U);
+
+  for (uint32 arraySlice = 0; arraySlice < 6; ++arraySlice) {
+    //This is the saame a scalling D3D11CalcSubresource. But I was too lazy to implement the function...
+    /*To calculate the index f a subresource, you havo to do: MipSlice + (ArraySlice * MipLevels). 
+      Since we're mapping the the most detailed mip level, MipSlice will always be 0 here the rest will be filterd after*/
+    const uint32 subResourceIndex = arraySlice * m_enviroMap->getLevels();
+    m_gfxDevice->copySubresourceRegion(m_enviroMap, 
+                                       subResourceIndex,
+                                       0,
+                                       0,
+                                       0,
+                                       m_cubeUnfiltered,
+                                       subResourceIndex,
+                                       nullptr);
+  }
+
+  m_cubeUnfiltered->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
+  m_computeSampler->setComputeSamplerState(*m_gfxDevice);
+  m_specMapCS->setComputeShader(*m_gfxDevice);
+
+  //Filtering the rest of the mip levels
+  const float deltaRoughness = 1.0 / kraMath::fmax(m_enviroMap->getLevels() - 1.0f, 1.0f);
+  Vector4 roughness = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+
+  for (uint32 level = 1, size = 512; level < m_enviroMap->getLevels(); ++level, size/2) {
+    
+    uint32 numGroups = kraMath::fmax<uint32>(1, size / 32);
+    m_specMapCB->clear();
+    m_enviroMap->createTextureUAV(*m_gfxDevice, level);
+    
+    roughness.x = level * deltaRoughness;
+    m_specMapCB->add(roughness);
+    m_specMapCB->createConstantBuffer(*m_gfxDevice);
+
+    m_specMapCB->updateSubResources(*m_gfxDevice);
+    m_specMapCB->setComputeConstantBuffer(*m_gfxDevice, 0, 1);
+
+    m_enviroMap->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);
+    m_specMapCS->dispatchCS(*m_gfxDevice, numGroups, numGroups, 6);
+  }
+
+  m_specMapCB->setComputeNullConstantBuffer(*m_gfxDevice);
+  m_enviroMap->setComputeNullUAV(*m_gfxDevice);
+
+  //TODO: Compute irradiance...
+
 }
 
 void 
@@ -594,7 +643,7 @@ WinApp::drawSkybox()
   m_skyboxInputLayout->setInputLayout(*m_gfxDevice);
   m_skyboxVS->setVertexShader(*m_gfxDevice);
   m_skyboxPS->setPixelShader(*m_gfxDevice);
-  enviroTexture->setTextureShaderResource(m_gfxDevice, 0, 1);
+  m_enviroMap->setTextureShaderResource(m_gfxDevice, 0, 1);
   m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
   m_skyboxDepthStencil->setDepthStencilState(*m_gfxDevice);
   m_skyBoxModel->Draw(m_gfxDevice);
@@ -619,11 +668,11 @@ void WinApp::toneMapPasss()
 {
 
   m_backBufferRTV->setRenderTarget(*m_gfxDevice, 1);
+  m_skyboxInputLayout->setNullInputLayout(*m_gfxDevice);
   m_toneMapVS->setVertexShader(*m_gfxDevice);
   m_toneMapPS->setPixelShader(*m_gfxDevice);
-  m_skyboxInputLayout->setNullInputLayout(*m_gfxDevice);
   destinationFB->m_colorTex->setTextureShaderResource(m_gfxDevice, 0, 1);
-  m_computeSampler->setSamplerState(*m_gfxDevice, 0, 1);
+  m_computeSampler->setComputeSamplerState(*m_gfxDevice);
   m_gfxDevice->Draw(3, 0);
 }
 
