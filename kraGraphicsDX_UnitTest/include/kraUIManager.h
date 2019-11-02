@@ -16,7 +16,7 @@ using namespace kraEngineSDK;
   public:
 
     bool
-    initUI(void* hWnd, void* device, void* ctx);
+    initUI(void* hWnd, Device* device, void* ctx);
 
     void
     updateUI(Scene* scene);
@@ -63,6 +63,13 @@ using namespace kraEngineSDK;
     void
     onShutdown() override;
 
+    ShrdPtr<Device> pgfxDevice;
+    Vector2 m_sceneGraphSize = Vector2::ZERO;
+    Vector2 m_sceneGraphPos = Vector2::ZERO;
+    Vector2 m_mainViewSize = Vector2::ZERO;
+    Vector2 m_mainViewPos = Vector2::ZERO;
+    Vector2 m_detailsSize = Vector2::ZERO;
+    Vector2 m_detailsPos = Vector2::ZERO;
 
 
   };

@@ -274,7 +274,7 @@ namespace kraEngineSDK {
   }
 
   float
-    Vector2::component(uint32 Index) const {
+  Vector2::component(uint32 Index) const {
 
     if (Index == 0) {
       return x;
@@ -282,15 +282,15 @@ namespace kraEngineSDK {
     else if (Index == 1) {
       return y;
     }
-
-    const Vector2 ZERO = Vector2(0.0f, 0.0f);
-
-    const Vector2 ONE = Vector2(1.0f, 1.0f);
-
-    const Vector2 ONEX = Vector2(1.0f, 0.0f);
-
-    const Vector2 ONEY = Vector2(0.0f, 1.0f);
-
   }
+
+  Vector2 Vector2::ZERO = Vector2(0.0f, 0.0f);
+
+  Vector2 Vector2::ONE = Vector2(1.0f, 1.0f);
+
+  Vector2 Vector2::ONEX = Vector2(1.0f, 0.0f);
+
+  Vector2 Vector2::ONEY = Vector2(0.0f, 1.0f);
+
 }
 

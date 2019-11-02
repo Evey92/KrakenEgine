@@ -4,7 +4,6 @@
 #include "kraMath.h"
 
 namespace kraEngineSDK {
-  class Vector3;
 
   class KRA_UTILITY_EXPORT Vector2
   {
@@ -318,13 +317,13 @@ namespace kraEngineSDK {
 
    public:
 
-     static const Vector2 ZERO;
+     static Vector2 ZERO;
 
-     static const Vector2 ONE;
+     static Vector2 ONE;
 
-     static const Vector2 ONEX;
+     static Vector2 ONEX;
 
-     static const Vector2 ONEY;
+     static Vector2 ONEY;
 
     /**
      * @brief Componente X.

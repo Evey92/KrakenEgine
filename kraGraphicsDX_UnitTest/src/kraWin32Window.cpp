@@ -3,7 +3,7 @@
   LRESULT CALLBACK
   WndProc(HWND, UINT, WPARAM, LPARAM);
 
-  Win32Window::Win32Window(uint32 width, uint32 height, String name, Vector2 position)
+  Win32Window::Win32Window(const uint32 width, const uint32 height, String name, Vector2 position)
   : Window(width, height, name, position) {
     m_name = name;
   }

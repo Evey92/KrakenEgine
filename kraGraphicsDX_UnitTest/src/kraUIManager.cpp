@@ -1,11 +1,14 @@
 #include "kraUIManager.h"
 #include <kraCamera.h>
+#include <kraDevice.h>
 #include "WinAppTest.h"
 
 //TODO: Make GFXAPI a module so this manager can be initialized without parameters
   bool
-  UIManager::initUI(void* hWnd, void* pDevice, void* pCtx)
+  UIManager::initUI(void* hWnd, Device* pDevice, void* pCtx)
   {
+    pgfxDevice = make_shared<Device>(pDevice);
+
     ID3D11Device* device = reinterpret_cast<ID3D11Device*>(pDevice);
     ID3D11DeviceContext* ctx = reinterpret_cast<ID3D11DeviceContext*>(pCtx);
     

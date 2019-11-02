@@ -83,7 +83,7 @@ WinApp::Initialize()
   //Create the main window
   String name("Kraken Engine");
 
-  m_window = new Win32Window(1600, 1040, name, Vector2(0, 0));
+  m_window = new Win32Window(1920, 1080, name, Vector2(0, 0));
   if (!m_window->initWindow(m_nCmdShow))
   {
     std::cout << "Window couldn't be initialized.\n";
@@ -194,8 +194,8 @@ WinApp::Initialize()
   m_activeCam->setUp(Vector3(0.0f, 1.0f, 0.0f));
   m_activeCam->setFront(Vector3(0.0f, 0.0f, -1.0f));
   m_activeCam->setRight(Vector3(1.0f, 0.0f, 0.0f));
-  m_activeCam->SetPosition(Vector3(0.0f, 1.0f, -10.0f));
-  m_activeCam->SetObjecive(Vector3(0.0f, 0.0f, 0.0f));
+  m_activeCam->SetPosition(Vector3(0.0f, 60.0f, 80.0f));
+  m_activeCam->SetObjecive(Vector3(0.0f, 50.0f, 0.0f));
 
   m_activeCam->setFOV(kraMath::DEG2RAD(90.0f));
   m_activeCam->setNearPlane(0.01f);
@@ -277,6 +277,9 @@ WinApp::postUpdate()
 void 
 WinApp::render()
 {
+  const Matrix4 viewRotationMat = Matrix4::eulerAngleXY(kraMath::DEG2RAD(m_activeCam->getPitch()),
+                                                        kraMath::DEG2RAD(m_activeCam->getYaw()));
+
   m_mainCB->clear();
 
   // Setting world matrix
@@ -294,6 +297,10 @@ WinApp::render()
 
   m_mainCB->add(m_projection);
 
+  m_skyprojection = m_projection * viewRotationMat;
+
+  m_mainCB->add(m_skyprojection);
+  m_mainCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
   m_mainCB->updateSubResources(*m_gfxDevice);
 
   m_shadingCB->clear();

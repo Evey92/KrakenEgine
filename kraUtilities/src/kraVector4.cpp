@@ -370,7 +370,7 @@ namespace kraEngineSDK {
   }
 
   float
-  Vector4::component(uint32 Index) const {
+    Vector4::component(uint32 Index) const {
 
     if (Index == 0) {
       return x;
@@ -384,23 +384,30 @@ namespace kraEngineSDK {
     else if (Index == 3) {
       return w;
     }
-
-    const Vector4 ZERO = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
-
-    const Vector4 ONE = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-
-    const Vector4 ONEX = Vector4(1.0f, 0.0f, 0.0f, 0.0f);
-
-    const Vector4 ONEY = Vector4(0.0f, 1.0f, 0.0f, 0.0f);
-
-    const Vector4 ONEZ = Vector4(0.0f, 0.0f, 1.0f, 0.0f);
-
-    const Vector4 ONEW = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
-
-    const Vector4 UP = ONEY;
-
-    const Vector4 FRONT = ONEZ;
-
   }
+
+  Vector4
+  Vector4::ZERO = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+
+  Vector4
+  Vector4::ONE = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+
+  Vector4
+  Vector4::ONEX = Vector4(1.0f, 0.0f, 0.0f, 0.0f);
+
+  Vector4
+  Vector4::ONEY = Vector4(0.0f, 1.0f, 0.0f, 0.0f);
+
+  Vector4
+  Vector4::ONEZ = Vector4(0.0f, 0.0f, 1.0f, 0.0f);
+
+  Vector4
+  Vector4::ONEW = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
+
+  Vector4
+  Vector4::UP = ONEY;
+
+  Vector4
+  Vector4::FRONT = ONEZ;
 
 }

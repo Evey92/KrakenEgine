@@ -317,21 +317,21 @@ namespace kraEngineSDK {
 
   public:
 
-    static const Vector3 ZERO;
+    static Vector3 ZERO;
 
-    static const Vector3 ONE;
+    static Vector3 ONE;
 
-    static const Vector3 ONEX;
+    static Vector3 ONEX;
 
-    static const Vector3 ONEY;
+    static Vector3 ONEY;
 
-    static const Vector3 ONEZ;
+    static Vector3 ONEZ;
 
-    static const Vector3 UP;
+    static Vector3 UP;
 
-    static const Vector3 FRONT;
+    static Vector3 FRONT;
 
-    static const Vector3 RIGHT;
+    static Vector3 RIGHT;
 
     /**
     * @brief Componente X.

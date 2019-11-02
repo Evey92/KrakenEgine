@@ -347,21 +347,21 @@ namespace kraEngineSDK {
 
 
   public:
-    static const Vector4 ZERO;
+    static Vector4 ZERO;
 
-    static const Vector4 ONE;
+    static Vector4 ONE;
 
-    static const Vector4 ONEX;
+    static Vector4 ONEX;
 
-    static const Vector4 ONEY;
+    static Vector4 ONEY;
 
-    static const Vector4 ONEZ;
+    static Vector4 ONEZ;
 
-    static const Vector4 ONEW;
+    static Vector4 ONEW;
 
-    static const Vector4 UP;
+    static Vector4 UP;
 
-    static const Vector4 FRONT;
+    static Vector4 FRONT;
 
     /**
      * @brief Componente X.

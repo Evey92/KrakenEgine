@@ -6,27 +6,27 @@ cbuffer cbMain : register(b0)
     matrix World;
     matrix View;
     matrix Projection;
+    matrix skyProjection;
+
 };
 
 struct VS_INPUT
 {
     float3 Position : POSITION;
-    float3 TexCoord : TEXCOORD;
 };
 
 struct PS_INPUT
 {
+    float3 worldPos : POSITION;
     float4 Position : SV_Position;
-    float3 TexCoord : TEXCOORD;
 };
 
 PS_INPUT VS(VS_INPUT Input)
 {
     PS_INPUT Output;
 
-    float3 pos = mul(Input.Position.xyz, (float3x3) View);
-    Output.Position = mul(float4(pos, 1.0f), Projection);
-    Output.TexCoord = Input.TexCoord;
+    Output.worldPos = Input.Position;
+    Output.Position = mul(float4(Input.Position, 1.0f), skyProjection);
 
     return Output;
 }
@@ -34,8 +34,6 @@ PS_INPUT VS(VS_INPUT Input)
 float4 PS(PS_INPUT Input) : SV_Target
 {
     
-    float3 albedo = enviroMap.Sample(samLinear, normalize(Input.TexCoord)).rgb;
-
-    return float4(albedo, 0.0f);
-
+    float3 envVector = normalize(Input.worldPos);
+    return enviroMap.SampleLevel(samLinear, envVector, 0);
 }

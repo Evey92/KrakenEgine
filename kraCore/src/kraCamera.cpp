@@ -111,6 +111,16 @@ namespace kraEngineSDK {
     m_dirty = true;
   }
 
+  float Camera::getPitch()
+  {
+    return m_pos.y - m_objective.y;
+  }
+
+  float Camera::getYaw()
+  {
+    return m_pos.x - m_objective.x;
+  }
+
   float
   Camera::getFOV() {
     return m_fov;

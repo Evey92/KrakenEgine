@@ -59,6 +59,12 @@ namespace kraEngineSDK {
     setFOVfromDeg(float FOV);
     
     float
+    getPitch();
+
+    float
+    getYaw();
+
+    float
     getFOV();
 
     float
@@ -128,6 +134,10 @@ namespace kraEngineSDK {
     float m_fov = kraMath::DEG2RAD(90.0f);
     float m_nearZ = 0.01f;
     float m_farZ = 1000.0f;
+    
+    //I should probably rework how this works...
+    float pitch;
+    float yaw;
   };
 
 }
