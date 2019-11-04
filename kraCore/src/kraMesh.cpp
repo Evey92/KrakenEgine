@@ -41,7 +41,7 @@ namespace kraEngineSDK {
     {
       m_diffuse->setTextureShaderResource(pDevice, 0, 1);
     }
-    else
+  /*  else
     {
       m_diffuse->createTexture2DFromFile(*pDevice,
                                          "resources/Textures/missingChecker.png",
@@ -52,7 +52,7 @@ namespace kraEngineSDK {
 
       m_diffuse->setTextureShaderResource(pDevice, 0, 1);
 
-    }
+    }*/
     if (m_normal != nullptr)
     {
       m_normal->setTextureShaderResource(pDevice, 1, 1);

@@ -77,9 +77,8 @@ namespace kraEngineSDK {
     sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
     sd.OutputWindow = m_hWnd;
     sd.SampleDesc.Count = 1;
-    sd.SampleDesc.Quality = 0;
-    sd.Windowed = true;
     sd.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+    sd.Windowed = true;
 
     D3D_FEATURE_LEVEL selectedFL;
 
@@ -90,17 +89,17 @@ namespace kraEngineSDK {
       D3D_DRIVER_TYPE& dt = driverTypes[driverTypeIndex];
 
       hr = D3D11CreateDeviceAndSwapChain(nullptr,
-        dt,
-        nullptr,
-        createDeviceFlags,
-        &featureLevels[0],
-        static_cast<UINT>(featureLevels.size()),
-        D3D11_SDK_VERSION,
-        &sd,
-        &m_pSwapChain.m_pd3dSwapChain,
-        &m_pd3dDevice,
-        &selectedFL,
-        &m_pImmediateContext);
+                                         dt,
+                                         nullptr,
+                                         createDeviceFlags,
+                                         &featureLevels[0],
+                                         static_cast<UINT>(featureLevels.size()),
+                                         D3D11_SDK_VERSION,
+                                         &sd,
+                                         &m_pSwapChain.m_pd3dSwapChain,
+                                         &m_pd3dDevice,
+                                         &selectedFL,
+                                         &m_pImmediateContext);
 
       if (SUCCEEDED(hr)) {
         break;

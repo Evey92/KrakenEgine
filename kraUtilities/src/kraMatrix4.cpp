@@ -233,9 +233,9 @@ namespace kraEngineSDK {
                           const Vector3& At,
                           const Vector3& Up) {
     Vector3 zAxis = At - Eye;
-    zAxis.normalize();
+    zAxis.normalized();
     Vector3 xAxis = Up ^ zAxis;
-    xAxis.normalize();
+    xAxis.normalized();
     Vector3 yAxis = zAxis ^ xAxis;
 
     Matrix4 Mat;

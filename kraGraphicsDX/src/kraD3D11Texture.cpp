@@ -162,7 +162,8 @@ namespace kraEngineSDK {
     D3D11_SUBRESOURCE_DATA initBuffer;
     memset(&initBuffer, 0, sizeof(initBuffer));
     initBuffer.pSysMem = pixels;
-    initBuffer.SysMemPitch = m_width * 4;
+    int bytesPerPixel = channels * (m_isHDR ? sizeof(float) : sizeof(unsigned char));
+    initBuffer.SysMemPitch = m_width * bytesPerPixel;
 
     hr = m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
     if (FAILED(hr)) {

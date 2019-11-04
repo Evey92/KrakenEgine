@@ -16,7 +16,7 @@ using namespace kraEngineSDK;
   public:
 
     bool
-    initUI(void* hWnd, Device* device, void* ctx);
+    initUI(void* hWnd, void* device, void* ctx);
 
     void
     updateUI(Scene* scene);

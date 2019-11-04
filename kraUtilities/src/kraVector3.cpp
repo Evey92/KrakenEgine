@@ -245,10 +245,14 @@ namespace kraEngineSDK {
 
   void
   Vector3::normalize() {
-    float vec = kraMath::sqrt(x*x + y * y + z * z);
-    x /= vec;
-    y /= vec;
-    z /= vec;
+    
+    // I dont even remeber why I had these 2? 
+    /*float m = lenght();
+    
+    float unit = 1.0f / m;
+    x * unit;
+    y * unit;
+    z * unit;*/
   }
 
   void

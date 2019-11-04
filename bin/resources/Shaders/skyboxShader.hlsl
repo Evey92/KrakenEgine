@@ -26,7 +26,9 @@ PS_INPUT VS(VS_INPUT Input)
     PS_INPUT Output;
 
     Output.worldPos = Input.Position;
-    Output.Position = mul(float4(Input.Position, 1.0f), skyProjection);
+    float4x4 wvpMat = mul(World, View);
+    wvpMat = mul(wvpMat, Projection);
+    Output.Position = mul(float4(Input.Position, 1.0f), wvpMat);
 
     return Output;
 }

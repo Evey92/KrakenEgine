@@ -10,7 +10,7 @@ static const float exposure  = 1.0;
 static const float pureWhite = 1.0;
 
 //This probably doesn't go here
-static const uint NumLights = 3;
+static const uint NumLights = 1;
 
 // Compute Van der Corput radical inverse
 // See: http://holger.dammertz.org/stuff/notes_HammersleyOnHemisphere.html

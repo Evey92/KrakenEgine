@@ -27,7 +27,7 @@ struct VS_INPUT
 
 struct PS_INPUT
 {
-    float4 Position             : SV_POSITION;
+    float4 Position        : SV_POSITION;
     float3 WorldPosition   : POSITION;
     float2 TexCoord        : TEXCOORD0;
     float3x3 TBN           : TEXCOORD1;
@@ -90,16 +90,16 @@ PS_INPUT VS(VS_INPUT Input)
 {
     PS_INPUT Output;
 
-    Output.Position = mul(Input.Position, World);
-    Output.WorldPosition = Output.Position.xyz;
-    Output.Position = mul(Output.Position, View);
-    Output.Position = mul(Output.Position, Projection);
-
-    Output.TexCoord = Input.TexCoord;
+    Output.WorldPosition = mul(Input.Position, World).xyz;
+    Output.TexCoord = float2(Input.TexCoord.x, 1.0 - Input.TexCoord.y);
   
     float3x3 TBN = float3x3(Input.Tangent, Input.BiNormal, Input.Normal);
-
     Output.TBN = mul(transpose(TBN), (float3x3) World);
+
+    float4x4 wvpMat = mul(View, Projection);
+    wvpMat = mul(wvpMat, World);
+
+    Output.Position = mul(Input.Position, wvpMat);
 
     return Output;
 }
@@ -113,7 +113,7 @@ float4 PS(PS_INPUT Input) : SV_Target
     float roughness = texRoughness.Sample(samLinear, Input.TexCoord).r;
 
      // Outgoing light direction (vector from world-space fragment position to the "eye").
-    float3 Lo = normalize(eyePosition - Input.Position).xyz;
+    float3 Lo = normalize(eyePosition - float4(Input.WorldPosition, 1.0f)).xyz;
 
     float3 N = normalize(2.0 * texNormal.Sample(samLinear, Input.TexCoord).rgb - 1.0);
     N = normalize(mul(Input.TBN, N));
@@ -133,30 +133,30 @@ float4 PS(PS_INPUT Input) : SV_Target
         float3 Li = -lightDirection.xyz;
         float3 Lradiance = radiance.xyz;
 
-    // Half-vector between Li and Lo.
-	float3 Lh = normalize(Li + Lo);
+        // Half-vector between Li and Lo.
+	    float3 Lh = normalize(Li + Lo);
 
-    // Calculate angles between surface normal and various light vectors.
-	float cosLi = max(0.0, dot(N, Li));
-	float cosLh = max(0.0, dot(N, Lh));
+        // Calculate angles between surface normal and various light vectors.
+	    float cosLi = max(0.0, dot(N, Li));
+	    float cosLh = max(0.0, dot(N, Lh));
 
-	// Calculate Fresnel term for direct lighting. 
-    float3 F = fresnelSchlick(F0, max(0.0, dot(Lh, Lo)));
+	    // Calculate Fresnel term for direct lighting. 
+        float3 F = fresnelSchlick(F0, max(0.0, dot(Lh, Lo)));
 
-	// Calculate normal distribution for specular BRDF.
-    float D = ndfGGX(cosLh, roughness);
+	    // Calculate normal distribution for specular BRDF.
+        float D = ndfGGX(cosLh, roughness);
 
-	// Calculate geometric attenuation for specular BRDF.
-    float G = gaSchlickGGX(cosLi, cosLo, roughness);
+	    // Calculate geometric attenuation for specular BRDF.
+        float G = gaSchlickGGX(cosLi, cosLo, roughness);
 
-    float3 kd = lerp(float3(1, 1, 1) - F, float3(0, 0, 0), metalness);
+        float3 kd = lerp(float3(1, 1, 1) - F, float3(0, 0, 0), metalness);
 
-    float3 diffuseBRDF = kd * albedo;
+        float3 diffuseBRDF = kd * albedo;
 
-    float3 specularBRDF = (F * G * D) / max(Epsilon, 4.0 * cosLi * cosLo);
+        float3 specularBRDF = (F * G * D) / max(Epsilon, 4.0 * cosLi * cosLo);
 
-    directLight = (diffuseBRDF + specularBRDF)  *  Lradiance * cosLi;
-  }
+        directLight = (diffuseBRDF + specularBRDF)  *  Lradiance * cosLi;
+    }
 
 	// Ambient lighting (IBL).
   float3 ambientLight;

@@ -83,7 +83,7 @@ WinApp::Initialize()
   //Create the main window
   String name("Kraken Engine");
 
-  m_window = new Win32Window(1920, 1080, name, Vector2(0, 0));
+  m_window = new Win32Window(1600, 1024, name, Vector2(0, 0));
   if (!m_window->initWindow(m_nCmdShow))
   {
     std::cout << "Window couldn't be initialized.\n";
@@ -192,12 +192,12 @@ WinApp::Initialize()
 
   //Setting up camera
   m_activeCam->setUp(Vector3(0.0f, 1.0f, 0.0f));
-  m_activeCam->setFront(Vector3(0.0f, 0.0f, -1.0f));
   m_activeCam->setRight(Vector3(1.0f, 0.0f, 0.0f));
-  m_activeCam->SetPosition(Vector3(0.0f, 60.0f, 80.0f));
-  m_activeCam->SetObjecive(Vector3(0.0f, 50.0f, 0.0f));
+  m_activeCam->setFront(Vector3(0.0f, 0.0f, 1.0f));
+  m_activeCam->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
+  m_activeCam->SetObjecive(Vector3(0.0f, 0.0f, 10.0f));
 
-  m_activeCam->setFOV(kraMath::DEG2RAD(90.0f));
+  m_activeCam->setFOV(kraMath::DEG2RAD(45.0f));
   m_activeCam->setNearPlane(0.01f);
   m_activeCam->setFarPlane(1000.0f);
 
@@ -282,6 +282,7 @@ WinApp::render()
 
   m_mainCB->clear();
 
+  
   // Setting world matrix
   m_mainCB->add(m_world);
 
@@ -290,8 +291,8 @@ WinApp::render()
 
   //Setting projection matrix
   m_projection.MatrixPerspectiveFOV(CameraManager::instance().getActiveCamera()->getFOV(),
-                                    static_cast<float>(m_gfxDevice->getWidth()),
-                                    static_cast<float>(m_gfxDevice->getHeight()),
+                                    static_cast<float>(m_window->getWidth()),
+                                    static_cast<float>(m_window->getHeight()),
                                     CameraManager::instance().getActiveCamera()->getNearPlane(),
                                     CameraManager::instance().getActiveCamera()->getFarPlane());
 
@@ -304,14 +305,16 @@ WinApp::render()
   m_mainCB->updateSubResources(*m_gfxDevice);
 
   m_shadingCB->clear();
-  m_shadingCB->add(Vector4(m_activeCam->getPosition(), 0.0f));
-  m_shadingCB->add(Vector4(1.0, 0.0f, 0.0f, 0.0f));
+  m_shadingCB->add(Vector4(m_activeCam->getPosition(), 1.0f));
+  m_shadingCB->add(Vector4(100.0, 0.0f, 100.0f, 0.0f));
   m_shadingCB->add(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
   m_shadingCB->updateSubResources(*m_gfxDevice);
 
+  Vector4 ClearColor = { 0.329f, 0.050f, 0.431f, 1.0f };
+
   srcFB->m_frameRTV->setRenderTarget(*m_gfxDevice, *srcFB->m_frameDSV);
   srcFB->m_frameDSV->clearDSV(*m_gfxDevice);
-
+  srcFB->m_frameRTV->clearRenderTarget(m_gfxDevice, ClearColor);
 
   m_gfxAPIInstance->getDevice()->setPrimitiveTopology();
   m_rasterizerState->setRasterizerState(*m_gfxDevice);
@@ -326,16 +329,16 @@ WinApp::render()
 
   //Capture this frame frame
   m_gfxDevice->resolveSubreresource(*srcFB->m_colorTex, *destinationFB->m_colorTex);
+  
+  m_backBufferRTV->setRenderTarget(*m_gfxDevice, 1);
 
  //Tone mapping pass
   toneMapPasss();
 
-  m_backBufferRTV->setRenderTarget(*m_gfxDevice, 1);
 
   UIManager::instance().renderUI();
 
   //TODO: ActiveRederPipeline.render();
-
 
   m_gfxDevice->PresentSwapChain();
 
