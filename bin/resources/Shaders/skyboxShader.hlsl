@@ -17,25 +17,23 @@ struct VS_INPUT
 
 struct PS_INPUT
 {
-    float3 worldPos : POSITION;
-    float4 Position : SV_Position;
+    float3 Position : POSITION;
+    float4 WorldPosition : SV_Position;
 };
 
 PS_INPUT VS(VS_INPUT Input)
 {
     PS_INPUT Output;
 
-    Output.worldPos = Input.Position;
-    float4x4 wvpMat = mul(World, View);
-    wvpMat = mul(wvpMat, Projection);
-    Output.Position = mul(float4(Input.Position, 1.0f), wvpMat);
+    Output.Position = Input.Position;
+    float4x4 viewProjMat = mul(View, Projection);
+    Output.WorldPosition = mul(viewProjMat, float4(Input.Position, 1.0));
 
     return Output;
 }
 
 float4 PS(PS_INPUT Input) : SV_Target
 {
-    
-    float3 envVector = normalize(Input.worldPos);
+    float3 envVector = normalize(Input.Position);
     return enviroMap.SampleLevel(samLinear, envVector, 0);
 }

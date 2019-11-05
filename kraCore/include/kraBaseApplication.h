@@ -187,7 +187,7 @@ namespace kraEngineSDK {
     GraphicsAPI* m_gfxAPIInstance = nullptr;
     InputAPI* m_inputAPIInstance = nullptr;
     RenderPipeline* m_renderPipeInstance = nullptr;
-    Matrix4 m_world = Matrix4::IDENTITY;
+    Matrix4 m_world = Matrix4::ZERO;
     Matrix4 m_projection = Matrix4::ZERO;
     Matrix4 m_skyprojection = Matrix4::ZERO;
     ShrdPtr<Texture> m_textureManager = nullptr;

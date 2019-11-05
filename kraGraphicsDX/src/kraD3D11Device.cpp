@@ -83,8 +83,8 @@ namespace kraEngineSDK {
     D3D_FEATURE_LEVEL selectedFL;
 
     for (size_t driverTypeIndex = 0;
-      driverTypeIndex < driverTypes.size();
-      ++driverTypeIndex)
+         driverTypeIndex < driverTypes.size();
+         ++driverTypeIndex)
     {
       D3D_DRIVER_TYPE& dt = driverTypes[driverTypeIndex];
 

@@ -214,15 +214,19 @@
     static float rot[3] = { transform.Rotation.x, transform.Rotation.y, transform.Rotation.z };
     static float scale[3] = { transform.Scale.x, transform.Scale.y, transform.Scale.z };
     
+    float oldPos[3];
+
     ImGui::Text("Transform");
     ImGui::InputFloat3("Position", pos);
-    transform.setPosition(Vector3(pos[0], pos[1], pos[2]));
+    if (pos != oldPos) {
+      transform.setPosition(Vector3(pos[0], pos[1], pos[2]));
+    }
 
     ImGui::InputFloat3("Rotation", rot);
-
+    //transform.setRotation(Vector3(rot[0], rot[1], rot[2]));
 
     ImGui::InputFloat3("Scale", scale);
-    
+    //transform, setScale(Vector3(scale[0], scale[1], scale[2]));
 
     ImGui::Separator();
   }
@@ -234,15 +238,28 @@
     static float camNear = cam->getNearPlane();
     static float camFar = cam->getFarPlane();
 
+    float oldFov = camFov;
+    float oldNear = camNear;
+    float oldFar = camFar;
     ImGui::Text("Camera");
     ImGui::SliderFloat("Field of View", &camFov, 0.0f, 179.0f);
-    CameraManager::instance().getActiveCamera()->setFOVfromDeg(camFov);
+    if (camFov != oldFov)
+    {
+      CameraManager::instance().getActiveCamera()->setFOVfromDeg(camFov);
+    }
 
     ImGui::InputFloat("Near Plane", &camNear, .05f, 0, "%.3f");
-    CameraManager::instance().getActiveCamera()->setNearPlane(camNear);
+    if (camNear != oldNear)
+    {
+      CameraManager::instance().getActiveCamera()->setNearPlane(camNear);
+    }
 
     ImGui::InputFloat("Far Plane", &camFar, .05f, 0, "%.3f");
-    CameraManager::instance().getActiveCamera()->setFarPlane(camFar);
+    if (camFar != oldFar)
+    {
+      CameraManager::instance().getActiveCamera()->setFarPlane(camFar);
+    }
+
     ImGui::Separator();
 
   }

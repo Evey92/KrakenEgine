@@ -31,7 +31,7 @@ using namespace kraEngineSDK;
     showSceneGraph(Scene* sg);
 
     void
-      drawSceneGraphNode(GameObject* node);
+    drawSceneGraphNode(GameObject* node);
 
     void
     showInspector(GameObject* gameObj);
