@@ -243,28 +243,26 @@ namespace kraEngineSDK {
 
   }
 
-  void
-  Vector3::normalize() {
+  void 
+  Vector3::normalize(Vector3 vec)
+  {
+    float m = vec.lenght();
+    float inv = 1.0f / m;
     
-    // I dont even remeber why I had these 2? 
-    /*float m = lenght();
-    
-    float unit = 1.0f / m;
-    x * unit;
-    y * unit;
-    z * unit;*/
+    vec.x *= inv;
+    vec.y *= inv;
+    vec.z *= inv;
   }
 
   void
   Vector3::normalized() {
 
     float m = lenght();
+    float inv = 1.0f / m;
 
-    float fisqrt = kraMath::invSqrt(m);
-
-    x *= fisqrt;
-    y *= fisqrt;
-    z *= fisqrt;
+    x *= inv;
+    y *= inv;
+    z *= inv;
   }
 
   void

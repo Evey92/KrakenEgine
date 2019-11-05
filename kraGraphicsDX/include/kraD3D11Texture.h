@@ -56,6 +56,11 @@ namespace kraEngineSDK {
     setTextureComputeShaderResource(const Device* pDevice, 
                                     uint32 startSlot, 
                                     uint32 numViews) override;
+    void
+    setPSTextureShaderResources(const Device* pDevice,
+                                uint32 startSlot,
+                                uint32 numViews,
+                                Vector<ShrdPtr<Texture>> shaderResources) override;
 
     void
     setTextureUnorderedAccesVews(const Device* pDevice, 

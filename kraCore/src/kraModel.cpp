@@ -92,7 +92,7 @@ namespace kraEngineSDK {
   Mesh*
   Model::processMesh(aiMesh* pMesh, const aiScene* scene, Device& pDevice) {
 
-    Mesh* newMesh = new Mesh(pDevice);
+    Mesh* newMesh = new Mesh(pDevice, m_owner);
 
     if (pMesh->mMaterialIndex >= 0)
     {
@@ -103,6 +103,8 @@ namespace kraEngineSDK {
         textureType = getTextureType(scene, mat);
       }
     }
+
+    
 
     for (uint32 i = 0; i < pMesh->mNumVertices; ++i)
     {

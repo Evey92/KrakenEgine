@@ -52,11 +52,17 @@ namespace kraEngineSDK {
     virtual uint32
     getLevels() = 0;
 
-    //TODO: Move all of this bullshit either to an abstraction of device context, or to the device itself
+    //TODO: Move all of this bullshit either to an abstraction of device context, or to the device itself... Maybe.
     virtual void
     setTextureShaderResource(const Device* pDevice,
                                uint32 startSlot,
                                uint32 numViews) = 0;
+
+    virtual void
+    setPSTextureShaderResources(const Device* pDevice,
+                             uint32 startSlot,
+                             uint32 numViews, 
+                             Vector<ShrdPtr<Texture>> shaderResources) = 0;
 
     virtual void
     setTextureComputeShaderResource(const Device* pDevice,
@@ -77,4 +83,5 @@ namespace kraEngineSDK {
     releaseTexture() = 0;
 
   };
+
 }

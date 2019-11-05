@@ -26,7 +26,7 @@ namespace kraEngineSDK {
 
     m_height = height;
     m_width = width;
-    m_levels = levels;
+    m_levels = (levels > 0) ? levels : EngineUtility::numMipLevels(width, height);
 
     D3D11_TEXTURE2D_DESC descTexture;
     memset(&descTexture, 0, sizeof(descTexture));
@@ -227,6 +227,7 @@ namespace kraEngineSDK {
                                                          &m_pSRV);
   }
 
+
   void
   TextureDX::setTextureComputeShaderResource(const Device* pDevice,
                                              uint32 startSlot,
@@ -239,6 +240,26 @@ namespace kraEngineSDK {
   }
 
   void 
+  TextureDX::setPSTextureShaderResources(const Device* pDevice, 
+                                         uint32 startSlot,
+                                         uint32 numViews,
+                                         Vector<ShrdPtr<Texture>> shaderResources)
+  {
+    const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
+    Vector<ID3D11ShaderResourceView*> shdrVec;
+
+    for (auto tex : shaderResources) {
+
+      const TextureDX& tex = reinterpret_cast<const TextureDX&>(shaderResources);
+      shdrVec.push_back(tex.m_pSRV);
+    }
+
+    m_pDevice->m_pImmediateContext->PSSetShaderResources(startSlot,
+                                                         numViews,
+                                                         &shdrVec[0]);
+  }
+
+  void
   TextureDX::setTextureUnorderedAccesVews(const Device* pDevice, 
                                           uint32 startSlot,
                                           uint32 numViews)

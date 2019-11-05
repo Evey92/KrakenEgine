@@ -25,9 +25,9 @@ float radicalInverse_VdC(uint bits)
 }
 
 // Sample i-th point from Hammersley point set of NumSamples points total.
-float2 sampleHammersley(uint i, const float InvNumSamples)
+float2 sampleHammersley(uint i, const float invSamples)
 {
-    return float2(i * InvNumSamples, radicalInverse_VdC(i));
+    return float2(i * invSamples, radicalInverse_VdC(i));
 }
 
 // Importance sample GGX normal distribution function for a fixed roughness value.

@@ -303,8 +303,8 @@ namespace kraEngineSDK {
      * @brief Normaliza el vector.
      * @return Regresa el vector normalizado.
      */
-    void
-    normalize();
+    static void
+    normalize(Vector3 vec);
     
     void
     normalized();

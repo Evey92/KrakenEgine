@@ -26,10 +26,19 @@ namespace kraEngineSDK {
     initialize();
 
     ShrdPtr<Texture>
-    getTextureOfType(TEXTURE_TYPE::E texType);
+    getAlbedoTex();
 
-    void
-    setTextureOfType(Device& pDevice, TEXTURE_TYPE::E texType, std::string fileName);
+    ShrdPtr<Texture>
+    getNormalTex();
+
+    ShrdPtr<Texture>
+    getMetalTex();
+
+    ShrdPtr<Texture>
+    getRoughnessTex();
+    
+    Vector<ShrdPtr<Texture>>
+    getTextureVector();
 
     void
     setAlbedoTex(Device& pDevice, ShrdPtr<Texture> tex);
@@ -48,6 +57,9 @@ namespace kraEngineSDK {
 
     void
     setAmbientTex(Device& pDevice, ShrdPtr<Texture> tex);
+
+    bool
+    useBaseColor();
 
     ShrdPtr<Texture> m_texColorMap = nullptr;
     ShrdPtr<Texture> m_texNormalMap = nullptr;

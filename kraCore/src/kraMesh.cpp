@@ -4,8 +4,11 @@
 
 namespace kraEngineSDK {
 
-  Mesh::Mesh(Device& pDevice) {
+  CLASS_DEFINITION(Component, Mesh)
 
+  Mesh::Mesh(Device& pDevice, GameObject* owner)  :
+  Component(owner) {
+    
     m_vertexBurffer = pDevice.createVertexBufferInstance();
     m_indexBuffer = pDevice.createIndexBufferInstance();
     m_diffuse = pDevice.createTextureInstance();
@@ -15,53 +18,47 @@ namespace kraEngineSDK {
     m_roughness = pDevice.createTextureInstance();
     m_emissive = pDevice.createTextureInstance();
     m_ambientOcclusion = pDevice.createTextureInstance();
-
+    m_owner = owner;
   }
 
 
-  Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32> indices) {
+  void 
+  Mesh::initialize()
+  {
+    m_owner->addComponent<Material>(m_owner);
+    m_material = m_owner->getComponent<Material>();
+    m_material.initialize();
+  }
+
+  void
+  Mesh::initBuffers(std::vector<Vertex> vertices, std::vector<uint32> indices)
+  {
     m_vertexBurffer->add(vertices);
     m_indexBuffer->add(indices);
   }
 
-  Mesh::Mesh(const Mesh& copyuMesh) {
-    m_indexBuffer = copyuMesh.m_indexBuffer;
-    m_vertexBurffer = copyuMesh.m_vertexBurffer;
-  }
-
   void
   Mesh::DrawMesh(Device* pDevice) {
-
-    Vector<ShrdPtr<Texture>>::iterator it = m_meshTextures.begin();
-
+    
     m_vertexBurffer->setVertexBuffer(*pDevice);
     m_indexBuffer->setIndexBuffer(*pDevice);
+    
+    .m_material.getAlbedoTex()->setTextureShaderResource(pDevice, 0, 1);
 
-    if (m_diffuse != nullptr)
+    if (m_material.getNormalTex() != nullptr)
     {
-      m_diffuse->setTextureShaderResource(pDevice, 0, 1);
+      m_material.getNormalTex()->setTextureShaderResource(pDevice, 1, 1);
     }
-  /*  else
+    
+    if (m_material.getMetalTex() != nullptr)
     {
-      m_diffuse->createTexture2DFromFile(*pDevice,
-                                         "resources/Textures/missingChecker.png",
-                                         GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
-                                         GFX_USAGE::E::kUSAGE_DEFAULT,
-                                         CPU_USAGE::E::kCPU_ACCESS_WRITE, 
-                                         0U);
-
-      m_diffuse->setTextureShaderResource(pDevice, 0, 1);
-
-    }*/
-    if (m_normal != nullptr)
-    {
-      m_normal->setTextureShaderResource(pDevice, 1, 1);
+      m_material.getMetalTex()->setTextureShaderResource(pDevice, 2, 1);
     }
-    if (m_specular != nullptr)
+    
+    if (m_roughness != nullptr)
     {
-      m_normal->setTextureShaderResource(pDevice, 2, 1);
+      m_roughness->setTextureShaderResource(pDevice, 3, 1);
     }
-
 
     pDevice->DrawIndexed(m_indexBuffer->getBufferSize(), 0, 0);
   }
@@ -77,7 +74,7 @@ namespace kraEngineSDK {
   }
 
   Vector<ShrdPtr<Texture>>& const
-  Mesh::getTextureVector() {
+  Mesh::getTextures() {
     return m_meshTextures;
   }
 
@@ -111,6 +108,15 @@ namespace kraEngineSDK {
 
   }
 
+
+  void 
+  Mesh::setMeshMaterial(Material* mat)
+  {
+    m_material.setAlbedoTex(GraphicsAPI::instance()->getDevice(), mat->getAlbedoTex());
+    m_material.setNormalTex();
+    m_material.setMetalTex();
+    m_material.setRoughnessTex();
+  }
 
   ShrdPtr<Texture> const
   Mesh::getTexture(TEXTURE_TYPE::E texType) {

@@ -49,7 +49,7 @@ namespace kraEngineSDK {
   ComputeShaderDX::setComputeShader(const Device& pDevice)
   {
     const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
-    m_pDevice.m_pImmediateContext->CSSetShader(m_pcomputeShader, 0, 0);
+    m_pDevice.m_pImmediateContext->CSSetShader(m_pcomputeShader, nullptr, 0);
   }
 
   void ComputeShaderDX::dispatchCS(const Device&   pDevice,

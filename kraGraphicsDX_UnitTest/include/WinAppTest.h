@@ -153,6 +153,12 @@ class WinApp :
    setUpIBL();
 
    void
+   setUpIrradianceMap();
+
+   void
+   setUpBRDF();
+
+   void
    drawSkybox();
 
    void
@@ -160,6 +166,10 @@ class WinApp :
 
    void
    toneMapPasss();
+
+   //Very ugly function to set a hardcoded material
+   void
+   setGoldMaterial();
 
 #pragma endregion UTILITY_FUNCTIONS
 
@@ -183,10 +193,14 @@ class WinApp :
    Vector<ShrdPtr<Model>> m_modelsVector;
    ShrdPtr<Model> m_skyBoxModel;
    ShrdPtr<RenderTargetView> m_backBufferRTV = nullptr;
-   ShrdPtr<Texture> m_equirectHDRTexture;
-   ShrdPtr<Texture> m_enviroMap;
+   ShrdPtr<Texture> m_equirectHDRTexture = nullptr;
+   ShrdPtr<Texture> m_enviroMap = nullptr;
+   ShrdPtr<Texture> m_irradMap = nullptr;
+   ShrdPtr<Texture> m_BRDFLUT = nullptr;
+   ShrdPtr<Texture> m_cubeUnfiltered = nullptr;
    ShrdPtr<ComputeShader> spBRDFshader;
-   ShrdPtr<Texture> m_cubeUnfiltered;
+   ShrdPtr<ComputeShader> irradianceShader;
+
 
    ShrdPtr<RasterizerState> m_rasterizerState = nullptr;
    ShrdPtr<DepthStencil> m_defaultDepthStencil = nullptr;
@@ -205,7 +219,6 @@ class WinApp :
    ShrdPtr<VertexShader> m_PBRVS = nullptr;
    ShrdPtr<PixelShader> m_PBRPS = nullptr;
    ShrdPtr<InputLayout> m_pbrInputLayout = nullptr;
-   ShrdPtr<Texture> m_BRDFLUT = nullptr;
    ShrdPtr<VertexShader> m_skyboxVS = nullptr;
    ShrdPtr<PixelShader> m_skyboxPS = nullptr;
    ShrdPtr<InputLayout> m_skyboxInputLayout = nullptr;

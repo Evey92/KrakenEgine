@@ -186,6 +186,7 @@ WinApp::Initialize()
   }
 
   //Setting rendering matrices
+  m_world.identity();
   m_mainCB->add(m_world);
 
   m_activeCam = CameraManager::instance().getActiveCamera();
@@ -281,7 +282,6 @@ WinApp::render()
                                                         kraMath::DEG2RAD(m_activeCam->getYaw()));
 
   m_mainCB->clear();
-
   
   // Setting world matrix
   m_mainCB->add(m_world);
@@ -461,6 +461,8 @@ WinApp::localRenderSetup()
   destinationFB = m_gfxDevice->createFrameBufferInstance();
   m_specMapCB = m_gfxDevice->createConstantBufferInstanceVec3();
   m_specMapCS = m_gfxDevice->createComputeShaderInstance();
+  irradianceShader = m_gfxDevice->createComputeShaderInstance();
+  m_irradMap = m_gfxDevice->createTextureInstance();
 
   uint32 samples = m_gfxDevice->checkMaxSupportedMSAALevel();
 
@@ -485,7 +487,7 @@ WinApp::localRenderSetup()
     destinationFB = srcFB;
   }
 
-  m_mainCB->createConstantBuffer(*m_gfxDevice);
+  //m_mainCB->createConstantBuffer(*m_gfxDevice);
 
   //Compiling up shaders
   m_PBRVS->compileVertexShader(L"resources/Shaders/PBR.hlsl", "VS");
@@ -521,27 +523,10 @@ WinApp::localRenderSetup()
 
   setUpIBL();
     
-  //Calculating Cook-Torrance's BRFD model
-  spBRDFshader->compileComputeShader(L"resources/Shaders/specBRDF.hlsl", "main");
-  spBRDFshader->createComputeShader(*m_gfxDevice);
+  setUpIrradianceMap();
 
-  m_BRDFLUT->createTexture2DFromFile(*m_gfxDevice,
-                                     "resources/Textures/brfdLUT.png",
-                                     GFX_FORMAT::E::kFORMAT_R16G16_FLOAT,
-                                     GFX_USAGE::E::kUSAGE_DEFAULT,
-                                     CPU_USAGE::E::kCPU_ACCESS_WRITE,
-                                     1);
+  setUpBRDF();
 
-  m_BRDFSampler->createSamplerState(*m_gfxDevice,
-                                    SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
-                                    TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_CLAMP,
-                                    COMPARISON_FUNCTION::E::kCOMPARISON_NEVER);
-
-  m_BRDFLUT->createTextureUAV(*m_gfxDevice, 0);
-  m_BRDFLUT->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);
-  spBRDFshader->setComputeShader(*m_gfxDevice);
-  spBRDFshader->dispatchCS(*m_gfxDevice, m_BRDFLUT->getWidth()/32, m_BRDFLUT->getHeight()/32, 1);
-  m_BRDFLUT->setComputeNullUAV(*m_gfxDevice);
 }
 
 void 
@@ -643,8 +628,56 @@ WinApp::setUpIBL()
   m_specMapCB->setComputeNullConstantBuffer(*m_gfxDevice);
   m_enviroMap->setComputeNullUAV(*m_gfxDevice);
 
-  //TODO: Compute irradiance...
+}
 
+void WinApp::setUpIrradianceMap()
+{  
+  irradianceShader->compileComputeShader(L"resources/Shaders/irradianceMapShader.hlsl", "main");
+  irradianceShader->createComputeShader(*m_gfxDevice);
+
+  m_irradMap->createCubeTexture(m_gfxDevice,
+                                32, 32,
+                                GFX_FORMAT::E::kFORMAT_R16G16B16A16_FLOAT,
+                                GFX_USAGE::E::kUSAGE_DEFAULT,
+                                1);
+
+  m_irradMap->createTextureUAV(*m_gfxDevice, 0);
+  m_enviroMap->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
+  m_computeSampler->setComputeSamplerState(*m_gfxDevice);
+  m_irradMap->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);
+  irradianceShader->setComputeShader(*m_gfxDevice);
+  irradianceShader->dispatchCS(*m_gfxDevice,
+                               m_irradMap->getWidth() / 32,
+                               m_irradMap->getHeight() / 32,
+                               6);
+  m_irradMap->setComputeNullUAV(*m_gfxDevice);
+
+
+}
+
+void WinApp::setUpBRDF()
+{
+  //Calculating Cook-Torrance's BRFD model
+  spBRDFshader->compileComputeShader(L"resources/Shaders/specBRDF.hlsl", "main");
+  spBRDFshader->createComputeShader(*m_gfxDevice);
+
+  m_BRDFLUT->createTexture2DFromFile(*m_gfxDevice,
+    "resources/Textures/brfdLUT.png",
+    GFX_FORMAT::E::kFORMAT_R16G16_FLOAT,
+    GFX_USAGE::E::kUSAGE_DEFAULT,
+    CPU_USAGE::E::kCPU_ACCESS_WRITE,
+    1);
+
+  m_BRDFSampler->createSamplerState(*m_gfxDevice,
+    SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
+    TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_CLAMP,
+    COMPARISON_FUNCTION::E::kCOMPARISON_NEVER);
+
+  m_BRDFLUT->createTextureUAV(*m_gfxDevice, 0);
+  m_BRDFLUT->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);
+  spBRDFshader->setComputeShader(*m_gfxDevice);
+  spBRDFshader->dispatchCS(*m_gfxDevice, m_BRDFLUT->getWidth() / 32, m_BRDFLUT->getHeight() / 32, 1);
+  m_BRDFLUT->setComputeNullUAV(*m_gfxDevice);
 }
 
 void 
@@ -669,12 +702,17 @@ WinApp::drawPBRModels()
   m_BRDFSampler->setSamplerState(*m_gfxDevice, 1, 1);
   m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
 
+  m_enviroMap->setTextureShaderResource(m_gfxDevice, 4, 1);
+  m_irradMap->setTextureShaderResource(m_gfxDevice, 5, 1);
+  m_BRDFLUT->setTextureShaderResource(m_gfxDevice, 6, 1);
+
   for (uint32 i = 0; i < m_modelsVector.size(); ++i) {
     m_modelsVector[i]->Draw(m_gfxDevice);
   }
 }
 
-void WinApp::toneMapPasss()
+void
+WinApp::toneMapPasss()
 {
 
   m_backBufferRTV->setRenderTarget(*m_gfxDevice, 1);
@@ -684,5 +722,60 @@ void WinApp::toneMapPasss()
   destinationFB->m_colorTex->setTextureShaderResource(m_gfxDevice, 0, 1);
   m_computeSampler->setComputeSamplerState(*m_gfxDevice);
   m_gfxDevice->Draw(3, 0);
+}
+
+void
+WinApp::setGoldMaterial() {
+ 
+  Material* mat = new Material();
+
+  ShrdPtr<Texture> albedo = m_gfxDevice->createTextureInstance();
+  ShrdPtr<Texture> normal = m_gfxDevice->createTextureInstance();
+  ShrdPtr<Texture> metal = m_gfxDevice->createTextureInstance();
+  ShrdPtr<Texture> rough = m_gfxDevice->createTextureInstance();
+
+
+  albedo->createTexture2DFromFile(*m_gfxDevice,
+                                  "resources/Textures/pbr/gold/gold_albedo2.png",
+                                  GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                  GFX_USAGE::E::kUSAGE_DEFAULT,
+                                  CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                  1);
+
+  normal->createTexture2DFromFile(*m_gfxDevice,
+                                  "resources/Textures/pbr/gold/gold_normal.png",
+                                  GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                  GFX_USAGE::E::kUSAGE_DEFAULT,
+                                  CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                  1);
+
+  metal->createTexture2DFromFile(*m_gfxDevice,
+                                 "resources/Textures/pbr/gold/gold_metalness.png",
+                                 GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                 GFX_USAGE::E::kUSAGE_DEFAULT,
+                                 CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                 1);
+
+  rough->createTexture2DFromFile(*m_gfxDevice,
+                                 "resources/Textures/pbr/gold/gold_roughness.png",
+                                 GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                 GFX_USAGE::E::kUSAGE_DEFAULT,
+                                 CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                 1);
+
+
+  mat->setAlbedoTex(*m_gfxDevice, albedo);
+  mat->setNormalTex(*m_gfxDevice, normal);
+  mat->setMetalTex(*m_gfxDevice, metal);
+  mat->setRoughnessTex(*m_gfxDevice, rough);
+
+
+  for (auto& model : m_modelsVector) {
+
+    //Set materials for all models. This sucks.
+    model;
+
+  }
+
 }
 

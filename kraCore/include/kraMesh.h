@@ -10,14 +10,23 @@ namespace kraEngineSDK {
 
   class Texture;
 
-  class KRA_CORE_EXPORT Mesh
-  {
-  public:
+  class KRA_CORE_EXPORT Mesh :
+  public Component {
+  
+    CLASS_DECLARATION(Mesh)
 
-    Mesh(Device& pDevice);
-    Mesh(std::vector<Vertex> vertices, std::vector<uint32> indices);
-    Mesh(const Mesh& copyMesh);
+   public:
+
+     Mesh(Device& pDevice, GameObject* owner);
+
     ~Mesh() {}
+
+    void
+    initialize();
+
+    void 
+    initBuffers(std::vector<Vertex> vertices, 
+               std::vector<uint32> indices);
 
     void
     DrawMesh(Device* pDevice);
@@ -29,17 +38,20 @@ namespace kraEngineSDK {
     getVertexBuffer();
 
     Vector<ShrdPtr<Texture>>& const
-    getTextureVector();
+    getTextures();
 
     void
     setTexture(TEXTURE_TYPE::E texType, ShrdPtr<Texture> newTex);
 
+    void
+    setMeshMaterial(Material* mat);
 
     ShrdPtr<Texture> const
     getTexture(TEXTURE_TYPE::E texType);
 
     
   private:
+    Material m_material = nullptr;
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
     Vector<ShrdPtr<Texture>> m_meshTextures;

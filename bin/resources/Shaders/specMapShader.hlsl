@@ -9,7 +9,7 @@ cbuffer specSettings : register(b0)
 }
 
 TextureCube cubeTex : register(t0);
-RWTexture2DArray<float4> outputTexture : register(u0);
+RWTexture2DArray<float4> outputMap : register(u0);
 
 SamplerState samLinear : register(s0);
 
@@ -30,7 +30,7 @@ float ndfGGX(float cosLh, float roughness)
 float3 getSamplingVector(uint3 ThreadID)
 {
     float outputWidth, outputHeight, outputDepth;
-    outputTexture.GetDimensions(outputWidth, outputHeight, outputDepth);
+    outputMap.GetDimensions(outputWidth, outputHeight, outputDepth);
 
     float2 st = ThreadID.xy / float2(outputWidth, outputHeight);
     float2 uv = 2.0 * float2(st.x, 1.0 - st.y) - 1.0;
@@ -83,7 +83,7 @@ void main(uint3 ThreadID : SV_DispatchThreadID)
 {
 	// Make sure we won't write past output when computing higher mipmap levels.
     uint outputWidth, outputHeight, outputDepth;
-    outputTexture.GetDimensions(outputWidth, outputHeight, outputDepth);
+    outputMap.GetDimensions(outputWidth, outputHeight, outputDepth);
     if (ThreadID.x >= outputWidth || ThreadID.y >= outputHeight)
     {
         return;
@@ -141,5 +141,5 @@ void main(uint3 ThreadID : SV_DispatchThreadID)
     }
     color /= weight;
 
-    outputTexture[ThreadID] = float4(color, 1.0);
+    outputMap[ThreadID] = float4(color, 1.0);
 }

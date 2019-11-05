@@ -18,73 +18,80 @@ namespace kraEngineSDK {
     m_texAOMap = GraphicsAPI::instance().getDevice()->createTextureInstance();
   }
 
-  ShrdPtr<Texture>
-  Material::getTextureOfType(TEXTURE_TYPE::E texType)
+  ShrdPtr<Texture> 
+  Material::getAlbedoTex()
   {
+    return m_texColorMap;
+  }
 
-    switch (texType)
-    {
-    case TEXTURE_TYPE::E::BASECOLOR:
-      return m_texColorMap;
-      break;
-    case TEXTURE_TYPE::E::METALNESS:
-      return m_texMetallicMap;
-      break;
-      case TEXTURE_TYPE::E::ROUGHNESS:
-        return m_texRoughnessMap;
-      break;
-    case TEXTURE_TYPE::E::EMISSIVE:
-      return m_texEmissiveMap;
-      break;
-    case TEXTURE_TYPE::E::NORMAL:
-      return m_texNormalMap;
-      break;
-    case TEXTURE_TYPE::E::AMBIENT:
-      return m_texAOMap;
-      break;
-    }
+  ShrdPtr<Texture> 
+  Material::getNormalTex()
+  {
+    return m_texNormalMap;
+
+  }
+
+  ShrdPtr<Texture> 
+  Material::getMetalTex()
+  {
+    return m_texMetallicMap;
+
+  }
+
+  ShrdPtr<Texture> 
+  Material::getRoughnessTex()
+  {
+    return m_texRoughnessMap;
+
+  }
+
+  Vector<ShrdPtr<Texture>> 
+  Material::getTextureVector()
+  {
+    Vector<ShrdPtr<Texture>> retVec;
+
+    retVec.push_back(m_texColorMap);
+    retVec.push_back(m_texNormalMap);
+    retVec.push_back(m_texMetallicMap);
+    retVec.push_back(m_texRoughnessMap);      
+      
+    return retVec;
   }
 
   void
-  Material::setTextureOfType(Device& pDevice, TEXTURE_TYPE::E texType, std::string fileName)
-  {
-    switch (texType)
-    {
-    case TEXTURE_TYPE::E::BASECOLOR:
-      //m_texColorMap->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
-      break;
-    case TEXTURE_TYPE::E::METALNESS:
-      //m_texMetallicMap->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
-      break;
-    case TEXTURE_TYPE::E::ROUGHNESS:
-      //m_texRoughnessMap->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
-      break;
-    case TEXTURE_TYPE::E::EMISSIVE:
-      //m_texEmissiveMap->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
-      break;
-    case TEXTURE_TYPE::E::NORMAL:
-      //m_texNormalMap->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
-      break;
-    case TEXTURE_TYPE::E::AMBIENT:
-      //m_texAOMap->createTexture2DFromFile(pDevice, fileName, GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT);
-      break;
-    }
-  }
-
-  void Material::setAlbedoTex(Device& pDevice, ShrdPtr<Texture> tex)
+  Material::setAlbedoTex(Device& pDevice, ShrdPtr<Texture> tex)
   {
     m_texColorMap = tex;
   }
 
-  void Material::setNormalTex(Device& pDevice, ShrdPtr<Texture> tex)
+  void 
+  Material::setNormalTex(Device& pDevice, ShrdPtr<Texture> tex)
   {
     m_texNormalMap = tex;
 
   }
 
-  void Material::setMetalTex(Device& pDevice, ShrdPtr<Texture> tex)
+  void 
+  Material::setMetalTex(Device& pDevice, ShrdPtr<Texture> tex)
   {
     m_texMetallicMap = tex;
+  }
+
+  void 
+  Material::setRoughnessTex(Device& pDevice, ShrdPtr<Texture> tex)
+  {
+    m_texRoughnessMap = tex;
+  }
+
+  bool
+  Material::useBaseColor() {
+    
+    if (m_texColorMap != nullptr) {
+     return true;
+    }
+
+    return false;
+
   }
 
 }
