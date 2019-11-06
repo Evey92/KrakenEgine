@@ -144,9 +144,6 @@ class WinApp :
 
    //This is only so i can render stuff while I work on the pbr renderer
    void
-   localRenderInit();
-   
-   void
    localRenderSetup();
 
    void
@@ -169,7 +166,7 @@ class WinApp :
 
    //Very ugly function to set a hardcoded material
    void
-   setGoldMaterial();
+     setGoldMaterial(Model* model);
 
 #pragma endregion UTILITY_FUNCTIONS
 
@@ -215,7 +212,8 @@ class WinApp :
 
    ShrdPtr<FrameBuffer> srcFB;
    ShrdPtr<FrameBuffer> destinationFB;
-    //Shaders
+  
+   //Shaders & Input layouts
    ShrdPtr<VertexShader> m_PBRVS = nullptr;
    ShrdPtr<PixelShader> m_PBRPS = nullptr;
    ShrdPtr<InputLayout> m_pbrInputLayout = nullptr;

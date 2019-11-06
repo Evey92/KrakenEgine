@@ -34,7 +34,7 @@ namespace kraEngineSDK {
 
 
     bool 
-    loadModelFromFile(const String& fileName,  Device& pDevice );
+    loadModelFromFile(const String& fileName, Device& pDevice);
     
     bool
     loadMaterialTextures(Device& pDevice, Texture& texture, aiMaterial * mat, aiTextureType type, String typeName, const aiScene * scene);
@@ -60,6 +60,9 @@ namespace kraEngineSDK {
     String
     getTextureType(const aiScene* scene, aiMaterial* mat);
     
+    //This function is to apply a material to ALL meshes
+    void
+    setAllMeshMaterials(Device* pDevice, Material* mat);
 
    private:
     

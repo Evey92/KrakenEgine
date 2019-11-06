@@ -27,7 +27,11 @@ namespace kraEngineSDK {
 
     virtual ~Component() = default; 
 
-    virtual bool isOfType(const std::size_t classType) const;
+    virtual bool
+    isOfType(const std::size_t classType) const;
+
+    GameObject*
+    getOwner();
 
     static const std::size_t Type;
    

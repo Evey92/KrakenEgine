@@ -1,21 +1,28 @@
+#include "kraGraphicsAPI.h"
 #include "kraMaterial.h"
 #include "kraTexture.h"
 #include "kraDevice.h"
-#include "kraGraphicsAPI.h"
 
 namespace kraEngineSDK {
 
   CLASS_DEFINITION(Component, Material)
 
   void 
-  Material::initialize()
+  Material::initialize(Device& pDevice)
   {
-    m_texColorMap = GraphicsAPI::instance().getDevice()->createTextureInstance();
-    m_texNormalMap = GraphicsAPI::instance().getDevice()->createTextureInstance();
-    m_texMetallicMap = GraphicsAPI::instance().getDevice()->createTextureInstance();
-    m_texRoughnessMap = GraphicsAPI::instance().getDevice()->createTextureInstance();
-    m_texEmissiveMap = GraphicsAPI::instance().getDevice()->createTextureInstance();
-    m_texAOMap = GraphicsAPI::instance().getDevice()->createTextureInstance();
+    m_texColorMap = pDevice.createTextureInstance();
+    m_texNormalMap = pDevice.createTextureInstance();
+    m_texMetallicMap = pDevice.createTextureInstance();
+    m_texRoughnessMap = pDevice.createTextureInstance();
+    m_texEmissiveMap = pDevice.createTextureInstance();
+    m_texAOMap = pDevice.createTextureInstance();
+
+    m_texColorMap->createTexture2DFromFile(pDevice,
+                                           "resources/Textures/default.png",
+                                           GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                           GFX_USAGE::E::kUSAGE_DEFAULT,
+                                           CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                           1);
   }
 
   ShrdPtr<Texture> 

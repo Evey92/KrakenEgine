@@ -9,25 +9,19 @@ namespace kraEngineSDK {
   Mesh::Mesh(Device& pDevice, GameObject* owner)  :
   Component(owner) {
     
+    //m_vertexBurffer = GraphicsAPI::instance().getDevice()->createVertexBufferInstance();
     m_vertexBurffer = pDevice.createVertexBufferInstance();
     m_indexBuffer = pDevice.createIndexBufferInstance();
-    m_diffuse = pDevice.createTextureInstance();
-    m_normal = pDevice.createTextureInstance();
-    m_specular = pDevice.createTextureInstance();
-    m_metalness = pDevice.createTextureInstance();
-    m_roughness = pDevice.createTextureInstance();
-    m_emissive = pDevice.createTextureInstance();
-    m_ambientOcclusion = pDevice.createTextureInstance();
     m_owner = owner;
   }
 
 
   void 
-  Mesh::initialize()
+  Mesh::initialize(Device& pDevice)
   {
     m_owner->addComponent<Material>(m_owner);
     m_material = m_owner->getComponent<Material>();
-    m_material.initialize();
+    m_material.initialize(pDevice);
   }
 
   void
@@ -43,7 +37,7 @@ namespace kraEngineSDK {
     m_vertexBurffer->setVertexBuffer(*pDevice);
     m_indexBuffer->setIndexBuffer(*pDevice);
     
-    .m_material.getAlbedoTex()->setTextureShaderResource(pDevice, 0, 1);
+    m_material.getAlbedoTex()->setTextureShaderResource(pDevice, 0, 1);
 
     if (m_material.getNormalTex() != nullptr)
     {
@@ -55,9 +49,9 @@ namespace kraEngineSDK {
       m_material.getMetalTex()->setTextureShaderResource(pDevice, 2, 1);
     }
     
-    if (m_roughness != nullptr)
+    if (m_material.getRoughnessTex() != nullptr)
     {
-      m_roughness->setTextureShaderResource(pDevice, 3, 1);
+      m_material.getRoughnessTex()->setTextureShaderResource(pDevice, 3, 1);
     }
 
     pDevice->DrawIndexed(m_indexBuffer->getBufferSize(), 0, 0);
@@ -79,72 +73,74 @@ namespace kraEngineSDK {
   }
 
   void
-  Mesh::setTexture(TEXTURE_TYPE::E texType, ShrdPtr<Texture> newTex) {
+  Mesh::setTexture(Device* pDevice, TEXTURE_TYPE::E texType, ShrdPtr<Texture> newTex) {
 
-    if (texType == TEXTURE_TYPE::E::BASECOLOR)
+    if (texType == TEXTURE_TYPE::E::ALBEDO)
     {
-      m_diffuse = newTex;
+      m_material.setAlbedoTex(*pDevice, newTex);
     }
     else if (texType == TEXTURE_TYPE::E::NORMAL)
     {
-      m_normal = newTex;
-    }
-    else if (texType == TEXTURE_TYPE::E::SPECULAR)
-    {
-      m_specular = newTex;
-    }
-    else if (texType == TEXTURE_TYPE::E::ROUGHNESS)
-    {
-      m_roughness = newTex;
+      m_material.setNormalTex(*pDevice, newTex);
     }
     else if (texType == TEXTURE_TYPE::E::METALNESS)
     {
-      m_metalness = newTex;
+      m_material.setMetalTex(*pDevice, newTex);
+    }
+    else if (texType == TEXTURE_TYPE::E::ROUGHNESS)
+    {
+      m_material.setRoughnessTex(*pDevice, newTex);
+    }
+    else if (texType == TEXTURE_TYPE::E::SPECULAR)
+    {
+      //TODO: Change it to set specular
+      m_material.setAlbedoTex(*pDevice, newTex);
     }
     else if (texType == TEXTURE_TYPE::E::EMISSIVE)
     {
-      m_emissive = newTex;
+      //TODO: Change it to ser emmisive
+      m_material.setAlbedoTex(*pDevice, newTex);
     }
 
   }
 
 
   void 
-  Mesh::setMeshMaterial(Material* mat)
+  Mesh::setMeshMaterial(Device* pDevice, Material* mat)
   {
-    m_material.setAlbedoTex(GraphicsAPI::instance()->getDevice(), mat->getAlbedoTex());
-    m_material.setNormalTex();
-    m_material.setMetalTex();
-    m_material.setRoughnessTex();
+    m_material.setAlbedoTex(*pDevice, mat->getAlbedoTex());
+    m_material.setNormalTex(*pDevice, mat->getNormalTex());
+    m_material.setMetalTex(*pDevice, mat->getMetalTex());
+    m_material.setRoughnessTex(*pDevice, mat->getRoughnessTex());
   }
 
   ShrdPtr<Texture> const
   Mesh::getTexture(TEXTURE_TYPE::E texType) {
     
-    if (texType == TEXTURE_TYPE::E::BASECOLOR)
+    if (texType == TEXTURE_TYPE::E::ALBEDO)
     {
-      return m_diffuse;
+      return m_material.getAlbedoTex();
     }
     else if (texType == TEXTURE_TYPE::E::NORMAL)
     {
-      return m_normal;
-    }
-    else if (texType == TEXTURE_TYPE::E::SPECULAR)
-    {
-      return m_specular;
-    }
-    else if (texType == TEXTURE_TYPE::E::ROUGHNESS)
-    {
-      return m_roughness;
+      return m_material.getNormalTex();
     }
     else if (texType == TEXTURE_TYPE::E::METALNESS)
     {
-      return m_metalness;
+      return m_material.getMetalTex();
+    }
+     else if (texType == TEXTURE_TYPE::E::ROUGHNESS)
+    {
+      return m_material.getRoughnessTex();
+    }
+    /*else if (texType == TEXTURE_TYPE::E::SPECULAR)
+    {
+      return m_specular;
     }
     else if (texType == TEXTURE_TYPE::E::EMISSIVE)
     {
       return m_emissive;
-    }
+    }*/
     return nullptr;
   }
 

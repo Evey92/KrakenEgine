@@ -23,7 +23,7 @@ namespace kraEngineSDK {
     ~Material() = default;
 
     void
-    initialize();
+    initialize(Device& pDevice);
 
     ShrdPtr<Texture>
     getAlbedoTex();

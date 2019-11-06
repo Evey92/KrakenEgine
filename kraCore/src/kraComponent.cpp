@@ -9,6 +9,12 @@ namespace kraEngineSDK {
     return classType == Type;
   }
 
+  GameObject*
+  Component::getOwner()
+  {
+    return m_owner;
+  }
+
   const std::size_t Component::Type = std::hash<std::string>()(TO_STRING(Component));
 
 }

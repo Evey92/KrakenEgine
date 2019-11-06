@@ -21,12 +21,12 @@ namespace kraEngineSDK {
     namespace TEXTURE_TYPE{
       enum class E
       {
-        BASECOLOR,
-        METALNESS,
-        SPECULAR,
-        ROUGHNESS,
-        EMISSIVE,
+        ALBEDO,
         NORMAL,
+        METALNESS,
+        ROUGHNESS,
+        SPECULAR,
+        EMISSIVE,
         AMBIENT,
 
       };

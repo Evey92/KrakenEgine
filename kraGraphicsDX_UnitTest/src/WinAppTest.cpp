@@ -402,8 +402,9 @@ bool WinApp::loadModel()
     GameObject* newGO = SceneManager::instance().createGameObject(name);
     newGO->addComponent<Model>(newGO);
     newGO->getComponent<Model>().loadModelFromFile(filename, *m_gfxDevice);
-    SceneManager::instance().getActiveScene()->addNewNode(newGO);
+    setGoldMaterial(&newGO->getComponent<Model>());
 
+    SceneManager::instance().getActiveScene()->addNewNode(newGO);
     m_modelsVector.push_back(make_shared<Model>(newGO->getComponent<Model>()));
   }
 
@@ -652,6 +653,7 @@ void WinApp::setUpIrradianceMap()
                                6);
   m_irradMap->setComputeNullUAV(*m_gfxDevice);
 
+  m_skyBoxModel->getMeshVec()[0]->setTexture(m_gfxDevice, TEXTURE_TYPE::E::ALBEDO, m_enviroMap);
 
 }
 
@@ -686,7 +688,7 @@ WinApp::drawSkybox()
   m_skyboxInputLayout->setInputLayout(*m_gfxDevice);
   m_skyboxVS->setVertexShader(*m_gfxDevice);
   m_skyboxPS->setPixelShader(*m_gfxDevice);
-  m_enviroMap->setTextureShaderResource(m_gfxDevice, 0, 1);
+  //m_enviroMap->setTextureShaderResource(m_gfxDevice, 0, 1);
   m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
   m_skyboxDepthStencil->setDepthStencilState(*m_gfxDevice);
   m_skyBoxModel->Draw(m_gfxDevice);
@@ -725,9 +727,9 @@ WinApp::toneMapPasss()
 }
 
 void
-WinApp::setGoldMaterial() {
+WinApp::setGoldMaterial(Model* modelGO) {
  
-  Material* mat = new Material();
+  Material* goldMaterial = new Material(modelGO->getOwner());
 
   ShrdPtr<Texture> albedo = m_gfxDevice->createTextureInstance();
   ShrdPtr<Texture> normal = m_gfxDevice->createTextureInstance();
@@ -764,18 +766,13 @@ WinApp::setGoldMaterial() {
                                  1);
 
 
-  mat->setAlbedoTex(*m_gfxDevice, albedo);
-  mat->setNormalTex(*m_gfxDevice, normal);
-  mat->setMetalTex(*m_gfxDevice, metal);
-  mat->setRoughnessTex(*m_gfxDevice, rough);
+  goldMaterial->setAlbedoTex(*m_gfxDevice, albedo);
+  goldMaterial->setNormalTex(*m_gfxDevice, normal);
+  goldMaterial->setMetalTex(*m_gfxDevice, metal);
+  goldMaterial->setRoughnessTex(*m_gfxDevice, rough);
 
 
-  for (auto& model : m_modelsVector) {
-
-    //Set materials for all models. This sucks.
-    model;
-
-  }
+  modelGO->setAllMeshMaterials(m_gfxDevice, goldMaterial);
 
 }
 

@@ -77,10 +77,14 @@ namespace kraEngineSDK {
 
   void
     Model::processNode(aiNode* rootNode, const aiScene* pScene, Device& pDevice) {
+    Mesh* newMesh = nullptr;
 
     for (uint32 i = 0; i < rootNode->mNumMeshes; ++i) {
       aiMesh* mesh = pScene->mMeshes[rootNode->mMeshes[i]];
-      m_meshVec.push_back(processMesh(mesh, pScene, pDevice));
+      
+      newMesh = processMesh(mesh, pScene, pDevice);
+      newMesh->initialize(pDevice);
+      m_meshVec.push_back(newMesh);
     }
 
     for (uint32 i = 0; i < rootNode->mNumChildren; i++) {
@@ -159,7 +163,7 @@ namespace kraEngineSDK {
                                "texture_diffuse",
                                scene))
       {
-        newMesh->setTexture(TEXTURE_TYPE::E::BASECOLOR, diffuseTex);
+        newMesh->setTexture(&pDevice, TEXTURE_TYPE::E::ALBEDO, diffuseTex);
       }
 
       ShrdPtr<Texture> normalTex = pDevice.createTextureInstance();
@@ -170,7 +174,7 @@ namespace kraEngineSDK {
         "texture_normal",
         scene))
       {
-        newMesh->setTexture(TEXTURE_TYPE::E::NORMAL, normalTex);
+        newMesh->setTexture(&pDevice, TEXTURE_TYPE::E::NORMAL, normalTex);
       }
 
 
@@ -183,7 +187,7 @@ namespace kraEngineSDK {
         "texture_Specular",
         scene))
       {
-        newMesh->setTexture(TEXTURE_TYPE::E::SPECULAR, specularTex);
+        newMesh->setTexture(&pDevice, TEXTURE_TYPE::E::SPECULAR, specularTex);
       }
 
     }
@@ -250,6 +254,14 @@ namespace kraEngineSDK {
 
     return "No textures on model";
 
+  }
+
+  void 
+  Model::setAllMeshMaterials(Device* pDevice, Material* mat)
+  {
+    for (auto& mesh : m_meshVec) {
+      mesh->setMeshMaterial(pDevice, mat);
+    }
   }
 
 }

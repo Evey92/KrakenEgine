@@ -69,15 +69,15 @@ TEST_F(Testing, Vector_Test)
   Vector3 eye(0.0f, 3.0f, -6.0f);
   Vector3 at(0.0f, 1.0f, 0.0f);
 
-  Vector3 eyePositio = at - eye;
+  Vector3 eyePosition = at - eye;
   EXPECT_EQ(kraMath::cos(0), 1);
-  EXPECT_EQ((eyePositio), Vector3(0.0f, -2.0f, 6.0f));
+  EXPECT_EQ((eyePosition), Vector3(0.0f, -2.0f, 6.0f));
 
   //EXPECT_EQ((eyePositio.normalized(eyePositio)), (-0.31622776601683793319988935444327185337195551393252168268f));
 
-  eyePositio.normalize();
+  eyePosition.normalized();
 
-  std::cout << "Normalized vector: (" << eyePositio.x <<", " << eyePositio.y <<", " << eyePositio.z <<")" << std::endl;
+  std::cout << "Normalized vector: (" << eyePosition.x <<", " << eyePosition.y <<", " << eyePosition.z <<")" << std::endl;
 
   fails += ::testing::Test::HasFailure();
 }
