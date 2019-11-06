@@ -36,7 +36,7 @@ namespace kraEngineSDK {
   }
 
   bool
-  DepthStencilDX::createDepthStencilState(const Device& pDevice, DEPTH_WRITE_MASK::E writeMask = DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ALL) {
+  DepthStencilDX::createDepthStencilState(const Device& pDevice, bool depthEnable, DEPTH_WRITE_MASK::E writeMask = DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ALL) {
 
     const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);
     
@@ -45,7 +45,7 @@ namespace kraEngineSDK {
     D3D11_DEPTH_STENCIL_DESC stencilStateDesc;
     memset(&stencilStateDesc, 0, sizeof(stencilStateDesc));
 
-    stencilStateDesc.DepthEnable = true;
+    stencilStateDesc.DepthEnable = depthEnable;
     stencilStateDesc.DepthWriteMask = static_cast<D3D11_DEPTH_WRITE_MASK>(writeMask);
     stencilStateDesc.DepthFunc = D3D11_COMPARISON_LESS;
     /*stencilStateDesc.StencilEnable = false;

@@ -142,19 +142,15 @@ WinApp::Initialize()
 
   // Create Depth stencil
   m_defaultDepthStencil = m_gfxDevice->createDepthStencilInstance();
-  m_defaultDepthStencil->setDepthStencil(*m_gfxDevice, m_gfxAPIInstance->getDevice()->getHeight(), m_gfxAPIInstance->getDevice()->getWidth());
-  m_defaultDepthStencil->createDepthStencilState(*m_gfxDevice, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ALL);
+  //m_defaultDepthStencil->setDepthStencil(*m_gfxDevice, m_gfxAPIInstance->getDevice()->getHeight(), m_gfxAPIInstance->getDevice()->getWidth());
+  m_defaultDepthStencil->createDepthStencilState(*m_gfxDevice, true, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ALL);
   m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
   
   // Create Skybox Depth stencil
   m_skyboxDepthStencil = m_gfxDevice->createDepthStencilInstance();
-  m_skyboxDepthStencil->createDepthStencilState(*m_gfxDevice, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ZERO);
+  m_skyboxDepthStencil->createDepthStencilState(*m_gfxDevice, false, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ZERO);
   
   m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
-
-  //Create Depth Stencil view from depth stencil
-  m_depthStencilView = m_gfxDevice->createDepthStencilViewInstance();
-  m_depthStencilView->createDepthStencilView(*m_gfxAPIInstance->getDevice(), *m_defaultDepthStencil);
 
   //Create rasterizer state
   m_rasterizerState = m_gfxDevice->creatreRasterizerStateInstance();
@@ -195,20 +191,23 @@ WinApp::Initialize()
   m_activeCam->setUp(Vector3(0.0f, 1.0f, 0.0f));
   m_activeCam->setRight(Vector3(1.0f, 0.0f, 0.0f));
   m_activeCam->setFront(Vector3(0.0f, 0.0f, 1.0f));
-  m_activeCam->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
-  m_activeCam->SetObjecive(Vector3(0.0f, 0.0f, 10.0f));
+  m_activeCam->SetPosition(Vector3(0.0f, 2.0f, -10.0f));
+  m_activeCam->SetObjecive(Vector3(0.0f, 0.0f, 0.0f));
 
-  m_activeCam->setFOV(kraMath::DEG2RAD(45.0f));
+  m_activeCam->setFOV(kraMath::DEG2RAD(90.0f));
   m_activeCam->setNearPlane(0.01f);
   m_activeCam->setFarPlane(1000.0f);
 
-  CameraManager::instance().getActiveCamera()->createViewMat();
-  m_mainCB->add(CameraManager::instance().getActiveCamera()->GetViewMatrix());
-
+   CameraManager::instance().getActiveCamera()->createViewMat();
+  Matrix4 viewMat = CameraManager::instance().getActiveCamera()->GetViewMatrix();
+  viewMat.transpose();
+  m_mainCB->add(viewMat);
+  
+  
 
   m_projection.MatrixPerspectiveFOV(CameraManager::instance().getActiveCamera()->getFOV(),
-                                    static_cast<float>(m_gfxAPIInstance->getDevice()->getWidth()),
-                                    static_cast<float>(m_gfxAPIInstance->getDevice()->getHeight()),
+                                    static_cast<float>(m_window->getWidth()),
+                                    static_cast<float>(m_window->getHeight()),
                                     CameraManager::instance().getActiveCamera()->getNearPlane(),
                                     CameraManager::instance().getActiveCamera()->getFarPlane());
 
@@ -216,8 +215,8 @@ WinApp::Initialize()
   m_mainCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
   m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
 
-  m_shadingCB->add(Vector4(m_activeCam->getPosition(), 0.0f));
-  m_shadingCB->add(Vector4(1.0, 0.0f, 0.0f, 0.0f));
+  m_shadingCB->add(Vector4(m_activeCam->getPosition(), 1.0f));
+  m_shadingCB->add(Vector4(100.0, 0.0f, 100.0f, 0.0f));
   m_shadingCB->add(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
   m_shadingCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
   m_shadingCB->updateSubResources(*m_gfxAPIInstance->getDevice());
@@ -287,7 +286,9 @@ WinApp::render()
   m_mainCB->add(m_world);
 
   //Setting view matrix
-  m_mainCB->add(CameraManager::instance().getActiveCamera()->GetViewMatrix());
+  Matrix4 viewMat = CameraManager::instance().getActiveCamera()->GetViewMatrix();
+  viewMat.transpose();
+  m_mainCB->add(viewMat);
 
   //Setting projection matrix
   m_projection.MatrixPerspectiveFOV(CameraManager::instance().getActiveCamera()->getFOV(),
@@ -295,6 +296,8 @@ WinApp::render()
                                     static_cast<float>(m_window->getHeight()),
                                     CameraManager::instance().getActiveCamera()->getNearPlane(),
                                     CameraManager::instance().getActiveCamera()->getFarPlane());
+
+ 
 
   m_mainCB->add(m_projection);
 

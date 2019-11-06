@@ -41,11 +41,8 @@ namespace kraEngineSDK {
     texDesc.Height = height;
     texDesc.MipLevels = 1;
     texDesc.ArraySize = 1;
-    texDesc.Usage = D3D11_USAGE_DEFAULT;
     texDesc.SampleDesc.Count = samples;
-    texDesc.SampleDesc.Quality = 0;
-    /*texDesc.CPUAccessFlags = 0;
-    texDesc.MiscFlags = 0;*/
+
 
     if (colorFormat != GFX_FORMAT::E::kFORMAT_UNKNOWN) {
       texDesc.Format = static_cast<DXGI_FORMAT>(colorFormat);

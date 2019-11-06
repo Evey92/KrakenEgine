@@ -17,23 +17,23 @@ struct VS_INPUT
 
 struct PS_INPUT
 {
-    float3 Position : POSITION;
-    float4 WorldPosition : SV_Position;
+    float4 Position : SV_Position;
+    float3 TexCoord : TEXCOORD;
 };
 
 PS_INPUT VS(VS_INPUT Input)
 {
     PS_INPUT Output;
 
-    Output.Position = Input.Position;
-    float4x4 viewProjMat = mul(View, Projection);
-    Output.WorldPosition = mul(viewProjMat, float4(Input.Position, 1.0));
+    float3 pos = mul(Input.Position, (float3x3)View);
+    
+    Output.Position = mul(Projection, float4(pos, 1.0));
+    Output.TexCoord = Input.Position;
 
     return Output;
 }
 
 float4 PS(PS_INPUT Input) : SV_Target
 {
-    float3 envVector = normalize(Input.Position);
-    return enviroMap.SampleLevel(samLinear, envVector, 0);
+    return enviroMap.SampleLevel(samLinear, normalize(Input.TexCoord), 0);
 }

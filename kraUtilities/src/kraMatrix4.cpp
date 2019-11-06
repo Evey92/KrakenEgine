@@ -25,17 +25,7 @@ namespace kraEngineSDK {
   }
 
   Matrix4::Matrix4(const Matrix4& mat) {
-    m[0][0] = mat.m[0][0]; m[0][1] = mat.m[0][1]; m[0][2] = mat.m[0][2]; m[0][3] = mat.m[0][3];
-    m[1][0] = mat.m[1][0]; m[1][1] = mat.m[1][1]; m[1][2] = mat.m[1][2]; m[1][3] = mat.m[1][3];
-    m[2][0] = mat.m[2][0]; m[2][1] = mat.m[2][1]; m[2][2] = mat.m[2][2]; m[2][3] = mat.m[2][3];
-    m[3][0] = mat.m[3][0]; m[3][1] = mat.m[3][1]; m[3][2] = mat.m[3][2]; m[3][3] = mat.m[3][3];
-  }
-
-  Matrix4::Matrix4(float mat[4][4]) {
-    m[0][0] = mat[0][0]; m[0][1] = mat[0][1]; m[0][2] = mat[0][2]; m[0][3] = mat[0][3];
-    m[1][0] = mat[1][0]; m[1][1] = mat[1][1]; m[1][2] = mat[1][2]; m[1][3] = mat[1][3];
-    m[2][0] = mat[2][0]; m[2][1] = mat[2][1]; m[2][2] = mat[2][2]; m[2][3] = mat[2][3];
-    m[3][0] = mat[3][0]; m[3][1] = mat[3][1]; m[3][2] = mat[3][2]; m[3][3] = mat[3][3];
+    _m = mat._m;
   }
 
   Matrix4
@@ -238,25 +228,26 @@ namespace kraEngineSDK {
     xAxis.normalized();
     Vector3 yAxis = zAxis ^ xAxis;
 
+
     Matrix4 Mat;
     Mat.m[0][0] = xAxis.x; 
-    Mat.m[1][0] = yAxis.x;
-    Mat.m[2][0] = zAxis.x;
-    Mat.m[3][0] = 0.0f;
+    Mat.m[0][1] = yAxis.x;
+    Mat.m[0][2] = zAxis.x;
+    Mat.m[0][3] = 0.0f;
 
-    Mat.m[0][1] = xAxis.y;
+    Mat.m[1][0] = xAxis.y;
     Mat.m[1][1] = yAxis.y;
-    Mat.m[2][1] = zAxis.y;
-    Mat.m[3][1] = 0.0f;
+    Mat.m[1][2] = zAxis.y;
+    Mat.m[1][3] = 0.0f;
 
-    Mat.m[0][2] = xAxis.z;
-    Mat.m[1][2] = yAxis.z;
+    Mat.m[2][0] = xAxis.z;
+    Mat.m[2][1] = yAxis.z;
     Mat.m[2][2] = zAxis.z;
-    Mat.m[3][2] = 0.0f;
+    Mat.m[2][3] = 0.0f;
 
-    Mat.m[0][3] = (xAxis | -Eye);
-    Mat.m[1][3] = (yAxis | -Eye);
-    Mat.m[2][3] = (zAxis | -Eye);
+    Mat.m[3][0] = -(xAxis | Eye);
+    Mat.m[3][1] = -(yAxis | Eye);
+    Mat.m[3][2] = -(zAxis | Eye);
     Mat.m[3][3] = 1.0f;
 
     return Mat;
@@ -271,7 +262,7 @@ namespace kraEngineSDK {
     float farMnear = farZ - nearZ;
 
     float yScale = 1.0 / kraMath::tan(hfov);
-    float xScale = yScale / aspectRatio;
+    float xScale = yScale * aspectRatio;
 
     //float aspectRatio = static_cast<float>(width / height);
 
@@ -280,7 +271,8 @@ namespace kraEngineSDK {
     m[1][1] = yScale;
     m[2][2] = farZ / farMnear;
     m[2][3] = 1.0;
-    m[3][2] = -nearZ * farZ / farMnear;
+    m[3][2] = -(2.0f * nearZ * farZ) / farMnear;
+    m[3][3] = 0.0;
   }
 
   void 
@@ -319,7 +311,7 @@ namespace kraEngineSDK {
 
   void
   Matrix4::transpose() {
-    Matrix4 tempMat = m;
+    Matrix4 tempMat = *this;
     for (int i = 0; i < 4; ++i) {
       for (int j = 0; j < 4; ++j) {
         m[i][j] = tempMat.m[j][i];

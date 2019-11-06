@@ -24,7 +24,6 @@ class Vector3;
 
     Matrix4(const Matrix4& mat);
 
-    Matrix4(float mat[4][4]);
 
     Matrix4
     operator+(const float& val);
@@ -109,9 +108,16 @@ class Vector3;
     static  Matrix4 ZERO;
 
     union {
-    float _m[16];
-    float m[4][4];
-    Vector4 row[4]; 
+
+      struct {
+        float m00, m10, m20, m30;
+        float m01, m11, m21, m31;
+        float m02, m12, m22, m32;
+        float m03, m13, m23, m33;
+      }_m;
+      float matVec[16];
+      float m[4][4];
+      Vector4 row[4]; 
     };
   };
 }

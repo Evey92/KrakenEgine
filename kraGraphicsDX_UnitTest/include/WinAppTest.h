@@ -2,6 +2,9 @@
 #include <kraBaseApplication.h>
 #include <windows.h>
 #include <string>
+#include <d3d11.h>
+#include <d3dcompiler.h>
+#include <d3d11shader.h>
 
 //Utility Headers
 #include <kraVector4.h>

@@ -131,7 +131,7 @@ namespace kraEngineSDK {
 
     Image image;
     unsigned char* pixels = nullptr;
-    int channels;
+    int channels = 4;
 
     if (EngineUtility::LoadImageFromFile(filename, &image))
     {

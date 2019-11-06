@@ -27,10 +27,10 @@ struct VS_INPUT
 
 struct PS_INPUT
 {
-    float4 Position        : SV_POSITION;
-    float3 WorldPosition   : POSITION;
-    float2 TexCoord        : TEXCOORD0;
-    float3x3 TBN           : TEXCOORD1;
+    float4 worldPosition : SV_POSITION;
+    float3 Position      : POSITION;
+    float2 TexCoord      : TEXCOORD0;
+    float3x3 TBN         : TEXCOORD1;
 };
 
 Texture2D texAlbedo    : register(t0);
@@ -90,16 +90,16 @@ PS_INPUT VS(VS_INPUT Input)
 {
     PS_INPUT Output;
 
-    Output.WorldPosition = mul(Input.Position, World).xyz;
+    Output.Position = mul(Input.Position, World).xyz;
     Output.TexCoord = float2(Input.TexCoord.x, 1.0 - Input.TexCoord.y);
   
     float3x3 TBN = float3x3(Input.Tangent, Input.BiNormal, Input.Normal);
-    Output.TBN = mul(transpose(TBN), (float3x3) World);
+    Output.TBN = mul(TBN, (float3x3) World);
 
     float4x4 wvpMat = mul(View, Projection);
     wvpMat = mul(wvpMat, World);
 
-    Output.Position = mul(Input.Position, wvpMat);
+    Output.worldPosition = mul(wvpMat, Input.Position);
 
     return Output;
 }
@@ -113,7 +113,7 @@ float4 PS(PS_INPUT Input) : SV_Target
     float roughness = texRoughness.Sample(samLinear, Input.TexCoord).r;
 
      // Outgoing light direction (vector from world-space fragment position to the "eye").
-    float3 Lo = normalize(eyePosition - float4(Input.WorldPosition, 1.0f)).xyz;
+    float3 Lo = normalize(eyePosition.xyz - float3(Input.TexCoord, 1.0f));
 
     float3 N = normalize(2.0 * texNormal.Sample(samLinear, Input.TexCoord).rgb - 1.0);
     N = normalize(mul(Input.TBN, N));
