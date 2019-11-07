@@ -226,6 +226,12 @@ namespace kraEngineSDK {
   void
   Camera::createViewMat() {
     
+    /*
+    TODO: Implement check for coordinate system
+    if(leftHanded)
+    m_viewMat = Matrix4::MatrixLookAtLH(m_pos, m_objective, m_up);
+    else
+    */
     m_viewMat = Matrix4::MatrixLookAtLH(m_pos, m_objective, m_up);
 
     m_dirty = false;

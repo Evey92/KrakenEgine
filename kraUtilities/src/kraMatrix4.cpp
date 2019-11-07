@@ -253,8 +253,46 @@ namespace kraEngineSDK {
     return Mat;
   }
 
+  Matrix4 
+  Matrix4::MatrixLookAtRH(const Vector3& Eye, const Vector3& At, const Vector3& Up)
+  {
+    Vector3 zAxis = Eye - At;
+    zAxis.normalized();
+    Vector3 xAxis = Up ^ zAxis;
+    xAxis.normalized();
+    Vector3 yAxis = zAxis ^ xAxis;
+
+
+    Matrix4 Mat;
+    Mat.m[0][0] = xAxis.x;
+    Mat.m[0][1] = yAxis.x;
+    Mat.m[0][2] = zAxis.x;
+    Mat.m[0][3] = 0.0f;
+
+    Mat.m[1][0] = xAxis.y;
+    Mat.m[1][1] = yAxis.y;
+    Mat.m[1][2] = zAxis.y;
+    Mat.m[1][3] = 0.0f;
+
+    Mat.m[2][0] = xAxis.z;
+    Mat.m[2][1] = yAxis.z;
+    Mat.m[2][2] = zAxis.z;
+    Mat.m[2][3] = 0.0f;
+
+    Mat.m[3][0] = (xAxis | Eye);
+    Mat.m[3][1] = (yAxis | Eye);
+    Mat.m[3][2] = (zAxis | Eye);
+    Mat.m[3][3] = 1.0f;
+
+    return Mat;
+  }
+
   void
-  Matrix4::MatrixPerspectiveFOV(float FOV, float width, float height, float nearZ, float farZ) {
+  Matrix4::MatrixPerspectiveFOVLH(float FOV, float width, float height, float nearZ, float farZ) {
+
+    /*ASSERT(width > 0);
+    ASSERT(height > 0);
+    ASSERT(FOV > 0);*/
 
     //based on the formula from OpenGL
     float hfov = FOV *0.5f;
@@ -262,7 +300,7 @@ namespace kraEngineSDK {
     float farMnear = farZ - nearZ;
 
     float yScale = 1.0 / kraMath::tan(hfov);
-    float xScale = yScale * aspectRatio;
+    float xScale = yScale / aspectRatio;
 
     //float aspectRatio = static_cast<float>(width / height);
 
@@ -271,11 +309,29 @@ namespace kraEngineSDK {
     m[1][1] = yScale;
     m[2][2] = farZ / farMnear;
     m[2][3] = 1.0;
-    m[3][2] = -(2.0f * nearZ * farZ) / farMnear;
+    m[3][2] = -nearZ * farZ / farMnear;
     m[3][3] = 0.0;
   }
 
   void 
+  Matrix4::MatrixPerspectiveFOVRH(float FOV, float width, float height, float nearZ, float farZ)
+  {
+    float hfov = FOV  * 0.5f;
+    float aspectRatio = width / height;
+    float farMnear = farZ - nearZ;
+
+    float yScale = 1.0 / kraMath::tan(hfov);
+    float xScale = yScale * height / width;
+       
+    m[0][0] = xScale;
+    m[1][1] = yScale;
+    m[2][2] = farZ / farMnear;
+    m[2][3] = -1.0;
+    m[3][2] = -(nearZ * farZ) / farMnear;
+    m[3][3] = 0.0;
+  }
+
+  void
   Matrix4::MatrixRotY(float angle) {
     float fSinAngle = kraMath::sin(angle);
     float fCosAngle = kraMath::cos(angle);

@@ -90,16 +90,15 @@ PS_INPUT VS(VS_INPUT Input)
 {
     PS_INPUT Output;
 
-    Output.Position = mul(Input.Position, World).xyz;
-    Output.TexCoord = float2(Input.TexCoord.x, 1.0 - Input.TexCoord.y);
+    Output.worldPosition = mul(Input.Position, World);
+    Output.Position = Output.worldPosition.xyz;
+    Output.worldPosition = mul(Output.worldPosition, View);
+    Output.worldPosition = mul(Output.worldPosition, Projection);
+
+    Output.TexCoord = Input.TexCoord;
   
     float3x3 TBN = float3x3(Input.Tangent, Input.BiNormal, Input.Normal);
-    Output.TBN = mul(TBN, (float3x3) World);
-
-    float4x4 wvpMat = mul(View, Projection);
-    wvpMat = mul(wvpMat, World);
-
-    Output.worldPosition = mul(wvpMat, Input.Position);
+    Output.TBN = mul(TBN, (float3x3)World);
 
     return Output;
 }

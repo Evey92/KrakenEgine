@@ -191,8 +191,8 @@ WinApp::Initialize()
   m_activeCam->setUp(Vector3(0.0f, 1.0f, 0.0f));
   m_activeCam->setRight(Vector3(1.0f, 0.0f, 0.0f));
   m_activeCam->setFront(Vector3(0.0f, 0.0f, 1.0f));
-  m_activeCam->SetPosition(Vector3(0.0f, 2.0f, -10.0f));
-  m_activeCam->SetObjecive(Vector3(0.0f, 0.0f, 0.0f));
+  m_activeCam->SetPosition(Vector3(0.0f, 55.0f, -166.0f));
+  m_activeCam->SetObjecive(Vector3(0.0f, 1.0f, 0.0f));
 
   m_activeCam->setFOV(kraMath::DEG2RAD(90.0f));
   m_activeCam->setNearPlane(0.01f);
@@ -202,15 +202,14 @@ WinApp::Initialize()
   Matrix4 viewMat = CameraManager::instance().getActiveCamera()->GetViewMatrix();
   viewMat.transpose();
   m_mainCB->add(viewMat);
-  
-  
-
-  m_projection.MatrixPerspectiveFOV(CameraManager::instance().getActiveCamera()->getFOV(),
+ 
+  m_projection.MatrixPerspectiveFOVLH(CameraManager::instance().getActiveCamera()->getFOV(),
                                     static_cast<float>(m_window->getWidth()),
                                     static_cast<float>(m_window->getHeight()),
                                     CameraManager::instance().getActiveCamera()->getNearPlane(),
                                     CameraManager::instance().getActiveCamera()->getFarPlane());
 
+  m_projection.transpose();
   m_mainCB->add(m_projection);
   m_mainCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
   m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
@@ -282,6 +281,7 @@ WinApp::render()
 
   m_mainCB->clear();
   
+  
   // Setting world matrix
   m_mainCB->add(m_world);
 
@@ -291,14 +291,13 @@ WinApp::render()
   m_mainCB->add(viewMat);
 
   //Setting projection matrix
-  m_projection.MatrixPerspectiveFOV(CameraManager::instance().getActiveCamera()->getFOV(),
+  m_projection.MatrixPerspectiveFOVLH(CameraManager::instance().getActiveCamera()->getFOV(),
                                     static_cast<float>(m_window->getWidth()),
                                     static_cast<float>(m_window->getHeight()),
                                     CameraManager::instance().getActiveCamera()->getNearPlane(),
                                     CameraManager::instance().getActiveCamera()->getFarPlane());
 
- 
-
+  m_projection.transpose();
   m_mainCB->add(m_projection);
 
   m_skyprojection = m_projection * viewRotationMat;
@@ -405,7 +404,7 @@ bool WinApp::loadModel()
     GameObject* newGO = SceneManager::instance().createGameObject(name);
     newGO->addComponent<Model>(newGO);
     newGO->getComponent<Model>().loadModelFromFile(filename, *m_gfxDevice);
-    setGoldMaterial(&newGO->getComponent<Model>());
+    //setGoldMaterial(newGO->getComponent<Model>());
 
     SceneManager::instance().getActiveScene()->addNewNode(newGO);
     m_modelsVector.push_back(make_shared<Model>(newGO->getComponent<Model>()));
@@ -730,9 +729,9 @@ WinApp::toneMapPasss()
 }
 
 void
-WinApp::setGoldMaterial(Model* modelGO) {
+WinApp::setGoldMaterial(Model& modelGO) {
  
-  Material* goldMaterial = new Material(modelGO->getOwner());
+  Material* goldMaterial = new Material(modelGO.getOwner());
 
   ShrdPtr<Texture> albedo = m_gfxDevice->createTextureInstance();
   ShrdPtr<Texture> normal = m_gfxDevice->createTextureInstance();
@@ -741,28 +740,28 @@ WinApp::setGoldMaterial(Model* modelGO) {
 
 
   albedo->createTexture2DFromFile(*m_gfxDevice,
-                                  "resources/Textures/pbr/gold/gold_albedo2.png",
+                                  "resources/Textures/pbr/rustediron/rustediron_albedo.png",
                                   GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
                                   GFX_USAGE::E::kUSAGE_DEFAULT,
                                   CPU_USAGE::E::kCPU_ACCESS_WRITE,
                                   1);
 
   normal->createTexture2DFromFile(*m_gfxDevice,
-                                  "resources/Textures/pbr/gold/gold_normal.png",
+                                  "resources/Textures/pbr/rustediron/rustediron_normal.png",
                                   GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
                                   GFX_USAGE::E::kUSAGE_DEFAULT,
                                   CPU_USAGE::E::kCPU_ACCESS_WRITE,
                                   1);
 
   metal->createTexture2DFromFile(*m_gfxDevice,
-                                 "resources/Textures/pbr/gold/gold_metalness.png",
+                                 "resources/Textures/pbr/rustediron/rustediron_metalness.png",
                                  GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
                                  GFX_USAGE::E::kUSAGE_DEFAULT,
                                  CPU_USAGE::E::kCPU_ACCESS_WRITE,
                                  1);
 
   rough->createTexture2DFromFile(*m_gfxDevice,
-                                 "resources/Textures/pbr/gold/gold_roughness.png",
+                                 "resources/Textures/pbr/rustediron/rustediron_roughness.png",
                                  GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
                                  GFX_USAGE::E::kUSAGE_DEFAULT,
                                  CPU_USAGE::E::kCPU_ACCESS_WRITE,
@@ -775,7 +774,7 @@ WinApp::setGoldMaterial(Model* modelGO) {
   goldMaterial->setRoughnessTex(*m_gfxDevice, rough);
 
 
-  modelGO->setAllMeshMaterials(m_gfxDevice, goldMaterial);
+  modelGO.setAllMeshMaterials(m_gfxDevice, goldMaterial);
 
 }
 

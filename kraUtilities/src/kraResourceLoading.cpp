@@ -6,7 +6,7 @@
 namespace kraEngineSDK {
       
   bool
-  EngineUtility::LoadImageFromFile(String filename, Image* img)
+  EngineUtility::LoadImageFromFile(String filename, ShrdPtr<Image> img)
   {
     if (stbi_is_hdr(filename.c_str())) {
       float* hdrImage = stbi_loadf(filename.c_str(), &img->m_width, &img->m_height, &img->channels, 4);
@@ -28,6 +28,7 @@ namespace kraEngineSDK {
       if (pixels)
       {
         img->pixels = pixels;
+        img->m_isHDR = false;
         return true;
       }
       else

@@ -19,7 +19,7 @@ namespace kraEngineSDK {
    
    public:
     static bool
-    LoadImageFromFile(String filename, Image* img);
+    LoadImageFromFile(String filename, ShrdPtr<Image> img);
 
     static String
     loadFile(String filetypes, HWND hWnd);

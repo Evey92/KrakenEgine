@@ -25,11 +25,8 @@ PS_INPUT VS(VS_INPUT Input)
 {
     PS_INPUT Output;
 
-    float3 pos = mul(Input.Position, (float3x3)View);
-    
-    Output.Position = mul(Projection, float4(pos, 1.0));
     Output.TexCoord = Input.Position;
-
+    Output.Position = mul(skyProjection, float4(Input.Position, 1.0));
     return Output;
 }
 

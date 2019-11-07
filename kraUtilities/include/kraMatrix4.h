@@ -70,8 +70,14 @@ class Vector3;
     static Matrix4
     MatrixLookAtLH(const Vector3& Eye, const Vector3& At, const Vector3& Up);
 
+    static Matrix4
+    MatrixLookAtRH(const Vector3& Eye, const Vector3& At, const Vector3& Up);
+
     void 
-    MatrixPerspectiveFOV(float FOV, float width, float height, float nearZ, float farZ);
+    MatrixPerspectiveFOVLH(float FOV, float width, float height, float nearZ, float farZ);
+
+    void
+    MatrixPerspectiveFOVRH(float FOV, float width, float height, float nearZ, float farZ);
 
     void
     MatrixRotY(float angle);

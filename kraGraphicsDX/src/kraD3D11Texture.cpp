@@ -123,23 +123,22 @@ namespace kraEngineSDK {
                                      GFX_FORMAT::E format, 
                                      GFX_USAGE::E usage, 
                                      CPU_USAGE::E cpuUsage,
-                                     uint32 levels = 0U)
+                                     uint32 levels)
   {
     const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
     HRESULT hr = S_OK;
 
-    Image image;
-    unsigned char* pixels = nullptr;
+    ShrdPtr<Image> image{ new Image };
+    //UnqPtr<unsigned char> pixels = nullptr;
     int channels = 4;
 
-    if (EngineUtility::LoadImageFromFile(filename, &image))
+    if (EngineUtility::LoadImageFromFile(filename, image))
     {
-      m_width = image.m_width;
-      m_height = image.m_height;
-      m_isHDR = image.m_isHDR;
-      channels = image.channels;
-      pixels = image.pixels;
+      m_width = image->m_width;
+      m_height = image->m_height;
+      m_isHDR = image->m_isHDR;
+      channels = image->channels;
     }
 
     m_levels = levels;
@@ -159,18 +158,23 @@ namespace kraEngineSDK {
     descTexture.CPUAccessFlags = static_cast<D3D11_CPU_ACCESS_FLAG>(cpuUsage);
     descTexture.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
 
-    D3D11_SUBRESOURCE_DATA initBuffer;
+    int bytesPerPixel = channels * (m_isHDR ? sizeof(float) : sizeof(unsigned char));
+
+    m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, nullptr, &m_pd3dTexture2D);
+
+    m_pDevice.m_pImmediateContext->UpdateSubresource(m_pd3dTexture2D, 0, nullptr, reinterpret_cast<void*>(image->pixels), m_width* bytesPerPixel, 0);
+    /*D3D11_SUBRESOURCE_DATA initBuffer;
     memset(&initBuffer, 0, sizeof(initBuffer));
-    initBuffer.pSysMem = pixels;
+    initBuffer.pSysMem = reinterpret_cast<void*>(image->pixels);
     int bytesPerPixel = channels * (m_isHDR ? sizeof(float) : sizeof(unsigned char));
     initBuffer.SysMemPitch = m_width * bytesPerPixel;
 
     hr = m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
     if (FAILED(hr)) {
       return false;
-    }
+    }*/
 
-    stbi_image_free(pixels);
+    stbi_image_free(reinterpret_cast<void*>(image->pixels));
 
     D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
     memset(&srvDesc, 0, sizeof(srvDesc));
