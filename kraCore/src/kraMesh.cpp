@@ -73,7 +73,7 @@ namespace kraEngineSDK {
   }
 
   void
-  Mesh::setTexture(Device* pDevice, TEXTURE_TYPE::E texType, ShrdPtr<Texture> newTex) {
+  Mesh::setTexture(Device* pDevice, TEXTURE_TYPE::E texType, const ShrdPtr<Texture> newTex) {
 
     if (texType == TEXTURE_TYPE::E::ALBEDO)
     {
@@ -114,7 +114,7 @@ namespace kraEngineSDK {
     m_material.setRoughnessTex(*pDevice, mat->getRoughnessTex());
   }
 
-  ShrdPtr<Texture> const
+  ShrdPtr<Texture>
   Mesh::getTexture(TEXTURE_TYPE::E texType) {
     
     if (texType == TEXTURE_TYPE::E::ALBEDO)

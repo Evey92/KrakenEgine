@@ -4,6 +4,8 @@
 
 namespace kraEngineSDK {
 
+  class Device;
+
   class RenderPipeline :
     public Module<RenderPipeline> {
   
@@ -14,7 +16,7 @@ namespace kraEngineSDK {
       ~RenderPipeline() {}
 
       virtual void
-      initialize() = 0;
+      initialize(const Device&) = 0;
 
       virtual void
       Setup() = 0;

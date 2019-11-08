@@ -177,7 +177,7 @@ class WinApp :
 
    Device* m_gfxDevice = nullptr;
    Camera* m_activeCam =nullptr;
-   CameraManager* m_camManager;
+   CameraManager* m_camManager = nullptr;
    kraInputManager* m_inputManager = nullptr;
 
 #pragma endregion PUBLIC_MEMBERS
@@ -193,11 +193,11 @@ class WinApp :
    Vector<ShrdPtr<Model>> m_modelsVector;
    ShrdPtr<Model> m_skyBoxModel;
    ShrdPtr<RenderTargetView> m_backBufferRTV = nullptr;
-   ShrdPtr<Texture> m_equirectHDRTexture = nullptr;
-   ShrdPtr<Texture> m_enviroMap = nullptr;
-   ShrdPtr<Texture> m_irradMap = nullptr;
-   ShrdPtr<Texture> m_BRDFLUT = nullptr;
-   ShrdPtr<Texture> m_cubeUnfiltered = nullptr;
+   ShrdPtr<Texture*> m_equirectHDRTexture = nullptr;
+   ShrdPtr<Texture*> m_enviroMap = nullptr;
+   ShrdPtr<Texture*> m_irradMap = nullptr;
+   ShrdPtr<Texture*> m_BRDFLUT = nullptr;
+   ShrdPtr<Texture*> m_cubeUnfiltered = nullptr;
    ShrdPtr<ComputeShader> spBRDFshader;
    ShrdPtr<ComputeShader> irradianceShader;
 

@@ -19,11 +19,11 @@ namespace kraEngineSDK {
 
   Vector4::Vector4(float X, float Y, float Z, float W) : x(X), y(Y), z(Z), w(W) {}
 
-  Vector4::Vector4(Vector3 vecXYZ, float w) {
+  Vector4::Vector4(Vector3 vecXYZ, float _w) {
     x = vecXYZ.x;
     y = vecXYZ.y;
     z = vecXYZ.z;
-    w = w;
+    w = _w;
   }
 
   Vector4::Vector4(Vector3 vecXYZ) {

@@ -562,6 +562,7 @@ WinApp::setUpIBL()
                                        COMPARISON_FUNCTION::E::kCOMPARISON_NEVER);
   
   //Setting up both textures to be used by the shader
+  m_equirectHDRTexture->createCubeTexture();
   m_equirectHDRTexture->setTextureComputeShaderResource(m_gfxDevice, 0, 1);
   m_cubeUnfiltered->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);
   m_computeSampler->setComputeSamplerState(*m_gfxDevice);
@@ -733,10 +734,10 @@ WinApp::setGoldMaterial(Model& modelGO) {
  
   Material* goldMaterial = new Material(modelGO.getOwner());
 
-  ShrdPtr<Texture> albedo = m_gfxDevice->createTextureInstance();
-  ShrdPtr<Texture> normal = m_gfxDevice->createTextureInstance();
-  ShrdPtr<Texture> metal = m_gfxDevice->createTextureInstance();
-  ShrdPtr<Texture> rough = m_gfxDevice->createTextureInstance();
+  ShrdPtr<Texture*> albedo = m_gfxDevice->createTextureInstance();
+  ShrdPtr<Texture*> normal = m_gfxDevice->createTextureInstance();
+  ShrdPtr<Texture*> metal = m_gfxDevice->createTextureInstance();
+  ShrdPtr<Texture*> rough = m_gfxDevice->createTextureInstance();
 
 
   albedo->createTexture2DFromFile(*m_gfxDevice,
@@ -768,10 +769,10 @@ WinApp::setGoldMaterial(Model& modelGO) {
                                  1);
 
 
-  goldMaterial->setAlbedoTex(*m_gfxDevice, albedo);
-  goldMaterial->setNormalTex(*m_gfxDevice, normal);
-  goldMaterial->setMetalTex(*m_gfxDevice, metal);
-  goldMaterial->setRoughnessTex(*m_gfxDevice, rough);
+  goldMaterial->setAlbedoTex(*m_gfxDevice, *albedo);
+  goldMaterial->setNormalTex(*m_gfxDevice, *normal);
+  goldMaterial->setMetalTex(*m_gfxDevice, *metal);
+  goldMaterial->setRoughnessTex(*m_gfxDevice, *rough);
 
 
   modelGO.setAllMeshMaterials(m_gfxDevice, goldMaterial);

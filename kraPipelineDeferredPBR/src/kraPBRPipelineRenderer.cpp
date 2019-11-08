@@ -1,12 +1,15 @@
 #include "kraPBRPipelineRenderer.h"
-
+#include <kraDevice.h>
 namespace kraEngineSDK {
 
   void
-    DeferredPBRenderer::initialize()
+  DeferredPBRenderer::initialize(const Device& pDevice)
   {
-    m_GFXAPI = GraphicsAPI::instancePtr();
-    m_appInstance = BaseApplication::instancePtr();
+    //TODO: Try to fix this.
+   /* m_GFXAPI = GraphicsAPI::instancePtr();
+    m_appInstance = BaseApplication::instancePtr();*/
+
+    m_gfxDevice = make_shared<Device>(pDevice);
 
     //Init shaders
     m_PBRVS = m_GFXAPI->getDevice()->createVertexShaderInstance();

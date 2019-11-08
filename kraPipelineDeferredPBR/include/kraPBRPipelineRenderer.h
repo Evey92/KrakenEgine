@@ -24,7 +24,7 @@ namespace kraEngineSDK {
     ~DeferredPBRenderer() = default;
 
     void
-    initialize() override;
+    initialize(const Device&) override;
 
     void
     Setup() override;
@@ -76,6 +76,7 @@ namespace kraEngineSDK {
      ShrdPtr<ComputeShader> m_equirect2CubeCS;
      ShrdPtr<SamplerState> m_equirectSampler;
 
+     ShrdPtr<Device> m_gfxDevice;
      bool m_useIBL = true;
      /*ShrdPtr<VertexShader> m_toTextureVS;
      ShrdPtr<PixelShader> m_toTexturePS;*/

@@ -46,7 +46,7 @@ namespace kraEngineSDK {
     void
     setMeshMaterial(Device* pDevice, Material* mat);
 
-    ShrdPtr<Texture> const
+    ShrdPtr<Texture>
     getTexture(TEXTURE_TYPE::E texType);
 
     
@@ -55,13 +55,6 @@ namespace kraEngineSDK {
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
     Vector<ShrdPtr<Texture>> m_meshTextures;
-    //ShrdPtr<Texture> m_diffuse = nullptr;
-    //ShrdPtr<Texture> m_normal = nullptr;
-    //ShrdPtr<Texture> m_specular = nullptr;
-    //ShrdPtr<Texture> m_metalness = nullptr;
-    //ShrdPtr<Texture> m_roughness = nullptr;
-    //ShrdPtr<Texture> m_emissive = nullptr;
-    //ShrdPtr<Texture> m_ambientOcclusion = nullptr;
 
   };
 }

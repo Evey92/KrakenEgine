@@ -11,7 +11,7 @@ public Window {
 
   public:
 
-  Win32Window(uint32 width, uint32 height, String name, Vector2 position);
+  Win32Window(uint32 width, uint32 height, const String& name, Vector2 position);
 
   ~Win32Window();
 

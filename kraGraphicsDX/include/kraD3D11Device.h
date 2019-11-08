@@ -146,7 +146,7 @@ namespace kraEngineSDK {
     ShrdPtr<SamplerState>
     createSamplerStateInstance(); 
     
-    ShrdPtr<Texture>
+    ShrdPtr<Texture*>
     createTextureInstance();
     
     ShaderResourceView*

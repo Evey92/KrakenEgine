@@ -38,7 +38,7 @@ namespace kraEngineSDK {
      * @brief Constructor initialized by a Vector3 and a float.
      */
 
-    Vector4(Vector3 vecXYZ, float w);
+    Vector4(Vector3 vecXYZ, float _w);
 
     /**
      * @brief Constructor initialized by a Vector3.
