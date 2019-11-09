@@ -25,49 +25,49 @@ namespace kraEngineSDK {
     void
     initialize(Device& pDevice);
 
-    ShrdPtr<Texture*>
+    ShrdPtr<Texture>
     getAlbedoTex();
 
-    ShrdPtr<Texture*>
+    ShrdPtr<Texture>
     getNormalTex();
 
-    ShrdPtr<Texture*>
+    ShrdPtr<Texture>
     getMetalTex();
 
-    ShrdPtr<Texture*>
+    ShrdPtr<Texture>
     getRoughnessTex();
     
-    Vector<ShrdPtr<Texture*>>
+    Vector<ShrdPtr<Texture>>
     getTextureVector();
 
     //TODO: Stop using smart pointers as parameters. Use constant references.
     void
-    setAlbedoTex(Device& pDevice, const Texture& tex);
+    setAlbedoTex(Device& pDevice, const ShrdPtr<Texture>& tex);
     
     void
-    setNormalTex(Device& pDevice, const Texture& tex);
+    setNormalTex(Device& pDevice, const ShrdPtr<Texture>& tex);
 
     void
-    setMetalTex(Device& pDevice, const Texture& tex);
+    setMetalTex(Device& pDevice, const ShrdPtr<Texture>& tex);
 
     void
-    setRoughnessTex(Device& pDevice, const Texture& tex);
+    setRoughnessTex(Device& pDevice, const ShrdPtr<Texture>& tex);
 
     void
-    setEmmisiveTex(Device& pDevice, const Texture& tex);
+    setEmmisiveTex(Device& pDevice, const ShrdPtr<Texture>& tex);
 
     void
-    setAmbientTex(Device& pDevice, const Texture& tex);
+    setAmbientTex(Device& pDevice, const ShrdPtr<Texture>& tex);
 
     bool
     useBaseColor();
 
-    ShrdPtr<Texture*> m_texColorMap = nullptr;
-    ShrdPtr<Texture*> m_texNormalMap = nullptr;
-    ShrdPtr<Texture*> m_texMetallicMap = nullptr;
-    ShrdPtr<Texture*> m_texRoughnessMap = nullptr;
-    ShrdPtr<Texture*> m_texEmissiveMap = nullptr;
-    ShrdPtr<Texture*> m_texAOMap = nullptr;
+    ShrdPtr<Texture> m_texColorMap = nullptr;
+    ShrdPtr<Texture> m_texNormalMap = nullptr;
+    ShrdPtr<Texture> m_texMetallicMap = nullptr;
+    ShrdPtr<Texture> m_texRoughnessMap = nullptr;
+    ShrdPtr<Texture> m_texEmissiveMap = nullptr;
+    ShrdPtr<Texture> m_texAOMap = nullptr;
 
     Vector4 m_baseColor = Vector4(0.5f, 0.5f, 0.5f, 1.0f);
     Vector4 m_emissive = Vector4(0.0f, 0.0f, 0.0f, 0.0f);

@@ -18,7 +18,7 @@ namespace kraEngineSDK {
                         uint32 width,
                         GFX_FORMAT::E format,
                         GFX_USAGE::E usage,
-                        uint32 levels) = 0;
+                        uint32 levels = 0U) = 0;
 
     virtual void
     createTexture2D(void* pDevice,
@@ -26,7 +26,7 @@ namespace kraEngineSDK {
                     uint32 width,
                     GFX_FORMAT::E format,
                     GFX_USAGE::E usage,
-                    uint32 levels) = 0;
+                    uint32 levels = 0U) = 0;
 
     virtual bool
     createTexture2DFromFile(const Device& device,
@@ -34,7 +34,7 @@ namespace kraEngineSDK {
                             GFX_FORMAT::E format,
                             GFX_USAGE::E usage,
                             CPU_USAGE::E  cpuUsage,
-                            uint32 levels) = 0;
+                            uint32 levels = 0U) = 0;
 
     virtual void
     createTextureUAV(const Device& device,

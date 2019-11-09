@@ -136,8 +136,8 @@ namespace kraEngineSDK {
     float m_farZ = 1000.0f;
     
     //I should probably rework how this works...
-    float pitch;
-    float yaw;
+    float pitch = 0;
+    float yaw = 0;
   };
 
 }

@@ -25,6 +25,6 @@ namespace kraEngineSDK {
     std::vector<Camera*> m_camList;
     Camera* m_activeCamera = nullptr;
     Camera* m_objectiveCamera = nullptr;
-    bool m_dirty;
+    bool m_dirty = true;
   };
 }

@@ -193,11 +193,11 @@ class WinApp :
    Vector<ShrdPtr<Model>> m_modelsVector;
    ShrdPtr<Model> m_skyBoxModel;
    ShrdPtr<RenderTargetView> m_backBufferRTV = nullptr;
-   ShrdPtr<Texture*> m_equirectHDRTexture = nullptr;
-   ShrdPtr<Texture*> m_enviroMap = nullptr;
-   ShrdPtr<Texture*> m_irradMap = nullptr;
-   ShrdPtr<Texture*> m_BRDFLUT = nullptr;
-   ShrdPtr<Texture*> m_cubeUnfiltered = nullptr;
+   ShrdPtr<Texture> m_equirectHDRTexture = nullptr;
+   ShrdPtr<Texture> m_enviroMap = nullptr;
+   ShrdPtr<Texture> m_irradMap = nullptr;
+   ShrdPtr<Texture> m_BRDFLUT = nullptr;
+   ShrdPtr<Texture> m_cubeUnfiltered = nullptr;
    ShrdPtr<ComputeShader> spBRDFshader;
    ShrdPtr<ComputeShader> irradianceShader;
 

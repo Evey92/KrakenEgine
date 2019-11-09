@@ -129,16 +129,16 @@ namespace kraEngineSDK {
 
     HRESULT hr = S_OK;
 
-    ShrdPtr<Image> image{ new Image };
+    ShrdPtr<Image> image = Image::LoadImageFromFile(filename);
     //UnqPtr<unsigned char> pixels = nullptr;
     int channels = 4;
 
-    if (EngineUtility::LoadImageFromFile(filename, image))
+    if (image != nullptr)
     {
-      m_width = image->m_width;
-      m_height = image->m_height;
-      m_isHDR = image->m_isHDR;
-      channels = image->channels;
+      m_width = image->getWidth();
+      m_height = image->getHeight();
+      m_isHDR = image->isHDR();
+      channels = image->getChannels();
     }
 
     m_levels = levels;
@@ -152,29 +152,22 @@ namespace kraEngineSDK {
     descTexture.ArraySize = 1;
     descTexture.Format = static_cast<DXGI_FORMAT>(format);
     descTexture.SampleDesc.Count = 1;
-    descTexture.SampleDesc.Quality = 0;
     descTexture.Usage = static_cast<D3D11_USAGE>(usage);
-    descTexture.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
-    descTexture.CPUAccessFlags = static_cast<D3D11_CPU_ACCESS_FLAG>(cpuUsage);
-    descTexture.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
-
-    int bytesPerPixel = channels * (m_isHDR ? sizeof(float) : sizeof(unsigned char));
-
-    m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, nullptr, &m_pd3dTexture2D);
-
-    m_pDevice.m_pImmediateContext->UpdateSubresource(m_pd3dTexture2D, 0, nullptr, reinterpret_cast<void*>(image->pixels), m_width* bytesPerPixel, 0);
-    /*D3D11_SUBRESOURCE_DATA initBuffer;
+    descTexture.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
+    if (levels == 0) {
+      descTexture.BindFlags |= D3D11_BIND_RENDER_TARGET;
+      descTexture.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
+    }
+   /* D3D11_SUBRESOURCE_DATA initBuffer;
     memset(&initBuffer, 0, sizeof(initBuffer));
-    initBuffer.pSysMem = reinterpret_cast<void*>(image->pixels);
-    int bytesPerPixel = channels * (m_isHDR ? sizeof(float) : sizeof(unsigned char));
-    initBuffer.SysMemPitch = m_width * bytesPerPixel;
+    initBuffer.pSysMem = image->getPixels<unsigned char>();
+    initBuffer.SysMemPitch =image->getPitch();
+    initBuffer.SysMemSlicePitch = 0;*/
 
-    hr = m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
+    hr = m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, nullptr, &m_pd3dTexture2D);
     if (FAILED(hr)) {
       return false;
-    }*/
-
-    stbi_image_free(reinterpret_cast<void*>(image->pixels));
+    }
 
     D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
     memset(&srvDesc, 0, sizeof(srvDesc));
@@ -184,6 +177,9 @@ namespace kraEngineSDK {
     srvDesc.Texture2D.MipLevels = -1;
 
     m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, &srvDesc, &m_pSRV);
+
+
+    m_pDevice.m_pImmediateContext->UpdateSubresource(m_pd3dTexture2D, 0, nullptr, image->getPixels<void>(), image->getPitch(), 0);
 
     return true;
   }
@@ -254,8 +250,8 @@ namespace kraEngineSDK {
 
     for (auto tex : shaderResources) {
 
-      const TextureDX& tex = reinterpret_cast<const TextureDX&>(shaderResources);
-      shdrVec.push_back(tex.m_pSRV);
+      const TextureDX& texDx = reinterpret_cast<const TextureDX&>(shaderResources);
+      shdrVec.push_back(texDx.m_pSRV);
     }
 
     m_pDevice->m_pImmediateContext->PSSetShaderResources(startSlot,

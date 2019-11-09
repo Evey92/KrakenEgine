@@ -4,42 +4,57 @@
 #include "stb_image.h"
 
 namespace kraEngineSDK {
+
+  Image::Image()
+    : m_width(0)
+    , m_height(0)
+    , m_channels(0)
+    , m_isHDR(false)
+  {}
       
-  bool
-  EngineUtility::LoadImageFromFile(String filename, ShrdPtr<Image> img)
+  ShrdPtr<Image>
+  Image::LoadImageFromFile(const String& filename, int channels)
   {
+    ShrdPtr<Image> img{ new Image };
     if (stbi_is_hdr(filename.c_str())) {
-      float* hdrImage = stbi_loadf(filename.c_str(), &img->m_width, &img->m_height, &img->channels, 4);
+      float* hdrImage = stbi_loadf(filename.c_str(), &img->m_width, &img->m_height, &img->m_channels, channels);
 
       if (hdrImage) {
-        img->pixels = reinterpret_cast<unsigned char*>(hdrImage);
+        img->m_pixels.reset(reinterpret_cast<unsigned char*>(hdrImage));
         img->m_isHDR = true;
         std::cout << "HDR texture loaded successfully\n";
-        return true;
       }
       else {
         std::cout << "Couldn't find texture, loading default texture\n";
         stbi_image_free(hdrImage);
-        return false;
+        return nullptr;
       }
     }
     else {
-      unsigned char* pixels = stbi_load(filename.c_str(), &img->m_width, &img->m_height, &img->channels, 4);
+      unsigned char* pixels = stbi_load(filename.c_str(), &img->m_width, &img->m_height, &img->m_channels, channels);
       if (pixels)
       {
-        img->pixels = pixels;
+        img->m_pixels.reset(pixels);
         img->m_isHDR = false;
-        return true;
       }
       else
       {
         std::cout << "Couldn't find texture: " << filename <<  ". loading default texture\n";
         stbi_image_free(pixels);
-        pixels = stbi_load("resources/Textures/missingCheckered.jpg", &img->m_width, &img->m_height, &img->channels, 4);
-        img->pixels = pixels;
-        return true;
+        pixels = stbi_load("resources/Textures/missingCheckered.jpg", &img->m_width, &img->m_height, &img->m_channels, channels);
+        img->m_pixels.reset(pixels);
       }
     }
+
+    if (channels > 0) {
+      img->m_channels = channels;
+    }
+
+    if (!img->m_pixels) {
+      std::cout << "Failed to load image file: " << filename << std::endl;
+    }
+    return img;
+
   }
 
   String 

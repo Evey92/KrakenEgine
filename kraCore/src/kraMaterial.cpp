@@ -17,7 +17,12 @@ namespace kraEngineSDK {
     m_texEmissiveMap = pDevice.createTextureInstance();
     m_texAOMap = pDevice.createTextureInstance();
 
-    m_texColorMap->createTexture2DFromFile()
+    m_texColorMap->createTexture2DFromFile(pDevice,
+                                              "resources/Textures/default.png",
+                                              GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                              GFX_USAGE::E::kUSAGE_DEFAULT,
+                                              CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                              1);
 
     /*m_texColorMap.createTexture2DFromFile(pDevice,
                                            "resources/Textures/default.png",
@@ -27,37 +32,37 @@ namespace kraEngineSDK {
                                            1);*/
   }
 
-  ShrdPtr<Texture*> 
+  ShrdPtr<Texture> 
   Material::getAlbedoTex()
   {
     return m_texColorMap;
   }
 
-  ShrdPtr<Texture*> 
+  ShrdPtr<Texture> 
   Material::getNormalTex()
   {
     return m_texNormalMap;
 
   }
 
-  ShrdPtr<Texture*> 
+  ShrdPtr<Texture> 
   Material::getMetalTex()
   {
     return m_texMetallicMap;
 
   }
 
-  ShrdPtr<Texture*> 
+  ShrdPtr<Texture> 
   Material::getRoughnessTex()
   {
     return m_texRoughnessMap;
 
   }
 
-  Vector<ShrdPtr<Texture*>> 
+  Vector<ShrdPtr<Texture>> 
   Material::getTextureVector()
   {
-    Vector<ShrdPtr<Texture*>> retVec;
+    Vector<ShrdPtr<Texture>> retVec;
 
     retVec.push_back(m_texColorMap);
     retVec.push_back(m_texNormalMap);
@@ -68,29 +73,29 @@ namespace kraEngineSDK {
   }
 
   void
-  Material::setAlbedoTex(Device& pDevice, const Texture& tex)
+  Material::setAlbedoTex(Device& pDevice, const ShrdPtr<Texture>& tex)
   {
-    m_texColorMap = make_shared<Texture*>(tex);
+    m_texColorMap = tex;
 
   }
 
   void 
-  Material::setNormalTex(Device& pDevice, const Texture& tex)
+  Material::setNormalTex(Device& pDevice, const ShrdPtr<Texture>& tex)
   {
-    m_texNormalMap = make_shared<Texture*>(tex);
+    m_texNormalMap = tex;
 
   }
 
   void 
-  Material::setMetalTex(Device& pDevice, const Texture& tex)
+  Material::setMetalTex(Device& pDevice, const ShrdPtr<Texture>& tex)
   {
-    m_texMetallicMap = make_shared<Texture*>(tex);
+    m_texMetallicMap = tex;
   }
 
   void 
-  Material::setRoughnessTex(Device& pDevice, const Texture& tex)
+  Material::setRoughnessTex(Device& pDevice, const ShrdPtr<Texture>& tex)
   {
-    m_texRoughnessMap = make_shared<Texture*>(tex);
+    m_texRoughnessMap = tex;
   }
 
   bool

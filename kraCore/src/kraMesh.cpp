@@ -67,7 +67,7 @@ namespace kraEngineSDK {
     return m_vertexBurffer;
   }
 
-  Vector<ShrdPtr<Texture>>& const
+  const Vector<ShrdPtr<Texture>>&
   Mesh::getTextures() {
     return m_meshTextures;
   }
