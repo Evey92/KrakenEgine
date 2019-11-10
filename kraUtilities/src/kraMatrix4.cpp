@@ -331,23 +331,42 @@ namespace kraEngineSDK {
     m[3][3] = 0.0;
   }
 
+  void 
+  Matrix4::MatrixRotX(float angle)
+  {
+    float fSinAngle = kraMath::sin(angle);
+    float fCosAngle = kraMath::cos(angle);
+
+    m[0][0] = 1; m[0][1] = 0;         m[0][2] = 0;          m[0][3] = 0;
+    m[1][0] = 0; m[1][1] = fCosAngle; m[1][2] = -fSinAngle; m[1][3] = 0;
+    m[2][0] = 0; m[2][1] = fSinAngle; m[2][2] = fCosAngle;  m[2][3] = 0;
+    m[3][0] = 0; m[3][1] = 0;         m[3][2] = 0;          m[3][3] = 1;
+  }
+
   void
   Matrix4::MatrixRotY(float angle) {
     float fSinAngle = kraMath::sin(angle);
     float fCosAngle = kraMath::cos(angle);
-    Matrix4 rotMatY;
-    Matrix4 tepMat = *this;
-    rotMatY.m[0][0] = fCosAngle ; rotMatY.m[0][1] = 0; rotMatY.m[0][2] = fSinAngle; rotMatY.m[0][3] = 0;
-    rotMatY.m[1][0] =     0     ; rotMatY.m[1][1] = 1; rotMatY.m[1][2] =     0    ; rotMatY.m[1][3] = 0;
-    rotMatY.m[2][0] = -fSinAngle; rotMatY.m[2][1] = 0; rotMatY.m[2][2] = fCosAngle; rotMatY.m[2][3] = 0;
-    rotMatY.m[3][0] =     0     ; rotMatY.m[3][1] = 0; rotMatY.m[3][2] =     0    ; rotMatY.m[3][3] = 1;
 
-    *this = rotMatY * tepMat;
-
-   
+    m[0][0] = fCosAngle ; m[0][1] = 0; m[0][2] = fSinAngle; m[0][3] = 0;
+    m[1][0] =     0     ; m[1][1] = 1; m[1][2] =     0    ; m[1][3] = 0;
+    m[2][0] = -fSinAngle; m[2][1] = 0; m[2][2] = fCosAngle; m[2][3] = 0;
+    m[3][0] =     0     ; m[3][1] = 0; m[3][2] =     0    ; m[3][3] = 1;
   }
 
-  Matrix4 
+  void 
+  Matrix4::MatrixRotZ(float angle)
+  {
+    float fSinAngle = kraMath::sin(angle);
+    float fCosAngle = kraMath::cos(angle);
+
+    m[0][0] = fCosAngle; m[0][1] = -fSinAngle;  m[0][2] = 0;  m[0][3] = 0;
+    m[1][0] = fSinAngle; m[1][1] = fCosAngle;   m[1][2] = 0;  m[1][3] = 0;
+    m[2][0] = 0;         m[2][1] = 0;           m[2][2] = 1;  m[2][3] = 0;
+    m[3][0] = 0;         m[3][1] = 0;           m[3][2] = 0;  m[3][3] = 1;
+  }
+
+  Matrix4
   Matrix4::eulerAngleXY(float angleX, float angleY)
   {
     float cosX = kraMath::cos(angleX);

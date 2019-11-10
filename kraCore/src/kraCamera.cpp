@@ -228,8 +228,8 @@ namespace kraEngineSDK {
     
     /*
     TODO: Implement check for coordinate system
-    if(leftHanded)
-    m_viewMat = Matrix4::MatrixLookAtLH(m_pos, m_objective, m_up);
+    if(rightHanded)
+    m_viewMat = Matrix4::MatrixLookAtRH(m_pos, m_objective, m_up);
     else
     */
     m_viewMat = Matrix4::MatrixLookAtLH(m_pos, m_objective, m_up);

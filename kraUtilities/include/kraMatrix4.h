@@ -80,7 +80,13 @@ class Vector3;
     MatrixPerspectiveFOVRH(float FOV, float width, float height, float nearZ, float farZ);
 
     void
+    MatrixRotX(float angle);
+
+    void
     MatrixRotY(float angle);
+
+    void
+    MatrixRotZ(float angle);
 
     static Matrix4
     eulerAngleXY(float angleX, float angleY);

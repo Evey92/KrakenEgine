@@ -210,11 +210,13 @@
   void
   UIManager::drawTransform(Transform transform)
   {
-    static float pos[3] = { transform.Position.x, transform.Position.y, transform.Position.z };
-    static float rot[3] = { transform.Rotation.x, transform.Rotation.y, transform.Rotation.z };
-    static float scale[3] = { transform.Scale.x, transform.Scale.y, transform.Scale.z };
+    static float pos[3]   = { transform.getPosition()[0], transform.getPosition()[1], transform.getPosition()[2] };
+    static float rot[3]   = { transform.getRotation()[0], transform.getRotation()[1], transform.getRotation()[2] };
+    static float scale[3] = { transform.getScale()[0],    transform.getScale()[1],    transform.getScale()[2] };
     
     float oldPos[3];
+    float oldRot[3];
+    float oldScale[3];
 
     ImGui::Text("Transform");
     ImGui::InputFloat3("Position", pos);
@@ -223,11 +225,13 @@
     }
 
     ImGui::InputFloat3("Rotation", rot);
-    //transform.setRotation(Vector3(rot[0], rot[1], rot[2]));
-
+    if (rot != oldRot) {
+      transform.setRotation(Vector3(pos[0], pos[1], pos[2]));
+    }
     ImGui::InputFloat3("Scale", scale);
-    //transform, setScale(Vector3(scale[0], scale[1], scale[2]));
-
+    if (scale != oldScale) {
+      transform.setScale(Vector3(pos[0], pos[1], pos[2]));
+    }
     ImGui::Separator();
   }
 

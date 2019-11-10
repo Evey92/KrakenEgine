@@ -8,8 +8,7 @@ public:
 
 #pragma region PUBLIC_METHODS
   
-  void
-  set(float newX, float newY, float newZ, float newW);
+  
 
 #pragma endregion PUBLIC_METHODS
 

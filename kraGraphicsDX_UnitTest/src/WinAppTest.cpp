@@ -303,7 +303,6 @@ WinApp::render()
 
   m_skyprojection.transpose();
   m_mainCB->add(m_skyprojection);
-  m_mainCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
   m_mainCB->updateSubResources(*m_gfxDevice);
 
   m_shadingCB->clear();
@@ -730,7 +729,6 @@ void
 WinApp::setGoldMaterial(Model& modelGO) {
  
   Material* goldMaterial = new Material(modelGO.getOwner());
-
   ShrdPtr<Texture> albedo = m_gfxDevice->createTextureInstance();
   ShrdPtr<Texture> normal = m_gfxDevice->createTextureInstance();
   ShrdPtr<Texture> metal = m_gfxDevice->createTextureInstance();
@@ -739,27 +737,29 @@ WinApp::setGoldMaterial(Model& modelGO) {
 
   albedo->createTexture2DFromFile(*m_gfxDevice,
                                   "resources/Textures/pbr/rustediron/rustediron_albedo.png",
-                                  GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                  GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM_SRGB,
                                   GFX_USAGE::E::kUSAGE_DEFAULT,
                                   CPU_USAGE::E::kCPU_ACCESS_WRITE);
 
   normal->createTexture2DFromFile(*m_gfxDevice,
                                   "resources/Textures/pbr/rustediron/rustediron_normal.png",
-                                  GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                  GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM,
                                   GFX_USAGE::E::kUSAGE_DEFAULT,
                                   CPU_USAGE::E::kCPU_ACCESS_WRITE);
 
   metal->createTexture2DFromFile(*m_gfxDevice,
                                  "resources/Textures/pbr/rustediron/rustediron_metalness.png",
-                                 GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                 GFX_FORMAT::E::kFORMAT_R8_UNORM,
                                  GFX_USAGE::E::kUSAGE_DEFAULT,
-                                 CPU_USAGE::E::kCPU_ACCESS_WRITE);
+                                 CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                 1);
 
   rough->createTexture2DFromFile(*m_gfxDevice,
                                  "resources/Textures/pbr/rustediron/rustediron_roughness.png",
-                                 GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                 GFX_FORMAT::E::kFORMAT_R8_UNORM,
                                  GFX_USAGE::E::kUSAGE_DEFAULT,
-                                 CPU_USAGE::E::kCPU_ACCESS_WRITE);
+                                 CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                 1);
 
 
   goldMaterial->setAlbedoTex(*m_gfxDevice, albedo);

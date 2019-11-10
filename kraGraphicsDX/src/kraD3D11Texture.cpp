@@ -123,15 +123,15 @@ namespace kraEngineSDK {
                                      GFX_FORMAT::E format, 
                                      GFX_USAGE::E usage, 
                                      CPU_USAGE::E cpuUsage,
+                                     int channels,
                                      uint32 levels)
   {
     const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
     HRESULT hr = S_OK;
 
-    ShrdPtr<Image> image = Image::LoadImageFromFile(filename);
+    ShrdPtr<Image> image = Image::LoadImageFromFile(filename, channels);
     //UnqPtr<unsigned char> pixels = nullptr;
-    int channels = 4;
 
     if (image != nullptr)
     {
@@ -141,7 +141,7 @@ namespace kraEngineSDK {
       channels = image->getChannels();
     }
 
-    m_levels = levels;
+    m_levels = (levels > 0) ? levels : EngineUtility::numMipLevels(m_width, m_height);
 
     D3D11_TEXTURE2D_DESC descTexture;
     memset(&descTexture, 0, sizeof(descTexture));
@@ -158,13 +158,15 @@ namespace kraEngineSDK {
       descTexture.BindFlags |= D3D11_BIND_RENDER_TARGET;
       descTexture.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
     }
-   /* D3D11_SUBRESOURCE_DATA initBuffer;
-    memset(&initBuffer, 0, sizeof(initBuffer));
-    initBuffer.pSysMem = image->getPixels<unsigned char>();
-    initBuffer.SysMemPitch =image->getPitch();
-    initBuffer.SysMemSlicePitch = 0;*/
 
-    hr = m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, nullptr, &m_pd3dTexture2D);
+    D3D11_SUBRESOURCE_DATA initBuffer;
+    memset(&initBuffer, 0, sizeof(initBuffer));
+    initBuffer.pSysMem = image->getPixels<void>();
+    initBuffer.SysMemPitch =image->getPitch();
+    initBuffer.SysMemSlicePitch = 0;
+
+    //hr = m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, nullptr, &m_pd3dTexture2D);
+    hr = m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
     if (FAILED(hr)) {
       return false;
     }
@@ -179,7 +181,7 @@ namespace kraEngineSDK {
     m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, &srvDesc, &m_pSRV);
 
 
-    m_pDevice.m_pImmediateContext->UpdateSubresource(m_pd3dTexture2D, 0, nullptr, image->getPixels<void>(), image->getPitch(), 0);
+    //m_pDevice.m_pImmediateContext->UpdateSubresource(m_pd3dTexture2D, 0, nullptr, image->getPixels<void>(), image->getPitch(), 0);
 
     return true;
   }

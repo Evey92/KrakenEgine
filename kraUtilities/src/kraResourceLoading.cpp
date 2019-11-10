@@ -43,6 +43,7 @@ namespace kraEngineSDK {
         stbi_image_free(pixels);
         pixels = stbi_load("resources/Textures/missingCheckered.jpg", &img->m_width, &img->m_height, &img->m_channels, channels);
         img->m_pixels.reset(pixels);
+        img->m_isHDR = false;
       }
     }
 
@@ -50,8 +51,9 @@ namespace kraEngineSDK {
       img->m_channels = channels;
     }
 
-    if (!img->m_pixels) {
+    if (img->m_pixels == nullptr) {
       std::cout << "Failed to load image file: " << filename << std::endl;
+      return nullptr;
     }
     return img;
 

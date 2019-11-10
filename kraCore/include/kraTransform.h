@@ -33,21 +33,21 @@ namespace kraEngineSDK {
 
      Vector3
      getScale();
-
-     bool
-     isDirty();
+     
+     Matrix4
+     getTransformMatrix();
 
      void
-     setDirty(bool dirty);
+     createTransformMat();
 
-#pragma region PUBLIC_MEMBERS
-     Vector3 Position = Vector3(0.0f, 0.0f, 0.0f);
-     Vector3 Rotation = Vector3(0.0f, 0.0f, 0.0f);
-     Vector3 Scale = Vector3(1.0f, 1.0f, 1.0f);
-#pragma endregion PUBLIC_MEMBERS
-
-   protected:
+#pragma region PRIVATE_MEMBERS
+   private:
+    Matrix4 m_transformMatrix = Matrix4::IDENTITY;
+    Vector3 Position = Vector3(0.0f, 0.0f, 0.0f);
+    Vector3 Rotation = Vector3(0.0f, 0.0f, 0.0f);
+    Vector3 Scale = Vector3(1.0f, 1.0f, 1.0f);
     bool m_dirty = false;
+#pragma endregion PRIVATE_MEMBERS
 
 
   };

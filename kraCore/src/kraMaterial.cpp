@@ -19,10 +19,10 @@ namespace kraEngineSDK {
 
     m_texColorMap->createTexture2DFromFile(pDevice,
                                               "resources/Textures/default.png",
-                                              GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                              GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM,
                                               GFX_USAGE::E::kUSAGE_DEFAULT,
                                               CPU_USAGE::E::kCPU_ACCESS_WRITE,
-                                              1);
+                                              4);
 
     /*m_texColorMap.createTexture2DFromFile(pDevice,
                                            "resources/Textures/default.png",
