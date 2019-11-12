@@ -41,7 +41,7 @@ namespace kraEngineSDK {
       {
         std::cout << "Couldn't find texture: " << filename <<  ". loading default texture\n";
         stbi_image_free(pixels);
-        pixels = stbi_load("resources/Textures/missingCheckered.jpg", &img->m_width, &img->m_height, &img->m_channels, channels);
+        pixels = stbi_load("resources/Textures/missingCheckered.png", &img->m_width, &img->m_height, &img->m_channels, 4);
         img->m_pixels.reset(pixels);
         img->m_isHDR = false;
       }

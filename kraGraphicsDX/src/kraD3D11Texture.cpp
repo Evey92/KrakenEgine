@@ -123,32 +123,29 @@ namespace kraEngineSDK {
                                      GFX_FORMAT::E format, 
                                      GFX_USAGE::E usage, 
                                      CPU_USAGE::E cpuUsage,
-                                     int channels,
+                                     int _channels,
                                      uint32 levels)
   {
     const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
     HRESULT hr = S_OK;
 
-    ShrdPtr<Image> image = Image::LoadImageFromFile(filename, channels);
-    //UnqPtr<unsigned char> pixels = nullptr;
+    ShrdPtr<Image> image = Image::LoadImageFromFile(filename, _channels);
 
     if (image != nullptr)
     {
       m_width = image->getWidth();
       m_height = image->getHeight();
       m_isHDR = image->isHDR();
-      channels = image->getChannels();
     }
-
     m_levels = (levels > 0) ? levels : EngineUtility::numMipLevels(m_width, m_height);
-
+   
     D3D11_TEXTURE2D_DESC descTexture;
     memset(&descTexture, 0, sizeof(descTexture));
 
     descTexture.Height = static_cast<uint32>(m_height);
     descTexture.Width = static_cast<uint32>(m_width);
-    descTexture.MipLevels = m_levels;
+    descTexture.MipLevels = levels;
     descTexture.ArraySize = 1;
     descTexture.Format = static_cast<DXGI_FORMAT>(format);
     descTexture.SampleDesc.Count = 1;
@@ -162,11 +159,10 @@ namespace kraEngineSDK {
     D3D11_SUBRESOURCE_DATA initBuffer;
     memset(&initBuffer, 0, sizeof(initBuffer));
     initBuffer.pSysMem = image->getPixels<void>();
-    initBuffer.SysMemPitch =image->getPitch();
+    initBuffer.SysMemPitch = image->getPitch();
     initBuffer.SysMemSlicePitch = 0;
 
-    //hr = m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, nullptr, &m_pd3dTexture2D);
-    hr = m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, &initBuffer, &m_pd3dTexture2D);
+    hr = m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, nullptr, &m_pd3dTexture2D);
     if (FAILED(hr)) {
       return false;
     }
@@ -181,7 +177,7 @@ namespace kraEngineSDK {
     m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, &srvDesc, &m_pSRV);
 
 
-    //m_pDevice.m_pImmediateContext->UpdateSubresource(m_pd3dTexture2D, 0, nullptr, image->getPixels<void>(), image->getPitch(), 0);
+    m_pDevice.m_pImmediateContext->UpdateSubresource(m_pd3dTexture2D, 0, nullptr, image->getPixels<void>(), image->getPitch(), 0);
 
     return true;
   }

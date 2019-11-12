@@ -200,17 +200,24 @@ WinApp::Initialize()
 
    CameraManager::instance().getActiveCamera()->createViewMat();
   Matrix4 viewMat = CameraManager::instance().getActiveCamera()->GetViewMatrix();
-  viewMat.transpose();
-  m_mainCB->add(viewMat);
+  
  
   m_projection.MatrixPerspectiveFOVLH(CameraManager::instance().getActiveCamera()->getFOV(),
                                     static_cast<float>(m_window->getWidth()),
                                     static_cast<float>(m_window->getHeight()),
                                     CameraManager::instance().getActiveCamera()->getNearPlane(),
                                     CameraManager::instance().getActiveCamera()->getFarPlane());
+  m_skyprojection = m_projection * viewMat;
+  
+  viewMat.transpose();
+  m_mainCB->add(viewMat);
 
   m_projection.transpose();
   m_mainCB->add(m_projection);
+  
+  m_skyprojection.transpose();
+  m_mainCB->add(m_skyprojection);
+
   m_mainCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
   m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
 
@@ -287,8 +294,6 @@ WinApp::render()
 
   //Setting view matrix
   Matrix4 viewMat = CameraManager::instance().getActiveCamera()->GetViewMatrix();
-  viewMat.transpose();
-  m_mainCB->add(viewMat);
 
   //Setting projection matrix
   m_projection.MatrixPerspectiveFOVLH(CameraManager::instance().getActiveCamera()->getFOV(),
@@ -297,7 +302,11 @@ WinApp::render()
                                     CameraManager::instance().getActiveCamera()->getNearPlane(),
                                     CameraManager::instance().getActiveCamera()->getFarPlane());
 
-  m_skyprojection = m_projection * viewRotationMat;
+  m_skyprojection = m_projection * viewMat;
+  
+  viewMat.transpose();
+  m_mainCB->add(viewMat);
+  
   m_projection.transpose();
   m_mainCB->add(m_projection);
 
@@ -548,10 +557,11 @@ WinApp::setUpIBL()
 
   //Loading the equirectangular projection texture
   m_equirectHDRTexture->createTexture2DFromFile(*m_gfxDevice,
-                                                "resources/Textures/HDR/canyon.hdr",
+                                                "resources/Textures/HDR/appart.hdr",
                                                 GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
                                                 GFX_USAGE::E::kUSAGE_DEFAULT,
                                                 CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                                4,
                                                 1);
   m_computeSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
                                        SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
@@ -687,7 +697,7 @@ WinApp::drawSkybox()
   m_skyboxInputLayout->setInputLayout(*m_gfxDevice);
   m_skyboxVS->setVertexShader(*m_gfxDevice);
   m_skyboxPS->setPixelShader(*m_gfxDevice);
-  //m_enviroMap->setTextureShaderResource(m_gfxDevice, 0, 1);
+  m_enviroMap->setTextureShaderResource(m_gfxDevice, 0, 1);
   m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
   m_skyboxDepthStencil->setDepthStencilState(*m_gfxDevice);
   m_skyBoxModel->Draw(m_gfxDevice);
@@ -736,26 +746,26 @@ WinApp::setGoldMaterial(Model& modelGO) {
 
 
   albedo->createTexture2DFromFile(*m_gfxDevice,
-                                  "resources/Textures/pbr/rustediron/rustediron_albedo.png",
+                                  "resources/Textures/pbr/gold/gold_albedo2.png",
                                   GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM_SRGB,
                                   GFX_USAGE::E::kUSAGE_DEFAULT,
                                   CPU_USAGE::E::kCPU_ACCESS_WRITE);
 
   normal->createTexture2DFromFile(*m_gfxDevice,
-                                  "resources/Textures/pbr/rustediron/rustediron_normal.png",
+                                  "resources/Textures/pbr/gold/gold_normal.png",
                                   GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM,
                                   GFX_USAGE::E::kUSAGE_DEFAULT,
                                   CPU_USAGE::E::kCPU_ACCESS_WRITE);
 
   metal->createTexture2DFromFile(*m_gfxDevice,
-                                 "resources/Textures/pbr/rustediron/rustediron_metalness.png",
+                                 "resources/Textures/pbr/gold/gold_metalness.png",
                                  GFX_FORMAT::E::kFORMAT_R8_UNORM,
                                  GFX_USAGE::E::kUSAGE_DEFAULT,
                                  CPU_USAGE::E::kCPU_ACCESS_WRITE,
                                  1);
 
   rough->createTexture2DFromFile(*m_gfxDevice,
-                                 "resources/Textures/pbr/rustediron/rustediron_roughness.png",
+                                 "resources/Textures/pbr/gold/gold_roughness.png",
                                  GFX_FORMAT::E::kFORMAT_R8_UNORM,
                                  GFX_USAGE::E::kUSAGE_DEFAULT,
                                  CPU_USAGE::E::kCPU_ACCESS_WRITE,

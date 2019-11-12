@@ -42,8 +42,8 @@ namespace kraEngineSDK {
                             GFX_FORMAT::E format,
                             GFX_USAGE::E usage,
                             CPU_USAGE::E  cpuUsage,
-                            int channels,
-                            uint32 levels = 0U) override;
+                            int channels = 4,
+                            uint32 levels = 0) override;
 
     void
     createTextureUAV(const Device& device, uint32 mipSlice) override;

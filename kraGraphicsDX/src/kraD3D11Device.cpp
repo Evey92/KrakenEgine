@@ -60,6 +60,7 @@ namespace kraEngineSDK {
     driverTypes.push_back(D3D_DRIVER_TYPE_REFERENCE);
 
     std::vector<D3D_FEATURE_LEVEL> featureLevels;
+    featureLevels.push_back(D3D_FEATURE_LEVEL_11_1);
     featureLevels.push_back(D3D_FEATURE_LEVEL_11_0);
     featureLevels.push_back(D3D_FEATURE_LEVEL_10_1);
     featureLevels.push_back(D3D_FEATURE_LEVEL_10_0);

@@ -8,7 +8,7 @@ cbuffer cbMain : register(b0)
   matrix skyProjection;
 };
 
-cbuffer cbShading : register(b1)
+cbuffer cbShading : register(b0)
 {
   float4 eyePosition;
   float4 lightDirection;
