@@ -95,10 +95,10 @@ PS_INPUT VS(VS_INPUT Input)
     Output.worldPosition = mul(Output.worldPosition, View);
     Output.worldPosition = mul(Output.worldPosition, Projection);
 
-    Output.TexCoord = Input.TexCoord;
+    Output.TexCoord = float2(Input.TexCoord.x, 1.0 - Input.TexCoord.y);
   
     float3x3 TBN = float3x3(Input.Tangent, Input.BiNormal, Input.Normal);
-    Output.TBN = mul(TBN, (float3x3)World);
+    Output.TBN = mul(transpose(TBN), (float3x3) World);
 
     return Output;
 }
@@ -112,7 +112,7 @@ float4 PS(PS_INPUT Input) : SV_Target
     float roughness = texRoughness.Sample(samLinear, Input.TexCoord).r;
 
      // Outgoing light direction (vector from world-space fragment position to the "eye").
-    float3 Lo = normalize(eyePosition.xyz - float3(Input.TexCoord, 1.0f));
+    float3 Lo = normalize(eyePosition.xyz - Input.Position);
 
     float3 N = normalize(2.0 * texNormal.Sample(samLinear, Input.TexCoord).rgb - 1.0);
     N = normalize(mul(Input.TBN, N));

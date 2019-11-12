@@ -15,7 +15,8 @@ namespace kraEngineSDK {
 
     Assimp::Importer aImporter;
 
-    const aiScene* scene = aImporter.ReadFile(fileName,
+    const aiScene* scene = aImporter.ReadFile(fileName, 
+                                              aiProcessPreset_TargetRealtime_MaxQuality |
                                               aiProcess_Triangulate |
                                               aiProcess_JoinIdenticalVertices |
                                               aiProcess_ConvertToLeftHanded);
@@ -58,7 +59,7 @@ namespace kraEngineSDK {
                                           GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
                                           GFX_USAGE::E::kUSAGE_DEFAULT,
                                           CPU_USAGE::E::kCPU_ACCESS_WRITE, 
-                                          1);
+                                          4, we 1);
           return true;
         }
       }
