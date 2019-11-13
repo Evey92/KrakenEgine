@@ -23,11 +23,6 @@ namespace kraEngineSDK {
     sampDesc.AddressW = static_cast<D3D11_TEXTURE_ADDRESS_MODE>(addressMode);
     sampDesc.MaxAnisotropy = (filter == SAMPLER_FILTER::E::kFILTER_ANISOTROPIC) ? D3D11_REQ_MAXANISOTROPY : 1;
     sampDesc.ComparisonFunc = static_cast<D3D11_COMPARISON_FUNC>(compareFunction);
-    sampDesc.MipLODBias = 0.0f;
-    sampDesc.BorderColor[0] = 0;
-    sampDesc.BorderColor[1] = 0;
-    sampDesc.BorderColor[2] = 0;
-    sampDesc.BorderColor[3] = 0;
     sampDesc.MinLOD = 0;
     sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 

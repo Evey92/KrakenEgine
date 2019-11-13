@@ -129,7 +129,7 @@ namespace kraEngineSDK {
     {
       return m_material.getMetalTex();
     }
-     else if (texType == TEXTURE_TYPE::E::ROUGHNESS)
+    else if (texType == TEXTURE_TYPE::E::ROUGHNESS)
     {
       return m_material.getRoughnessTex();
     }

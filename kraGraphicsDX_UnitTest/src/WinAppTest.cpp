@@ -222,7 +222,7 @@ WinApp::Initialize()
   m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
 
   m_shadingCB->add(Vector4(m_activeCam->getPosition(), 1.0f));
-  m_shadingCB->add(Vector4(100.0, 0.0f, 100.0f, 0.0f));
+  m_shadingCB->add(Vector4(-100.0, -100.0f, -100.0f, 0.0f));
   m_shadingCB->add(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
   m_shadingCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
   m_shadingCB->updateSubResources(*m_gfxAPIInstance->getDevice());
@@ -557,7 +557,7 @@ WinApp::setUpIBL()
 
   //Loading the equirectangular projection texture
   m_equirectHDRTexture->createTexture2DFromFile(*m_gfxDevice,
-                                                "resources/Textures/HDR/appart.hdr",
+                                                "resources/Textures/HDR/circus.hdr",
                                                 GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
                                                 GFX_USAGE::E::kUSAGE_DEFAULT,
                                                 CPU_USAGE::E::kCPU_ACCESS_WRITE,
@@ -592,8 +592,7 @@ WinApp::setUpIBL()
                                  1024,
                                  1024,
                                  GFX_FORMAT::E::kFORMAT_R16G16B16A16_FLOAT,
-                                 GFX_USAGE::E::kUSAGE_DEFAULT,
-                                 0U);
+                                 GFX_USAGE::E::kUSAGE_DEFAULT);
 
   for (uint32 arraySlice = 0; arraySlice < 6; ++arraySlice) {
     //This is the saame a scalling D3D11CalcSubresource. But I was too lazy to implement the function...
@@ -673,16 +672,17 @@ void WinApp::setUpBRDF()
   spBRDFshader->createComputeShader(*m_gfxDevice);
 
   m_BRDFLUT->createTexture2DFromFile(*m_gfxDevice,
-    "resources/Textures/brfdLUT.png",
-    GFX_FORMAT::E::kFORMAT_R16G16_FLOAT,
-    GFX_USAGE::E::kUSAGE_DEFAULT,
-    CPU_USAGE::E::kCPU_ACCESS_WRITE,
-    1);
+                                     "resources/Textures/brfdLUT.png",
+                                     GFX_FORMAT::E::kFORMAT_R16G16_FLOAT,
+                                     GFX_USAGE::E::kUSAGE_DEFAULT,
+                                     CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                     4,
+                                     1);
 
   m_BRDFSampler->createSamplerState(*m_gfxDevice,
-    SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
-    TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_CLAMP,
-    COMPARISON_FUNCTION::E::kCOMPARISON_NEVER);
+                                    SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
+                                    TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_CLAMP,
+                                    COMPARISON_FUNCTION::E::kCOMPARISON_LESS);
 
   m_BRDFLUT->createTextureUAV(*m_gfxDevice, 0);
   m_BRDFLUT->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);

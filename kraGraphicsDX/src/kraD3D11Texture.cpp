@@ -138,6 +138,12 @@ namespace kraEngineSDK {
       m_height = image->getHeight();
       m_isHDR = image->isHDR();
     }
+    else
+    {
+      std::cout << "There was an error while loading the file. Aborting." << std::endl;
+      return false;
+    }
+
     m_levels = (levels > 0) ? levels : EngineUtility::numMipLevels(m_width, m_height);
    
     D3D11_TEXTURE2D_DESC descTexture;

@@ -59,7 +59,7 @@ namespace kraEngineSDK {
                                           GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
                                           GFX_USAGE::E::kUSAGE_DEFAULT,
                                           CPU_USAGE::E::kCPU_ACCESS_WRITE, 
-                                          4, we 1);
+                                          4, 1);
           return true;
         }
       }
