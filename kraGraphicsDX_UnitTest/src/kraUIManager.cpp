@@ -182,10 +182,10 @@
           
           drawCamera(&objCam);
         }
-        else if (comp->isOfType(Model::Type)) {
+        /*else if (comp->isOfType(Model::Type)) {
           Model objModel = gameObj->getComponent<Model>();
           drawModel(&objModel);
-        }
+        }*/
         
       }
     }

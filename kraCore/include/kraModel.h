@@ -19,18 +19,14 @@ namespace kraEngineSDK {
   class Vector2;
   class Vector3;
   
-  class KRA_CORE_EXPORT Model : 
-  public Component {
+  class KRA_CORE_EXPORT Model 
+  {
 
-    CLASS_DECLARATION(Model)
 
    public:
 
-     Model(GameObject* owner)
-     : Component(owner) {}
-
-     virtual
-     ~Model() {}
+     Model(GameObject* owner) : m_meshOwner(owner) {}
+     ~Model() = default;
 
 
     bool 
@@ -67,9 +63,10 @@ namespace kraEngineSDK {
    private:
     
      //TODO: Refactor Model and mesh so the model's index buffer is filled with 
+    GameObject* m_meshOwner;
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
-    Vector<Mesh*> m_meshVec;
+    Vector<ShrdPtr<Mesh>> m_meshVec;
     Vector<aiMaterial*> m_materialsVec;
     uint32 m_currentMesh = 0;
     uint32 m_currentMat = 0;

@@ -55,6 +55,9 @@ namespace kraEngineSDK {
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
     Vector<ShrdPtr<Texture>> m_meshTextures;
+    uint64 m_totalVert = 0;
+    uint64 m_totalIndex = 0;
+    String m_name;
 
   };
 }

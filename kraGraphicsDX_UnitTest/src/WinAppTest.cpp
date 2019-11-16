@@ -401,14 +401,14 @@ bool WinApp::loadModel()
 {
   String filetypes("FBX Files\0*.fbx\0OBJ Files\0*.obj\0Any File\0*.*\0");
   String filename = EngineUtility::loadFile(&filetypes[0], m_window->gethWnd());
-
   if (filename != "") {
 
     int strPos = filename.find_last_of('\\');
     String name = filename.substr(strPos + 1);
 
     GameObject* newGO = SceneManager::instance().createGameObject(name);
-    newGO->addComponent<Model>(newGO);
+    Model newModel(newGO);
+    newModel;
     newGO->getComponent<Model>().loadModelFromFile(filename, *m_gfxDevice);
     setGoldMaterial(newGO->getComponent<Model>());
 
@@ -525,7 +525,7 @@ WinApp::localRenderSetup()
   //This one is specially disgusting
   GameObject* skyGO = SceneManager::instance().createGameObject("Skybox");
   skyGO->addComponent<Model>(skyGO);
-  skyGO->getComponent<Model>().loadModelFromFile("resources/Models/Skybox.fbx",
+  skyGO->getComponent<Model>().loadModelFromFile("resources/Models/Skybox3.fbx",
     *m_gfxDevice);
   m_skyBoxModel = make_shared<Model>(skyGO->getComponent<Model>());
 
@@ -738,7 +738,7 @@ WinApp::toneMapPasss()
 void
 WinApp::setGoldMaterial(Model& modelGO) {
  
-  Material* goldMaterial = new Material(modelGO.getOwner());
+  //Material* goldMaterial = new Material();
   ShrdPtr<Texture> albedo = m_gfxDevice->createTextureInstance();
   ShrdPtr<Texture> normal = m_gfxDevice->createTextureInstance();
   ShrdPtr<Texture> metal = m_gfxDevice->createTextureInstance();
@@ -762,7 +762,7 @@ WinApp::setGoldMaterial(Model& modelGO) {
                                  GFX_FORMAT::E::kFORMAT_R8_UNORM,
                                  GFX_USAGE::E::kUSAGE_DEFAULT,
                                  CPU_USAGE::E::kCPU_ACCESS_WRITE,
-                                 1);
+                                 4);
 
   rough->createTexture2DFromFile(*m_gfxDevice,
                                  "resources/Textures/pbr/gold/gold_roughness.png",

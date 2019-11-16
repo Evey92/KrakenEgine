@@ -8,10 +8,9 @@
 
 namespace kraEngineSDK {
 
-  CLASS_DEFINITION(Component, Model)
 
   bool
-  Model::loadModelFromFile(const std::string& fileName, Device& pDevice) {
+  Model::loadModelFromFile(const String& fileName, Device& pDevice) {
 
     Assimp::Importer aImporter;
 
@@ -27,8 +26,19 @@ namespace kraEngineSDK {
       return false;
     }
 
-    processNode(scene->mRootNode, scene, pDevice);
+    //processNode(scene->mRootNode, scene, pDevice);
  
+    for (uint32 i = 0; i < scene->mNumMeshes; ++i) {
+      ShrdPtr<Mesh> newMesh = std::make_shared<Mesh>(pDevice, m_meshOwner);
+      
+      aiMesh& mesh = *scene->mMeshes[i];
+      
+      //newMesh = processMesh(mesh, pScene, pDevice);
+      
+      newMesh->initialize(pDevice);
+      m_meshVec.push_back(newMesh);
+    }
+
     return true;
   }
 
@@ -49,10 +59,13 @@ namespace kraEngineSDK {
         if (textureType == "embedded compressed texture")
         {
           // Do some stuff to extract embedded textures
+          return false;
         }
         else
         {
           String filename = String(path.C_Str());
+
+          
           filename = texturesPath + filename;
           texture.createTexture2DFromFile(pDevice,
                                           filename,
@@ -83,6 +96,7 @@ namespace kraEngineSDK {
     for (uint32 i = 0; i < rootNode->mNumMeshes; ++i) {
       aiMesh* mesh = pScene->mMeshes[rootNode->mMeshes[i]];
       
+
       newMesh = processMesh(mesh, pScene, pDevice);
       newMesh->initialize(pDevice);
       m_meshVec.push_back(newMesh);
@@ -94,10 +108,11 @@ namespace kraEngineSDK {
 
   }
 
+  //Deprecated. Inefficient and takes too long to load even Vela
   Mesh*
   Model::processMesh(aiMesh* pMesh, const aiScene* scene, Device& pDevice) {
 
-    Mesh* newMesh = new Mesh(pDevice, m_owner);
+    Mesh* newMesh = new Mesh(pDevice, m_meshOwner);
 
     if (pMesh->mMaterialIndex >= 0)
     {
@@ -108,8 +123,6 @@ namespace kraEngineSDK {
         textureType = getTextureType(scene, mat);
       }
     }
-
-    
 
     for (uint32 i = 0; i < pMesh->mNumVertices; ++i)
     {

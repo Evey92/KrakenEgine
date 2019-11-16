@@ -130,7 +130,7 @@ namespace kraEngineSDK {
 
     HRESULT hr = S_OK;
 
-    ShrdPtr<Image> image = Image::LoadImageFromFile(filename, _channels);
+   ShrdPtr<Image> image = Image::LoadImageFromFile(filename, _channels);
 
     if (image != nullptr)
     {
