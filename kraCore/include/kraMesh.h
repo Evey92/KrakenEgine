@@ -56,7 +56,7 @@ namespace kraEngineSDK {
     getName();
   
    private:
-    Material m_material = nullptr;
+   ShrdPtr<Material> m_material = nullptr;
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
     Vector<ShrdPtr<Texture>> m_meshTextures;

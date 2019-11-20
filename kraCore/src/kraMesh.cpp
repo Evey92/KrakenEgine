@@ -20,8 +20,9 @@ namespace kraEngineSDK {
   Mesh::initialize(Device& pDevice)
   {
     m_owner->addComponent<Material>(m_owner);
-    m_owner->getComponent<Material>().initialize(pDevice);
-    m_material = m_owner->getComponent<Material>();
+    m_material = make_shared<Material>(m_owner->getComponent<Material>());
+    m_material->initialize(pDevice);
+    //m_owner->getComponent<Material>().initialize(pDevice);
   }
 
   void
@@ -37,21 +38,21 @@ namespace kraEngineSDK {
     m_vertexBurffer->setVertexBuffer(*pDevice);
     m_indexBuffer->setIndexBuffer(*pDevice);
     
-    m_material.getAlbedoTex()->setTextureShaderResource(pDevice, 0, 1);
+    m_material->getAlbedoTex()->setTextureShaderResource(pDevice, 0, 1);
 
-    if (m_material.getNormalTex() != nullptr)
+    if (m_material->getNormalTex() != nullptr)
     {
-      m_material.getNormalTex()->setTextureShaderResource(pDevice, 1, 1);
+      m_material->getNormalTex()->setTextureShaderResource(pDevice, 1, 1);
     }
     
-    if (m_material.getMetalTex() != nullptr)
+    if (m_material->getMetalTex() != nullptr)
     {
-      m_material.getMetalTex()->setTextureShaderResource(pDevice, 2, 1);
+      m_material->getMetalTex()->setTextureShaderResource(pDevice, 2, 1);
     }
     
-    if (m_material.getRoughnessTex() != nullptr)
+    if (m_material->getRoughnessTex() != nullptr)
     {
-      m_material.getRoughnessTex()->setTextureShaderResource(pDevice, 3, 1);
+      m_material->getRoughnessTex()->setTextureShaderResource(pDevice, 3, 1);
     }
 
     pDevice->DrawIndexed(m_indexBuffer->getBufferSize(), 0, 0);
@@ -77,29 +78,29 @@ namespace kraEngineSDK {
 
     if (texType == TEXTURE_TYPE::E::ALBEDO)
     {
-      m_material.setAlbedoTex(*pDevice, newTex);
+      m_material->setAlbedoTex(*pDevice, newTex);
     }
     else if (texType == TEXTURE_TYPE::E::NORMAL)
     {
-      m_material.setNormalTex(*pDevice, newTex);
+      m_material->setNormalTex(*pDevice, newTex);
     }
     else if (texType == TEXTURE_TYPE::E::METALNESS)
     {
-      m_material.setMetalTex(*pDevice, newTex);
+      m_material->setMetalTex(*pDevice, newTex);
     }
     else if (texType == TEXTURE_TYPE::E::ROUGHNESS)
     {
-      m_material.setRoughnessTex(*pDevice, newTex);
+      m_material->setRoughnessTex(*pDevice, newTex);
     }
     else if (texType == TEXTURE_TYPE::E::SPECULAR)
     {
       //TODO: Change it to set specular
-      m_material.setAlbedoTex(*pDevice, newTex);
+      m_material->setAlbedoTex(*pDevice, newTex);
     }
     else if (texType == TEXTURE_TYPE::E::EMISSIVE)
     {
       //TODO: Change it to ser emmisive
-      m_material.setAlbedoTex(*pDevice, newTex);
+      m_material->setAlbedoTex(*pDevice, newTex);
     }
 
   }
@@ -108,10 +109,10 @@ namespace kraEngineSDK {
   void 
   Mesh::setMeshMaterial(Device* pDevice, Material* mat)
   {
-    m_material.setAlbedoTex(*pDevice, mat->getAlbedoTex());
-    m_material.setNormalTex(*pDevice, mat->getNormalTex());
-    m_material.setMetalTex(*pDevice, mat->getMetalTex());
-    m_material.setRoughnessTex(*pDevice, mat->getRoughnessTex());
+    m_material->setAlbedoTex(*pDevice, mat->getAlbedoTex());
+    m_material->setNormalTex(*pDevice, mat->getNormalTex());
+    m_material->setMetalTex(*pDevice, mat->getMetalTex());
+    m_material->setRoughnessTex(*pDevice, mat->getRoughnessTex());
 
   }
 
@@ -120,19 +121,19 @@ namespace kraEngineSDK {
     
     if (texType == TEXTURE_TYPE::E::ALBEDO)
     {
-      return m_material.getAlbedoTex();
+      return m_material->getAlbedoTex();
     }
     else if (texType == TEXTURE_TYPE::E::NORMAL)
     {
-      return m_material.getNormalTex();
+      return m_material->getNormalTex();
     }
     else if (texType == TEXTURE_TYPE::E::METALNESS)
     {
-      return m_material.getMetalTex();
+      return m_material->getMetalTex();
     }
     else if (texType == TEXTURE_TYPE::E::ROUGHNESS)
     {
-      return m_material.getRoughnessTex();
+      return m_material->getRoughnessTex();
     }
     /*else if (texType == TEXTURE_TYPE::E::SPECULAR)
     {

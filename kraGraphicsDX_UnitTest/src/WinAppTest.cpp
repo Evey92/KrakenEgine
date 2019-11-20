@@ -545,14 +545,14 @@ WinApp::localRenderSetup()
 
   //This one is specially disgusting
   GameObject* skyGO = SceneManager::instance().createGameObject("Skybox");
-  Model skyModel(skyGO);
+  m_skyBoxModel = make_shared<Model>(skyGO);
 
-  if (skyModel.loadModelFromFile("resources/Models/skybox.obj",
+  if (m_skyBoxModel->loadModelFromFile("resources/Models/skybox.obj",
                                  *m_gfxDevice)) {
 
-    skyGO->addComponent<Mesh>(*skyModel.getMeshVec()[0]);
-    m_skyBoxModel = make_shared<Model>(skyModel);
-    m_skyBoxModel->getMeshVec()[0]->setTexture(m_gfxDevice, TEXTURE_TYPE::E::ALBEDO, m_enviroMap);
+    skyGO->addComponent<Mesh>(*m_skyBoxModel->getMeshVec()[0]);
+    skyGO->getComponent<Mesh>().initialize(*m_gfxDevice);
+    //m_skyBoxModel->getMeshVec()[0]->setTexture(m_gfxDevice, TEXTURE_TYPE::E::ALBEDO, m_enviroMap);
 
   }
   else {
@@ -694,6 +694,8 @@ void WinApp::setUpIrradianceMap()
                                6);
   m_irradMap->setComputeNullUAV(*m_gfxDevice);
 
+  m_skyBoxModel->m_meshOwner->getComponent<Mesh>().setTexture(m_gfxDevice, TEXTURE_TYPE::E::ALBEDO, m_enviroMap);
+
 }
 
 void WinApp::setUpBRDF()
@@ -728,7 +730,7 @@ WinApp::drawSkybox()
   m_skyboxInputLayout->setInputLayout(*m_gfxDevice);
   m_skyboxVS->setVertexShader(*m_gfxDevice);
   m_skyboxPS->setPixelShader(*m_gfxDevice);
-  m_enviroMap->setTextureShaderResource(m_gfxDevice, 0, 1);
+  //m_enviroMap->setTextureShaderResource(m_gfxDevice, 0, 1);
   m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
   m_skyboxDepthStencil->setDepthStencilState(*m_gfxDevice);
   m_skyBoxModel->Draw(m_gfxDevice);

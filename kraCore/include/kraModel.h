@@ -62,7 +62,6 @@ namespace kraEngineSDK {
 
    private:
     
-     //TODO: Refactor Model and mesh so the model's index buffer is filled with 
     GameObject* m_meshOwner;
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
