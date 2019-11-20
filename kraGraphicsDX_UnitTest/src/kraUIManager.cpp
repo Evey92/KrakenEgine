@@ -1,6 +1,8 @@
 #include "kraUIManager.h"
 #include <kraCamera.h>
 #include <kraDevice.h>
+#include <kraTexture.h>
+#include <kraMaterial.h>
 #include "WinAppTest.h"
 
 //TODO: Make GFXAPI a module so this manager can be initialized without parameters
@@ -8,6 +10,7 @@
   UIManager::initUI(void* hWnd, void* pDevice, void* pCtx)
   {
     //pgfxDevice = make_shared<Device>(pDevice);
+    windowHandle = reinterpret_cast<HWND>(hWnd);
 
     ID3D11Device* device = reinterpret_cast<ID3D11Device*>(pDevice);
     ID3D11DeviceContext* ctx = reinterpret_cast<ID3D11DeviceContext*>(pCtx);
@@ -119,45 +122,42 @@
     
     for (auto& node : sc->getSceneNodes())
     {  
-      drawSceneGraphNode(node); 
+      drawSceneGraphNode(*node); 
     }
 
     ImGui::End();
   }
 
   void
-  UIManager::drawSceneGraphNode(GameObject* node) {
+  UIManager::drawSceneGraphNode(GameObject& node) {
     
-    static int selection_mask = (1 << 2);
-    int node_clicked = -1;
-
-    if (node->getName() == "Root")
+    if (node.getName() == "Root")
     {
       return;
     }
 
     ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
-    if (m_selectedNode == node) {
+    if (&node == m_selectedNode) {
       node_flags |= ImGuiTreeNodeFlags_Selected;
-      showInspector(node);
+      showInspector(&node);
     }
 
-    bool nodeOpen = ImGui::TreeNodeEx(static_cast<void*>(m_selectedNode), node_flags, node->getName().c_str());
-    
+    bool nodeOpen = ImGui::TreeNodeEx(&node, node_flags, node.getName().c_str(), m_selectedNode);
     if (ImGui::IsItemClicked())
     {
-      m_selectedNode = node;
+      m_selectedNode = &node;
     }
 
     if (nodeOpen)
     {
-      for (auto* nd : node->getChildren()) {
-        drawSceneGraphNode(nd);
+      for (auto& nd : node.getChildren()) {
+        drawSceneGraphNode(*nd);
       }
-
       ImGui::TreePop();
     }
-    
+
+   
+
   }
 
   void
@@ -175,17 +175,17 @@
         
         if (comp->isOfType(Transform::Type)) {
           drawTransform(gameObj->m_transform);
-
         }
         else if (comp->isOfType(Camera::Type)) {
-          Camera objCam = gameObj->getComponent<Camera>();
-          
-          drawCamera(&objCam);
+          drawCamera(gameObj->getComponent<Camera>());
         }
-        /*else if (comp->isOfType(Model::Type)) {
-          Model objModel = gameObj->getComponent<Model>();
-          drawModel(&objModel);
-        }*/
+        else if (comp->isOfType(Mesh::Type)) {
+          drawMesh(gameObj->getComponent<Mesh>());
+        }
+        else if (comp->isOfType(Material::Type)) {
+          Material GOMat = gameObj->getComponent<Material>();
+          drawMaterial(GOMat);
+        }
         
       }
     }
@@ -236,11 +236,11 @@
   }
 
   void
-  UIManager::drawCamera(Camera* cam)
+  UIManager::drawCamera(Camera& cam)
   {
-    static float camFov = cam->getFOVAsDeg();
-    static float camNear = cam->getNearPlane();
-    static float camFar = cam->getFarPlane();
+    static float camFov = cam.getFOVAsDeg();
+    static float camNear = cam.getNearPlane();
+    static float camFar = cam.getFarPlane();
 
     float oldFov = camFov;
     float oldNear = camNear;
@@ -269,7 +269,7 @@
   }
 
   void 
-  UIManager::drawMaterial(Material* mat)
+  UIManager::drawMaterial(Material& mat)
   {
     ImGui::Text("Material");
 
@@ -282,22 +282,50 @@
      -Show Emissive texture
      -Show AO Texture
      */
-    
+
+    uint32 width = mat.getAlbedoTex()->getWidth();
+    uint32 height = mat.getAlbedoTex()->getHeight();
+
+    ImGui::Image(mat.getAlbedoTex()->getShaderResourceView(),
+                 ImVec2(width, height),
+                 ImVec2(0, 0),
+                 ImVec2(1, 1),
+                 ImVec4(1.0f, 1.0f, 1.0f, 1.0f),
+                 ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
+
     //-Base color RGB
-    ImGui::ColorEdit3("Base Color", (float*)&mat->m_baseColor);
+    ImGui::ColorEdit3("Base Color", (float*)&mat.m_baseColor);
 
     //-Metalness float (range 0.0f - 1.0f)
-    ImGui::SliderFloat("Metalness", &mat->m_metallic, 0.0f, 1.0f);
+    ImGui::SliderFloat("Metalness", &mat.m_metallic, 0.0f, 1.0f);
 
      //-Roughness float (range 0.0f - 1.0f)
-    ImGui::SliderFloat("Roughness", &mat->m_roughness, 0.0f, 1.0f);
+    ImGui::SliderFloat("Roughness", &mat.m_roughness, 0.0f, 1.0f);
     ImGui::Separator();
   }
 
   void 
-  UIManager::drawModel(Model* model)
+  UIManager::drawModel(Model& model)
   {
     //TODO: Draw mesh/model
+  }
+
+  void UIManager::drawMesh(Mesh& mesh)
+  {
+    ImGui::Text("Mesh");
+
+    ImGui::Text("Name"); ImGui::SameLine();
+    ImGui::Text(&mesh.getName()[0]);
+    //TODO: Implement this button.
+    if (ImGui::Button("Change Mesh")) {
+      String filetypes("FBX Files\0*.fbx\0OBJ Files\0*.obj\0Any File\0*.*\0"); 
+      String filename = EngineUtility::loadFile(filetypes, windowHandle);
+
+      //Do the loading and model replacing
+    } ImGui::SameLine();
+
+    ImGui::Separator();
+
   }
 
   void

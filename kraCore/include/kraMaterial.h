@@ -69,7 +69,7 @@ namespace kraEngineSDK {
     ShrdPtr<Texture> m_texEmissiveMap = nullptr;
     ShrdPtr<Texture> m_texAOMap = nullptr;
 
-    Vector4 m_baseColor = Vector4(0.5f, 0.5f, 0.5f, 1.0f);
+    Vector4 m_baseColor = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
     Vector4 m_emissive = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
     Vector2 m_UVOffset = Vector2(0.0f, 0.0f);
     Vector2 m_UVScale = Vector2(1.0f, 1.0f);

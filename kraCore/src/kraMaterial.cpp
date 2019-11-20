@@ -16,13 +16,6 @@ namespace kraEngineSDK {
     m_texRoughnessMap = pDevice.createTextureInstance();
     m_texEmissiveMap = pDevice.createTextureInstance();
     m_texAOMap = pDevice.createTextureInstance();
-
-    m_texColorMap->createTexture2DFromFile(pDevice,
-                                              "resources/Textures/default.png",
-                                              GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM_SRGB,
-                                              GFX_USAGE::E::kUSAGE_DEFAULT,
-                                              CPU_USAGE::E::kCPU_ACCESS_WRITE,
-                                              4);
   }
 
   ShrdPtr<Texture> 

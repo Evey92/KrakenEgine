@@ -20,8 +20,8 @@ namespace kraEngineSDK {
   Mesh::initialize(Device& pDevice)
   {
     m_owner->addComponent<Material>(m_owner);
+    m_owner->getComponent<Material>().initialize(pDevice);
     m_material = m_owner->getComponent<Material>();
-    m_material.initialize(pDevice);
   }
 
   void
@@ -112,6 +112,7 @@ namespace kraEngineSDK {
     m_material.setNormalTex(*pDevice, mat->getNormalTex());
     m_material.setMetalTex(*pDevice, mat->getMetalTex());
     m_material.setRoughnessTex(*pDevice, mat->getRoughnessTex());
+
   }
 
   ShrdPtr<Texture>

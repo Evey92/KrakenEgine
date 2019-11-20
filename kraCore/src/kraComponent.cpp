@@ -15,6 +15,12 @@ namespace kraEngineSDK {
     return m_owner;
   }
 
+  void
+  Component::setOwner(GameObject* newOwner) {
+    m_owner = newOwner;
+  }
+    
+
   const std::size_t Component::Type = std::hash<std::string>()(TO_STRING(Component));
 
 }

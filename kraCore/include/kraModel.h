@@ -44,8 +44,8 @@ namespace kraEngineSDK {
     SIZE_T
     getMeshVecSize();
     
-    const Vector<ShrdPtr<Mesh>>&
-    getMeshVec() const;
+    Vector<ShrdPtr<Mesh>>&
+    getMeshVec();
     
     Mesh&
     getMeshVecObjbyIndex(uint32 index) const;

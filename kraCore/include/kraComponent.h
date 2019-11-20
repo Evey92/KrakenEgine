@@ -33,6 +33,9 @@ namespace kraEngineSDK {
     GameObject*
     getOwner();
 
+    void
+    setOwner(GameObject* newOwner);
+
     static const std::size_t Type;
    
    protected:

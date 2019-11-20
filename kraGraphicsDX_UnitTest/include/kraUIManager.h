@@ -31,7 +31,7 @@ using namespace kraEngineSDK;
     showSceneGraph(Scene* sg);
 
     void
-    drawSceneGraphNode(GameObject* node);
+    drawSceneGraphNode(GameObject& node);
 
     void
     showInspector(GameObject* gameObj);
@@ -45,13 +45,16 @@ using namespace kraEngineSDK;
     drawTransform(Transform transform);
 
     void
-    drawCamera(Camera* cam);
+    drawCamera(Camera& cam);
 
     void
-    drawMaterial(Material* mat);
+    drawMaterial(Material& mat);
 
     void
-    drawModel(Model* model);
+    drawModel(Model& model);
+
+    void
+    drawMesh(Mesh& mesh);
 
 #pragma endregion COMPONENT_UI
 
@@ -64,12 +67,13 @@ using namespace kraEngineSDK;
     onShutdown() override;
 
     ShrdPtr<Device> pgfxDevice;
+    HWND windowHandle;
     Vector2 m_sceneGraphSize = Vector2::ZERO;
     Vector2 m_sceneGraphPos = Vector2::ZERO;
     Vector2 m_mainViewSize = Vector2::ZERO;
     Vector2 m_mainViewPos = Vector2::ZERO;
     Vector2 m_detailsSize = Vector2::ZERO;
     Vector2 m_detailsPos = Vector2::ZERO;
-
+    
 
   };

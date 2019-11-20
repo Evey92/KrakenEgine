@@ -53,6 +53,9 @@ namespace kraEngineSDK {
     virtual uint32
     getLevels() = 0;
 
+    virtual void*
+    getShaderResourceView() = 0;
+
     //TODO: Move all of this bullshit either to an abstraction of device context, or to the device itself... Maybe.
     virtual void
     setTextureShaderResource(const Device* pDevice,

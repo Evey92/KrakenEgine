@@ -169,7 +169,7 @@ class WinApp :
 
    //Very ugly function to set a hardcoded material
    void
-   setGoldMaterial(Model& model);
+   setGoldMaterial(Mesh& meshGO);
 
 #pragma endregion UTILITY_FUNCTIONS
 

@@ -86,6 +86,9 @@ namespace kraEngineSDK {
     uint32
     getLevels() override;
 
+    void* 
+    getShaderResourceView() override;
+
     bool 
     isHDR() override;
 
@@ -101,6 +104,8 @@ namespace kraEngineSDK {
     uint32 m_width = 0;
     uint32 m_levels= 0;
     bool m_isHDR = false;
+
+
 
 
 

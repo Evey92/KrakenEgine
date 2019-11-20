@@ -339,11 +339,14 @@ WinApp::render()
   
   m_backBufferRTV->setRenderTarget(*m_gfxDevice, 1);
 
- //Tone mapping pass
-  toneMapPasss();
-
   //Render Skybox
-  //drawSkybox();
+  if (m_skyBoxModel != nullptr) {
+  drawSkybox();
+  }
+
+
+  //Tone mapping pass
+  toneMapPasss();
 
   UIManager::instance().renderUI();
 
@@ -412,20 +415,22 @@ WinApp::loadModel()
     //Empty GameObject that holds all the meshes.
     GameObject* newModelGO = SceneManager::instance().createGameObject(name);
     Model newModel(newModelGO);
+    SceneManager::instance().getActiveScene()->addNewNode(newModelGO);
 
     newModel.loadModelFromFile(filename, *m_gfxDevice);
     
-    for (auto mesh : newModel.getMeshVec()) {
+    for (auto& mesh : newModel.getMeshVec()) {
       
-      //Empty GameObject that holds all the meshes.
       GameObject* newMeshGO = SceneManager::instance().createGameObject(mesh->getName());
+      mesh->setOwner(newMeshGO);
       newMeshGO->addComponent<Mesh>(*mesh);
+      newMeshGO->getComponent<Mesh>().initialize(*m_gfxDevice);      
       newModelGO->addChild(newMeshGO);
+      setGoldMaterial(newMeshGO->getComponent<Mesh>());
+
+      mesh = make_shared<Mesh>(newMeshGO->getComponent<Mesh>());
+
     }
-
-    setGoldMaterial(newModel);
-
-    SceneManager::instance().getActiveScene()->addNewNode(newModelGO);
     //I need to fix this mess
     m_modelsVector.push_back(make_shared<Model>(newModel));
   }
@@ -542,12 +547,20 @@ WinApp::localRenderSetup()
   GameObject* skyGO = SceneManager::instance().createGameObject("Skybox");
   Model skyModel(skyGO);
 
-  skyModel.loadModelFromFile("resources/Models/skybox.obj",
-                             *m_gfxDevice);
+  if (skyModel.loadModelFromFile("resources/Models/skybox.obj",
+                                 *m_gfxDevice)) {
 
-  skyGO->addComponent<Mesh>(*skyModel.getMeshVec()[0]);
+    skyGO->addComponent<Mesh>(*skyModel.getMeshVec()[0]);
+    m_skyBoxModel = make_shared<Model>(skyModel);
+    m_skyBoxModel->getMeshVec()[0]->setTexture(m_gfxDevice, TEXTURE_TYPE::E::ALBEDO, m_enviroMap);
+
+  }
+  else {
+    MessageBox(m_window->gethWnd(), "Skybox model couldn't be loaded", "ERROR", MB_OK | MB_ICONWARNING);
+    m_skyBoxModel = nullptr;
+  }
+
   
-  m_skyBoxModel = make_shared<Model>(skyModel);
 
 
   setUpIBL();
@@ -681,8 +694,6 @@ void WinApp::setUpIrradianceMap()
                                6);
   m_irradMap->setComputeNullUAV(*m_gfxDevice);
 
-  m_skyBoxModel->getMeshVec()[0]->setTexture(m_gfxDevice, TEXTURE_TYPE::E::ALBEDO, m_enviroMap);
-
 }
 
 void WinApp::setUpBRDF()
@@ -756,10 +767,11 @@ WinApp::toneMapPasss()
 }
 
 void
-WinApp::setGoldMaterial(Model& modelGO) {
+WinApp::setGoldMaterial(Mesh& meshGO) {
  
-  //Material* goldMaterial = new Material();
-  /*ShrdPtr<Texture> albedo = m_gfxDevice->createTextureInstance();
+  Material goldMaterial(meshGO.getOwner());
+
+  ShrdPtr<Texture> albedo = m_gfxDevice->createTextureInstance();
   ShrdPtr<Texture> normal = m_gfxDevice->createTextureInstance();
   ShrdPtr<Texture> metal = m_gfxDevice->createTextureInstance();
   ShrdPtr<Texture> rough = m_gfxDevice->createTextureInstance();
@@ -767,7 +779,7 @@ WinApp::setGoldMaterial(Model& modelGO) {
 
   albedo->createTexture2DFromFile(*m_gfxDevice,
                                   "resources/Textures/pbr/gold/gold_albedo2.png",
-                                  GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM_SRGB,
+                                  GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM,
                                   GFX_USAGE::E::kUSAGE_DEFAULT,
                                   CPU_USAGE::E::kCPU_ACCESS_WRITE);
 
@@ -782,7 +794,7 @@ WinApp::setGoldMaterial(Model& modelGO) {
                                  GFX_FORMAT::E::kFORMAT_R8_UNORM,
                                  GFX_USAGE::E::kUSAGE_DEFAULT,
                                  CPU_USAGE::E::kCPU_ACCESS_WRITE,
-                                 4);
+                                 1);
 
   rough->createTexture2DFromFile(*m_gfxDevice,
                                  "resources/Textures/pbr/gold/gold_roughness.png",
@@ -792,13 +804,11 @@ WinApp::setGoldMaterial(Model& modelGO) {
                                  1);
 
 
-  goldMaterial->setAlbedoTex(*m_gfxDevice, albedo);
-  goldMaterial->setNormalTex(*m_gfxDevice, normal);
-  goldMaterial->setMetalTex(*m_gfxDevice, metal);
-  goldMaterial->setRoughnessTex(*m_gfxDevice, rough);
+  goldMaterial.setAlbedoTex(*m_gfxDevice, albedo);
+  goldMaterial.setNormalTex(*m_gfxDevice, normal);
+  goldMaterial.setMetalTex(*m_gfxDevice, metal);
+  goldMaterial.setRoughnessTex(*m_gfxDevice, rough);
 
-
-  modelGO.setAllMeshMaterials(m_gfxDevice, goldMaterial);*/
-
+  meshGO.setMeshMaterial(m_gfxDevice, &goldMaterial);
 }
 

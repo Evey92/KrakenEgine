@@ -314,6 +314,11 @@ namespace kraEngineSDK {
 
   
 
+  void* TextureDX::getShaderResourceView()
+  {
+    return m_pSRV;
+  }
+
   void TextureDX::generateMips()
   {
     //do

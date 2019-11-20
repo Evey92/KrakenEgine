@@ -36,9 +36,7 @@ namespace kraEngineSDK {
       aiMesh& mesh = *scene->mMeshes[i];
       
       processMesh(&mesh, scene, pDevice, newMesh);
-      
-      newMesh->initialize(pDevice);
-
+      //newMesh->initialize(pDevice);
       m_meshVec.push_back(newMesh);
     
     }
@@ -69,11 +67,13 @@ namespace kraEngineSDK {
         {
           String filename = String(path.C_Str());
 
+          uint32 firstPos = filename.find_last_of('\\');
+          String name = filename.substr(firstPos + 1);
           
-          filename = texturesPath + filename;
+          filename = texturesPath + name;
           texture.createTexture2DFromFile(pDevice,
                                           filename,
-                                          GFX_FORMAT::E::kFORMAT_R32G32B32A32_FLOAT,
+                                          GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM,
                                           GFX_USAGE::E::kUSAGE_DEFAULT,
                                           CPU_USAGE::E::kCPU_ACCESS_WRITE, 
                                           4, 1);
@@ -116,19 +116,7 @@ namespace kraEngineSDK {
   bool
   Model::processMesh(aiMesh* pMesh, const aiScene* scene, Device& pDevice, ShrdPtr<Mesh>& outMesh) {
 
-    //Mesh* newMesh = new Mesh(pDevice, m_meshOwner);
-
     outMesh->setName(pMesh->mName.C_Str());
-    
-    if (pMesh->mMaterialIndex >= 0)
-    {
-      aiMaterial* mat = scene->mMaterials[pMesh->mMaterialIndex];
-
-      if (textureType.empty())
-      {
-        textureType = getTextureType(scene, mat);
-      }
-    }
 
     for (uint32 i = 0; i < pMesh->mNumVertices; ++i)
     {
@@ -175,6 +163,11 @@ namespace kraEngineSDK {
     {
       aiMaterial* material = scene->mMaterials[pMesh->mMaterialIndex];
 
+      if (textureType.empty())
+      {
+        textureType = getTextureType(scene, material);
+      }
+
       ShrdPtr<Texture> diffuseTex = pDevice.createTextureInstance();
       if (loadMaterialTextures(pDevice,
                                *diffuseTex,
@@ -188,24 +181,22 @@ namespace kraEngineSDK {
 
       ShrdPtr<Texture> normalTex = pDevice.createTextureInstance();
       if (loadMaterialTextures(pDevice,
-        *normalTex,
-        material,
-        aiTextureType_HEIGHT,
-        "texture_normal",
-        scene))
+                               *normalTex,
+                               material,
+                               aiTextureType_HEIGHT,
+                               "texture_normal",
+                               scene))
       {
         outMesh->setTexture(&pDevice, TEXTURE_TYPE::E::NORMAL, normalTex);
       }
 
-
       ShrdPtr<Texture> specularTex = pDevice.createTextureInstance();
-
       if (loadMaterialTextures(pDevice,
-        *specularTex,
-        material,
-        aiTextureType_SPECULAR,
-        "texture_Specular",
-        scene))
+                               *specularTex,
+                               material,
+                               aiTextureType_SPECULAR,
+                               "texture_Specular",
+                               scene))
       {
         outMesh->setTexture(&pDevice, TEXTURE_TYPE::E::SPECULAR, specularTex);
       }
@@ -215,7 +206,6 @@ namespace kraEngineSDK {
     outMesh->getVertexBuffer()->createHardwareBuffer(pDevice);
     outMesh->getIndexBuffer()->createIndexBuffer(pDevice);
 
-
     return true;
   }
 
@@ -224,8 +214,8 @@ namespace kraEngineSDK {
     return m_meshVec.size();
   }
 
-  const  Vector<ShrdPtr<Mesh>>&
-    Model::getMeshVec() const {
+  Vector<ShrdPtr<Mesh>>&
+  Model::getMeshVec() {
     return m_meshVec;
   }
 

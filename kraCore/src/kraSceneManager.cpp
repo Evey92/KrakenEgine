@@ -35,7 +35,6 @@ namespace kraEngineSDK {
   GameObject*
   SceneManager::createGameObject(String name)
   {
-    SceneNode* newNode = new SceneNode();
     GameObject* newGO = new GameObject(m_activeScene, name);
     newGO->initialize();
     return newGO;
