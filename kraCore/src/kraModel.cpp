@@ -1,10 +1,12 @@
+#include "kraModel.h"
+
 #include <kraVector2.h>
 #include <kraVector3.h>
 
 #include "kraPrerequisitesCore.h"
-#include "kraModel.h"
 #include "kraDevice.h"
 #include "kraTexture.h"
+#include "kraGameObject.h"
 
 namespace kraEngineSDK {
 
@@ -29,14 +31,16 @@ namespace kraEngineSDK {
     //processNode(scene->mRootNode, scene, pDevice);
  
     for (uint32 i = 0; i < scene->mNumMeshes; ++i) {
-      ShrdPtr<Mesh> newMesh = std::make_shared<Mesh>(pDevice, m_meshOwner);
       
+      ShrdPtr<Mesh> newMesh = std::make_shared<Mesh>(pDevice, m_meshOwner);
       aiMesh& mesh = *scene->mMeshes[i];
       
-      //newMesh = processMesh(mesh, pScene, pDevice);
+      processMesh(&mesh, scene, pDevice, newMesh);
       
       newMesh->initialize(pDevice);
+
       m_meshVec.push_back(newMesh);
+    
     }
 
     return true;
@@ -90,16 +94,16 @@ namespace kraEngineSDK {
   }
 
   void
-    Model::processNode(aiNode* rootNode, const aiScene* pScene, Device& pDevice) {
+  Model::processNode(aiNode* rootNode, const aiScene* pScene, Device& pDevice) {
     Mesh* newMesh = nullptr;
 
     for (uint32 i = 0; i < rootNode->mNumMeshes; ++i) {
       aiMesh* mesh = pScene->mMeshes[rootNode->mMeshes[i]];
       
 
-      newMesh = processMesh(mesh, pScene, pDevice);
-      newMesh->initialize(pDevice);
-      m_meshVec.push_back(newMesh);
+      /*newMesh = processMesh(mesh, pScene, pDevice);
+      newMesh->initialize(pDevice);*/
+     // m_meshVec.push_back(newMesh);
     }
 
     for (uint32 i = 0; i < rootNode->mNumChildren; i++) {
@@ -109,11 +113,13 @@ namespace kraEngineSDK {
   }
 
   //Deprecated. Inefficient and takes too long to load even Vela
-  Mesh*
-  Model::processMesh(aiMesh* pMesh, const aiScene* scene, Device& pDevice) {
+  bool
+  Model::processMesh(aiMesh* pMesh, const aiScene* scene, Device& pDevice, ShrdPtr<Mesh>& outMesh) {
 
-    Mesh* newMesh = new Mesh(pDevice, m_meshOwner);
+    //Mesh* newMesh = new Mesh(pDevice, m_meshOwner);
 
+    outMesh->setName(pMesh->mName.C_Str());
+    
     if (pMesh->mMaterialIndex >= 0)
     {
       aiMaterial* mat = scene->mMaterials[pMesh->mMaterialIndex];
@@ -153,7 +159,7 @@ namespace kraEngineSDK {
         vert.m_binormal.y = pMesh->mBitangents->y;
         vert.m_binormal.z = pMesh->mBitangents->z;
       }
-      newMesh->getVertexBuffer()->add(vert);
+      outMesh->getVertexBuffer()->add(vert);
     }
 
     for (uint32 i = 0; i < pMesh->mNumFaces; ++i)
@@ -161,7 +167,7 @@ namespace kraEngineSDK {
       aiFace face = pMesh->mFaces[i];
 
       for (uint32 j = 0; j < face.mNumIndices; ++j) {
-        newMesh->getIndexBuffer()->add(face.mIndices[j]);
+        outMesh->getIndexBuffer()->add(face.mIndices[j]);
       }
     }
 
@@ -177,7 +183,7 @@ namespace kraEngineSDK {
                                "texture_diffuse",
                                scene))
       {
-        newMesh->setTexture(&pDevice, TEXTURE_TYPE::E::ALBEDO, diffuseTex);
+        outMesh->setTexture(&pDevice, TEXTURE_TYPE::E::ALBEDO, diffuseTex);
       }
 
       ShrdPtr<Texture> normalTex = pDevice.createTextureInstance();
@@ -188,7 +194,7 @@ namespace kraEngineSDK {
         "texture_normal",
         scene))
       {
-        newMesh->setTexture(&pDevice, TEXTURE_TYPE::E::NORMAL, normalTex);
+        outMesh->setTexture(&pDevice, TEXTURE_TYPE::E::NORMAL, normalTex);
       }
 
 
@@ -201,16 +207,16 @@ namespace kraEngineSDK {
         "texture_Specular",
         scene))
       {
-        newMesh->setTexture(&pDevice, TEXTURE_TYPE::E::SPECULAR, specularTex);
+        outMesh->setTexture(&pDevice, TEXTURE_TYPE::E::SPECULAR, specularTex);
       }
 
     }
 
-    newMesh->getVertexBuffer()->createHardwareBuffer(pDevice);
-    newMesh->getIndexBuffer()->createIndexBuffer(pDevice);
+    outMesh->getVertexBuffer()->createHardwareBuffer(pDevice);
+    outMesh->getIndexBuffer()->createIndexBuffer(pDevice);
 
 
-    return newMesh;
+    return true;
   }
 
   SIZE_T
@@ -218,7 +224,7 @@ namespace kraEngineSDK {
     return m_meshVec.size();
   }
 
-  const std::vector<Mesh*>&
+  const  Vector<ShrdPtr<Mesh>>&
     Model::getMeshVec() const {
     return m_meshVec;
   }

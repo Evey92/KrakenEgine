@@ -9,7 +9,6 @@
 #include "kraIndexBuffer.h"
 #include "kraVertexBuffer.h"
 #include "kraMesh.h"
-#include "kraGameObject.h"
 
 
 namespace kraEngineSDK {
@@ -18,7 +17,8 @@ namespace kraEngineSDK {
   class Texture;
   class Vector2;
   class Vector3;
-  
+  class GameObject;
+
   class KRA_CORE_EXPORT Model 
   {
 
@@ -38,13 +38,13 @@ namespace kraEngineSDK {
     void
     Model::processNode(aiNode* rootNode, const aiScene* pScene,  Device& pDevice);
     
-    Mesh*
-    processMesh(aiMesh* pMesh, const aiScene* scene,  Device& pDevice);
+    bool
+    processMesh(aiMesh* pMesh, const aiScene* scene,  Device& pDevice, ShrdPtr<Mesh>& outMesh);
     
     SIZE_T
     getMeshVecSize();
     
-    const Vector<Mesh*>&
+    const Vector<ShrdPtr<Mesh>>&
     getMeshVec() const;
     
     Mesh&

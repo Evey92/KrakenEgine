@@ -144,4 +144,15 @@ namespace kraEngineSDK {
     return nullptr;
   }
 
+  void Mesh::setName(String name)
+  {
+    m_name = name;
+  }
+
+  String 
+  Mesh::getName()
+  {
+    return m_name;
+  }
+
 }

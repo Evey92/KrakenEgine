@@ -329,8 +329,7 @@ WinApp::render()
   m_mainCB->setVertexConstantBuffer(*m_gfxDevice, 0, 1);
   m_shadingCB->setPixelConstantBuffer(*m_gfxDevice, 0, 1);
 
-  //Render Skybox
-  drawSkybox();
+  
 
   //Render PBR Models
   drawPBRModels();
@@ -343,6 +342,8 @@ WinApp::render()
  //Tone mapping pass
   toneMapPasss();
 
+  //Render Skybox
+  //drawSkybox();
 
   UIManager::instance().renderUI();
 
@@ -397,24 +398,39 @@ WinApp::updateCamera(Camera* newCam)
   CameraManager::instance().setActiveCamera(newCam);
 }
 
-bool WinApp::loadModel()
+bool 
+WinApp::loadModel()
 {
   String filetypes("FBX Files\0*.fbx\0OBJ Files\0*.obj\0Any File\0*.*\0");
   String filename = EngineUtility::loadFile(&filetypes[0], m_window->gethWnd());
   if (filename != "") {
 
-    int strPos = filename.find_last_of('\\');
-    String name = filename.substr(strPos + 1);
+    uint32 firstPos = filename.find_last_of('\\');
+    uint32 lastPos = filename.find_last_of('.');
+    String name = filename.substr(firstPos + 1.0f, lastPos - firstPos - 1.0f);
 
-    GameObject* newGO = SceneManager::instance().createGameObject(name);
-    Model newModel(newGO);
-    newModel;
-    newGO->getComponent<Model>().loadModelFromFile(filename, *m_gfxDevice);
-    setGoldMaterial(newGO->getComponent<Model>());
+    //Empty GameObject that holds all the meshes.
+    GameObject* newModelGO = SceneManager::instance().createGameObject(name);
+    Model newModel(newModelGO);
 
-    SceneManager::instance().getActiveScene()->addNewNode(newGO);
-    m_modelsVector.push_back(make_shared<Model>(newGO->getComponent<Model>()));
+    newModel.loadModelFromFile(filename, *m_gfxDevice);
+    
+    for (auto mesh : newModel.getMeshVec()) {
+      
+      //Empty GameObject that holds all the meshes.
+      GameObject* newMeshGO = SceneManager::instance().createGameObject(mesh->getName());
+      newMeshGO->addComponent<Mesh>(*mesh);
+      newModelGO->addChild(newMeshGO);
+    }
+
+    setGoldMaterial(newModel);
+
+    SceneManager::instance().getActiveScene()->addNewNode(newModelGO);
+    //I need to fix this mess
+    m_modelsVector.push_back(make_shared<Model>(newModel));
   }
+
+
 
   return true;
 }
@@ -524,10 +540,14 @@ WinApp::localRenderSetup()
 
   //This one is specially disgusting
   GameObject* skyGO = SceneManager::instance().createGameObject("Skybox");
-  skyGO->addComponent<Model>(skyGO);
-  skyGO->getComponent<Model>().loadModelFromFile("resources/Models/Skybox3.fbx",
-    *m_gfxDevice);
-  m_skyBoxModel = make_shared<Model>(skyGO->getComponent<Model>());
+  Model skyModel(skyGO);
+
+  skyModel.loadModelFromFile("resources/Models/skybox.obj",
+                             *m_gfxDevice);
+
+  skyGO->addComponent<Mesh>(*skyModel.getMeshVec()[0]);
+  
+  m_skyBoxModel = make_shared<Model>(skyModel);
 
 
   setUpIBL();
@@ -739,7 +759,7 @@ void
 WinApp::setGoldMaterial(Model& modelGO) {
  
   //Material* goldMaterial = new Material();
-  ShrdPtr<Texture> albedo = m_gfxDevice->createTextureInstance();
+  /*ShrdPtr<Texture> albedo = m_gfxDevice->createTextureInstance();
   ShrdPtr<Texture> normal = m_gfxDevice->createTextureInstance();
   ShrdPtr<Texture> metal = m_gfxDevice->createTextureInstance();
   ShrdPtr<Texture> rough = m_gfxDevice->createTextureInstance();
@@ -778,7 +798,7 @@ WinApp::setGoldMaterial(Model& modelGO) {
   goldMaterial->setRoughnessTex(*m_gfxDevice, rough);
 
 
-  modelGO.setAllMeshMaterials(m_gfxDevice, goldMaterial);
+  modelGO.setAllMeshMaterials(m_gfxDevice, goldMaterial);*/
 
 }
 
