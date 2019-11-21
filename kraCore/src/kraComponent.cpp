@@ -9,14 +9,14 @@ namespace kraEngineSDK {
     return classType == Type;
   }
 
-  GameObject*
+  ShrdPtr<GameObject>
   Component::getOwner()
   {
     return m_owner;
   }
 
   void
-  Component::setOwner(GameObject* newOwner) {
+  Component::setOwner(const ShrdPtr<GameObject>& newOwner) {
     m_owner = newOwner;
   }
     

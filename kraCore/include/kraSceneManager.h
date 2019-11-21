@@ -20,10 +20,10 @@ namespace kraEngineSDK {
     void
     createEmptyScene();
 
-    GameObject*
+    ShrdPtr<GameObject>
     createGameObject();
 
-    GameObject*
+    ShrdPtr<GameObject>
     createGameObject(String name);
 
     Scene*

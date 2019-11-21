@@ -208,12 +208,12 @@
   }
 
   void
-  UIManager::drawTransform(Transform transform)
+  UIManager::drawTransform(Transform* transform)
   {
-    static float pos[3]   = { transform.getPosition()[0], transform.getPosition()[1], transform.getPosition()[2] };
-    static float rot[3]   = { transform.getRotation()[0], transform.getRotation()[1], transform.getRotation()[2] };
-    static float scale[3] = { transform.getScale()[0],    transform.getScale()[1],    transform.getScale()[2] };
-    
+    static float pos[3]   = { transform->getPosition()[0], transform->getPosition()[1], transform->getPosition()[2] };
+    static float rot[3]   = { transform->getRotation()[0], transform->getRotation()[1], transform->getRotation()[2] };
+    static float scale[3] = { transform->getScale()[0],    transform->getScale()[1],    transform->getScale()[2] };
+                                                                    
     float oldPos[3];
     float oldRot[3];
     float oldScale[3];
@@ -221,16 +221,16 @@
     ImGui::Text("Transform");
     ImGui::InputFloat3("Position", pos);
     if (pos != oldPos) {
-      transform.setPosition(Vector3(pos[0], pos[1], pos[2]));
+      transform->setPosition(Vector3(pos[0], pos[1], pos[2]));
     }
 
     ImGui::InputFloat3("Rotation", rot);
     if (rot != oldRot) {
-      transform.setRotation(Vector3(pos[0], pos[1], pos[2]));
+      transform->setRotation(Vector3(pos[0], pos[1], pos[2]));
     }
     ImGui::InputFloat3("Scale", scale);
     if (scale != oldScale) {
-      transform.setScale(Vector3(pos[0], pos[1], pos[2]));
+      transform->setScale(Vector3(pos[0], pos[1], pos[2]));
     }
     ImGui::Separator();
   }

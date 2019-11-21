@@ -12,7 +12,7 @@ namespace kraEngineSDK {
    public:
 
      GameObject(Scene* scene, String name = "GameObject")
-     : m_scene(scene), m_name(name), m_transform(this) {}
+     : m_scene(scene), m_name(name), m_transform(nullptr){}
 
     ~GameObject() = default;
 
@@ -23,44 +23,44 @@ namespace kraEngineSDK {
     * @brief Function to initialize the Game Object
     */
     void
-    initialize();
+    initialize(const ShrdPtr<GameObject>& thisGO);
 
    /**
     * @brief Function to add a new GO to children vector 
     */
     void
-    addChild(GameObject* newChild);
+    addChild(const ShrdPtr<GameObject>& newChild);
 
     /**
      * @brief Function that sets this GO's parent
      */
     void
-    setParent(GameObject* parent);
+    setParent(const ShrdPtr<GameObject>& parent);
 
     /**
      * @brief Function that returns this GO's parent
      */
-    GameObject*
+    ShrdPtr<GameObject>
     getParent();
 
     /**
      * @brief Function that returns children vector
      */
-    Vector<GameObject*>
+    Vector<ShrdPtr<GameObject>>
     getChildren();
 
     /*
      * @brief Function to get a specific child in the children vector
      * @param the ID of the node
      */
-    GameObject*
+    ShrdPtr<GameObject>
     getChild(String name);
 
     /*
      * @brief Function to get a specific child in the children vector
      * @param the ID of the node
      */
-    GameObject*
+    ShrdPtr<GameObject>
     getChild(uint32 id);
 
     /*
@@ -101,10 +101,10 @@ namespace kraEngineSDK {
 #pragma endregion COMPONET_FUNCTIONS
     
 
-    Transform m_transform;
+    Transform* m_transform;
     Scene* m_scene;
-    GameObject* m_parent = nullptr;
-    Vector<GameObject*> m_children;
+    ShrdPtr<GameObject> m_parent = nullptr;
+    Vector<ShrdPtr<GameObject>> m_children;
     Vector<UnqPtr<Component>> m_components;
     uint32 m_id = 0;
     String m_name;

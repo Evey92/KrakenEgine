@@ -8,7 +8,7 @@ namespace kraEngineSDK {
     CLASS_DECLARATION(Collider)
 
    public:
-     Collider(GameObject* owner)
+     Collider(const ShrdPtr<GameObject>& owner)
      : Component(owner) {}
 
 

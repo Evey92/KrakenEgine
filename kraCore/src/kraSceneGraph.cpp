@@ -8,12 +8,12 @@ namespace kraEngineSDK {
   {
     m_root = SceneManager::instance().createGameObject("Root");
     m_root->setID(0);
-    m_root->initialize(); 
+    m_root->initialize(m_root);
     m_sceneNodes.push_back(m_root);
   }
 
   void
-  SceneGraph::setNode(GameObject* newNode) {
+  SceneGraph::setNode(const ShrdPtr<GameObject>& newNode) {
 
     newNode->setID(m_sceneNodes.size());
     newNode->setParent(m_root);
@@ -23,9 +23,9 @@ namespace kraEngineSDK {
   }
 
   void
-  SceneGraph::setNodeAtChildren(GameObject* newNode, String childName) {
+  SceneGraph::setNodeAtChildren(const ShrdPtr<GameObject>& newNode, String childName) {
     
-    GameObject* parent = getNode(childName);
+    ShrdPtr<GameObject> parent = getNode(childName);
 
     if (!parent)
     {
@@ -39,9 +39,9 @@ namespace kraEngineSDK {
   }
 
   void
-  SceneGraph::setNodeAtChildren(GameObject* newNode, int childID) {
+  SceneGraph::setNodeAtChildren(const ShrdPtr<GameObject>& newNode, int childID) {
     
-    GameObject* parent = getNode(childID);
+    ShrdPtr<GameObject> parent = getNode(childID);
 
     if (!parent)
     {
@@ -55,10 +55,10 @@ namespace kraEngineSDK {
   
   }
 
-  GameObject*
+  ShrdPtr<GameObject>
   SceneGraph::getNode(String nodeName) {
 
-    Vector<GameObject*>::iterator it = m_sceneNodes.begin();
+    Vector<ShrdPtr<GameObject>>::iterator it = m_sceneNodes.begin();
 
     while (it != m_sceneNodes.end())
     {
@@ -78,10 +78,10 @@ namespace kraEngineSDK {
 
   }
 
-  GameObject*
+  ShrdPtr<GameObject>
   SceneGraph::getNode(int nodeId) {
 
-    Vector<GameObject*>::iterator it = m_sceneNodes.begin();
+    Vector<ShrdPtr<GameObject>>::iterator it = m_sceneNodes.begin();
     
     while (it != m_sceneNodes.end())
     {
@@ -96,7 +96,7 @@ namespace kraEngineSDK {
 
   }
 
-  GameObject*
+  ShrdPtr<GameObject>
   SceneGraph::getRootNode()
   {
     return m_root;
@@ -107,7 +107,7 @@ namespace kraEngineSDK {
     return m_sceneNodes.size();
   }
 
-  Vector<GameObject*>
+  Vector<ShrdPtr<GameObject>>
   SceneGraph::getSceneNodes()
   {
     return m_sceneNodes;

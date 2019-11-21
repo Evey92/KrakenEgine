@@ -4,7 +4,8 @@
 namespace kraEngineSDK {
   
   
-  void Quadtree::insert(GameObject* node)
+  void 
+  Quadtree::insert(const ShrdPtr<GameObject>& node)
   {
     if (node == nullptr) {
       return;
@@ -22,7 +23,7 @@ namespace kraEngineSDK {
         kraMath::abs(topLeft.y - bottomRight.y)) {
       
       if (m_node == nullptr) {
-        m_node = make_shared<GameObject>(node);
+        m_node = node;
         return;
       }
     }
@@ -102,10 +103,38 @@ namespace kraEngineSDK {
       //Bottom Left Tree
       else {
 
+        if (bottomLeftTree == nullptr) {
+          return nullptr;
+        }
+        return bottomLeftTree->search(position);
       }
 
     }
+    else {
+      //Top Right Tree
+      if ((topLeft.y + bottomRight.y) / 2 >= position.y) {
+        if (topRightTree == nullptr) {
+          return nullptr;
+        }
+        return topRightTree->search(position);
+      }
+      //Bottom Right Tree
+      else {
+        if (bottomRightTree == nullptr) {
+          return nullptr;
+        }
+        bottomRightTree->search(position);
+      }
+    }
+  }
 
+  bool 
+  Quadtree::isInBoundary(Vector2 position)
+  {
+    return (position.x >= topLeft.x &&
+            position.x <= bottomRight.x&&
+            position.y >= topLeft.y &&
+            position.y <= bottomRight.y);
   }
 
 }

@@ -34,7 +34,8 @@ namespace kraEngineSDK {
       
       ShrdPtr<Mesh> newMesh = std::make_shared<Mesh>(pDevice, m_meshOwner);
       aiMesh& mesh = *scene->mMeshes[i];
-      
+      newMesh->initialize(pDevice);
+
       processMesh(&mesh, scene, pDevice, newMesh);
       //newMesh->initialize(pDevice);
       m_meshVec.push_back(newMesh);
@@ -214,7 +215,7 @@ namespace kraEngineSDK {
     return m_meshVec.size();
   }
 
-  Vector<ShrdPtr<Mesh>>&
+  Vector<ShrdPtr<Mesh>>
   Model::getMeshVec() {
     return m_meshVec;
   }

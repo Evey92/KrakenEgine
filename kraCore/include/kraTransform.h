@@ -11,7 +11,7 @@ namespace kraEngineSDK {
     CLASS_DECLARATION(Transform)
 
    public:
-     Transform(GameObject* owner)
+     Transform(const ShrdPtr<GameObject>& owner)
      : Component(owner) {}
 
      ~Transform() = default;

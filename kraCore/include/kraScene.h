@@ -24,15 +24,15 @@ namespace kraEngineSDK {
     initialize();
 
     void
-    Scene::addNode(GameObject* node, int id);
+    Scene::addNode(const ShrdPtr<GameObject>& node, int id);
     
     void
-    addNewNode(GameObject* GO);
+    addNewNode(const ShrdPtr<GameObject>& GO);
 
-    GameObject*
+    ShrdPtr<GameObject>
     createGameObject();
 
-    GameObject*
+    ShrdPtr<GameObject>
     createGameObject(String name);
 
 #pragma endregion PUBLIC_METHODS

@@ -13,7 +13,7 @@ namespace kraEngineSDK {
 
   public:
 
-    Camera(GameObject* owner)
+    Camera(const ShrdPtr<GameObject>& owner)
     : Component(owner) {}
 
     ~Camera() = default;

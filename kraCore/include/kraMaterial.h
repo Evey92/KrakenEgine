@@ -17,7 +17,7 @@ namespace kraEngineSDK {
 
    public:
     
-     Material(GameObject* owner)
+     Material(ShrdPtr<GameObject> owner)
        : Component(owner) {}
 
     ~Material() = default;

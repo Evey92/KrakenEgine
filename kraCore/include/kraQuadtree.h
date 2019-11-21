@@ -1,13 +1,13 @@
 #pragma once
 
-#include "kraPrerequisitesUtil.h"
+#include "kraPrerequisitesCore.h"
 #include "kraVector4.h"
 #include "kraVector2.h"
 
 namespace kraEngineSDK {
   class GameObject;
 
-  class KRA_UTILITY_EXPORT Quadtree
+  class KRA_CORE_EXPORT Quadtree
   {
     
    public:
@@ -19,7 +19,7 @@ namespace kraEngineSDK {
      ~Quadtree() = default;
     
      void 
-     insert(GameObject* node);
+     insert(const ShrdPtr<GameObject>& node);
     
      ShrdPtr<GameObject>
      search(Vector2 position);

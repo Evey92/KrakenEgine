@@ -25,7 +25,7 @@ namespace kraEngineSDK {
 
    public:
 
-     Model(GameObject* owner) : m_meshOwner(owner) {}
+     Model(const ShrdPtr<GameObject>& owner) : m_meshOwner(owner) {}
      ~Model() = default;
 
 
@@ -44,7 +44,7 @@ namespace kraEngineSDK {
     SIZE_T
     getMeshVecSize();
     
-    Vector<ShrdPtr<Mesh>>&
+    Vector<ShrdPtr<Mesh>>
     getMeshVec();
     
     Mesh&
@@ -62,7 +62,7 @@ namespace kraEngineSDK {
 
    private:
     
-    GameObject* m_meshOwner;
+    ShrdPtr<GameObject> m_meshOwner;
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
     Vector<ShrdPtr<Mesh>> m_meshVec;

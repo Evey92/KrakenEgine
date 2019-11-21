@@ -3,40 +3,41 @@
 namespace kraEngineSDK {
   
   void 
-  GameObject::initialize()
+  GameObject::initialize(const ShrdPtr<GameObject>& thisGO)
   {
-    addComponent<Transform>(this);
+    addComponent<Transform>(thisGO);
+    m_transform = &getComponent<Transform>();
   }
 
   void 
-  GameObject::addChild(GameObject* newChild)
+  GameObject::addChild(const ShrdPtr<GameObject>& newChild)
   {
     m_children.push_back(newChild);
   }
 
 
   void 
-  GameObject::setParent(GameObject* parent)
+  GameObject::setParent(const ShrdPtr<GameObject>& parent)
   {
     m_parent = parent;
   }
 
-  GameObject* 
+  ShrdPtr<GameObject>
   GameObject::getParent()
   {
     return m_parent;
   }
 
-  Vector<GameObject*> 
+  Vector<ShrdPtr<GameObject>>
   GameObject::getChildren()
   {
     return m_children;
   }
 
-  GameObject* 
+  ShrdPtr<GameObject>
   GameObject::getChild(String name)
   {
-    for (auto* child : m_children)
+    for (auto& child : m_children)
     {
       if (child->m_name == name)
       {
@@ -47,10 +48,10 @@ namespace kraEngineSDK {
     return nullptr;
   }
 
-  GameObject* 
+  ShrdPtr<GameObject>
   GameObject::getChild(uint32 id)
   {
-    for (auto* child : m_children)
+    for (auto& child : m_children)
     {
       if (child->m_id == id)
       {

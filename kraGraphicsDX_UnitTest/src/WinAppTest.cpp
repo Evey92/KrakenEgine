@@ -340,7 +340,7 @@ WinApp::render()
   m_backBufferRTV->setRenderTarget(*m_gfxDevice, 1);
 
   //Render Skybox
-  if (m_skyBoxModel != nullptr) {
+  if (m_skyBoxGO != nullptr) {
   drawSkybox();
   }
 
@@ -413,7 +413,8 @@ WinApp::loadModel()
     String name = filename.substr(firstPos + 1.0f, lastPos - firstPos - 1.0f);
 
     //Empty GameObject that holds all the meshes.
-    GameObject* newModelGO = SceneManager::instance().createGameObject(name);
+    ShrdPtr<GameObject> newModelGO = SceneManager::instance().createGameObject(name);
+    newModelGO->initialize(newModelGO);
     Model newModel(newModelGO);
     SceneManager::instance().getActiveScene()->addNewNode(newModelGO);
 
@@ -421,18 +422,19 @@ WinApp::loadModel()
     
     for (auto& mesh : newModel.getMeshVec()) {
       
-      GameObject* newMeshGO = SceneManager::instance().createGameObject(mesh->getName());
-      mesh->setOwner(newMeshGO);
+      ShrdPtr<GameObject> newMeshGO = SceneManager::instance().createGameObject(mesh->getName());
+      newMeshGO->initialize(newMeshGO);
       newMeshGO->addComponent<Mesh>(*mesh);
       newMeshGO->getComponent<Mesh>().initialize(*m_gfxDevice);      
       newModelGO->addChild(newMeshGO);
       setGoldMaterial(newMeshGO->getComponent<Mesh>());
 
       mesh = make_shared<Mesh>(newMeshGO->getComponent<Mesh>());
+      m_modelsVector.push_back(newMeshGO);
 
     }
+
     //I need to fix this mess
-    m_modelsVector.push_back(make_shared<GameObject>(newModel));
   }
 
 
@@ -544,21 +546,19 @@ WinApp::localRenderSetup()
   m_skyboxInputLayout->createInputLayout(*m_gfxDevice, *m_skyboxVS);
 
   //This one is specially disgusting
-  GameObject* skyGO = SceneManager::instance().createGameObject("Skybox");
-  m_skyBoxModel = make_shared<Model>(skyGO);
-
-  if (m_skyBoxModel->loadModelFromFile("resources/Models/skybox.obj",
+  /*Model* skyModel = new Model(m_skyBoxGO);
+  if (skyModel->loadModelFromFile("resources/Models/skybox.obj",
                                  *m_gfxDevice)) {
 
-    skyGO->addComponent<Mesh>(*m_skyBoxModel->getMeshVec()[0]);
-    skyGO->getComponent<Mesh>().initialize(*m_gfxDevice);
-    //m_skyBoxModel->getMeshVec()[0]->setTexture(m_gfxDevice, TEXTURE_TYPE::E::ALBEDO, m_enviroMap);
+    m_skyBoxGO->addComponent<Mesh>(*skyModel->getMeshVec()[0]);
+    m_skyBoxGO->getComponent<Mesh>().initialize(*m_gfxDevice);
+    m_skyBoxGO->getComponent<Material>().setAlbedoTex(*m_gfxDevice, m_enviroMap);
 
   }
   else {
     MessageBox(m_window->gethWnd(), "Skybox model couldn't be loaded", "ERROR", MB_OK | MB_ICONWARNING);
-    m_skyBoxModel = nullptr;
-  }
+    m_skyBoxGO = nullptr;
+  }*/
 
   
 
@@ -647,7 +647,7 @@ WinApp::setUpIBL()
   m_specMapCS->setComputeShader(*m_gfxDevice);
 
   //Filtering the rest of the mip levels
-  const float deltaRoughness = 1.0 / kraMath::fmax(m_enviroMap->getLevels() - 1.0f, 1.0f);
+  const float deltaRoughness = 1.0f / kraMath::fmax(m_enviroMap->getLevels() - 1.0f, 1.0f);
   Vector4 roughness = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
 
   for (uint32 level = 1, size = 512; level < m_enviroMap->getLevels(); ++level, size/2) {
@@ -694,7 +694,7 @@ void WinApp::setUpIrradianceMap()
                                6);
   m_irradMap->setComputeNullUAV(*m_gfxDevice);
 
-  m_skyBoxModel->m_meshOwner->getComponent<Mesh>().setTexture(m_gfxDevice, TEXTURE_TYPE::E::ALBEDO, m_enviroMap);
+  //m_skyBoxGO->getComponent<Mesh>().setTexture(m_gfxDevice, TEXTURE_TYPE::E::ALBEDO, m_enviroMap);
 
 }
 
@@ -733,7 +733,7 @@ WinApp::drawSkybox()
   //m_enviroMap->setTextureShaderResource(m_gfxDevice, 0, 1);
   m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
   m_skyboxDepthStencil->setDepthStencilState(*m_gfxDevice);
-  m_skyBoxModel->Draw(m_gfxDevice);
+  m_skyBoxGO->getComponent<Mesh>().DrawMesh(m_gfxDevice);
 }
 
 void 
@@ -751,7 +751,7 @@ WinApp::drawPBRModels()
   m_BRDFLUT->setTextureShaderResource(m_gfxDevice, 6, 1);
 
   for (uint32 i = 0; i < m_modelsVector.size(); ++i) {
-    m_modelsVector[i]->Draw(m_gfxDevice);
+    m_modelsVector[i]->getComponent<Mesh>().DrawMesh(m_gfxDevice);
   }
 }
 

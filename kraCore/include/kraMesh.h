@@ -17,7 +17,7 @@ namespace kraEngineSDK {
 
    public:
 
-     Mesh(Device& pDevice, GameObject* owner);
+     Mesh(Device& pDevice, const ShrdPtr<GameObject>& owner);
 
     ~Mesh() {}
 
@@ -41,10 +41,25 @@ namespace kraEngineSDK {
     getTextures();
 
     void
-    setTexture(Device* pDevice, TEXTURE_TYPE::E texType, ShrdPtr<Texture> newTex);
+    setTexture(Device* pDevice, TEXTURE_TYPE::E texType, const ShrdPtr<Texture>& newTex);
 
     void
     setMeshMaterial(Device* pDevice, Material* mat);
+
+    void
+    setMaterialAlbedo(Device* pDevice, const ShrdPtr<Texture>& newTex);
+
+    void
+    setMaterialNormal(ShrdPtr<Texture>& newTex);
+
+    void
+    setMaterialMetallic(ShrdPtr<Texture>& newTex);
+
+    void
+    setMaterialRoughness(ShrdPtr<Texture>& newTex);
+
+    void
+    setMaterialEmissive(ShrdPtr<Texture>& newTex);
 
     ShrdPtr<Texture>
     getTexture(TEXTURE_TYPE::E texType);
@@ -56,7 +71,7 @@ namespace kraEngineSDK {
     getName();
   
    private:
-   ShrdPtr<Material> m_material = nullptr;
+    ShrdPtr<Material> m_material = nullptr;
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
     Vector<ShrdPtr<Texture>> m_meshTextures;

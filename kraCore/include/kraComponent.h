@@ -22,7 +22,7 @@ namespace kraEngineSDK {
   {
 
    public:
-     Component(GameObject* owner)
+     Component(ShrdPtr<GameObject> owner)
      : m_owner(owner) {}
 
     virtual ~Component() = default; 
@@ -30,16 +30,16 @@ namespace kraEngineSDK {
     virtual bool
     isOfType(const std::size_t classType) const;
 
-    GameObject*
+    ShrdPtr<GameObject>
     getOwner();
 
     void
-    setOwner(GameObject* newOwner);
+    setOwner(const ShrdPtr<GameObject>& newOwner);
 
     static const std::size_t Type;
    
    protected:
-     GameObject* m_owner = nullptr;
+     ShrdPtr<GameObject> m_owner = nullptr;
 
   };
 }
