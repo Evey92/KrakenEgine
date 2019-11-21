@@ -190,7 +190,7 @@ class WinApp :
 
 
  private:
-   Vector<ShrdPtr<Model>> m_modelsVector;
+   Vector<ShrdPtr<GameObject>> m_modelsVector;
    ShrdPtr<Model> m_skyBoxModel;
    ShrdPtr<RenderTargetView> m_backBufferRTV = nullptr;
    ShrdPtr<Texture> m_equirectHDRTexture = nullptr;

@@ -209,6 +209,7 @@
     <ClInclude Include="include\kraModel.h" />
     <ClInclude Include="include\kraPixelShader.h" />
     <ClInclude Include="include\kraPrerequisitesCore.h" />
+    <ClInclude Include="include\kraQuadtree.h" />
     <ClInclude Include="include\kraRasterizerState.h" />
     <ClInclude Include="include\kraRenderPipelineManager.h" />
     <ClInclude Include="include\kraRenderTargetView.h" />
@@ -239,6 +240,7 @@
     <ClCompile Include="src\kraGameObject.cpp" />
     <ClCompile Include="src\kraMaterial.cpp" />
     <ClCompile Include="src\kraModel.cpp" />
+    <ClCompile Include="src\kraQuadtree.cpp" />
     <ClCompile Include="src\kraScene.cpp" />
     <ClCompile Include="src\kraSceneGraph.cpp" />
     <ClCompile Include="src\kraSceneManager.cpp" />

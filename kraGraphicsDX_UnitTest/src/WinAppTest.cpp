@@ -432,7 +432,7 @@ WinApp::loadModel()
 
     }
     //I need to fix this mess
-    m_modelsVector.push_back(make_shared<Model>(newModel));
+    m_modelsVector.push_back(make_shared<GameObject>(newModel));
   }
 
 
