@@ -6,13 +6,14 @@
 #include "kraPrerequisitesCore.h"
 #include "kraDevice.h"
 #include "kraTexture.h"
+#include "kraSceneManager.h"
 #include "kraGameObject.h"
 
 namespace kraEngineSDK {
 
 
   bool
-  Model::loadModelFromFile(const String& fileName, Device& pDevice) {
+  Model::loadModelFromFile(const String& fileName, Device& pDevice, const ShrdPtr<SceneManager>& sceneM) {
 
     Assimp::Importer aImporter;
 
@@ -27,18 +28,18 @@ namespace kraEngineSDK {
       std::cout << "ERROR::ASSIMP:: " << aImporter.GetErrorString() << std::endl;
       return false;
     }
-
-    //processNode(scene->mRootNode, scene, pDevice);
  
     for (uint32 i = 0; i < scene->mNumMeshes; ++i) {
-      
-      ShrdPtr<Mesh> newMesh = std::make_shared<Mesh>(pDevice, m_meshOwner);
       aiMesh& mesh = *scene->mMeshes[i];
+      ShrdPtr<GameObject> meshGO = sceneM->createGameObject(mesh.mName.C_Str());
+      ShrdPtr<Mesh> newMesh = std::make_shared<Mesh>(pDevice, meshGO);
       newMesh->initialize(pDevice);
 
       processMesh(&mesh, scene, pDevice, newMesh);
-      //newMesh->initialize(pDevice);
-      m_meshVec.push_back(newMesh);
+
+      meshGO->addComponent<Mesh>(*newMesh);
+
+      m_meshVec.push_back(meshGO);
     
     }
 
@@ -94,7 +95,8 @@ namespace kraEngineSDK {
     return false;
   }
 
-  void
+  //Deprecated
+  /*void
   Model::processNode(aiNode* rootNode, const aiScene* pScene, Device& pDevice) {
     Mesh* newMesh = nullptr;
 
@@ -102,8 +104,8 @@ namespace kraEngineSDK {
       aiMesh* mesh = pScene->mMeshes[rootNode->mMeshes[i]];
       
 
-      /*newMesh = processMesh(mesh, pScene, pDevice);
-      newMesh->initialize(pDevice);*/
+      //newMesh = processMesh(mesh, pScene, pDevice);
+      //newMesh->initialize(pDevice);
      // m_meshVec.push_back(newMesh);
     }
 
@@ -111,13 +113,14 @@ namespace kraEngineSDK {
       processNode(rootNode->mChildren[i], pScene, pDevice);
     }
 
-  }
+  }*/
 
-  //Deprecated. Inefficient and takes too long to load even Vela
   bool
   Model::processMesh(aiMesh* pMesh, const aiScene* scene, Device& pDevice, ShrdPtr<Mesh>& outMesh) {
 
     outMesh->setName(pMesh->mName.C_Str());
+    outMesh->setTotalVert(pMesh->mNumVertices);
+    outMesh->setTotalIndex(pMesh->mNumFaces);
 
     for (uint32 i = 0; i < pMesh->mNumVertices; ++i)
     {
@@ -215,14 +218,14 @@ namespace kraEngineSDK {
     return m_meshVec.size();
   }
 
-  Vector<ShrdPtr<Mesh>>
+  Vector<ShrdPtr<GameObject>>
   Model::getMeshVec() {
     return m_meshVec;
   }
 
-  Mesh&
-    Model::getMeshVecObjbyIndex(uint32 index) const {
-    return *m_meshVec[index];
+  ShrdPtr<GameObject>
+  Model::getMeshVecObjbyIndex(uint32 index) {
+    return m_meshVec[index];
   }
 
   void
@@ -230,7 +233,7 @@ namespace kraEngineSDK {
 
     for (uint32 i = 0; i < m_meshVec.size(); i++)
     {
-      m_meshVec[i]->DrawMesh(pDevice);
+      m_meshVec[i]->getComponent<Mesh>().DrawMesh(pDevice);
     }
   }
 
@@ -271,7 +274,7 @@ namespace kraEngineSDK {
   Model::setAllMeshMaterials(Device* pDevice, Material* mat)
   {
     for (auto& mesh : m_meshVec) {
-      mesh->setMeshMaterial(pDevice, mat);
+      mesh->getComponent<Mesh>().setMeshMaterial(pDevice, mat);
     }
   }
 

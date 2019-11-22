@@ -174,6 +174,8 @@ WinApp::Initialize()
   //Start up Scene manager module
   SceneManager::StartUp<SceneManager>();
   
+  m_sceneManager.reset(SceneManager::instancePtr());
+
   //Start up UI Module
   if(!UIManager::instance().initUI(reinterpret_cast<void*>(m_window->m_hWnd),
                                    m_gfxDevice->getDevice(),
@@ -265,7 +267,7 @@ WinApp::preUpdate()
 void 
 WinApp::update()
 {
-  UIManager::instance().updateUI(SceneManager::instance().getActiveScene());
+  UIManager::instance().updateUI(m_sceneManager->getActiveScene());
 }
 
 void 
@@ -413,32 +415,19 @@ WinApp::loadModel()
     String name = filename.substr(firstPos + 1.0f, lastPos - firstPos - 1.0f);
 
     //Empty GameObject that holds all the meshes.
-    ShrdPtr<GameObject> newModelGO = SceneManager::instance().createGameObject(name);
-    newModelGO->initialize(newModelGO);
+    ShrdPtr<GameObject> newModelGO = m_sceneManager->createGameObject(name);
     Model newModel(newModelGO);
-    SceneManager::instance().getActiveScene()->addNewNode(newModelGO);
+    m_sceneManager->getActiveScene()->addNewNode(newModelGO);
 
-    newModel.loadModelFromFile(filename, *m_gfxDevice);
+    newModel.loadModelFromFile(filename, *m_gfxDevice, m_sceneManager);
     
-    for (auto& mesh : newModel.getMeshVec()) {
-      
-      ShrdPtr<GameObject> newMeshGO = SceneManager::instance().createGameObject(mesh->getName());
-      newMeshGO->initialize(newMeshGO);
-      newMeshGO->addComponent<Mesh>(*mesh);
-      newMeshGO->getComponent<Mesh>().initialize(*m_gfxDevice);      
-      newModelGO->addChild(newMeshGO);
-      setGoldMaterial(newMeshGO->getComponent<Mesh>());
-
-      mesh = make_shared<Mesh>(newMeshGO->getComponent<Mesh>());
-      m_modelsVector.push_back(newMeshGO);
+    for (auto& meshGO : newModel.getMeshVec()) {       
+      newModelGO->addChild(meshGO); 
+      //setGoldMaterial(newMeshGO->getComponent<Mesh>())
+      m_modelsVector.push_back(meshGO);
 
     }
-
-    //I need to fix this mess
   }
-
-
-
   return true;
 }
 
@@ -448,7 +437,13 @@ WinApp::loadTexture()
   String filetypes("PNG Files\0*.png\0JPG Files\0*.jpg\0Any File\0*.*\0");
   
   String filename = EngineUtility::loadFile(filetypes, m_window->gethWnd());
-  //m_textureManager->createTexture2D();
+  ShrdPtr<Texture> newTex = m_gfxDevice->createTextureInstance();
+
+  newTex->createTexture2DFromFile(*m_gfxDevice,
+                                  filename,
+                                  GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM,
+                                  GFX_USAGE::E::kUSAGE_DEFAULT,
+                                  CPU_USAGE::E::kCPU_ACCESS_WRITE);
   return true;
 }
 
@@ -457,14 +452,6 @@ WinApp::CleanupDevice()
 {
   //do cleanup
 }
-
-//void WinApp::localRenderInit()
-//{
-//
-//  m_BRDFLUT->createTexture2D(m_gfxDevice, 256, 256, GFX_FORMAT::E::kFORMAT_R16G16_FLOAT, GFX_USAGE::E::kUSAGE_DEFAULT, 1);
-// 
-//
-//}
 
 void 
 WinApp::localRenderSetup()
@@ -546,19 +533,18 @@ WinApp::localRenderSetup()
   m_skyboxInputLayout->createInputLayout(*m_gfxDevice, *m_skyboxVS);
 
   //This one is specially disgusting
-  /*Model* skyModel = new Model(m_skyBoxGO);
+  //m_skyBoxGO = m_sceneManager->createGameObject("Skybox");
+  Model* skyModel = new Model(m_skyBoxGO);
   if (skyModel->loadModelFromFile("resources/Models/skybox.obj",
-                                 *m_gfxDevice)) {
-
-    m_skyBoxGO->addComponent<Mesh>(*skyModel->getMeshVec()[0]);
-    m_skyBoxGO->getComponent<Mesh>().initialize(*m_gfxDevice);
+                                 *m_gfxDevice, m_sceneManager)) {
+    m_skyBoxGO = skyModel->getMeshVec()[0];
     m_skyBoxGO->getComponent<Material>().setAlbedoTex(*m_gfxDevice, m_enviroMap);
 
   }
   else {
     MessageBox(m_window->gethWnd(), "Skybox model couldn't be loaded", "ERROR", MB_OK | MB_ICONWARNING);
     m_skyBoxGO = nullptr;
-  }*/
+  }
 
   
 
@@ -694,7 +680,7 @@ void WinApp::setUpIrradianceMap()
                                6);
   m_irradMap->setComputeNullUAV(*m_gfxDevice);
 
-  //m_skyBoxGO->getComponent<Mesh>().setTexture(m_gfxDevice, TEXTURE_TYPE::E::ALBEDO, m_enviroMap);
+  m_skyBoxGO->getComponent<Mesh>().setTexture(m_gfxDevice, TEXTURE_TYPE::E::ALBEDO, m_enviroMap);
 
 }
 
@@ -751,7 +737,9 @@ WinApp::drawPBRModels()
   m_BRDFLUT->setTextureShaderResource(m_gfxDevice, 6, 1);
 
   for (uint32 i = 0; i < m_modelsVector.size(); ++i) {
+    
     m_modelsVector[i]->getComponent<Mesh>().DrawMesh(m_gfxDevice);
+    
   }
 }
 

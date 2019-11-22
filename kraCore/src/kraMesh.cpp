@@ -20,10 +20,8 @@ namespace kraEngineSDK {
   Mesh::initialize(Device& pDevice)
   {
     m_owner->addComponent<Material>(m_owner);
-    m_material = make_shared<Material>(m_owner->getComponent<Material>());
-    
+    m_material.reset(&m_owner->getComponent<Material>());
     m_material->initialize(pDevice);
-    m_owner->getComponent<Material>().initialize(pDevice);
   }
 
   void
@@ -41,27 +39,22 @@ namespace kraEngineSDK {
     
     //TODO: Fix this horrible mess. It's probably something stupid simple that I'm too tired to see
 
-    //m_material->getAlbedoTex()->setTextureShaderResource(pDevice, 0, 1);
-    m_owner->getComponent<Material>().getAlbedoTex()->setTextureShaderResource(pDevice, 0, 1);
-
+    m_material->getAlbedoTex()->setTextureShaderResource(pDevice, 0, 1);
     if (m_material->getNormalTex() != nullptr)
     {
-      //m_material->getNormalTex()->setTextureShaderResource(pDevice, 1, 1);
-      m_owner->getComponent<Material>().getNormalTex()->setTextureShaderResource(pDevice, 0, 1);
+      m_material->getNormalTex()->setTextureShaderResource(pDevice, 1, 1);
     }
     
     if (m_material->getMetalTex() != nullptr)
     {
-      //m_material->getMetalTex()->setTextureShaderResource(pDevice, 2, 1);
-      m_owner->getComponent<Material>().getMetalTex()->setTextureShaderResource(pDevice, 0, 1);
-
+      m_material->getMetalTex()->setTextureShaderResource(pDevice, 2, 1);
+      
     }
     
     if (m_material->getRoughnessTex() != nullptr)
     {
-      //m_material->getRoughnessTex()->setTextureShaderResource(pDevice, 3, 1);
-      m_owner->getComponent<Material>().getRoughnessTex()->setTextureShaderResource(pDevice, 0, 1);
-
+      m_material->getRoughnessTex()->setTextureShaderResource(pDevice, 3, 1);
+      
     }
 
     pDevice->DrawIndexed(m_indexBuffer->getBufferSize(), 0, 0);
@@ -118,10 +111,12 @@ namespace kraEngineSDK {
   void 
   Mesh::setMeshMaterial(Device* pDevice, Material* mat)
   {
-    m_material->setAlbedoTex(*pDevice, mat->getAlbedoTex());
-    m_material->setNormalTex(*pDevice, mat->getNormalTex());
-    m_material->setMetalTex(*pDevice, mat->getMetalTex());
-    m_material->setRoughnessTex(*pDevice, mat->getRoughnessTex());
+    Material compMat = m_owner->getComponent<Material>();
+
+    compMat.setAlbedoTex(*pDevice, mat->getAlbedoTex());
+    compMat.setNormalTex(*pDevice, mat->getNormalTex());
+    compMat.setMetalTex(*pDevice, mat->getMetalTex());
+    compMat.setRoughnessTex(*pDevice, mat->getRoughnessTex());
 
   }
 
@@ -132,18 +127,20 @@ namespace kraEngineSDK {
 
   ShrdPtr<Texture>
   Mesh::getTexture(TEXTURE_TYPE::E texType) {
+
+    Material mat = m_owner->getComponent<Material>();
     
     if (texType == TEXTURE_TYPE::E::ALBEDO)
     {
-      return m_material->getAlbedoTex();
+      return mat.getAlbedoTex();
     }
     else if (texType == TEXTURE_TYPE::E::NORMAL)
     {
-      return m_material->getNormalTex();
+      return mat.getNormalTex();
     }
     else if (texType == TEXTURE_TYPE::E::METALNESS)
     {
-      return m_material->getMetalTex();
+      return mat.getMetalTex();
     }
     else if (texType == TEXTURE_TYPE::E::ROUGHNESS)
     {

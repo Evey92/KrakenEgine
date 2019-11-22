@@ -5,7 +5,8 @@
 
 namespace kraEngineSDK {                                                  
 
-  namespace GOComponentTypes {
+  //Dprecated
+  /*namespace GOComponentTypes {
     enum E
     {
       DEFAULT = 0,
@@ -14,7 +15,7 @@ namespace kraEngineSDK {
       COLLIDER,
 
     };
-  }
+  }*/
 
   class GameObject;
 

@@ -42,7 +42,7 @@ using namespace kraEngineSDK;
 #pragma region COMPONENT_UI
 
     void
-    drawTransform(Transform* transform);
+    drawTransform(Transform& transform);
 
     void
     drawCamera(Camera& cam);

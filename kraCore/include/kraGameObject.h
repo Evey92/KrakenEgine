@@ -11,9 +11,10 @@ namespace kraEngineSDK {
   {
    public:
 
-     GameObject(Scene* scene, String name = "GameObject")
-     : m_scene(scene), m_name(name), m_transform(nullptr){}
+     /*GameObject(Scene* scene, String name = "GameObject")
+     : m_scene(scene), m_name(name), m_transform(nullptr){}*/
 
+     GameObject() = default;
     ~GameObject() = default;
 
     GameObject(const GameObject&) = delete;
@@ -23,7 +24,7 @@ namespace kraEngineSDK {
     * @brief Function to initialize the Game Object
     */
     void
-    initialize(const ShrdPtr<GameObject>& thisGO);
+    initialize(const ShrdPtr<GameObject>& thisGO, Scene* scene, String name = "GameObject");
 
    /**
     * @brief Function to add a new GO to children vector 
@@ -101,7 +102,7 @@ namespace kraEngineSDK {
 #pragma endregion COMPONET_FUNCTIONS
     
 
-    Transform* m_transform;
+    Transform* m_transform = nullptr;
     Scene* m_scene;
     ShrdPtr<GameObject> m_parent = nullptr;
     Vector<ShrdPtr<GameObject>> m_children;

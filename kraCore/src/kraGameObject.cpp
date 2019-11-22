@@ -3,10 +3,11 @@
 namespace kraEngineSDK {
   
   void 
-  GameObject::initialize(const ShrdPtr<GameObject>& thisGO)
+  GameObject::initialize(const ShrdPtr<GameObject>& thisGO, Scene* scene, String name)
   {
-    addComponent<Transform>(thisGO);
-    m_transform = &getComponent<Transform>();
+    m_name = name;
+    m_scene = scene;
+    m_transform = &this->getComponent<Transform>();
   }
 
   void 

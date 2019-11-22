@@ -18,6 +18,7 @@ namespace kraEngineSDK {
   class Vector2;
   class Vector3;
   class GameObject;
+  class SceneManager;
 
   class KRA_CORE_EXPORT Model 
   {
@@ -30,7 +31,7 @@ namespace kraEngineSDK {
 
 
     bool 
-    loadModelFromFile(const String& fileName, Device& pDevice);
+    loadModelFromFile(const String& fileName, Device& pDevice, const ShrdPtr<SceneManager>&);
     
     bool
     loadMaterialTextures(Device& pDevice, Texture& texture, aiMaterial * mat, aiTextureType type, String typeName, const aiScene * scene);
@@ -44,11 +45,11 @@ namespace kraEngineSDK {
     SIZE_T
     getMeshVecSize();
     
-    Vector<ShrdPtr<Mesh>>
+    Vector<ShrdPtr<GameObject>>
     getMeshVec();
     
-    Mesh&
-    getMeshVecObjbyIndex(uint32 index) const;
+    ShrdPtr<GameObject>
+    getMeshVecObjbyIndex(uint32 index);
     
     void
     Draw(Device* pDevice);
@@ -65,7 +66,7 @@ namespace kraEngineSDK {
     ShrdPtr<GameObject> m_meshOwner;
     IndexBuffer* m_indexBuffer = nullptr;
     VertexBuffer* m_vertexBurffer = nullptr;
-    Vector<ShrdPtr<Mesh>> m_meshVec;
+    Vector<ShrdPtr<GameObject>> m_meshVec;
     Vector<aiMaterial*> m_materialsVec;
     uint32 m_currentMesh = 0;
     uint32 m_currentMat = 0;

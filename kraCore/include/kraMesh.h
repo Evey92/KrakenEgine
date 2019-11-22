@@ -70,6 +70,18 @@ namespace kraEngineSDK {
     String
     getName();
   
+    uint64
+    getTotalIndex() { return m_totalIndex; }
+
+    void
+    setTotalIndex(uint64 indexes) { m_totalIndex = indexes; }
+
+    uint64
+    getTotalVert() { return m_totalVert; }
+
+    void
+    setTotalVert(uint64 vertex) { m_totalVert = vertex; }
+
    private:
     ShrdPtr<Material> m_material = nullptr;
     IndexBuffer* m_indexBuffer = nullptr;

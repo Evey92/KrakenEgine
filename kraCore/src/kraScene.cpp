@@ -19,7 +19,7 @@ namespace kraEngineSDK {
 
     CameraManager::instance().registerCamera(&newGO->getComponent<Camera>());
     CameraManager::instance().setActiveCamera(&newGO->getComponent<Camera>());
-    ShrdPtr<GameObject> newEmptyGO = createGameObject();
+    ShrdPtr<GameObject> newEmptyGO = SceneManager::instance().createGameObject();
     m_sceneGraph->setNode(newEmptyGO);
 
   }
@@ -37,12 +37,12 @@ namespace kraEngineSDK {
     m_nodes = m_sceneGraph->getNodesSize();
   }
 
-  ShrdPtr<GameObject>
+  /*ShrdPtr<GameObject>
   Scene::createGameObject()
   {
     SceneNode* newNode = new SceneNode();
     ShrdPtr<GameObject> newGO = make_shared<GameObject>(this);
-    newGO->initialize(newGO);
+    newGO->initialize(newGO, );
     return newGO;
   }
 
@@ -53,7 +53,7 @@ namespace kraEngineSDK {
     ShrdPtr<GameObject> newGO = make_shared<GameObject>(this, name);
     newGO->initialize(newGO);
     return newGO;
-  }
+  }*/
 
 
 }
