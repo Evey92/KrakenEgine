@@ -275,9 +275,6 @@
 
     /* 
      TODO: Show material properties:
-     -Show Color Texture
-     -Show normal texture
-     -Show Metallic Texture
      -Show Roughness Texture
      -Show Emissive texture
      -Show AO Texture
@@ -290,6 +287,7 @@
     static float metallic = mat.m_metallic;
     static float rough = mat.m_roughness;
 
+    ImGui::Text("Albedo Texture");
     ImGui::Image(mat.getAlbedoTex()->getShaderResourceView(),
                  ImVec2(100, 100),
                  ImVec2(0, 0),
@@ -297,6 +295,7 @@
                  ImVec4(1.0f, 1.0f, 1.0f, 1.0f),
                  ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
 
+    ImGui::Text("Normal Texture");
     ImGui::Image(mat.getNormalTex()->getShaderResourceView(),
                  ImVec2(100, 100),
                  ImVec2(0, 0),
@@ -304,6 +303,7 @@
                  ImVec4(1.0f, 1.0f, 1.0f, 1.0f),
                  ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
 
+    ImGui::Text("Metalness Texture");
     ImGui::Image(mat.getMetalTex()->getShaderResourceView(),
                  ImVec2(100, 100),
                  ImVec2(0, 0),
