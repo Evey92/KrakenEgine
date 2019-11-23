@@ -22,7 +22,7 @@ namespace kraEngineSDK {
     sampDesc.AddressV = static_cast<D3D11_TEXTURE_ADDRESS_MODE>(addressMode);
     sampDesc.AddressW = static_cast<D3D11_TEXTURE_ADDRESS_MODE>(addressMode);
     sampDesc.MaxAnisotropy = (filter == SAMPLER_FILTER::E::kFILTER_ANISOTROPIC) ? D3D11_REQ_MAXANISOTROPY : 1;
-    sampDesc.ComparisonFunc = static_cast<D3D11_COMPARISON_FUNC>(compareFunction);
+    /*sampDesc.ComparisonFunc = static_cast<D3D11_COMPARISON_FUNC>(compareFunction);*/
     sampDesc.MinLOD = 0;
     sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 

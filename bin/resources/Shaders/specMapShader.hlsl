@@ -5,7 +5,7 @@ static const float invSamples = 1.0 / float(samples);
 
 cbuffer specSettings : register(b0)
 {
-    float4 roughness;
+    float roughness;
 }
 
 TextureCube cubeTex : register(t0);
@@ -127,7 +127,7 @@ void main(uint3 ThreadID : SV_DispatchThreadID)
 
 			// GGX normal distribution function (D term) probability density function.
 			// Scaling by 1/4 is due to change of density in terms of Lh to Li (and since N=V, rest of the scaling factor cancels out).
-            float pdf = ndfGGX(cosLh, roughness.x) * 0.25;
+            float pdf = ndfGGX(cosLh, roughness) * 0.25;
 
 			// Solid angle associated with this sample.
             float ws = 1.0 / (samples * pdf);

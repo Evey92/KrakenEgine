@@ -22,6 +22,7 @@ struct VS_INPUT
    float3 Normal   : NORMAL;
    float3 Tangent  : TANGENT;
    float3 BiNormal : BINORMAL;
+   float3 vertColor : COLOR;
 
 };
 
@@ -31,6 +32,7 @@ struct PS_INPUT
     float3 Position      : POSITION;
     float2 TexCoord      : TEXCOORD0;
     float3x3 TBN         : TEXCOORD1;
+    float3 vertColor      : COLOR;
 };
 
 Texture2D texAlbedo    : register(t0);
@@ -100,6 +102,8 @@ PS_INPUT VS(VS_INPUT Input)
     float3x3 TBN = float3x3(Input.Tangent, Input.BiNormal, Input.Normal);
     Output.TBN = mul(transpose(TBN), (float3x3) World);
 
+    Output.vertColor = Input.vertColor;
+
     return Output;
 }
 
@@ -107,7 +111,7 @@ float4 PS(PS_INPUT Input) : SV_Target
 {
 
     // Sample input textures to get shading model params.
-    float3 albedo = pow(texAlbedo.Sample(samLinear, Input.TexCoord).rgb, 2.2f);
+    float3 albedo = texAlbedo.Sample(samLinear, Input.TexCoord).rgb;
     float metalness = texMetalness.Sample(samLinear, Input.TexCoord).r;
     float roughness = texRoughness.Sample(samLinear, Input.TexCoord).r;
 

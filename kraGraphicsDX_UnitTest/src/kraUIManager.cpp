@@ -283,24 +283,43 @@
      -Show AO Texture
      */
 
-    uint32 width = mat.getAlbedoTex()->getWidth();
-    uint32 height = mat.getAlbedoTex()->getHeight();
+    static uint32 width = mat.getAlbedoTex()->getWidth();
+    static uint32 height = mat.getAlbedoTex()->getHeight();
+
+    static Vector4 baseColor = mat.m_baseColor;
+    static float metallic = mat.m_metallic;
+    static float rough = mat.m_roughness;
 
     ImGui::Image(mat.getAlbedoTex()->getShaderResourceView(),
-                 ImVec2(width, height),
+                 ImVec2(100, 100),
                  ImVec2(0, 0),
                  ImVec2(1, 1),
                  ImVec4(1.0f, 1.0f, 1.0f, 1.0f),
                  ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
 
+    ImGui::Image(mat.getNormalTex()->getShaderResourceView(),
+                 ImVec2(100, 100),
+                 ImVec2(0, 0),
+                 ImVec2(1, 1),
+                 ImVec4(1.0f, 1.0f, 1.0f, 1.0f),
+                 ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
+
+    ImGui::Image(mat.getMetalTex()->getShaderResourceView(),
+                 ImVec2(100, 100),
+                 ImVec2(0, 0),
+                 ImVec2(1, 1),
+                 ImVec4(1.0f, 1.0f, 1.0f, 1.0f),
+                 ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
+
+
     //-Base color RGB
-    ImGui::ColorEdit3("Base Color", (float*)&mat.m_baseColor);
+    ImGui::ColorEdit3("Base Color", (float*)&baseColor);
 
     //-Metalness float (range 0.0f - 1.0f)
-    ImGui::SliderFloat("Metalness", &mat.m_metallic, 0.0f, 1.0f);
+    ImGui::SliderFloat("Metalness", &metallic, 0.0f, 1.0f);
 
      //-Roughness float (range 0.0f - 1.0f)
-    ImGui::SliderFloat("Roughness", &mat.m_roughness, 0.0f, 1.0f);
+    ImGui::SliderFloat("Roughness", &rough, 0.0f, 1.0f);
     ImGui::Separator();
   }
 
@@ -314,7 +333,7 @@
   {
     ImGui::Text("Mesh");
 
-    ImGui::Text("Name"); ImGui::SameLine();
+    ImGui::Text("Name: "); ImGui::SameLine();
     ImGui::Text(&mesh.getName()[0]);
     //TODO: Implement this button.
     if (ImGui::Button("Change Mesh")) {
@@ -322,7 +341,7 @@
       String filename = EngineUtility::loadFile(filetypes, windowHandle);
 
       //Do the loading and model replacing
-    } ImGui::SameLine();
+    } //ImGui::SameLine();
 
     ImGui::Separator();
 

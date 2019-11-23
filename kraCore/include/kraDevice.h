@@ -138,7 +138,10 @@ namespace kraEngineSDK {
     createConstantBufferInstance() = 0;
     
     virtual ShrdPtr<ConstantBuffer<Vector4>>
-    createConstantBufferInstanceVec3() = 0;
+    createConstantBufferInstanceVec4() = 0;
+
+    virtual ShrdPtr<ConstantBuffer<float>>
+    createConstantBufferInstanceFloat() = 0;
     
     virtual ShrdPtr<SamplerState>
     createSamplerStateInstance() = 0;

@@ -65,6 +65,7 @@ namespace kraEngineSDK {
     Vector3 m_normal = Vector3(0.0f, 0.0f, 0.0f);
     Vector3 m_tangent = Vector3(0.0f, 0.0f, 0.0f);
     Vector3 m_binormal = Vector3(0.0f, 0.0f, 0.0f);
-    Vector4 m_color = Vector3(0.0f, 0.0f, 0.0f);
+    Vector4 m_color = Vector4(1.0F, 1.0f, 1.0f, 1.0F);
+    //Vector4 m_color = Vector4(0.0549F, 0.7215f, 0.0235f, 1.0F);
   };
 }

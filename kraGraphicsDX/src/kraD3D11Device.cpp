@@ -254,9 +254,15 @@ namespace kraEngineSDK {
   }
 
   ShrdPtr<ConstantBuffer<Vector4>>
-    DeviceDX::createConstantBufferInstanceVec3() {
+    DeviceDX::createConstantBufferInstanceVec4() {
     return make_shared<ConstantBufferDX<Vector4>>();
   }
+
+  ShrdPtr<ConstantBuffer<float>>
+    DeviceDX::createConstantBufferInstanceFloat() {
+    return make_shared<ConstantBufferDX<float>>();
+  }
+
   ShrdPtr<SamplerState>
     DeviceDX::createSamplerStateInstance() {
     return std::make_shared<SamplerStateDX>();

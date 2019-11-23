@@ -206,7 +206,15 @@ namespace kraEngineSDK {
       }
 
     }
-
+    else {
+      ShrdPtr<Texture> diffuseTex = pDevice.createTextureInstance();
+      diffuseTex->createTexture2DFromFile(pDevice,
+                                          "default.png",
+                                          GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM,
+                                          GFX_USAGE::E::kUSAGE_DEFAULT,
+                                          CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                          4, 1);
+    }
     outMesh->getVertexBuffer()->createHardwareBuffer(pDevice);
     outMesh->getIndexBuffer()->createIndexBuffer(pDevice);
 

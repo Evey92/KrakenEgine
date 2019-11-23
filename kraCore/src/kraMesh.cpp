@@ -111,12 +111,12 @@ namespace kraEngineSDK {
   void 
   Mesh::setMeshMaterial(Device* pDevice, Material* mat)
   {
-    Material compMat = m_owner->getComponent<Material>();
+    //Material compMat = m_owner->getComponent<Material>();
 
-    compMat.setAlbedoTex(*pDevice, mat->getAlbedoTex());
-    compMat.setNormalTex(*pDevice, mat->getNormalTex());
-    compMat.setMetalTex(*pDevice, mat->getMetalTex());
-    compMat.setRoughnessTex(*pDevice, mat->getRoughnessTex());
+    m_material->setAlbedoTex(*pDevice, mat->getAlbedoTex());
+    m_material->setNormalTex(*pDevice, mat->getNormalTex());
+    m_material->setMetalTex(*pDevice, mat->getMetalTex());
+    m_material->setRoughnessTex(*pDevice, mat->getRoughnessTex());
 
   }
 

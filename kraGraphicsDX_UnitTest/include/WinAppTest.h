@@ -239,7 +239,7 @@ class WinApp :
     //Constant buffers
    ShrdPtr<ConstantBuffer<Matrix4>> m_mainCB;
    ShrdPtr<ConstantBuffer<Vector4>> m_shadingCB;
-   ShrdPtr<ConstantBuffer<Vector4>> m_specMapCB;
+   ShrdPtr<ConstantBuffer<float>> m_specMapCB;
 
    /////////////////////////////////////////////
 

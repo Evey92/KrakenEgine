@@ -162,11 +162,11 @@ WinApp::Initialize()
   m_defaultSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
                                        SAMPLER_FILTER::E::kFILTER_ANISOTROPIC,
                                        TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_WRAP,
-                                       COMPARISON_FUNCTION::E::kCOMPARISON_ALWAYS);
+                                       COMPARISON_FUNCTION::E::kCOMPARISON_NEVER);
 
   
   m_mainCB = m_gfxDevice->createConstantBufferInstance();
-  m_shadingCB = m_gfxDevice->createConstantBufferInstanceVec3();
+  m_shadingCB = m_gfxDevice->createConstantBufferInstanceVec4();
 
   //Startup Camera manager module
   CameraManager::StartUp<CameraManager>();
@@ -224,7 +224,7 @@ WinApp::Initialize()
   m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
 
   m_shadingCB->add(Vector4(m_activeCam->getPosition(), 1.0f));
-  m_shadingCB->add(Vector4(-100.0, -100.0f, -100.0f, 0.0f));
+  m_shadingCB->add(Vector4(-1.0f, 0.0f, 0.0f, 0.0f));
   m_shadingCB->add(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
   m_shadingCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
   m_shadingCB->updateSubResources(*m_gfxAPIInstance->getDevice());
@@ -318,8 +318,8 @@ WinApp::render()
 
   m_shadingCB->clear();
   m_shadingCB->add(Vector4(m_activeCam->getPosition(), 1.0f));
-  m_shadingCB->add(Vector4(100.0, 0.0f, 100.0f, 0.0f));
-  m_shadingCB->add(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
+  m_shadingCB->add(Vector4(-1.0f, 0.0f, 0.0f, 1.0f));
+  m_shadingCB->add(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
   m_shadingCB->updateSubResources(*m_gfxDevice);
 
   srcFB->m_frameRTV->setRenderTarget(*m_gfxDevice, *srcFB->m_frameDSV);
@@ -423,7 +423,7 @@ WinApp::loadModel()
     
     for (auto& meshGO : newModel.getMeshVec()) {       
       newModelGO->addChild(meshGO); 
-      //setGoldMaterial(newMeshGO->getComponent<Mesh>())
+      //setGoldMaterial(meshGO->getComponent<Mesh>());
       m_modelsVector.push_back(meshGO);
 
     }
@@ -478,7 +478,7 @@ WinApp::localRenderSetup()
   m_BRDFSampler = m_gfxDevice->createSamplerStateInstance();
   srcFB = m_gfxDevice->createFrameBufferInstance();
   destinationFB = m_gfxDevice->createFrameBufferInstance();
-  m_specMapCB = m_gfxDevice->createConstantBufferInstanceVec3();
+  m_specMapCB = m_gfxDevice->createConstantBufferInstanceFloat();
   m_specMapCS = m_gfxDevice->createComputeShaderInstance();
   irradianceShader = m_gfxDevice->createComputeShaderInstance();
   m_irradMap = m_gfxDevice->createTextureInstance();
@@ -605,7 +605,7 @@ WinApp::setUpIBL()
   m_specMapCS->compileComputeShader(L"resources/Shaders/specMapShader.hlsl", "main");
   m_specMapCS->createComputeShader(*m_gfxDevice);
 
-  //m_specMapCB->createConstantBuffer(*m_gfxDevice);
+  m_specMapCB->createConstantBuffer(*m_gfxDevice);
 
   m_enviroMap->createCubeTexture(m_gfxDevice,
                                  1024,
@@ -614,9 +614,9 @@ WinApp::setUpIBL()
                                  GFX_USAGE::E::kUSAGE_DEFAULT);
 
   for (uint32 arraySlice = 0; arraySlice < 6; ++arraySlice) {
-    //This is the saame a scalling D3D11CalcSubresource. But I was too lazy to implement the function...
-    /*To calculate the index f a subresource, you havo to do: MipSlice + (ArraySlice * MipLevels). 
-      Since we're mapping the the most detailed mip level, MipSlice will always be 0 here the rest will be filterd after*/
+    //This is the same as calling D3D11CalcSubresource. But I was too lazy to implement the function...
+    /*To calculate the index of a subresource, you have to do: MipSlice + (ArraySlice * MipLevels).
+    Here we're calculating the most detailed level, so mipslice = 0.*/
     const uint32 subResourceIndex = arraySlice * m_enviroMap->getLevels();
     m_gfxDevice->copySubresourceRegion(m_enviroMap, 
                                        subResourceIndex,
@@ -634,17 +634,17 @@ WinApp::setUpIBL()
 
   //Filtering the rest of the mip levels
   const float deltaRoughness = 1.0f / kraMath::fmax(m_enviroMap->getLevels() - 1.0f, 1.0f);
-  Vector4 roughness = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+  float roughness;
 
-  for (uint32 level = 1, size = 512; level < m_enviroMap->getLevels(); ++level, size/2) {
+  for (uint32 level = 1, size = 512; level < m_enviroMap->getLevels(); ++level, size/=2) {
     
     uint32 numGroups = kraMath::fmax<uint32>(1, size / 32);
     m_specMapCB->clear();
     m_enviroMap->createTextureUAV(*m_gfxDevice, level);
     
-    roughness.x = level * deltaRoughness;
+    roughness = level * deltaRoughness;
     m_specMapCB->add(roughness);
-    m_specMapCB->createConstantBuffer(*m_gfxDevice);
+    //m_specMapCB->createConstantBuffer(*m_gfxDevice);
 
     m_specMapCB->updateSubResources(*m_gfxDevice);
     m_specMapCB->setComputeConstantBuffer(*m_gfxDevice, 0, 1);
@@ -701,7 +701,7 @@ void WinApp::setUpBRDF()
   m_BRDFSampler->createSamplerState(*m_gfxDevice,
                                     SAMPLER_FILTER::E::kFILTER_MIN_MAG_MIP_LINEAR,
                                     TEXTURE_ADDRESS_MODE::E::kTEXTURE_ADDRESS_CLAMP,
-                                    COMPARISON_FUNCTION::E::kCOMPARISON_LESS);
+                                    COMPARISON_FUNCTION::E::kCOMPARISON_NEVER);
 
   m_BRDFLUT->createTextureUAV(*m_gfxDevice, 0);
   m_BRDFLUT->setTextureUnorderedAccesVews(m_gfxDevice, 0, 1);
@@ -716,7 +716,6 @@ WinApp::drawSkybox()
   m_skyboxInputLayout->setInputLayout(*m_gfxDevice);
   m_skyboxVS->setVertexShader(*m_gfxDevice);
   m_skyboxPS->setPixelShader(*m_gfxDevice);
-  //m_enviroMap->setTextureShaderResource(m_gfxDevice, 0, 1);
   m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
   m_skyboxDepthStencil->setDepthStencilState(*m_gfxDevice);
   m_skyBoxGO->getComponent<Mesh>().DrawMesh(m_gfxDevice);
