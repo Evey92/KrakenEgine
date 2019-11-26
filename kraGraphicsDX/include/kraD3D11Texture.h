@@ -18,14 +18,14 @@ namespace kraEngineSDK {
      ~TextureDX() {}
 
     void
-    createCubeTexture(void* pDevice,
+    createCubeTexture(const Device& pDevice,
                       uint32 height,
                       uint32 width,
                       GFX_FORMAT::E format,
                       GFX_USAGE::E usage,
                       uint32 levels);
     void
-    createTexture2D(void* pDevice, 
+    createTexture2D(const Device& pDevice,
                     uint32 height,
                     uint32 width,
                     GFX_FORMAT::E format,
@@ -49,22 +49,22 @@ namespace kraEngineSDK {
     createTextureUAV(const Device& device, uint32 mipSlice) override;
 
     void
-    setTextureShaderResource(const Device* pDevice,
+    setTextureShaderResource(const Device& pDevice,
                              uint32 startSlot,
                              uint32 numViews);
 
     void 
-    setTextureComputeShaderResource(const Device* pDevice, 
+    setTextureComputeShaderResource(const Device& pDevice,
                                     uint32 startSlot, 
                                     uint32 numViews) override;
     void
-    setPSTextureShaderResources(const Device* pDevice,
+    setPSTextureShaderResources(const Device& pDevice,
                                 uint32 startSlot,
                                 uint32 numViews,
                                 Vector<ShrdPtr<Texture>> shaderResources) override;
 
     void
-    setTextureUnorderedAccesVews(const Device* pDevice, 
+    setTextureUnorderedAccesVews(const Device& pDevice,
                                  uint32 startSlot,
                                  uint32 numViews) override;
 

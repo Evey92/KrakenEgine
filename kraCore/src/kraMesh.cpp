@@ -76,33 +76,33 @@ namespace kraEngineSDK {
   }
 
   void
-  Mesh::setTexture(Device* pDevice, TEXTURE_TYPE::E texType, const ShrdPtr<Texture>& newTex) {
+  Mesh::setTexture(const Device& pDevice, TEXTURE_TYPE::E texType, const ShrdPtr<Texture>& newTex) {
 
     if (texType == TEXTURE_TYPE::E::ALBEDO)
     {
-      m_material->setAlbedoTex(*pDevice, newTex);
+      m_material->setAlbedoTex(pDevice, newTex);
     }
     else if (texType == TEXTURE_TYPE::E::NORMAL)
     {
-      m_material->setNormalTex(*pDevice, newTex);
+      m_material->setNormalTex(pDevice, newTex);
     }
     else if (texType == TEXTURE_TYPE::E::METALNESS)
     {
-      m_material->setMetalTex(*pDevice, newTex);
+      m_material->setMetalTex(pDevice, newTex);
     }
     else if (texType == TEXTURE_TYPE::E::ROUGHNESS)
     {
-      m_material->setRoughnessTex(*pDevice, newTex);
+      m_material->setRoughnessTex(pDevice, newTex);
     }
     else if (texType == TEXTURE_TYPE::E::SPECULAR)
     {
       //TODO: Change it to set specular
-      m_material->setAlbedoTex(*pDevice, newTex);
+      m_material->setAlbedoTex(pDevice, newTex);
     }
     else if (texType == TEXTURE_TYPE::E::EMISSIVE)
     {
       //TODO: Change it to ser emmisive
-      m_material->setAlbedoTex(*pDevice, newTex);
+      m_material->setAlbedoTex(pDevice, newTex);
     }
 
   }

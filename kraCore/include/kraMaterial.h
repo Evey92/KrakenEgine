@@ -42,22 +42,22 @@ namespace kraEngineSDK {
 
     //TODO: Stop using smart pointers as parameters. Use constant references.
     void
-    setAlbedoTex(Device& pDevice, const ShrdPtr<Texture>& tex);
+    setAlbedoTex(const Device& pDevice, const ShrdPtr<Texture>& tex);
     
     void
-    setNormalTex(Device& pDevice, const ShrdPtr<Texture>& tex);
+    setNormalTex(const Device& pDevice, const ShrdPtr<Texture>& tex);
 
     void
-    setMetalTex(Device& pDevice, const ShrdPtr<Texture>& tex);
+    setMetalTex(const Device& pDevice, const ShrdPtr<Texture>& tex);
 
     void
-    setRoughnessTex(Device& pDevice, const ShrdPtr<Texture>& tex);
+    setRoughnessTex(const Device& pDevice, const ShrdPtr<Texture>& tex);
 
     void
-    setEmmisiveTex(Device& pDevice, const ShrdPtr<Texture>& tex);
+    setEmmisiveTex(const Device& pDevice, const ShrdPtr<Texture>& tex);
 
     void
-    setAmbientTex(Device& pDevice, const ShrdPtr<Texture>& tex);
+    setAmbientTex(const Device& pDevice, const ShrdPtr<Texture>& tex);
 
     bool
     useBaseColor();

@@ -15,14 +15,14 @@ namespace kraEngineSDK {
   }
 
   void
-  TextureDX::createCubeTexture(void* pDevice,
+  TextureDX::createCubeTexture(const Device& pDevice,
                                uint32 height,
                                uint32 width,
                                GFX_FORMAT::E format,
                                GFX_USAGE::E usage = GFX_USAGE::E::kUSAGE_DEFAULT,
                                uint32 levels = 0U) {
 
-    const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
     m_height = height;
     m_width = width;
@@ -45,7 +45,7 @@ namespace kraEngineSDK {
       descTexture.MiscFlags |= D3D11_RESOURCE_MISC_GENERATE_MIPS;
     }
 
-    if (FAILED(m_pDevice->m_pd3dDevice->CreateTexture2D(&descTexture, nullptr, &m_pd3dTexture2D))) {
+    if (FAILED(m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, nullptr, &m_pd3dTexture2D))) {
       std::cout << "Failed to create Cubemap texture\n";
     }
 
@@ -56,7 +56,7 @@ namespace kraEngineSDK {
     srvDesc.Texture2D.MostDetailedMip = 0;
     srvDesc.Texture2D.MipLevels = -1;
 
-    if (FAILED(m_pDevice->m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, &srvDesc, &m_pSRV))) {
+    if (FAILED(m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, &srvDesc, &m_pSRV))) {
       std::cout << "Failed to create Cubemap Shader Resource View\n";
 
     }
@@ -64,7 +64,7 @@ namespace kraEngineSDK {
 
  
   void 
-  TextureDX::createTexture2D(void* pDevice,
+  TextureDX::createTexture2D(const Device& pDevice,
                              uint32 height,
                              uint32 width,
                              GFX_FORMAT::E format ,
@@ -72,7 +72,7 @@ namespace kraEngineSDK {
                              uint32 levels = 0U)
   {
 
-    const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
     m_height = height;
     m_width = width;
@@ -94,7 +94,7 @@ namespace kraEngineSDK {
       descTexture.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
     }
 
-    if (FAILED(m_pDevice->m_pd3dDevice->CreateTexture2D(&descTexture, nullptr, &m_pd3dTexture2D))) {
+    if (FAILED(m_pDevice.m_pd3dDevice->CreateTexture2D(&descTexture, nullptr, &m_pd3dTexture2D))) {
       std::cout << "Failed to create 2D texture\n";
     }
 
@@ -105,7 +105,7 @@ namespace kraEngineSDK {
     srvDesc.Texture2D.MostDetailedMip = 0;
     srvDesc.Texture2D.MipLevels = -1;
 
-    if (FAILED(m_pDevice->m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, &srvDesc, &m_pSRV))) {
+    if (FAILED(m_pDevice.m_pd3dDevice->CreateShaderResourceView(m_pd3dTexture2D, &srvDesc, &m_pSRV))) {
       std::cout << "Failed to create Shader Resource View\n";
 
     }
@@ -220,36 +220,36 @@ namespace kraEngineSDK {
   }
 
   void
-  TextureDX::setTextureShaderResource(const Device* pDevice,
+  TextureDX::setTextureShaderResource(const Device& pDevice,
                                       uint32 startSlot,
                                       uint32 numViews) {
 
-    const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
-    m_pDevice->m_pImmediateContext->PSSetShaderResources(startSlot,
+    m_pDevice.m_pImmediateContext->PSSetShaderResources(startSlot,
                                                          numViews,
                                                          &m_pSRV);
   }
 
 
   void
-  TextureDX::setTextureComputeShaderResource(const Device* pDevice,
+  TextureDX::setTextureComputeShaderResource(const Device& pDevice,
                                              uint32 startSlot,
                                              uint32 numViews) {
 
-    const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
-    m_pDevice->m_pImmediateContext->CSSetShaderResources(startSlot,
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
+    m_pDevice.m_pImmediateContext->CSSetShaderResources(startSlot,
                                                          numViews,
                                                          &m_pSRV);
   }
 
   void 
-  TextureDX::setPSTextureShaderResources(const Device* pDevice, 
+  TextureDX::setPSTextureShaderResources(const Device& pDevice, 
                                          uint32 startSlot,
                                          uint32 numViews,
                                          Vector<ShrdPtr<Texture>> shaderResources)
   {
-    const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
     Vector<ID3D11ShaderResourceView*> shdrVec;
 
     for (auto tex : shaderResources) {
@@ -258,18 +258,18 @@ namespace kraEngineSDK {
       shdrVec.push_back(texDx.m_pSRV);
     }
 
-    m_pDevice->m_pImmediateContext->PSSetShaderResources(startSlot,
+    m_pDevice.m_pImmediateContext->PSSetShaderResources(startSlot,
                                                          numViews,
                                                          &shdrVec[0]);
   }
 
   void
-  TextureDX::setTextureUnorderedAccesVews(const Device* pDevice, 
+  TextureDX::setTextureUnorderedAccesVews(const Device& pDevice, 
                                           uint32 startSlot,
                                           uint32 numViews)
   {
-    const DeviceDX* m_pDevice = static_cast<const DeviceDX*>(pDevice);
-    m_pDevice->m_pImmediateContext->CSSetUnorderedAccessViews(startSlot,
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
+    m_pDevice.m_pImmediateContext->CSSetUnorderedAccessViews(startSlot,
                                                               numViews,
                                                               &m_UAV,
                                                               nullptr);

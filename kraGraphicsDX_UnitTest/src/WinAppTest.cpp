@@ -459,20 +459,20 @@ void
 WinApp::localRenderSetup()
 {
   //Creating instances of classes
-  m_PBRVS = m_gfxDevice->createVertexShaderInstance();
-  m_PBRPS = m_gfxDevice->createPixelShaderInstance();
-  m_pbrInputLayout = m_gfxDevice->createInputLayoutInstance();
-  m_skyboxVS = m_gfxDevice->createVertexShaderInstance();
-  m_skyboxPS = m_gfxDevice->createPixelShaderInstance();
-  m_skyboxInputLayout = m_gfxDevice->createInputLayoutInstance();
-  m_toneMapVS = m_gfxDevice->createVertexShaderInstance();
-  m_toneMapPS = m_gfxDevice->createPixelShaderInstance();
-  m_equirect2CubeCS = m_gfxDevice->createComputeShaderInstance();
+  //m_PBRVS = m_gfxDevice->createVertexShaderInstance();
+  //m_PBRPS = m_gfxDevice->createPixelShaderInstance();
+  //m_pbrInputLayout = m_gfxDevice->createInputLayoutInstance();
+  //m_skyboxVS = m_gfxDevice->createVertexShaderInstance();
+  //m_skyboxPS = m_gfxDevice->createPixelShaderInstance();
+  //m_skyboxInputLayout = m_gfxDevice->createInputLayoutInstance();
+  //m_toneMapVS = m_gfxDevice->createVertexShaderInstance();
+  //m_toneMapPS = m_gfxDevice->createPixelShaderInstance();
+  //m_equirect2CubeCS = m_gfxDevice->createComputeShaderInstance();
   m_computeSampler = m_gfxDevice->createSamplerStateInstance();
   m_computeSampler = m_gfxDevice->createSamplerStateInstance();
-  m_equirectHDRTexture = m_gfxDevice->createTextureInstance();
-  m_enviroMap = m_gfxDevice->createTextureInstance();
-  m_pbrInputLayout = m_gfxDevice->createInputLayoutInstance();
+  //m_equirectHDRTexture = m_gfxDevice->createTextureInstance();
+  //m_enviroMap = m_gfxDevice->createTextureInstance();
+  //m_pbrInputLayout = m_gfxDevice->createInputLayoutInstance();
   spBRDFshader = m_gfxDevice->createComputeShaderInstance();
   m_skyboxInputLayout = m_gfxDevice->createInputLayoutInstance();
   m_BRDFLUT = m_gfxDevice->createTextureInstance();
@@ -483,7 +483,7 @@ WinApp::localRenderSetup()
   m_specMapCB = m_gfxDevice->createConstantBufferInstanceFloat();
   m_specMapCS = m_gfxDevice->createComputeShaderInstance();
   irradianceShader = m_gfxDevice->createComputeShaderInstance();
-  m_irradMap = m_gfxDevice->createTextureInstance();
+  //m_irradMap = m_gfxDevice->createTextureInstance();
 
   uint32 samples = m_gfxDevice->checkMaxSupportedMSAALevel();
 

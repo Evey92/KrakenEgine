@@ -37,6 +37,8 @@
 #include <kraVector4.h>
 #include <kraMatrix4.h>
 #include <kraFrameBuffer.h>
+#include <kraMesh.h>
+#include <kraGameObject.h>
 
 //Input headers
 #include <kraInputAPI.h>

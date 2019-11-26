@@ -13,7 +13,7 @@ namespace kraEngineSDK {
      ~Texture() {}
 
     virtual void
-    createCubeTexture(void* pDevice,
+    createCubeTexture(const Device& pDevice,
                         uint32 height,
                         uint32 width,
                         GFX_FORMAT::E format,
@@ -21,7 +21,7 @@ namespace kraEngineSDK {
                         uint32 levels = 0U) = 0;
 
     virtual void
-    createTexture2D(void* pDevice,
+    createTexture2D(const Device& pDevice,
                     uint32 height,
                     uint32 width,
                     GFX_FORMAT::E format,
@@ -58,22 +58,22 @@ namespace kraEngineSDK {
 
     //TODO: Move all of this bullshit either to an abstraction of device context, or to the device itself... Maybe.
     virtual void
-    setTextureShaderResource(const Device* pDevice,
+    setTextureShaderResource(const Device& pDevice,
                                uint32 startSlot,
                                uint32 numViews) = 0;
 
     virtual void
-    setPSTextureShaderResources(const Device* pDevice,
+    setPSTextureShaderResources(const Device& pDevice,
                              uint32 startSlot,
                              uint32 numViews, 
                              Vector<ShrdPtr<Texture>> shaderResources) = 0;
 
     virtual void
-    setTextureComputeShaderResource(const Device* pDevice,
+    setTextureComputeShaderResource(const Device& pDevice,
                                     uint32 startSlot,
                                     uint32 numViews) = 0;
     virtual void
-    setTextureUnorderedAccesVews(const Device* pDevice,
+    setTextureUnorderedAccesVews(const Device& pDevice,
                                     uint32 startSlot,
                                     uint32 numViews) = 0;
 

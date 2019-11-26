@@ -59,27 +59,27 @@ namespace kraEngineSDK {
   }
 
   void
-  Material::setAlbedoTex(Device& pDevice, const ShrdPtr<Texture>& tex)
+  Material::setAlbedoTex(const Device& pDevice, const ShrdPtr<Texture>& tex)
   {
     m_texColorMap = tex;
 
   }
 
   void 
-  Material::setNormalTex(Device& pDevice, const ShrdPtr<Texture>& tex)
+  Material::setNormalTex(const Device& pDevice, const ShrdPtr<Texture>& tex)
   {
     m_texNormalMap = tex;
 
   }
 
   void 
-  Material::setMetalTex(Device& pDevice, const ShrdPtr<Texture>& tex)
+  Material::setMetalTex(const Device& pDevice, const ShrdPtr<Texture>& tex)
   {
     m_texMetallicMap = tex;
   }
 
   void 
-  Material::setRoughnessTex(Device& pDevice, const ShrdPtr<Texture>& tex)
+  Material::setRoughnessTex(const Device& pDevice, const ShrdPtr<Texture>& tex)
   {
     m_texRoughnessMap = tex;
   }
