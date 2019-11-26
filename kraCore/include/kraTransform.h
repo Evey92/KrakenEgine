@@ -37,6 +37,8 @@ namespace kraEngineSDK {
      Matrix4
      getTransformMatrix();
 
+   private:
+
      void
      createTransformMat();
 

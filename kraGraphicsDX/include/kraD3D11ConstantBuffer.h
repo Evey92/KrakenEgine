@@ -121,7 +121,7 @@ namespace kraEngineSDK {
       m_device.m_pImmediateContext->UpdateSubresource(m_pBuffer, 0, nullptr, &m_constData[0],
                                                       m_constData.size(), 0);
     }
-    //TODO: Think of a way to update only the wolrd matrix. Maybe creating a Cbuffer that changes every frame?
+
     void
     setVertexConstantBuffer(const Device& pDevice, uint32 startSlot, uint32 NumBuffs) {
       const DeviceDX& m_device = static_cast<const DeviceDX&>(pDevice);

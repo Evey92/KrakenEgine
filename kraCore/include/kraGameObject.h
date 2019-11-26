@@ -7,7 +7,7 @@ namespace kraEngineSDK {
 
   class Scene;
 
-  class KRA_CORE_EXPORT GameObject
+  class KRA_CORE_EXPORT GameObject : public std::enable_shared_from_this<GameObject>
   {
    public:
 
@@ -82,6 +82,8 @@ namespace kraEngineSDK {
     String
     getName();
 
+    Matrix4
+    getWorldMatrix();
 
 #pragma region COMPONET_FUNCTIONS
     template<class ComponentType, typename... Args>

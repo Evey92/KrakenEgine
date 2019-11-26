@@ -17,11 +17,11 @@ cbuffer cbShading : register(b0)
 
 struct VS_INPUT 
 {
-   float4 Position : POSITION;
-   float2 TexCoord : TEXCOORD;
-   float3 Normal   : NORMAL;
-   float3 Tangent  : TANGENT;
-   float3 BiNormal : BINORMAL;
+   float4 Position  : POSITION;
+   float2 TexCoord  : TEXCOORD;
+   float3 Normal    : NORMAL;
+   float3 Tangent   : TANGENT;
+   float3 BiNormal  : BINORMAL;
    float3 vertColor : COLOR;
 
 };
@@ -162,31 +162,31 @@ float4 PS(PS_INPUT Input) : SV_Target
     }
 
 	// Ambient lighting (IBL).
-  float3 ambientLight;
-  {
-		float3 irradiance = texIrradiance.Sample(samLinear, N).rgb;
+  float3 ambientLight = 0;
+   /*{
+        float3 irradiance = texIrradiance.Sample(samLinear, N).rgb;
 
         float3 F = fresnelSchlick(F0, cosLo);
 
-		// Get diffuse contribution factor (as with direct lighting).
-    float3 kd = lerp(1.0f - F, 0.0, metalness);
+	 	// Get diffuse contribution factor (as with direct lighting).
+        float3 kd = lerp(1.0f - F, 0.0, metalness);
 
-    float3 diffuseIBL = kd * albedo * irradiance;
+        float3 diffuseIBL = kd * albedo * irradiance;
 
-    // Sample pre-filtered specular reflection environment at correct mipmap level.
-		uint specularTextureLevels = querySpecularTextureLevels();
-		float3 specularIrradiance = texSpecular.SampleLevel(samLinear, Lr, roughness * specularTextureLevels).rgb;
+     // Sample pre-filtered specular reflection environment at correct mipmap level.
+        uint specularTextureLevels = querySpecularTextureLevels();
+        float3 specularIrradiance = texSpecular.SampleLevel(samLinear, Lr, roughness * specularTextureLevels).rgb;
 
-    // Split-sum approximation factors for Cook-Torrance specular BRDF.
-		float2 specularBRDF = specularBRDF_LUT.Sample(spBRDF_Sampler, float2(cosLo, roughness)).rg;
+     // Split-sum approximation factors for Cook-Torrance specular BRDF.
+        float2 specularBRDF = specularBRDF_LUT.Sample(spBRDF_Sampler, float2(cosLo, roughness)).rg;
 
-    // Total specular IBL contribution.
-		float3 specularIBL = (F0 * specularBRDF.x + specularBRDF.y) * specularIrradiance;
+     // Total specular IBL contribution.
+        float3 specularIBL = (F0 * specularBRDF.x + specularBRDF.y) * specularIrradiance;
 
-    // Total ambient lighting contribution.
+     // Total ambient lighting contribution.
         ambientLight = diffuseIBL + specularIBL;
 
-  }
+    }*/
 
   // Final fragment color.
     return float4(directLight + ambientLight, 1.0);

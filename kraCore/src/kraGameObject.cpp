@@ -13,6 +13,7 @@ namespace kraEngineSDK {
   void 
   GameObject::addChild(const ShrdPtr<GameObject>& newChild)
   {
+    newChild->setParent(shared_from_this());
     m_children.push_back(newChild);
   }
 
@@ -79,6 +80,18 @@ namespace kraEngineSDK {
   GameObject::getName()
   {
     return m_name;
+  }
+
+  Matrix4
+  GameObject::getWorldMatrix()
+  {
+    if (m_parent != nullptr)
+    {
+      return m_transform->getTransformMatrix() * m_parent->getWorldMatrix();
+    }
+
+    return m_transform->getTransformMatrix();
+
   }
 
 }

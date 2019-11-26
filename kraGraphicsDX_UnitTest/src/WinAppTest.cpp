@@ -106,7 +106,7 @@ WinApp::Initialize()
   if (!RENDERDLL) {
     DWORD err = GetLastError();
     MessageBox(NULL, "Could not find specified renderer DLL. Error.", "Error", MB_OK);
-
+    std::cout << "Could not find specified renderer DLL. Error: " << err << std::endl;
     FreeLibrary(RENDERDLL);
     return false;
   }
@@ -292,7 +292,8 @@ WinApp::render()
   
   
   // Setting world matrix
-  m_mainCB->add(m_world);
+//  m_mainCB->add(m_world);
+
 
   //Setting view matrix
   Matrix4 viewMat = CameraManager::instance().getActiveCamera()->GetViewMatrix();
@@ -307,10 +308,10 @@ WinApp::render()
   m_skyprojection = m_projection * viewMat;
   
   viewMat.transpose();
-  m_mainCB->add(viewMat);
+  m_mainCB->getConstData()[1] = viewMat;
   
   m_projection.transpose();
-  m_mainCB->add(m_projection);
+  m_mainCB->getConstData()[2] = m_projection;
 
   m_skyprojection.transpose();
   m_mainCB->add(m_skyprojection);
@@ -322,6 +323,7 @@ WinApp::render()
   m_shadingCB->add(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
   m_shadingCB->updateSubResources(*m_gfxDevice);
 
+  //WHAT?
   srcFB->m_frameRTV->setRenderTarget(*m_gfxDevice, *srcFB->m_frameDSV);
   srcFB->m_frameDSV->clearDSV(*m_gfxDevice);
   srcFB->m_frameRTV->clearRenderTarget(m_gfxDevice, ClearColor);
@@ -412,7 +414,7 @@ WinApp::loadModel()
 
     uint32 firstPos = filename.find_last_of('\\');
     uint32 lastPos = filename.find_last_of('.');
-    String name = filename.substr(firstPos + 1.0f, lastPos - firstPos - 1.0f);
+    String name = filename.substr(firstPos + 1, lastPos - firstPos - 1);
 
     //Empty GameObject that holds all the meshes.
     ShrdPtr<GameObject> newModelGO = m_sceneManager->createGameObject(name);
@@ -423,7 +425,7 @@ WinApp::loadModel()
     
     for (auto& meshGO : newModel.getMeshVec()) {       
       newModelGO->addChild(meshGO); 
-      //setGoldMaterial(meshGO->getComponent<Mesh>());
+      setGoldMaterial(meshGO->getComponent<Mesh>());
       m_modelsVector.push_back(meshGO);
 
     }
@@ -737,6 +739,10 @@ WinApp::drawPBRModels()
 
   for (uint32 i = 0; i < m_modelsVector.size(); ++i) {
     
+    Matrix4 movelMatrix = m_modelsVector[i]->getWorldMatrix();
+    movelMatrix.transpose();
+    m_mainCB->getConstData()[0] = movelMatrix;
+    m_mainCB->updateSubResources(*m_gfxDevice);
     m_modelsVector[i]->getComponent<Mesh>().DrawMesh(m_gfxDevice);
     
   }

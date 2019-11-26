@@ -44,7 +44,7 @@ namespace kraEngineSDK {
   }
 
   Matrix4
-  Transform::getTransformMatrix()
+    Transform::getTransformMatrix()
   {
 
     if (m_dirty) {
