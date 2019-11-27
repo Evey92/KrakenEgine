@@ -91,10 +91,10 @@ const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
   //TODO: Also fix this bullshit. I'll probably need to refactor the whole architecture... 
   void
-  RenderTargetViewDX::setRenderTargets(Device* pDevice, Vector<RenderTargetView*> renderTargets, const DepthStencilView& pDSV) {
+  RenderTargetViewDX::setRenderTargets(const Device& pDevice, Vector<RenderTargetView*> renderTargets, const DepthStencilView& pDSV) {
 
     
-    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
     const DepthStencilViewDX& m_DSV = static_cast<const DepthStencilViewDX&>(pDSV);
 
     Vector<ID3D11RenderTargetView*> rtvector;
@@ -105,9 +105,7 @@ const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
       rtvector.push_back(rtdx->m_pRenderTargetView);
     }
 
-    m_pDevice->m_pImmediateContext->OMSetRenderTargets(rtvector.size(), &rtvector[0], m_DSV.m_pDepthStencilView);
-
-
+    m_pDevice.m_pImmediateContext->OMSetRenderTargets(rtvector.size(), &rtvector[0], m_DSV.m_pDepthStencilView);
   }
 
   void
@@ -117,22 +115,22 @@ const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
   }
 
   void
-  RenderTargetViewDX::clearRenderTarget(Device* pDevice, Vector4 clearColor) {
+  RenderTargetViewDX::clearRenderTarget(const Device& pDevice, Vector4 clearColor) {
 
-    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
     
-    m_pDevice->m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView,
+    m_pDevice.m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView,
                                                           &clearColor[0]);
   }
 
   void
-  RenderTargetViewDX::clearRenderTargets(Device* pDevice, Vector4 clearColor) {
+  RenderTargetViewDX::clearRenderTargets(const Device& pDevice, Vector4 clearColor) {
 
-    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDevice);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
 
     for (auto& rt : m_viewsVec)
     {
-      m_pDevice->m_pImmediateContext->ClearRenderTargetView(rt, &clearColor[0]);
+      m_pDevice.m_pImmediateContext->ClearRenderTargetView(rt, &clearColor[0]);
     }
   }
 }

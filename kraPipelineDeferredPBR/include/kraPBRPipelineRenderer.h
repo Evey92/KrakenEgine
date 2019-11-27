@@ -1,6 +1,6 @@
 #pragma once
 #include "kraPrerequisitesPBRenderer.h"
-
+#include <kraRenderPipeline.h>
 #include <kraRenderTargetView.h>
 #include <kraGraphicsAPI.h>
 #include <kraConstantBuffer.h>
@@ -35,7 +35,7 @@ namespace kraEngineSDK {
     ~DeferredPBRenderer() = default;
 
     void
-    initialize(const Device&) override;
+    initialize(const ShrdPtr<Device>&) override;
 
     void
     Setup() override;
@@ -58,12 +58,12 @@ namespace kraEngineSDK {
      iblSetup();
 
    protected:
-    virtual void
-      onStartUp() override;
+    void
+    onStartUp() override;
 
 
-    virtual void
-      onShutdown() override;
+    void
+    onShutdown() override;
 
    public:
      GraphicsAPI* m_GFXAPI = nullptr;

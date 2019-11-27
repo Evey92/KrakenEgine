@@ -26,16 +26,16 @@ namespace kraEngineSDK {
     setRenderTarget(const Device& pDevice, const DepthStencilView& pDSV) = 0;
 
     virtual void
-    setRenderTargets(Device* pDevice, Vector<RenderTargetView*> renderTargets, const DepthStencilView& pDSV) = 0;
+    setRenderTargets(const Device& pDevice, Vector<RenderTargetView*> renderTargets, const DepthStencilView& pDSV) = 0;
 
     virtual void
     cleanRTV() = 0;
 
     virtual void
-    clearRenderTarget(Device* pDevice, Vector4 clearColor) = 0;
+    clearRenderTarget(const Device& pDevice, Vector4 clearColor) = 0;
 
     virtual void
-    clearRenderTargets(Device* pDevice, Vector4 clearColor) = 0;
+    clearRenderTargets(const Device& pDevice, Vector4 clearColor) = 0;
 
   };
 }

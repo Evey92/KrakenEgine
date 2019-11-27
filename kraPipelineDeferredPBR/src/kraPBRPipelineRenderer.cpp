@@ -1,7 +1,6 @@
 #include "kraPBRPipelineRenderer.h"
 #include <kraDevice.h>
 #include <kraBaseApplication.h>
-#include <kraRenderPipeline.h>
 #include <kraVertexShader.h>
 #include <kraPixelShader.h>
 #include <kraComputeShader.h>
@@ -19,13 +18,13 @@ namespace kraEngineSDK {
 
 
   void
-  DeferredPBRenderer::initialize(const Device& pDevice)
+  DeferredPBRenderer::initialize(const ShrdPtr<Device>& pDevice)
   {
     //TODO: Try to fix this.
    /* m_GFXAPI = GraphicsAPI::instancePtr();
     m_appInstance = BaseApplication::instancePtr();*/
 
-    m_gfxDevice.reset(&pDevice);
+    m_gfxDevice = pDevice;
 
     //Init textures
     m_equirectHDRTexture = m_gfxDevice->createTextureInstance();

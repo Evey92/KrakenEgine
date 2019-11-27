@@ -18,10 +18,9 @@ namespace kraEngineSDK {
   }
 
   void
-    ViewportDX::setViewport(Device* pDeviceContext) {
+    ViewportDX::setViewport(const Device& pDevice) {
 
-    DeviceDX* m_pDevice = static_cast<DeviceDX*>(pDeviceContext);
-
-    m_pDevice->m_pImmediateContext->RSSetViewports(1, &m_pd3dviewport);
+    const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
+    m_pDevice.m_pImmediateContext->RSSetViewports(1, &m_pd3dviewport);
   }
 }

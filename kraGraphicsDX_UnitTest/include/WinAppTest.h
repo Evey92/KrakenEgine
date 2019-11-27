@@ -177,8 +177,8 @@ class WinApp :
 
 #pragma region PUBLIC_MEMBERS
 
-   Device* m_gfxDevice = nullptr;
-   Camera* m_activeCam =nullptr;
+   ShrdPtr<Device> m_gfxDevice = nullptr;
+   Camera* m_activeCam = nullptr;
    CameraManager* m_camManager = nullptr;
    kraInputManager* m_inputManager = nullptr;
 

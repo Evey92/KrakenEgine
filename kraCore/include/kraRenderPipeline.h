@@ -16,7 +16,7 @@ namespace kraEngineSDK {
       ~RenderPipeline() {}
 
       virtual void
-      initialize(const Device&) = 0;
+      initialize(const ShrdPtr<Device>&) = 0;
 
       virtual void
       Setup() = 0;

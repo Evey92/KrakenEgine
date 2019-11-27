@@ -180,7 +180,7 @@ namespace kraEngineSDK {
                                "texture_diffuse",
                                scene))
       {
-        outMesh->setTexture(&pDevice, TEXTURE_TYPE::E::ALBEDO, diffuseTex);
+        outMesh->setTexture(pDevice, TEXTURE_TYPE::E::ALBEDO, diffuseTex);
       }
 
       ShrdPtr<Texture> normalTex = pDevice.createTextureInstance();
@@ -191,7 +191,7 @@ namespace kraEngineSDK {
                                "texture_normal",
                                scene))
       {
-        outMesh->setTexture(&pDevice, TEXTURE_TYPE::E::NORMAL, normalTex);
+        outMesh->setTexture(pDevice, TEXTURE_TYPE::E::NORMAL, normalTex);
       }
 
       ShrdPtr<Texture> specularTex = pDevice.createTextureInstance();
@@ -202,7 +202,7 @@ namespace kraEngineSDK {
                                "texture_Specular",
                                scene))
       {
-        outMesh->setTexture(&pDevice, TEXTURE_TYPE::E::SPECULAR, specularTex);
+        outMesh->setTexture(pDevice, TEXTURE_TYPE::E::SPECULAR, specularTex);
       }
 
     }
@@ -241,7 +241,7 @@ namespace kraEngineSDK {
 
     for (uint32 i = 0; i < m_meshVec.size(); i++)
     {
-      m_meshVec[i]->getComponent<Mesh>().DrawMesh(pDevice);
+      m_meshVec[i]->getComponent<Mesh>().DrawMesh(*pDevice);
     }
   }
 
@@ -282,7 +282,7 @@ namespace kraEngineSDK {
   Model::setAllMeshMaterials(Device* pDevice, Material* mat)
   {
     for (auto& mesh : m_meshVec) {
-      mesh->getComponent<Mesh>().setMeshMaterial(pDevice, mat);
+      mesh->getComponent<Mesh>().setMeshMaterial(*pDevice, mat);
     }
   }
 

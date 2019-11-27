@@ -16,6 +16,6 @@ namespace kraEngineSDK {
     createViewport(uint32 width, uint32 height, float TopLeftX, float TopLeftY) = 0;
 
     virtual void
-    setViewport(Device* pDeviceContext) = 0;
+    setViewport(const Device& pDeviceContext) = 0;
   };
 }

@@ -22,14 +22,14 @@ namespace kraEngineSDK {
     ~Mesh() {}
 
     void
-    initialize(const Device& pDevice);
+    initialize(Device& pDevice);
 
     void 
     initBuffers(std::vector<Vertex> vertices, 
                std::vector<uint32> indices);
 
     void
-    DrawMesh(const Device& pDevice);
+    DrawMesh(Device& pDevice);
     
     IndexBuffer*
     getIndexBuffer();
@@ -44,7 +44,7 @@ namespace kraEngineSDK {
     setTexture(const Device& pDevice, TEXTURE_TYPE::E texType, const ShrdPtr<Texture>& newTex);
 
     void
-      setMeshMaterial(const Device& pDevice, Material* mat);
+    setMeshMaterial(const Device& pDevice, Material* mat);
 
     void
     setMaterialAlbedo(Device* pDevice, const ShrdPtr<Texture>& newTex);

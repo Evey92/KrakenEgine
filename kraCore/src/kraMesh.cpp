@@ -32,10 +32,10 @@ namespace kraEngineSDK {
   }
 
   void
-  Mesh::DrawMesh(Device* pDevice) {
+  Mesh::DrawMesh(Device& pDevice) {
     
-    m_vertexBurffer->setVertexBuffer(*pDevice);
-    m_indexBuffer->setIndexBuffer(*pDevice);
+    m_vertexBurffer->setVertexBuffer(pDevice);
+    m_indexBuffer->setIndexBuffer(pDevice);
     
     //TODO: Fix this horrible mess. It's probably something stupid simple that I'm too tired to see
 
@@ -57,7 +57,7 @@ namespace kraEngineSDK {
       
     }
 
-    pDevice->DrawIndexed(m_indexBuffer->getBufferSize(), 0, 0);
+    pDevice.DrawIndexed(m_indexBuffer->getBufferSize(), 0, 0);
   }
 
   IndexBuffer*
@@ -109,14 +109,14 @@ namespace kraEngineSDK {
 
 
   void 
-  Mesh::setMeshMaterial(Device* pDevice, Material* mat)
+  Mesh::setMeshMaterial(const Device& pDevice, Material* mat)
   {
     //Material compMat = m_owner->getComponent<Material>();
 
-    m_material->setAlbedoTex(*pDevice, mat->getAlbedoTex());
-    m_material->setNormalTex(*pDevice, mat->getNormalTex());
-    m_material->setMetalTex(*pDevice, mat->getMetalTex());
-    m_material->setRoughnessTex(*pDevice, mat->getRoughnessTex());
+    m_material->setAlbedoTex(pDevice, mat->getAlbedoTex());
+    m_material->setNormalTex(pDevice, mat->getNormalTex());
+    m_material->setMetalTex(pDevice, mat->getMetalTex());
+    m_material->setRoughnessTex(pDevice, mat->getRoughnessTex());
 
   }
 
