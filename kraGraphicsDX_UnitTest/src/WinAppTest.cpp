@@ -288,7 +288,7 @@ WinApp::render()
   const Matrix4 viewRotationMat = Matrix4::eulerAngleXY(kraMath::DEG2RAD(m_activeCam->getPitch()),
                                                         kraMath::DEG2RAD(m_activeCam->getYaw()));
 
-  m_mainCB->clear();
+  //m_mainCB->clear();
   
   
   // Setting world matrix
@@ -314,7 +314,7 @@ WinApp::render()
   m_mainCB->getConstData()[2] = m_projection;
 
   m_skyprojection.transpose();
-  m_mainCB->add(m_skyprojection);
+  m_mainCB->getConstData()[3] = m_skyprojection;
   m_mainCB->updateSubResources(*m_gfxDevice);
 
   m_shadingCB->clear();
