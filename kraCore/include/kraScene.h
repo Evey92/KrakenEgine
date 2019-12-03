@@ -39,7 +39,7 @@ namespace kraEngineSDK {
 
 #pragma region PRIVATE_MEMBERS
     
-    SceneGraph* m_sceneGraph = nullptr;
+    ShrdPtr<SceneGraph> m_sceneGraph = nullptr;
 
 #pragma endregion PRIVATE_MEMBERS
 

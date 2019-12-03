@@ -39,6 +39,9 @@
       return false;
     }
 
+    sc = SceneManager::instance().getActiveScene()->m_sceneGraph;
+
+
     return true;
   }
 
@@ -71,7 +74,7 @@
       ImGui::EndMainMenuBar();
     }
     showSceneGraph(scene);
-    showInspector(nullptr);
+    showInspector(*sc->getRootNode());
     showSceneWindow();
 
     ImGui::EndFrame();
@@ -110,7 +113,6 @@
     ImGui::SetNextWindowPos(ImVec2(5, 20), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(300, 700), ImGuiCond_FirstUseEver);
 
-    kraEngineSDK::SceneGraph* sc = SceneManager::instance().getActiveScene()->m_sceneGraph;
 
     ImGui::Begin("Scene Graph");
     if (ImGui::OpenPopupOnItemClick("Scenegrapgh context menu", 1)) {
@@ -139,7 +141,7 @@
     ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
     if (&node == m_selectedNode) {
       node_flags |= ImGuiTreeNodeFlags_Selected;
-      showInspector(&node);
+      showInspector(node);
     }
 
     bool nodeOpen = ImGui::TreeNodeEx(&node, node_flags, node.getName().c_str(), m_selectedNode);
@@ -161,29 +163,29 @@
   }
 
   void
-  UIManager::showInspector(GameObject* gameObj)
+  UIManager::showInspector(GameObject& gameObj)
   {
     ImGui::SetNextWindowPos(ImVec2(1280, 20), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(320, 600), ImGuiCond_FirstUseEver);
 
     ImGui::Begin("Gameobject details");
 
-    if (gameObj != nullptr) {
+    if (!gameObj.m_isRoot) {
 
-      for (auto&& comp : gameObj->m_components)
+      for (auto&& comp : gameObj.m_components)
       {
         
         if (comp->isOfType(Transform::Type)) {
-          drawTransform(*gameObj->m_transform);
+          drawTransform(*gameObj.m_transform);
         }
         else if (comp->isOfType(Camera::Type)) {
-          drawCamera(gameObj->getComponent<Camera>());
+          drawCamera(gameObj.getComponent<Camera>());
         }
         else if (comp->isOfType(Mesh::Type)) {
-          drawMesh(gameObj->getComponent<Mesh>());
+          drawMesh(gameObj.getComponent<Mesh>());
         }
         else if (comp->isOfType(Material::Type)) {
-          Material GOMat = gameObj->getComponent<Material>();
+          Material GOMat = gameObj.getComponent<Material>();
           drawMaterial(GOMat);
         }
         
@@ -216,22 +218,33 @@
 
     static float pos[3];
     static float rot[3];
-    static float scale[3] = {1.0, 1.0, 1.0};
+    static float scale[3];
 
+    pos[0] = oldPos[0];
+    pos[1] = oldPos[1];
+    pos[2] = oldPos[2];
     ImGui::Text("Transform");
     ImGui::InputFloat3("Position", pos);
-    if (pos[0] != oldPos[0] && pos[1] != oldPos[1] && pos[2] != oldPos[2]) {
+    if (pos[0] != oldPos[0] || pos[1] != oldPos[1] || pos[2] != oldPos[2]) {
       transform.setPosition(Vector3(pos[0], pos[1], pos[2]));
+
     }
 
+    rot[1] = oldRot[1];
+    rot[2] = oldRot[2];
+    rot[0] = oldRot[0];
     ImGui::InputFloat3("Rotation", rot);
-    if (rot[0] != oldRot[0] && rot[1] != oldRot[1] && rot[2] != oldRot[2]) {
-      transform.setRotation(Vector3(pos[0], pos[1], pos[2]));
-      
+    if (rot[0] != oldRot[0] || rot[1] != oldRot[1] || rot[2] != oldRot[2]) {
+      transform.setRotation(Vector3(rot[0], rot[1], rot[2]));
+
     }
+
+    scale[0] = oldScale[0];
+    scale[1] = oldScale[1];
+    scale[2] = oldScale[2];
     ImGui::InputFloat3("Scale", scale);
-    if (scale[0] != oldScale[0] && scale[1] != oldScale[1] && scale[2] != oldScale[2]) {
-      transform.setScale(Vector3(pos[0], pos[1], pos[2]));
+    if (scale[0] != oldScale[0] || scale[1] != oldScale[1] || scale[2] != oldScale[2]) {
+      transform.setScale(Vector3(scale[0], scale[1], scale[2]));
     }
     ImGui::Separator();
   }

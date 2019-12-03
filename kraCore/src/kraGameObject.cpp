@@ -85,7 +85,7 @@ namespace kraEngineSDK {
   Matrix4
   GameObject::getWorldMatrix()
   {
-    if (m_parent != nullptr)
+    if (!m_parent->m_isRoot)
     {
       return m_transform->getTransformMatrix() * m_parent->getWorldMatrix();
     }

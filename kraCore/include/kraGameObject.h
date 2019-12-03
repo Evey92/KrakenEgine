@@ -112,6 +112,7 @@ namespace kraEngineSDK {
     uint32 m_id = 0;
     String m_name;
     bool m_isActive = true;
+    bool m_isRoot = false;
 
   };
 

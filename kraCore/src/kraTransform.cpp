@@ -9,6 +9,7 @@ namespace kraEngineSDK {
   {
     Position = newPosition;
     m_dirty = true;
+    
   }
 
   Vector3 
@@ -33,7 +34,7 @@ namespace kraEngineSDK {
   void
   Transform::setScale(Vector3 newScale)
   {
-    Position = newScale;
+    Scale = newScale;
     m_dirty = true;
   }
 
@@ -49,6 +50,7 @@ namespace kraEngineSDK {
 
     if (m_dirty) {
       createTransformMat();
+      m_dirty = false;
     }
 
     return m_transformMatrix;

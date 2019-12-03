@@ -7,6 +7,7 @@ namespace kraEngineSDK {
   SceneGraph::initialize()
   {
     m_root = SceneManager::instance().createGameObject("Root");
+    m_root->m_isRoot = true;
     m_root->setID(0);
     m_sceneNodes.push_back(m_root);
   }

@@ -10,7 +10,7 @@ namespace kraEngineSDK {
   void
     Scene::initialize()
   {
-    m_sceneGraph = new SceneGraph();
+    m_sceneGraph = make_shared<SceneGraph>();
     m_sceneGraph->initialize();
 
     ShrdPtr<GameObject> newGO = SceneManager::instance().createGameObject("MainCamera");

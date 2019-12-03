@@ -55,6 +55,9 @@ namespace kraEngineSDK {
      saoPass();
 
      void
+     setUpGBuffer();
+
+     void
      iblSetup();
 
    protected:

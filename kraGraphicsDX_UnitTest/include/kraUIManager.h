@@ -34,7 +34,7 @@ using namespace kraEngineSDK;
     drawSceneGraphNode(GameObject& node);
 
     void
-    showInspector(GameObject* gameObj);
+    showInspector(GameObject& gameObj);
     
     void
     showSceneWindow();
@@ -68,6 +68,7 @@ using namespace kraEngineSDK;
 
     ShrdPtr<Device> pgfxDevice;
     HWND windowHandle;
+    ShrdPtr<SceneGraph> sc;
     Vector2 m_sceneGraphSize = Vector2::ZERO;
     Vector2 m_sceneGraphPos = Vector2::ZERO;
     Vector2 m_mainViewSize = Vector2::ZERO;
