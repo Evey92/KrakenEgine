@@ -53,6 +53,7 @@ namespace kraEngineSDK {
     m_pos.x = Pos.x;
     m_pos.y = Pos.y;
     m_pos.z = Pos.z;
+    m_owner->getComponent<Transform>().setPosition(Pos);
     m_dirty = true;
   }
 
@@ -141,7 +142,6 @@ namespace kraEngineSDK {
   float
   Camera::getNearPlane() {
     return m_nearZ;
-    m_dirty = true;
 
   }
 
@@ -155,7 +155,6 @@ namespace kraEngineSDK {
   float& const
   Camera::getFarPlane() {
     return m_farZ;
-    m_dirty = true;
 
   }
 

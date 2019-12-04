@@ -100,6 +100,7 @@ namespace kraEngineSDK {
 
     //Set up graphics API. Which makes no sense.
     m_rasterizerState->createRasterizerState(*m_gfxDevice,
+                                             false,
                                              FILL_MODE::E::kFILL_SOLID,
                                              CULL_MODE::E::kCULL_BACK);
 
@@ -198,9 +199,9 @@ namespace kraEngineSDK {
     m_GbufferPS->compilePixelShader(L"resources/Shaders/Gbuffer.hlsl", "PS");
     m_GbufferPS->createPixelShader(*m_gfxDevice);
 
-    for () {
+   /* for () {
 
-    }
+    }*/
 
   }
 

@@ -14,6 +14,7 @@ namespace kraEngineSDK {
 
     void
       createRasterizerState(const Device& pDevice,
+                            bool depthClipEnable,
                             FILL_MODE::E fillMode,
                             CULL_MODE::E cullMode);
     void

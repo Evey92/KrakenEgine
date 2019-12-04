@@ -143,20 +143,22 @@ WinApp::Initialize()
   // Create Depth stencil
   m_defaultDepthStencil = m_gfxDevice->createDepthStencilInstance();
   //m_defaultDepthStencil->setDepthStencil(*m_gfxDevice, m_gfxAPIInstance->getDevice()->getHeight(), m_gfxAPIInstance->getDevice()->getWidth());
-  m_defaultDepthStencil->createDepthStencilState(*m_gfxDevice, true, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ALL);
+  m_defaultDepthStencil->createDepthStencilState(*m_gfxDevice, true, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ALL, COMPARISON_FUNCTION::E::kCOMPARISON_LESS_EQUAL);
   m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
   
   // Create Skybox Depth stencil
   m_skyboxDepthStencil = m_gfxDevice->createDepthStencilInstance();
-  m_skyboxDepthStencil->createDepthStencilState(*m_gfxDevice, false, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ZERO);
+  m_skyboxDepthStencil->createDepthStencilState(*m_gfxDevice, false, DEPTH_WRITE_MASK::E::kDEPTH_WRITE_MASK_ZERO, COMPARISON_FUNCTION::E::kCOMPARISON_LESS_EQUAL);
   
   m_defaultDepthStencil->setDepthStencilState(*m_gfxDevice);
 
   //Create rasterizer state
   m_rasterizerState = m_gfxDevice->creatreRasterizerStateInstance();
   m_rasterizerState->createRasterizerState(*m_gfxAPIInstance->getDevice(),
+                                           true,
                                            FILL_MODE::E::kFILL_SOLID,
                                            CULL_MODE::E::kCULL_BACK);
+
   //Create default sampler state
   m_defaultSampler = m_gfxDevice->createSamplerStateInstance();
   m_defaultSampler->createSamplerState(*m_gfxAPIInstance->getDevice(),
@@ -221,13 +223,13 @@ WinApp::Initialize()
   m_mainCB->add(m_skyprojection);
 
   m_mainCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
-  m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
+  //m_mainCB->updateSubResources(*m_gfxAPIInstance->getDevice());
 
   m_shadingCB->add(Vector4(m_activeCam->getPosition(), 1.0f));
   m_shadingCB->add(Vector4(-1.0f, 0.0f, 0.0f, 0.0f));
   m_shadingCB->add(Vector4(1.0f, 1.0f, 1.0f, 0.0f));
   m_shadingCB->createConstantBuffer(*m_gfxAPIInstance->getDevice());
-  m_shadingCB->updateSubResources(*m_gfxAPIInstance->getDevice());
+  //m_shadingCB->updateSubResources(*m_gfxAPIInstance->getDevice());
 
   return true;
 }
@@ -296,25 +298,25 @@ WinApp::render()
 
 
   //Setting view matrix
-  Matrix4 viewMat = CameraManager::instance().getActiveCamera()->GetViewMatrix();
+  Matrix4 viewMat = m_activeCam->GetViewMatrix();
 
   //Setting projection matrix
-  m_projection.MatrixPerspectiveFOVLH(CameraManager::instance().getActiveCamera()->getFOV(),
+  m_projection.MatrixPerspectiveFOVLH(m_activeCam->getFOV(),
                                     static_cast<float>(m_window->getWidth()),
                                     static_cast<float>(m_window->getHeight()),
-                                    CameraManager::instance().getActiveCamera()->getNearPlane(),
-                                    CameraManager::instance().getActiveCamera()->getFarPlane());
+                                    m_activeCam->getNearPlane(),
+                                    m_activeCam->getFarPlane());
 
   m_skyprojection = m_projection * viewMat;
   
   viewMat.transpose();
-  m_mainCB->getConstData()[1] = viewMat;
+  m_mainCB->setConstData(1, viewMat);
   
   m_projection.transpose();
-  m_mainCB->getConstData()[2] = m_projection;
+  m_mainCB->setConstData(2, m_projection);
 
   m_skyprojection.transpose();
-  m_mainCB->getConstData()[3] = m_skyprojection;
+  m_mainCB->setConstData(3, m_skyprojection);
   m_mainCB->updateSubResources(*m_gfxDevice);
 
   m_shadingCB->clear();
@@ -329,11 +331,17 @@ WinApp::render()
   srcFB->m_frameRTV->clearRenderTarget(*m_gfxDevice, ClearColor);
 
   m_gfxAPIInstance->getDevice()->setPrimitiveTopology();
-  m_rasterizerState->setRasterizerState(*m_gfxDevice);
   m_mainCB->setVertexConstantBuffer(*m_gfxDevice, 0, 1);
   m_shadingCB->setPixelConstantBuffer(*m_gfxDevice, 0, 1);
 
+  m_rasterizerState->setRasterizerState(*m_gfxDevice);
+
   
+
+  //Render Skybox
+  if (m_skyBoxGO != nullptr) {
+    drawSkybox();
+  }
 
   //Render PBR Models
   drawPBRModels();
@@ -343,10 +351,6 @@ WinApp::render()
   
   m_backBufferRTV->setRenderTarget(*m_gfxDevice, 1);
 
-  //Render Skybox
-  if (m_skyBoxGO != nullptr) {
-  drawSkybox();
-  }
 
 
   //Tone mapping pass
@@ -537,7 +541,7 @@ WinApp::localRenderSetup()
   //This one is specially disgusting
   //m_skyBoxGO = m_sceneManager->createGameObject("Skybox");
   Model* skyModel = new Model(m_skyBoxGO);
-  if (skyModel->loadModelFromFile("resources/Models/skybox.obj",
+  if (skyModel->loadModelFromFile("resources/Models/Skybox3.fbx",
                                  *m_gfxDevice, m_sceneManager)) {
     m_skyBoxGO = skyModel->getMeshVec()[0];
     m_skyBoxGO->getComponent<Material>().setAlbedoTex(*m_gfxDevice, m_enviroMap);
@@ -547,9 +551,6 @@ WinApp::localRenderSetup()
     MessageBox(m_window->gethWnd(), "Skybox model couldn't be loaded", "ERROR", MB_OK | MB_ICONWARNING);
     m_skyBoxGO = nullptr;
   }
-
-  
-
 
   setUpIBL();
     
@@ -720,7 +721,11 @@ WinApp::drawSkybox()
   m_skyboxPS->setPixelShader(*m_gfxDevice);
   m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
   m_skyboxDepthStencil->setDepthStencilState(*m_gfxDevice);
+  m_skyBoxGO->getComponent<Mesh>().setIndexBuffer(*m_gfxDevice);
+  m_skyBoxGO->getComponent<Mesh>().setVertexBuffer(*m_gfxDevice);
+  m_skyBoxGO->getComponent<Mesh>().setTexShaderResources(*m_gfxDevice);
   m_skyBoxGO->getComponent<Mesh>().DrawMesh(*m_gfxDevice);
+
 }
 
 void 
@@ -741,8 +746,12 @@ WinApp::drawPBRModels()
     
     Matrix4 movelMatrix = m_modelsVector[i]->getWorldMatrix();
     movelMatrix.transpose();
-    m_mainCB->getConstData()[0] = movelMatrix;
+    m_mainCB->setConstData(0, movelMatrix);
     m_mainCB->updateSubResources(*m_gfxDevice);
+
+    m_modelsVector[i]->getComponent<Mesh>().setIndexBuffer(*m_gfxDevice);
+    m_modelsVector[i]->getComponent<Mesh>().setVertexBuffer(*m_gfxDevice);
+    m_modelsVector[i]->getComponent<Mesh>().setTexShaderResources(*m_gfxDevice);
     m_modelsVector[i]->getComponent<Mesh>().DrawMesh(*m_gfxDevice);
     
   }
@@ -774,7 +783,7 @@ WinApp::setGoldMaterial(Mesh& meshGO) {
 
   albedo->createTexture2DFromFile(*m_gfxDevice,
                                   "resources/Textures/pbr/gold/gold_albedo2.png",
-                                  GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM,
+                                  GFX_FORMAT::E::kFORMAT_B8G8R8A8_UNORM_SRGB,
                                   GFX_USAGE::E::kUSAGE_DEFAULT,
                                   CPU_USAGE::E::kCPU_ACCESS_WRITE);
 

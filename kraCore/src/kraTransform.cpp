@@ -90,6 +90,7 @@ namespace kraEngineSDK {
     S.m[2][2] = Scale[2];
 
     m_transformMatrix = T * R * S;
+    m_transformMatrix.m[3][3] = 1.0f;
   }
 
 }

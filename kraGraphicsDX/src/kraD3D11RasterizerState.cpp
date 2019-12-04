@@ -7,6 +7,7 @@ namespace kraEngineSDK {
  
   void
   RasterizerStateDX::createRasterizerState(const Device& pDevice,
+                                           bool depthClipEnable, 
                                            FILL_MODE::E fillMode = FILL_MODE::E::kFILL_SOLID,
                                            CULL_MODE::E cullMode = CULL_MODE::E::kCULL_BACK) {
 
@@ -19,7 +20,7 @@ namespace kraEngineSDK {
     rasDesc.FillMode = static_cast<D3D11_FILL_MODE>(fillMode);
     rasDesc.CullMode = static_cast<D3D11_CULL_MODE>(cullMode);
     rasDesc.FrontCounterClockwise = true;
-    rasDesc.DepthClipEnable = true;
+    rasDesc.DepthClipEnable = depthClipEnable;
 
     m_pDevice.m_pd3dDevice->CreateRasterizerState(&rasDesc, &m_rasterizerState);
   }
