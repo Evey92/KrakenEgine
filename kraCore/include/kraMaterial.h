@@ -25,10 +25,10 @@ namespace kraEngineSDK {
     void
     initialize(Device& pDevice);
 
-    ShrdPtr<Texture>
+    const ShrdPtr<Texture>&
     getAlbedoTex();
 
-    ShrdPtr<Texture>
+    const ShrdPtr<Texture>&
     getNormalTex();
 
     ShrdPtr<Texture>

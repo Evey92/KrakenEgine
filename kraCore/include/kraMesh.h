@@ -34,8 +34,14 @@ namespace kraEngineSDK {
     IndexBuffer*
     getIndexBuffer();
 
+    void
+    setIndexBuffer(const Device& pDevice);
+
     VertexBuffer*
     getVertexBuffer();
+
+    void
+    setVertexBuffer(const Device& pDevice);
 
     const Vector<ShrdPtr<Texture>>&
     getTextures();
@@ -63,6 +69,9 @@ namespace kraEngineSDK {
 
     ShrdPtr<Texture>
     getTexture(TEXTURE_TYPE::E texType);
+
+    void
+    setTexShaderResources(const Device& pDevice);
 
     void
     setName(String name);

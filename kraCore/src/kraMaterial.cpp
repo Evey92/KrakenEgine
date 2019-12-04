@@ -18,13 +18,13 @@ namespace kraEngineSDK {
     m_texAOMap = pDevice.createTextureInstance();
   }
 
-  ShrdPtr<Texture> 
+  const ShrdPtr<Texture>& 
   Material::getAlbedoTex()
   {
     return m_texColorMap;
   }
 
-  ShrdPtr<Texture> 
+  const ShrdPtr<Texture>& 
   Material::getNormalTex()
   {
     return m_texNormalMap;

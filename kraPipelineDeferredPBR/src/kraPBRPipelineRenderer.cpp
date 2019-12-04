@@ -192,6 +192,15 @@ namespace kraEngineSDK {
   void 
   DeferredPBRenderer::setUpGBuffer()
   {
+    m_GbufferVS->compileVertexShader(L"resources/Shaders/Gbuffer.hlsl", "VS");
+    m_GbufferVS->createVertexShader(*m_gfxDevice);
+
+    m_GbufferPS->compilePixelShader(L"resources/Shaders/Gbuffer.hlsl", "PS");
+    m_GbufferPS->createPixelShader(*m_gfxDevice);
+
+    for () {
+
+    }
 
   }
 

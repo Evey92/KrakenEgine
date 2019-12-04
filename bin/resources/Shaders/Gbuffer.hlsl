@@ -97,4 +97,6 @@ PS_OUTPUT PS(PS_INPUT Input) : SV_Target
 
     Output.AO.r = texAO.Sample(samLinear, Input.TexCoord).r;
 
+    return Output;
+
 } 

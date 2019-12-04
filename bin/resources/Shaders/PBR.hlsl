@@ -163,7 +163,7 @@ float4 PS(PS_INPUT Input) : SV_Target
 
 	// Ambient lighting (IBL).
   float3 ambientLight = 0;
-   /*{
+   {
         float3 irradiance = texIrradiance.Sample(samLinear, N).rgb;
 
         float3 F = fresnelSchlick(F0, cosLo);
@@ -186,7 +186,7 @@ float4 PS(PS_INPUT Input) : SV_Target
      // Total ambient lighting contribution.
         ambientLight = diffuseIBL + specularIBL;
 
-    }*/
+    }
 
   // Final fragment color.
     return float4(directLight + ambientLight, 1.0);

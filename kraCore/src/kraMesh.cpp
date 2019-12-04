@@ -15,10 +15,10 @@ namespace kraEngineSDK {
     m_owner = owner;
   }
 
-
   void 
   Mesh::initialize(Device& pDevice)
   {
+
     m_owner->addComponent<Material>(m_owner);
     m_material.reset(&m_owner->getComponent<Material>());
     m_material->initialize(pDevice);
@@ -27,6 +27,7 @@ namespace kraEngineSDK {
   void
   Mesh::initBuffers(std::vector<Vertex> vertices, std::vector<uint32> indices)
   {
+
     m_vertexBurffer->add(vertices);
     m_indexBuffer->add(indices);
   }
@@ -34,29 +35,6 @@ namespace kraEngineSDK {
   void
   Mesh::DrawMesh(Device& pDevice) {
     
-    m_vertexBurffer->setVertexBuffer(pDevice);
-    m_indexBuffer->setIndexBuffer(pDevice);
-    
-    //TODO: Fix this horrible mess. It's probably something stupid simple that I'm too tired to see
-
-    m_material->getAlbedoTex()->setTextureShaderResource(pDevice, 0, 1);
-    if (m_material->getNormalTex() != nullptr)
-    {
-      m_material->getNormalTex()->setTextureShaderResource(pDevice, 1, 1);
-    }
-    
-    if (m_material->getMetalTex() != nullptr)
-    {
-      m_material->getMetalTex()->setTextureShaderResource(pDevice, 2, 1);
-      
-    }
-    
-    if (m_material->getRoughnessTex() != nullptr)
-    {
-      m_material->getRoughnessTex()->setTextureShaderResource(pDevice, 3, 1);
-      
-    }
-
     pDevice.DrawIndexed(m_indexBuffer->getBufferSize(), 0, 0);
   }
 
@@ -65,13 +43,29 @@ namespace kraEngineSDK {
     return m_indexBuffer;
   }
 
+  void 
+  Mesh::setIndexBuffer(const Device& pDevice)
+  {
+
+    m_indexBuffer->setIndexBuffer(pDevice);
+  }
+
   VertexBuffer*
   Mesh::getVertexBuffer() {
+
     return m_vertexBurffer;
+  }
+
+  void 
+  Mesh::setVertexBuffer(const Device& pDevice)
+  {
+
+    m_vertexBurffer->setVertexBuffer(pDevice);
   }
 
   const Vector<ShrdPtr<Texture>>&
   Mesh::getTextures() {
+
     return m_meshTextures;
   }
 
@@ -157,7 +151,36 @@ namespace kraEngineSDK {
     return nullptr;
   }
 
-  void Mesh::setName(String name)
+  void 
+  Mesh::setTexShaderResources(const Device& pDevice)
+  {
+    //Set Albedo
+    m_material->getAlbedoTex()->setTextureShaderResource(pDevice, 0, 1);
+    
+    //Check if there's  a normal texture. Set it if there is
+    if (m_material->getNormalTex() != nullptr)
+    {
+      m_material->getNormalTex()->setTextureShaderResource(pDevice, 1, 1);
+    }
+
+    //Check if there's  a metal texture. Set it if there is
+    if (m_material->getMetalTex() != nullptr)
+    {
+      m_material->getMetalTex()->setTextureShaderResource(pDevice, 2, 1);
+
+    }
+
+    //Check if there's  a roughness texture. Set it if there is
+    if (m_material->getRoughnessTex() != nullptr)
+    {
+      m_material->getRoughnessTex()->setTextureShaderResource(pDevice, 3, 1);
+
+    }
+
+  }
+
+  void 
+  Mesh::setName(String name)
   {
     m_name = name;
   }
