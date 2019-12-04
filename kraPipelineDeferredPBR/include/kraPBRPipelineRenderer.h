@@ -12,6 +12,7 @@ namespace kraEngineSDK {
   /*class VertexShader;
   class PixelShader;*/
   class GameObject;
+  class Camera;
   class Model;
   class Mesh;
   class Device;
@@ -35,7 +36,7 @@ namespace kraEngineSDK {
     ~DeferredPBRenderer() = default;
 
     void
-    initialize(const ShrdPtr<Device>&) override;
+    initialize(const ShrdPtr<Device>&, ShrdPtr<Camera>&, ShrdPtr<BaseApplication>&) override;
 
     void
     Setup() override;
@@ -69,8 +70,11 @@ namespace kraEngineSDK {
     onShutdown() override;
 
    public:
+     
      GraphicsAPI* m_GFXAPI = nullptr;
-     BaseApplication* m_appInstance = nullptr;
+     ShrdPtr<Device> m_gfxDevice;
+     ShrdPtr<Camera> m_activeCam;
+     ShrdPtr<BaseApplication> m_appInstance = nullptr;
 
      //Textures
      Vector<ShrdPtr<Texture*>> m_GbufferTextures;
@@ -122,10 +126,9 @@ namespace kraEngineSDK {
      //Rasterizer
      ShrdPtr<RasterizerState> m_rasterizerState = nullptr;
 
-     ShrdPtr<Device> m_gfxDevice;
      Vector<ShrdPtr<GameObject>> m_modelsVector;
      ShrdPtr<GameObject> m_skyBoxGO;
-
+     
      bool m_useIBL = true;
   };
 

@@ -195,12 +195,12 @@ WinApp::Initialize()
   m_activeCam->setUp(Vector3(0.0f, 1.0f, 0.0f));
   m_activeCam->setRight(Vector3(1.0f, 0.0f, 0.0f));
   m_activeCam->setFront(Vector3(0.0f, 0.0f, 1.0f));
-  m_activeCam->SetPosition(Vector3(0.0f, 60.0f, -180.0f));
-  m_activeCam->SetObjecive(Vector3(0.0f, 1.0f, 0.0f));
+  m_activeCam->SetPosition(Vector3(0.0f, 1.0f, -180.0f));
+  m_activeCam->SetObjecive(Vector3(0.0f, 0.0f, 1.0f));
 
   m_activeCam->setFOV(kraMath::DEG2RAD(90.0f));
   m_activeCam->setNearPlane(0.01f);
-  m_activeCam->setFarPlane(1000.0f);
+  m_activeCam->setFarPlane(5000.0f);
 
    CameraManager::instance().getActiveCamera()->createViewMat();
   Matrix4 viewMat = CameraManager::instance().getActiveCamera()->GetViewMatrix();
@@ -380,6 +380,18 @@ void
 WinApp::destroy()
 {
   ::DestroyWindow(reinterpret_cast<HWND>(m_window->m_hWnd));
+}
+
+float 
+WinApp::getWindowWidth()
+{
+  return m_window->getWidth();
+}
+
+float 
+WinApp::getWindowHeight()
+{
+  return m_window->getHeight();
 }
 
 kraInputManager* 
@@ -647,7 +659,6 @@ WinApp::setUpIBL()
     
     roughness = level * deltaRoughness;
     m_specMapCB->add(roughness);
-    //m_specMapCB->createConstantBuffer(*m_gfxDevice);
 
     m_specMapCB->updateSubResources(*m_gfxDevice);
     m_specMapCB->setComputeConstantBuffer(*m_gfxDevice, 0, 1);
@@ -783,7 +794,7 @@ WinApp::setGoldMaterial(Mesh& meshGO) {
 
   albedo->createTexture2DFromFile(*m_gfxDevice,
                                   "resources/Textures/pbr/gold/gold_albedo2.png",
-                                  GFX_FORMAT::E::kFORMAT_B8G8R8A8_UNORM_SRGB,
+                                  GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM_SRGB,
                                   GFX_USAGE::E::kUSAGE_DEFAULT,
                                   CPU_USAGE::E::kCPU_ACCESS_WRITE);
 

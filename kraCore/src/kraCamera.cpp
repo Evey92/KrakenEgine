@@ -222,6 +222,16 @@ namespace kraEngineSDK {
     return m_viewMat;
   }
 
+  Matrix4 
+  Camera::GetProjedctionMatrix(float width, float height)
+  {
+    if (m_dirty) {
+      updateProjectionMAtrix(width, height);
+    }
+
+    return m_projectionMat;
+  }
+
   void
   Camera::createViewMat() {
     
@@ -238,6 +248,18 @@ namespace kraEngineSDK {
   }
 
   void 
+  Camera::updateProjectionMAtrix(float width, float height)
+  {
+
+    m_projectionMat.MatrixPerspectiveFOVLH(m_fov,
+                                           width,
+                                           height,
+                                           m_nearZ,
+                                           m_farZ);
+    m_dirty = false;
+  }
+
+  void
   Camera::Yaw(float angle)
   {
     m_front = m_front * kraMath::cos(angle * (kraMath::PI/180)) - (m_right * kraMath::sin(angle * kraMath::PI/180.0f));

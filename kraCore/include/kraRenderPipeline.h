@@ -5,6 +5,8 @@
 namespace kraEngineSDK {
 
   class Device;
+  class Camera;
+  class BaseApplication;
 
   class RenderPipeline :
     public Module<RenderPipeline> {
@@ -16,7 +18,7 @@ namespace kraEngineSDK {
       ~RenderPipeline() {}
 
       virtual void
-      initialize(const ShrdPtr<Device>&) = 0;
+      initialize(const ShrdPtr<Device>&, ShrdPtr<Camera>&, ShrdPtr<BaseApplication>&) = 0;
 
       virtual void
       Setup() = 0;

@@ -13,18 +13,21 @@
 #include <kraSampler.h>
 #include <kraMesh.h>
 #include <kraGameObject.h>
+#include <kraCamera.h>
 
 namespace kraEngineSDK {
 
 
   void
-  DeferredPBRenderer::initialize(const ShrdPtr<Device>& pDevice)
+  DeferredPBRenderer::initialize(const ShrdPtr<Device>& pDevice, ShrdPtr<Camera>& activeCam, ShrdPtr<BaseApplication>& currentApp)
   {
     //TODO: Try to fix this.
    /* m_GFXAPI = GraphicsAPI::instancePtr();
     m_appInstance = BaseApplication::instancePtr();*/
 
     m_gfxDevice = pDevice;
+    m_activeCam = activeCam;
+    m_appInstance = currentApp;
 
     //Init textures
     m_equirectHDRTexture = m_gfxDevice->createTextureInstance();
@@ -133,6 +136,12 @@ namespace kraEngineSDK {
     }
 
     //Compiling up shaders
+    m_GbufferVS->compileVertexShader(L"resources/Shaders/Gbuffer.hlsl", "VS");
+    m_GbufferVS->createVertexShader(*m_gfxDevice);
+
+    m_GbufferPS->compilePixelShader(L"resources/Shaders/Gbuffer.hlsl", "PS");
+    m_GbufferPS->createPixelShader(*m_gfxDevice);
+
     m_PBRVS->compileVertexShader(L"resources/Shaders/PBR.hlsl", "VS");
     m_PBRVS->createVertexShader(*m_gfxDevice);
 
@@ -193,15 +202,35 @@ namespace kraEngineSDK {
   void 
   DeferredPBRenderer::setUpGBuffer()
   {
-    m_GbufferVS->compileVertexShader(L"resources/Shaders/Gbuffer.hlsl", "VS");
-    m_GbufferVS->createVertexShader(*m_gfxDevice);
+    
 
-    m_GbufferPS->compilePixelShader(L"resources/Shaders/Gbuffer.hlsl", "PS");
-    m_GbufferPS->createPixelShader(*m_gfxDevice);
+    for (auto& model : m_modelsVector) {
 
-   /* for () {
+      //set WVP matrices
+      Matrix4 modelMatrix = model->getWorldMatrix();
+      Matrix4 viewMat = m_activeCam->GetViewMatrix();
+      Matrix4 m_projection = m_activeCam->GetProjedctionMatrix(m_appInstance->getWindowWidth(), m_appInstance->getWindowHeight());
 
-    }*/
+      modelMatrix.transpose();
+      m_mainCB->setConstData(0, modelMatrix);
+      viewMat.transpose();
+      m_mainCB->setConstData(1, viewMat);
+      m_projection.transpose();
+      m_mainCB->setConstData(2, m_projection);
+      m_mainCB->updateSubResources(*m_gfxDevice);
+
+      model->getComponent<Mesh>().setTexShaderResources(*m_gfxDevice);
+      m_defaultSampler->setSamplerState(*m_gfxDevice, 0, 1);
+
+      m_GbufferVS->setVertexShader(*m_gfxDevice);
+      m_GbufferPS->setPixelShader(*m_gfxDevice);
+
+      model->getComponent<Mesh>().setIndexBuffer(*m_gfxDevice);
+      model->getComponent<Mesh>().setVertexBuffer(*m_gfxDevice);
+      
+      model->getComponent<Mesh>().DrawMesh(*m_gfxDevice);
+
+    }
 
   }
 

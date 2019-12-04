@@ -105,9 +105,15 @@ namespace kraEngineSDK {
 
     Matrix4 
     GetViewMatrix();
+
+    Matrix4
+    GetProjedctionMatrix(float width, float height);
     
     void
     createViewMat();
+
+    void
+    updateProjectionMAtrix(float width, float height);
 
     void 
     Yaw(float angle);
@@ -125,6 +131,7 @@ namespace kraEngineSDK {
 
     bool m_dirty = true;
     Matrix4 m_viewMat;
+    Matrix4 m_projectionMat;
     Vector3 m_pos = Vector3::ZERO;
     Vector3 m_objective = Vector3::ZERO;
     Vector3 m_front = Vector3::ONEZ;

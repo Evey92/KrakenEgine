@@ -105,6 +105,12 @@ namespace kraEngineSDK {
     destroy() = 0;
 #pragma endregion PUBLIC_METHODS
 
+    virtual float
+    getWindowWidth() = 0;
+
+    virtual float
+    getWindowHeight() = 0;
+
 #pragma region PROTECTED_METHODS
    protected:
     /**

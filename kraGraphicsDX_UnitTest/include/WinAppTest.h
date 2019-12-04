@@ -96,6 +96,12 @@ class WinApp :
    destroy() override;
 #pragma endregion APP_LIFECYCLE
 
+   float
+   getWindowWidth() override;
+
+   float
+   getWindowHeight() override;
+
 #pragma region INPUT_FUNCTIONS
    
    kraInputManager*
