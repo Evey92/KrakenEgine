@@ -64,6 +64,12 @@ namespace kraEngineSDK {
     Vector<ShrdPtr<GameObject>>
     getSceneNodes();
 
+    void 
+    deleteNode(int nodeId);
+
+    void
+    deleteNode(String nodeName);
+
    private:
      Vector<ShrdPtr<GameObject>> m_sceneNodes;
      ShrdPtr<GameObject> m_root = nullptr;

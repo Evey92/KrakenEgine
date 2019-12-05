@@ -72,13 +72,13 @@ namespace kraEngineSDK {
 
     //Rotation matrix
     Matrix4 Rx;
-    Rx.MatrixRotX(Rotation[0]);
+    Rx.MatrixRotX(kraMath::DEG2RAD(Rotation[0]));
     
     Matrix4 Ry;
-    Ry.MatrixRotY(Rotation[1]);
+    Ry.MatrixRotY(kraMath::DEG2RAD(Rotation[1]));
 
     Matrix4 Rz;
-    Rz.MatrixRotZ(Rotation[2]);
+    Rz.MatrixRotZ(kraMath::DEG2RAD(Rotation[2]));
 
     Matrix4 R = Rz * Ry * Rx;
 

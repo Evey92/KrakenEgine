@@ -104,6 +104,7 @@
     
   }
 
+  //TODO: Maybe the handling of context menus should be done somewhere else, but since I just need context menus inside the scenegraph, at least for now, I'm putting it here.
   void
   UIManager::showSceneGraph(Scene* scene)
   {
@@ -115,9 +116,6 @@
 
 
     ImGui::Begin("Scene Graph");
-    if (ImGui::OpenPopupOnItemClick("Scenegrapgh context menu", 1)) {
-      ImGui::Text("Hi I'm Elfo");
-    }
 
     ImGui::Text(scene->m_name.c_str());
 
@@ -126,6 +124,9 @@
     {  
       drawSceneGraphNode(*node); 
     }
+
+
+    
 
     ImGui::End();
   }
@@ -145,9 +146,18 @@
     }
 
     bool nodeOpen = ImGui::TreeNodeEx(&node, node_flags, node.getName().c_str(), m_selectedNode);
+    
     if (ImGui::IsItemClicked())
     {
       m_selectedNode = &node;
+    }
+    
+    if (ImGui::BeginPopupContextItem("Scenegrapgh context menu") && ImGui::IsItemClicked(1)) {
+      if (ImGui::Selectable("Delete")) {
+        sc->deleteNode(node.getID());
+      }
+
+      ImGui::EndPopup();
     }
 
     if (nodeOpen)

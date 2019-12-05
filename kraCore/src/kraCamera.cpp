@@ -50,9 +50,9 @@ namespace kraEngineSDK {
   void
   Camera::SetPosition(Vector3 Pos) {
     
-    m_pos.x = Pos.x;
+    /*m_pos.x = Pos.x;
     m_pos.y = Pos.y;
-    m_pos.z = Pos.z;
+    m_pos.z = Pos.z;*/
     m_owner->getComponent<Transform>().setPosition(Pos);
     m_dirty = true;
   }
@@ -63,13 +63,14 @@ namespace kraEngineSDK {
     m_pos.x = X;
     m_pos.y = Y;
     m_pos.z = Z;
+    m_owner->getComponent<Transform>().setPosition(m_pos);
 
     m_dirty = true;
   }
 
   Vector3
   Camera::getPosition() {
-    return m_pos;
+    return m_owner->getComponent<Transform>().getPosition();
   }
 
 
@@ -241,7 +242,7 @@ namespace kraEngineSDK {
     m_viewMat = Matrix4::MatrixLookAtRH(m_pos, m_objective, m_up);
     else
     */
-    m_viewMat = Matrix4::MatrixLookAtLH(m_pos, m_objective, m_up);
+    m_viewMat = Matrix4::MatrixLookAtLH(m_owner->getComponent<Transform>().getPosition(), m_objective, m_up);
 
     m_dirty = false;
 

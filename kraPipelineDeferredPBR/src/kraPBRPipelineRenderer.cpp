@@ -176,27 +176,7 @@ namespace kraEngineSDK {
   void 
   DeferredPBRenderer::setUpIrradianceMap()
   {
-    irradianceShader->compileComputeShader(L"resources/Shaders/irradianceMapShader.hlsl", "main");
-    irradianceShader->createComputeShader(*m_gfxDevice);
 
-    m_irradMap->createCubeTexture(*m_gfxDevice,
-      32, 32,
-      GFX_FORMAT::E::kFORMAT_R16G16B16A16_FLOAT,
-      GFX_USAGE::E::kUSAGE_DEFAULT,
-      1);
-
-    m_irradMap->createTextureUAV(*m_gfxDevice, 0);
-    m_enviroMap->setTextureComputeShaderResource(*m_gfxDevice, 0, 1);
-    m_computeSampler->setComputeSamplerState(*m_gfxDevice);
-    m_irradMap->setTextureUnorderedAccesVews(*m_gfxDevice, 0, 1);
-    irradianceShader->setComputeShader(*m_gfxDevice);
-    irradianceShader->dispatchCS(*m_gfxDevice,
-                                 m_irradMap->getWidth() / 32,
-                                 m_irradMap->getHeight() / 32,
-                                 6);
-    m_irradMap->setComputeNullUAV(*m_gfxDevice);
-
-    m_skyBoxGO->getComponent<Mesh>().setTexture(*m_gfxDevice, TEXTURE_TYPE::E::ALBEDO, m_enviroMap);
   }
 
   void 

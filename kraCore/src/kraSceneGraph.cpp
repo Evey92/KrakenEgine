@@ -113,4 +113,27 @@ namespace kraEngineSDK {
     return m_sceneNodes;
   }
 
+  void 
+  SceneGraph::deleteNode(int nodeId)
+  {
+    ShrdPtr<GameObject> nodeTodel = getNode(nodeId);
+    //ShrdPtr<GameObject> nodeParent = nodeTodel->getParent();
+
+    for (auto& child : nodeTodel->getChildren()) {
+      deleteNode(child->getID())
+    }
+  }
+
+  void 
+  SceneGraph::deleteNode(String nodeName)
+  {
+    ShrdPtr<GameObject> nodeTodel = getNode(nodeName);
+    ShrdPtr<GameObject> nodeParent = nodeTodel->getParent();
+
+    for (auto& child : nodeTodel->getChildren()) {
+      deleteNode(child->getID());
+    }
+
+  }
+
 }

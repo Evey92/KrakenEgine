@@ -86,6 +86,9 @@ namespace kraEngineSDK {
                           uint32 srcIndex,
                           void* box) = 0;
 
+    virtual uint32
+    calcSubResource(uint32 mipSlice, uint32 arraySize, uint32 mipLevels) = 0;
+
     virtual void
     Draw(uint32 numVertex, uint32 startIndex) = 0;
     

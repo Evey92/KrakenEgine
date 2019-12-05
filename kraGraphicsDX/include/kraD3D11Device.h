@@ -88,6 +88,9 @@ namespace kraEngineSDK {
                           uint32 srcIndex, 
                           void* box) override;
 
+    //Stupid function to test something.
+    uint32
+    calcSubResource(uint32 mipSlice, uint32 arraySize, uint32 mipLevels) override;
 
     void
     Draw(uint32 numVertex, uint32 startIndex);

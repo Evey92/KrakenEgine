@@ -620,8 +620,8 @@ WinApp::setUpIBL()
   m_specMapCS->compileComputeShader(L"resources/Shaders/specMapShader.hlsl", "main");
   m_specMapCS->createComputeShader(*m_gfxDevice);
 
+  m_specMapCB->add(0.0f);
   m_specMapCB->createConstantBuffer(*m_gfxDevice);
-
   m_enviroMap->createCubeTexture(*m_gfxDevice,
                                  1024,
                                  1024,
@@ -654,11 +654,11 @@ WinApp::setUpIBL()
   for (uint32 level = 1, size = 512; level < m_enviroMap->getLevels(); ++level, size/=2) {
     
     uint32 numGroups = kraMath::fmax<uint32>(1, size / 32);
-    m_specMapCB->clear();
+    
     m_enviroMap->createTextureUAV(*m_gfxDevice, level);
     
     roughness = level * deltaRoughness;
-    m_specMapCB->add(roughness);
+    m_specMapCB->setConstData(0, roughness);
 
     m_specMapCB->updateSubResources(*m_gfxDevice);
     m_specMapCB->setComputeConstantBuffer(*m_gfxDevice, 0, 1);

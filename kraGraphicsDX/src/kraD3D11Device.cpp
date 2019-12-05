@@ -363,4 +363,10 @@ namespace kraEngineSDK {
                                                reinterpret_cast<D3D11_BOX*>(box));
   }
 
+  uint32 
+  DeviceDX::calcSubResource(uint32 mipSlice, uint32 arraySlice, uint32 mipLevels)
+  {
+    return D3D11CalcSubresource(mipSlice, arraySlice, mipLevels);
+  }
+
 }
