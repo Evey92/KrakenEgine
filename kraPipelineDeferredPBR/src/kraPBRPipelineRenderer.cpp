@@ -304,6 +304,7 @@ namespace kraEngineSDK {
       //m_specMapCB->createConstantBuffer(*m_gfxDevice);
 
       m_specMapCB->updateSubResources(*m_gfxDevice);
+
       m_specMapCB->setComputeConstantBuffer(*m_gfxDevice, 0, 1);
 
       m_enviroMap->setTextureUnorderedAccesVews(*m_gfxDevice, 0, 1);
