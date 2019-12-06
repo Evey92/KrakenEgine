@@ -252,7 +252,7 @@ namespace kraEngineSDK {
   }
 
   float
-    Vector2::operator[](uint32 Index) const {
+  Vector2::operator[](uint32 Index) const {
 
     if (Index == 0) {
       return x;

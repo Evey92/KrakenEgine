@@ -328,7 +328,7 @@ WinApp::render()
   //WHAT?
   srcFB->m_frameRTV->setRenderTarget(*m_gfxDevice, *srcFB->m_frameDSV);
   srcFB->m_frameDSV->clearDSV(*m_gfxDevice);
-  srcFB->m_frameRTV->clearRenderTarget(*m_gfxDevice, ClearColor);
+  srcFB->m_frameRTV->clearRenderTarget(*m_gfxDevice, Color::Purple);
 
   m_gfxAPIInstance->getDevice()->setPrimitiveTopology();
   m_mainCB->setVertexConstantBuffer(*m_gfxDevice, 0, 1);
@@ -553,7 +553,7 @@ WinApp::localRenderSetup()
   //This one is specially disgusting
   //m_skyBoxGO = m_sceneManager->createGameObject("Skybox");
   Model* skyModel = new Model(m_skyBoxGO);
-  if (skyModel->loadModelFromFile("resources/Models/Skybox3.fbx",
+  if (skyModel->loadModelFromFile("resources/Models/Skybox.fbx",
                                  *m_gfxDevice, m_sceneManager)) {
     m_skyBoxGO = skyModel->getMeshVec()[0];
     m_skyBoxGO->getComponent<Material>().setAlbedoTex(*m_gfxDevice, m_enviroMap);
@@ -793,26 +793,26 @@ WinApp::setGoldMaterial(Mesh& meshGO) {
 
 
   albedo->createTexture2DFromFile(*m_gfxDevice,
-                                  "resources/Textures/pbr/gold/gold_albedo2.png",
+                                  "resources/Textures/pbr/Grimmy Metal/grimy-metal-albedo.png",
                                   GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM_SRGB,
                                   GFX_USAGE::E::kUSAGE_DEFAULT,
                                   CPU_USAGE::E::kCPU_ACCESS_WRITE);
 
   normal->createTexture2DFromFile(*m_gfxDevice,
-                                  "resources/Textures/pbr/gold/gold_normal.png",
+                                  "resources/Textures/pbr/Grimmy Metal/grimy-metal-normal-dx.png",
                                   GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM,
                                   GFX_USAGE::E::kUSAGE_DEFAULT,
                                   CPU_USAGE::E::kCPU_ACCESS_WRITE);
 
   metal->createTexture2DFromFile(*m_gfxDevice,
-                                 "resources/Textures/pbr/gold/gold_metalness.png",
+                                 "resources/Textures/pbr/Grimmy Metal/grimy-metal-metalness.png",
                                  GFX_FORMAT::E::kFORMAT_R8_UNORM,
                                  GFX_USAGE::E::kUSAGE_DEFAULT,
                                  CPU_USAGE::E::kCPU_ACCESS_WRITE,
                                  1);
 
   rough->createTexture2DFromFile(*m_gfxDevice,
-                                 "resources/Textures/pbr/gold/gold_roughness.png",
+                                 "resources/Textures/pbr/Grimmy Metal/grimy-metal-roughness.png",
                                  GFX_FORMAT::E::kFORMAT_R8_UNORM,
                                  GFX_USAGE::E::kUSAGE_DEFAULT,
                                  CPU_USAGE::E::kCPU_ACCESS_WRITE,

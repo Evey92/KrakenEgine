@@ -19,8 +19,6 @@ namespace kraEngineSDK {
 
     CameraManager::instance().registerCamera(&newGO->getComponent<Camera>());
     CameraManager::instance().setActiveCamera(&newGO->getComponent<Camera>());
-    ShrdPtr<GameObject> newEmptyGO = SceneManager::instance().createGameObject();
-    m_sceneGraph->setNode(newEmptyGO);
 
   }
 

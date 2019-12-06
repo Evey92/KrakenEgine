@@ -204,6 +204,7 @@
     <ClInclude Include="include\kraInputManager.h" />
     <ClInclude Include="include\kraInputMap.h" />
     <ClInclude Include="include\kraInputMappings.h" />
+    <ClInclude Include="include\kraLight.h" />
     <ClInclude Include="include\kraMaterial.h" />
     <ClInclude Include="include\kraMesh.h" />
     <ClInclude Include="include\kraModel.h" />
@@ -238,6 +239,7 @@
     <ClCompile Include="src\kraCollider.cpp" />
     <ClCompile Include="src\kraComponent.cpp" />
     <ClCompile Include="src\kraGameObject.cpp" />
+    <ClCompile Include="src\kraLight.cpp" />
     <ClCompile Include="src\kraMaterial.cpp" />
     <ClCompile Include="src\kraModel.cpp" />
     <ClCompile Include="src\kraQuadtree.cpp" />

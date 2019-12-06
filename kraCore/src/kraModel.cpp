@@ -85,7 +85,14 @@ namespace kraEngineSDK {
     }
     else
     {
-      std::cout << "Texture not included in mesh\n";
+      
+      std::cout << "Texture not included in mesh. Loading default Texture\n";
+      texture.createTexture2DFromFile(pDevice,
+                                      "resources/Textures/default.png",
+                                      GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM,
+                                      GFX_USAGE::E::kUSAGE_DEFAULT,
+                                      CPU_USAGE::E::kCPU_ACCESS_WRITE,
+                                      4, 1);
       return false;
 
     }

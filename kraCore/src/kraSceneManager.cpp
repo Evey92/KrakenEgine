@@ -26,8 +26,8 @@ namespace kraEngineSDK {
   ShrdPtr<GameObject>
   SceneManager::createGameObject()
   {
-
     ShrdPtr<GameObject> newGO = make_shared<GameObject>();
+    newGO->addComponent<Transform>(newGO);
     newGO->initialize(newGO, m_activeScene);
     return newGO;
   }

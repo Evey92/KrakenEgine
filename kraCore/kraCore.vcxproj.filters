@@ -184,6 +184,9 @@
     <ClInclude Include="include\kraQuadtree.h">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClInclude>
+    <ClInclude Include="include\kraLight.h">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\kraBaseApplication.cpp">
@@ -241,6 +244,9 @@
       <Filter>Source Files\RenderPipeline</Filter>
     </ClCompile>
     <ClCompile Include="src\kraQuadtree.cpp">
+      <Filter>Source Files\kraCoreBase</Filter>
+    </ClCompile>
+    <ClCompile Include="src\kraLight.cpp">
       <Filter>Source Files\kraCoreBase</Filter>
     </ClCompile>
   </ItemGroup>

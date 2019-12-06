@@ -48,12 +48,12 @@ namespace kraEngineSDK {
   }
 
   void
-  Camera::SetPosition(Vector3 Pos) {
+  Camera::SetPosition(Vector3 _pos) {
     
     /*m_pos.x = Pos.x;
     m_pos.y = Pos.y;
     m_pos.z = Pos.z;*/
-    m_owner->getComponent<Transform>().setPosition(Pos);
+    m_pos = _pos;
     m_dirty = true;
   }
 
@@ -215,7 +215,12 @@ namespace kraEngineSDK {
   Matrix4 
   Camera::GetViewMatrix() 
   {
-    
+    //TODO: FIX THIS. SOON.
+    Vector3 transPos = m_owner->getComponent<Transform>().getPosition();
+    if (m_pos != transPos) {
+      SetPosition(transPos);
+    }
+
     if (m_dirty) {
       createViewMat();
     }
@@ -242,7 +247,7 @@ namespace kraEngineSDK {
     m_viewMat = Matrix4::MatrixLookAtRH(m_pos, m_objective, m_up);
     else
     */
-    m_viewMat = Matrix4::MatrixLookAtLH(m_owner->getComponent<Transform>().getPosition(), m_objective, m_up);
+    m_viewMat = Matrix4::MatrixLookAtLH(m_pos, m_objective, m_up);
 
     m_dirty = false;
 

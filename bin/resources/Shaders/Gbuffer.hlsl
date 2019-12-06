@@ -40,25 +40,22 @@ struct PS_INPUT
 
 struct PS_OUTPUT
 {
-    float4 PositionDepth : SV_Target0;
-    float4 AlbedoRough   : SV_Target1;
-    float4 NormalMetal   : SV_Target2;
-    float AO            : SV_Target3;
+    float4 PositionMetal : SV_Target0;
+    float4 AlbedoTrans   : SV_Target1;
+    float4 NormalRough   : SV_Target2;
+    //float AO            : SV_Target3;
 };
 
 Texture2D texAlbedo    : register(t0);
 Texture2D texNormal    : register(t1);
 Texture2D texMetalness : register(t2);
 Texture2D texRoughness : register(t3);
-Texture2D texAO        : register(t4);
+//This is going to be calculated on the SSAO pass
+//Texture2D texAO        : register(t4);
 
 SamplerState samLinear : register(s0);
 
-float LinearizeDepth(float depth)
-{
-    float z = depth * 2.0f - 1.0f;
-    return (2.0f * nearZ * farZ) / (farZ + nearZ - z * (farZ - nearZ));
-}
+
 
 PS_INPUT VS(VS_INPUT Input)
 {
@@ -87,15 +84,16 @@ PS_OUTPUT PS(PS_INPUT Input) : SV_Target
     float3 normal = 2.0f * normalTex.xyz - 1;
     normal = normalize(mul(normal, Input.TBN));   
 
-    Output.PositionDepth = float4(Input.Position, 1.0f);
+    Output.PositionMetal = float4(Input.Position, 1.0f);
+    Output.PositionMetal.a = texMetalness.Sample(samLinear, Input.TexCoord).r;
 
-    Output.AlbedoRough.rgb = albedo.rgb;
-    Output.AlbedoRough.a = texRoughness.Sample(samLinear, Input.TexCoord).r;
+    Output.AlbedoTrans.rgb = albedo.rgb;
+    Output.AlbedoTrans.a = albedo.a;
     
-    Output.NormalMetal.rgb = normal.rgb;
-    Output.NormalMetal.a = texMetalness.Sample(samLinear, Input.TexCoord).r;
+    Output.NormalRough.rgb = normal.rgb;
+    Output.NormalRough.a = texRoughness.Sample(samLinear, Input.TexCoord).r;
 
-    Output.AO.r = texAO.Sample(samLinear, Input.TexCoord).r;
+    //Output.AO.r = texAO.Sample(samLinear, Input.TexCoord).r;
 
     return Output;
 

@@ -32,7 +32,7 @@ namespace kraEngineSDK {
     cleanRTV() = 0;
 
     virtual void
-    clearRenderTarget(const Device& pDevice, Vector4 clearColor) = 0;
+    clearRenderTarget(const Device& pDevice, Color clearColor) = 0;
 
     virtual void
     clearRenderTargets(const Device& pDevice, Vector4 clearColor) = 0;

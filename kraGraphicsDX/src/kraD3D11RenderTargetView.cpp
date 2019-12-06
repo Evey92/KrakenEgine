@@ -115,7 +115,7 @@ const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
   }
 
   void
-  RenderTargetViewDX::clearRenderTarget(const Device& pDevice, Vector4 clearColor) {
+  RenderTargetViewDX::clearRenderTarget(const Device& pDevice, Color clearColor) {
 
     const DeviceDX& m_pDevice = static_cast<const DeviceDX&>(pDevice);
     

@@ -119,9 +119,11 @@ namespace kraEngineSDK {
     ShrdPtr<GameObject> nodeTodel = getNode(nodeId);
     //ShrdPtr<GameObject> nodeParent = nodeTodel->getParent();
 
-    for (auto& child : nodeTodel->getChildren()) {
-      deleteNode(child->getID())
-    }
+    std::cout << "Deleting game object\n";
+
+    /*for (auto& child : nodeTodel->getChildren()) {
+      deleteNode(child->getID());
+    }*/
   }
 
   void 

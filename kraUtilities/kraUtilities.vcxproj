@@ -183,6 +183,7 @@
     <ClCompile Include="src\CameraManager.cpp" />
     <ClCompile Include="src\kraAABB.cpp" />
     <ClCompile Include="src\kraBox2d.cpp" />
+    <ClCompile Include="src\kraColor.cpp" />
     <ClCompile Include="src\kraFrustrum.cpp" />
     <ClCompile Include="src\kraMath.cpp" />
     <ClCompile Include="src\kraMatrix4.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="include\CameraManager.h" />
     <ClInclude Include="include\kraAABB.h" />
     <ClInclude Include="include\kraBox2d.h" />
+    <ClInclude Include="include\kraColor.h" />
     <ClInclude Include="include\kraFrustrum.h" />
     <ClInclude Include="include\kraMacros.h" />
     <ClInclude Include="include\kraMath.h" />

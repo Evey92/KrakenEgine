@@ -35,7 +35,7 @@ namespace kraEngineSDK {
     cleanRTV();
     
     void
-    clearRenderTarget(const Device& pDevice, Vector4 clearColor);
+    clearRenderTarget(const Device& pDevice, Color clearColor);
     
     void
     clearRenderTargets(const Device& pDevice, Vector4 clearColor);

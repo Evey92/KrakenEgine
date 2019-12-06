@@ -254,7 +254,6 @@ class WinApp :
    Viewport* m_viewport = nullptr;
    String modelPath = "resources/Models/";
    Win32Window* m_window = nullptr;
-   Vector4 ClearColor = { 0.329f, 0.050f, 0.431f, 1.0f };
    int m_nCmdShow = 0;
 
 #pragma endregion PRIVARE_MEMBERS

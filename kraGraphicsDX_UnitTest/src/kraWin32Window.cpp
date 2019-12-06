@@ -82,6 +82,11 @@
 
       if (m_msg->message == WM_QUIT) {
         m_isOpen = false;
+        
+      }
+      if (m_msg->message == WM_CLOSE) {
+        m_isOpen = false;
+        
       }
     }
   }

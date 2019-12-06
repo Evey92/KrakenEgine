@@ -335,6 +335,13 @@
                  ImVec4(1.0f, 1.0f, 1.0f, 1.0f),
                  ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
 
+    ImGui::Text("Roughness Texture");
+    ImGui::Image(mat.getRoughnessTex()->getShaderResourceView(),
+      ImVec2(100, 100),
+      ImVec2(0, 0),
+      ImVec2(1, 1),
+      ImVec4(1.0f, 1.0f, 1.0f, 1.0f),
+      ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
 
     //-Base color RGB
     ImGui::ColorEdit3("Base Color", (float*)&baseColor);
