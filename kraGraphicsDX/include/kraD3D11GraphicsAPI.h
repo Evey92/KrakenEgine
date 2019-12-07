@@ -41,14 +41,14 @@ namespace kraEngineSDK {
     void 
     Render();
     
-    virtual Device*
+    ShrdPtr<Device>
     getDevice() override;
 
 
     void
     Cleanup() override;
 
-    Device* m_device = nullptr;
+    ShrdPtr<Device> m_device = nullptr;
     Vector4 m_meshColor = Vector4(.7f, .7f, .7f, 1.0f);
 
   protected:

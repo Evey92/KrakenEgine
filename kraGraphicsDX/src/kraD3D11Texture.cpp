@@ -130,7 +130,8 @@ namespace kraEngineSDK {
 
     HRESULT hr = S_OK;
 
-   ShrdPtr<Image> image = Image::LoadImageFromFile(filename, _channels);
+   //ShrdPtr<Image> image = Image::LoadImageFromFile("resources/Textures/default.png", _channels);
+    ShrdPtr<Image> image = Image::LoadImageFromFile(filename, _channels);
 
     if (image != nullptr)
     {
@@ -140,7 +141,12 @@ namespace kraEngineSDK {
     }
     else
     {
-      std::cout << "There was an error while loading the file. Aborting." << std::endl;
+      std::cout << "There was an error while loading the file." << std::endl;
+      //ShrdPtr<Image> image = Image::LoadImageFromFile(filename, _channels);
+      //m_width = image->getWidth();
+      //m_height = image->getHeight();
+      //m_isHDR = image->isHDR();
+
       return false;
     }
 

@@ -7,7 +7,7 @@ namespace kraEngineSDK {
   bool
   GraphicsAPIDX::initializeAPI(void* g_hWnd) {
         
-    m_device = new DeviceDX();
+    m_device = make_shared<DeviceDX>();
 
     bool hr = true;
     
@@ -26,12 +26,6 @@ namespace kraEngineSDK {
   void
   GraphicsAPIDX::Render() {
     
-    DeviceDX* device = static_cast<DeviceDX*>(m_device);
-
-    device->m_pImmediateContext->DrawIndexed(36, 0, 0);
-
-    device->m_pSwapChain.m_pd3dSwapChain->Present(0, 0);
-
   }
 
   void
@@ -55,7 +49,7 @@ namespace kraEngineSDK {
     
   }
 
-  Device*
+  ShrdPtr<Device>
   GraphicsAPIDX::getDevice()
   {
     return m_device;

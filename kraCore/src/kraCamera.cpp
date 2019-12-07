@@ -54,6 +54,7 @@ namespace kraEngineSDK {
     m_pos.y = Pos.y;
     m_pos.z = Pos.z;*/
     m_pos = _pos;
+    m_owner->getComponent<Transform>().setPosition(_pos);
     m_dirty = true;
   }
 
@@ -219,6 +220,14 @@ namespace kraEngineSDK {
     Vector3 transPos = m_owner->getComponent<Transform>().getPosition();
     if (m_pos != transPos) {
       SetPosition(transPos);
+    }
+    
+    float yAngle = m_owner->getComponent<Transform>().getRotation().y;
+    //TODO: Fix this. Hear me out... I need a quick way to rotate... so this will have to do for now.
+    if (yAngle != oldRotation.y) {
+      m_objective = m_pos + Vector3(kraMath::cos(kraMath::DEG2RAD(yAngle)), 0, kraMath::sin(kraMath::DEG2RAD(yAngle)));
+      oldRotation.y = yAngle;
+      m_dirty = true;
     }
 
     if (m_dirty) {

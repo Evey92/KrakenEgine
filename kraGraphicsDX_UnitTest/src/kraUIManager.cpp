@@ -7,12 +7,12 @@
 
 //TODO: Make GFXAPI a module so this manager can be initialized without parameters
   bool
-  UIManager::initUI(void* hWnd, void* pDevice, void* pCtx)
+  UIManager::initUI(void* hWnd, ShrdPtr<Device>& pDevice, void* pCtx)
   {
-    //pgfxDevice = make_shared<Device>(pDevice);
+    pgfxDevice = pDevice;
     windowHandle = reinterpret_cast<HWND>(hWnd);
 
-    ID3D11Device* device = reinterpret_cast<ID3D11Device*>(pDevice);
+    ID3D11Device* device = reinterpret_cast<ID3D11Device*>(pDevice->getDevice());
     ID3D11DeviceContext* ctx = reinterpret_cast<ID3D11DeviceContext*>(pCtx);
     
     IMGUI_CHECKVERSION();
@@ -299,7 +299,6 @@
 
     /* 
      TODO: Show material properties:
-     -Show Roughness Texture
      -Show Emissive texture
      -Show AO Texture
      */
@@ -312,36 +311,48 @@
     static float rough = mat.m_roughness;
 
     ImGui::Text("Albedo Texture");
-    ImGui::Image(mat.getAlbedoTex()->getShaderResourceView(),
-                 ImVec2(100, 100),
-                 ImVec2(0, 0),
-                 ImVec2(1, 1),
-                 ImVec4(1.0f, 1.0f, 1.0f, 1.0f),
-                 ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
+    if (ImGui::ImageButton(mat.getAlbedoTex()->getShaderResourceView(), ImVec2(100, 100), ImVec2(0, 0), ImVec2(1, 1), 0)) {
+     
+      String filename = EngineUtility::loadFile("JPEG Files\0*.jpg\0Traga Files\0*.tga\0PNG Files\0*.png\0Any File\0*.*\0", windowHandle);
+      mat.getAlbedoTex()->createTexture2DFromFile(*pgfxDevice,
+                                                  filename,
+                                                  GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM_SRGB,
+                                                  GFX_USAGE::E::kUSAGE_DEFAULT,
+                                                  CPU_USAGE::E::kCPU_ACCESS_WRITE);
+    }
+
 
     ImGui::Text("Normal Texture");
-    ImGui::Image(mat.getNormalTex()->getShaderResourceView(),
-                 ImVec2(100, 100),
-                 ImVec2(0, 0),
-                 ImVec2(1, 1),
-                 ImVec4(1.0f, 1.0f, 1.0f, 1.0f),
-                 ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
+    if (ImGui::ImageButton(mat.getNormalTex()->getShaderResourceView(), ImVec2(100, 100), ImVec2(0, 0), ImVec2(1, 1), 0)) {
+      String filename = EngineUtility::loadFile("JPEG Files\0*.jpg\0Traga Files\0*.tga\0PNG Files\0*.png\0Any File\0*.*\0", windowHandle);
+      mat.getNormalTex()->createTexture2DFromFile(*pgfxDevice,
+                                                  filename,
+                                                  GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM,
+                                                  GFX_USAGE::E::kUSAGE_DEFAULT,
+                                                  CPU_USAGE::E::kCPU_ACCESS_WRITE);
+    }
 
     ImGui::Text("Metalness Texture");
-    ImGui::Image(mat.getMetalTex()->getShaderResourceView(),
-                 ImVec2(100, 100),
-                 ImVec2(0, 0),
-                 ImVec2(1, 1),
-                 ImVec4(1.0f, 1.0f, 1.0f, 1.0f),
-                 ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
+    if (ImGui::ImageButton(mat.getMetalTex()->getShaderResourceView(), ImVec2(100, 100), ImVec2(0, 0), ImVec2(1, 1), 0)) {
+      String filename = EngineUtility::loadFile("JPEG Files\0*.jpg\0Traga Files\0*.tga\0PNG Files\0*.png\0Any File\0*.*\0", windowHandle);
+      mat.getMetalTex()->createTexture2DFromFile(*pgfxDevice,
+                                                 filename,
+                                                 GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM,
+                                                 GFX_USAGE::E::kUSAGE_DEFAULT,
+                                                 CPU_USAGE::E::kCPU_ACCESS_WRITE);
+    }
+
 
     ImGui::Text("Roughness Texture");
-    ImGui::Image(mat.getRoughnessTex()->getShaderResourceView(),
-      ImVec2(100, 100),
-      ImVec2(0, 0),
-      ImVec2(1, 1),
-      ImVec4(1.0f, 1.0f, 1.0f, 1.0f),
-      ImVec4(1.0f, 1.0f, 1.0f, 0.5f));
+    if (ImGui::ImageButton(mat.getRoughnessTex()->getShaderResourceView(), ImVec2(100, 100), ImVec2(0, 0), ImVec2(1, 1), 0)) {
+      
+      String filename = EngineUtility::loadFile("JPEG Files\0*.jpg\0Traga Files\0*.tga\0PNG Files\0*.png\0Any File\0*.*\0", windowHandle);
+      mat.getRoughnessTex()->createTexture2DFromFile(*pgfxDevice,
+                                                     filename,
+                                                     GFX_FORMAT::E::kFORMAT_R8G8B8A8_UNORM,
+                                                     GFX_USAGE::E::kUSAGE_DEFAULT,
+                                                     CPU_USAGE::E::kCPU_ACCESS_WRITE);
+    }
 
     //-Base color RGB
     ImGui::ColorEdit3("Base Color", (float*)&baseColor);

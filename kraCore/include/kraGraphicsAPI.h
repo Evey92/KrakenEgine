@@ -20,7 +20,7 @@ namespace kraEngineSDK {
     virtual void
     Render() = 0;
 
-    virtual Device*
+    virtual ShrdPtr<Device>
     getDevice() = 0;
 
     virtual void

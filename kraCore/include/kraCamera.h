@@ -137,7 +137,8 @@ namespace kraEngineSDK {
     Vector3 m_front = Vector3::ONEZ;
     Vector3 m_right = Vector3::ONEX;
     Vector3 m_up = Vector3::ONEY;
-    
+    Vector3 oldRotation = Vector3(0.0f, 0.0f, 0.0f);
+
     float m_fov = kraMath::DEG2RAD(90.0f);
     float m_nearZ = 0.01f;
     float m_farZ = 1000.0f;

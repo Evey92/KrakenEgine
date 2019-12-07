@@ -212,6 +212,7 @@ class WinApp :
 
 
    ShrdPtr<RasterizerState> m_rasterizerState = nullptr;
+   ShrdPtr<RasterizerState> m_skyRasterizerState = nullptr;
    ShrdPtr<DepthStencil> m_defaultDepthStencil = nullptr;
    ShrdPtr<DepthStencil> m_skyboxDepthStencil = nullptr;
    ShrdPtr<DepthStencilView> m_depthStencilView = nullptr;

@@ -158,7 +158,7 @@ namespace kraEngineSDK {
   }
 
   void*
-    DeviceDX::getDevice()
+  DeviceDX::getDevice()
   {
     return reinterpret_cast<void*>(m_pd3dDevice);
   }
