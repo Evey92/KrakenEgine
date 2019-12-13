@@ -128,7 +128,7 @@ TEST_F(Testing, Matrix_Test)
 
 
   Matrix4 projection;
-  projection.MatrixPerspectiveFOV(m_fov, width, height, m_nearZ, m_farZ);
+  projection.MatrixPerspectiveFOVLH(m_fov, width, height, m_nearZ, m_farZ);
 
   XMMATRIX g_Projection;
   g_Projection = XMMatrixPerspectiveFovLH(XM_PIDIV2, width / (FLOAT)height, 0.01f, 1000.0f);

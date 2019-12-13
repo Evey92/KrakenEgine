@@ -76,7 +76,8 @@
     showSceneGraph(scene);
     showInspector(*sc->getRootNode());
     showSceneWindow();
-
+    showConsole();
+    showProjectFiles();
     ImGui::EndFrame();
 
   }
@@ -112,7 +113,7 @@
     ImGuiIO& io = ImGui::GetIO();
 
     ImGui::SetNextWindowPos(ImVec2(5, 20), ImGuiCond_FirstUseEver);
-    ImGui::SetNextWindowSize(ImVec2(300, 700), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize(ImVec2(300, 400), ImGuiCond_FirstUseEver);
 
 
     ImGui::Begin("Scene Graph");
@@ -176,7 +177,7 @@
   UIManager::showInspector(GameObject& gameObj)
   {
     ImGui::SetNextWindowPos(ImVec2(1280, 20), ImGuiCond_FirstUseEver);
-    ImGui::SetNextWindowSize(ImVec2(320, 600), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize(ImVec2(320, 400), ImGuiCond_FirstUseEver);
 
     ImGui::Begin("Gameobject details");
 
@@ -208,8 +209,8 @@
   void
   UIManager::showSceneWindow() {
 
-    ImGui::SetNextWindowPos(ImVec2(310, 20));
-    ImGui::SetNextWindowSize(ImVec2(965, 800));
+    ImGui::SetNextWindowPos(ImVec2(310, 20), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize(ImVec2(965, 500), ImGuiCond_FirstUseEver);
 
     ImGui::Begin("Scene");
 
@@ -217,6 +218,31 @@
 
     ImGui::End();
 
+  }
+
+  void 
+  UIManager::showConsole()
+  {
+    ImGui::SetNextWindowPos(ImVec2(310, 20), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize(ImVec2(965, 500), ImGuiCond_FirstUseEver);
+
+    ImGui::Begin("Console");
+
+    ImGui::Text("Ïnitializing log");
+
+    ImGui::End();
+  }
+
+  void UIManager::showProjectFiles()
+  {
+    ImGui::SetNextWindowPos(ImVec2(310, 20), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize(ImVec2(965, 500), ImGuiCond_FirstUseEver);
+
+    ImGui::Begin("Project files");
+
+    ImGui::Text("Initializing files");
+
+    ImGui::End();
   }
 
   void

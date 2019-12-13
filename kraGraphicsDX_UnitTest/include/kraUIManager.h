@@ -27,6 +27,9 @@ using namespace kraEngineSDK;
     void
     shutDown();
 
+
+#pragma region APP_WINDOWS
+
     void
     showSceneGraph(Scene* sg);
 
@@ -38,6 +41,15 @@ using namespace kraEngineSDK;
     
     void
     showSceneWindow();
+
+    void
+    showConsole();
+
+    void
+    showProjectFiles();
+
+#pragma endregion APP_WINDOWS
+
 
 #pragma region COMPONENT_UI
 
